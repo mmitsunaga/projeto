@@ -1,0 +1,40 @@
+
+   <input type="hidden" id="tempBuscaId_Usuario" name="tempBuscaId_Usuario">
+   <input type="hidden" id="tempBuscaUsuario" name="tempBuscaUsuario">
+   <%    
+	String validade1 = (String) request.getAttribute("validade");
+   %>
+   
+ <div id="divEditar" class="divEditar">
+<fieldset class="formEdicao"> 
+    <legend class="formEdicaoLegenda">Criar certificado de assinatura dos recibos </legend>
+    <fieldset> 
+    	<legend class="formDNLegenda">Recibo</legend>
+    	<label class="formEdicaoLabel" for="c">Nome</label> <input title="Nome"  class="formEdicaoInputSomenteLeitura"  readonly="true"   type="text" value="projudi" /><br />	
+		<label class="formEdicaoLabel" for="validade">*Validade:</label> <input title="Validade" class="formEdicaoInput "  name="validade" type="text" id="v" value="<%=validade1%>" size="15" maxlength="2" onKeyUp=" autoTab(this,60)">  anos.<br />
+	</fieldset>
+	<%if (!request.getAttribute("PaginaAnterior").toString().equalsIgnoreCase(String.valueOf(Configuracao.Salvar))) {%>
+		<div id="divConfirmarSalvar" class="ConfirmarSalvar">
+				<button type="submit"  title="Criar Certificado para os Recibos"  name="operacao" onclick="AlterarValue('PaginaAtual','<%=String.valueOf(Configuracao.Salvar)%>'); AlterarValue('Curinga','<%="G"%>')" >
+					<!-- <img src="imagens/22x22/ico_sucesso.png" alt="Criar Certificado Raiz" /> -->
+						Criar Certificado de Assinatura dos Recibos
+				</button>
+				<br />
+		</div>
+	<%}%>
+</fieldset/><br />
+
+ <%if (request.getAttribute("PaginaAnterior").toString().equalsIgnoreCase(String.valueOf(Configuracao.Salvar))) {%>
+      <div id="divConfirmarSalvar" class="ConfirmarSalvar">
+				<button type="submit"  title="Criar Certificado Raiz"  name="operacao" onclick="AlterarValue('PaginaAtual','<%=String.valueOf(Configuracao.SalvarResultado)%>'); AlterarValue('Curinga','<%="G"%>')" >
+					<img src="imagens/22x22/ico_sucesso.png" alt="Criar" />
+						Confirmar
+				</button>
+				<br />
+		</div>
+ <%}%>
+ 
+</div>
+
+<script type="text/javascript" src="./js/Digitacao/DigitarSoNumero.js" ></script>
+<script type="text/javascript" src="./js/Digitacao/AutoTab.js" ></script>

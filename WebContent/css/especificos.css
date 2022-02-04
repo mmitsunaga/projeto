@@ -1,0 +1,552 @@
+
+.fieldEdicaoEscuro {
+	/*background: #e6e6e6 !important;*/
+}
+
+fieldset.fieldAgenda {
+	float: left;
+	width: 9%;
+	border: 1px solid #CCC;
+	background: #f5f5f5;
+}
+
+fieldset.fieldAgenda label {
+	width: 48px;
+}
+
+label.pequeno, fieldset.fieldAgenda label {
+	float: left;
+	text-align: left;
+}
+
+label.pequeno {
+	width: 70px;
+}
+
+ul.semMargem {
+	margin: 0px;
+	padding: 0px;
+}
+
+.vermelho {
+		color: #ff0000 !important;
+		font-weight: bold;
+}
+
+.bold{
+	color:#000;
+	font-weight:bold;
+}
+
+.azul {
+		color: #3181c3 !important;
+		font-weight: bold;
+}
+
+.texto_sugestao {
+	border: 1px solid #000000;
+	color: #0000FF;
+	background: #F4F4F4;
+}
+
+.texto_erro {
+	border: 0px solid #000000;
+	color: #0000FF;
+	background: #F4F4F4;
+}
+
+.texto_erro, .texto_sugestao {
+	padding: 8px;
+	font-size: 14px;
+	font-family: verdana;
+	font-weight: bold;
+}
+
+h1.titulo {
+	font-size: 18px !important;
+	font-weight: bold;
+	font-family: verdana;
+}
+
+h2.subtitulo {
+	font-size: 15px !important;
+	font-weight: bold;
+	font-family: verdana;	
+}
+
+p.mensagemBoasVindas{
+	vertical-align: middle;	
+	font-size: 11px !important;
+	height: 30px;
+	padding-left:5px;
+	margin: -10px 0 5px 0;
+}
+
+.obs {
+	padding: 5px;
+	border: 0px solid #000000;
+	font-size: 12px;
+	font-family: verdana;
+	font-weight: bold;
+	color: #000000;
+	background: #F4F4F4;		
+}
+
+.obs ul li {
+	font-size: 12px;
+	font-family: verdana;
+	font-weight: bold;
+}
+
+input.letras {
+	font-size: 20px !important;
+	font-weight: bold;
+}
+
+/**
+ * Modelo
+ */
+ 
+.documento {
+	width: 800px;
+	padding: 5px;
+	border: 2px solid #e2e2e2;
+}
+
+/**
+ * Captcha
+ */
+.notificacao {
+	text-align: justify; 
+	padding-top: 10px; 
+	font-weight: bold;
+}
+
+.notificacao, .divCaptcha {
+	width: 70%;
+	margin: 0 auto;
+}
+
+.bloqueado{
+	background-color: #B2B2B2;
+	color: black;
+/*display: block;*/
+	padding: 5px;
+}
+
+.imgValidar{
+	display: none;
+}
+
+.imgTecladoVirtual{
+	border: 0px;
+	width: 220px;
+	height: 116px;
+}
+
+.Centralizado{
+	text-align: center;
+}
+
+.limpa_ambos {
+	height: 1px;
+	clear: both;
+}
+.ConfirmarSalvar, .ConfirmarExcluir{
+  height: 80px;	
+}
+.ConfirmarExcluir, .ConfirmarSalvar , .ConfirmarExcluir input[type="image"], .ConfirmarSalvar input[type="image"]{ 	
+	margin-top: 10px; 
+	text-align: center;	
+}
+
+
+.divBotoesCentralizados {
+	margin: 0 auto;
+	margin-top: 10px;
+	text-align: center;
+	float: none;
+}
+
+.divBotoesCentralizadosAssinador {
+	margin: 0 auto;
+	margin-top: 10px;
+	text-align: center;
+	float: none;
+	width:400px;
+}
+
+.divBotoesCentralizados input {
+	float: none;
+}
+
+.divSalvar, .divExcluir, .VisualizaDados .fieldsetEndereco {
+	background-color: #EAEAEA;
+}
+
+.divSalvar {
+	margin-top: 6px;
+	margin-bottom: 6px;
+	text-align: center;
+	clear: both;
+	width: 98%;
+}
+
+.divSalvar .imgSalvar {
+	float: none;
+}
+
+.divSalvar .divExcluir {
+	margin: 0 auto;
+	text-align: center;
+	clear: both;
+	width: 98%;
+	height: 98%;
+}
+
+.divExcluir .imgExcluir {
+	float: none;
+}
+
+/* Usado para destacar agrupamento de Autos conclusos */
+
+
+.linhaDestaqueSubTitulo {
+	font-size: 12px;
+	color:#222222;
+	background-color: #B6D6EF;
+	margin-bottom: 2px;
+	margin-top: 2px;
+	text-align: center;
+}
+
+.Cabecalho {
+	/*position: fixed;*/
+	height: 55px;
+	margin: 0 auto;
+	padding: 0px;
+	background-color: white;
+	clear: both;
+}
+
+.divCorpo { /*height: auto;*/	
+	display: block;
+	clear: both;
+	background-color: white;
+	text-align: left;
+	margin: 0 auto;
+	background-color: #f6f6f6;
+}
+
+.partes {
+	padding-left: 17px;
+	margin: 0px;
+}
+
+.imagemArquivado {
+	position: absolute;
+	opacity: 0.3;
+	width: 1000px;
+}
+
+.imagemHibrido {
+	position: absolute;
+	opacity: 0.3;
+	width: 800px;
+}
+
+.maismenos{
+	margin-bottom: 0px !important;
+	vertical-align: middle;
+}
+
+.titulo{
+	padding: 2px;
+}		
+.corpo{
+	padding: 4px;
+}
+
+.corpo, .titulo{
+	border-color:#999999;
+	border-spacing:4px;
+	border-width:1px;
+	border-style:solid;
+	border-color:#CCCCCC;
+	display:block;	
+	margin-bottom:2px;
+	margin-top:2px;
+}
+
+.titulo{
+	background-color:#000099;
+	color:#FFFF00;
+	vertical-align:middle;
+	font-size:12px;
+	font-weight:bold;
+}
+
+.titulo:hover {
+	background-color:#FFFF00;
+	color:#000099;
+}
+
+.spanDestaque{
+	font-weight: bold;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.linhaDestaqueIntimacao{
+	background-color: #E8F3FF;
+}
+
+.Editor, .ForaEditor{
+	width: 98%;
+	margin-left: 1%;
+	margin-right: 1%;		
+	clear: both;
+}
+
+
+/*Inicio Navegação de arquivos */
+
+.menuNavegacao{
+	background-color:#3181c3;
+	width:1%;	
+	float:left;
+	text-align: left;
+	padding: 3px 0px 3px 15px; 
+	overflow: none;
+	position: absolute;
+	top: 53px;
+	left: 20px;
+}
+
+#indice{
+	display:none;
+}
+.verticalText{
+	writing-mode: vertical-rl;
+	background-color:#3181c3;
+	font-weight: bold;
+	font-stretch: ultra-expanded;
+	color: white;
+	padding: 3px;
+}
+.menuNavegacao:hover {
+	width:20%;
+	background-color:#eeeeee;
+	overflow-wrap: break-word;
+	overflow-y: scroll;
+}
+
+.menuNavegacao:hover > #indice{
+	margin-top: 10px;
+	display: block;
+	
+}
+.menuNavegacao:hover + #iframe{
+	width:78%;	
+}
+
+.menuNavegacao ul ul{
+	margin-top: 20px;
+	margin-bottom: 10px;	
+}
+
+.menuNavegacao ul ul ul{
+	margin-top: 0px;
+	margin-bottom: 0px;	
+}
+
+.menuNavegacao ul li {	
+	list-style-type: square;
+	margin-left: 10px;
+	font-weight: bold;
+}
+
+.menuNavegacao ul ul li{		
+	list-style-type: circle; 
+}
+
+.menuNavegacao ul ul ul li{	
+	list-style-type: disc;	
+}
+
+.menuNavegacao a{
+	text-decoration: underline;	
+}
+
+.menuNavegacao a:focus  {
+	/*background-color:#3181c3;*/
+	color:#0000ff;  
+	padding: 3px;
+	font-stretch:ultra-expanded;
+	font-style:italic; 
+}
+.lista_arquivos {
+ 	margin:15px;
+ 	padding: 0px;
+}
+
+ul.lista_arquivos {
+	margin-left: 27px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+.lista_arquivos li{
+	clear:both;
+	height: 30px;
+	padding-top: 2px;
+}
+.menuNavegacao, .portaIframe, .verticalText{
+	height:93vh;
+}	
+.divNavegacao{
+	margin: 0 auto;
+	padding: 0;
+	overflow:hidden;
+	height: 100%;
+	width: 100%;
+	background-color:#e6ffff;
+}
+.menuNavegacao ul{
+	padding: 0;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.portaIframe{
+	background-color:#FFFFFF;
+	width:97%;		
+	padding: 2px;
+	position: absolute;
+	top: 53px;
+	right: 0;
+}
+
+/*fim Navegação de arquivos */
+
+
+
+/* MENSAGENS */
+
+.divMensagem {
+	width: 98%;
+	display: block;
+	font-weight: bold;
+	font-size: 12px;
+	color: #000000;
+	padding: 5px;
+	margin-left: 8px;
+	clear: both;
+}
+
+ .divMensagemOk, .divMensagemErro {
+	font-weight: bold;
+	font-size: 14px;
+	margin-top: 10px;
+	margin-bottom: 4px;
+	padding-left: 35px;
+	height: 22px;
+}
+
+ .divMensagemOk:empty,  .divMensagem:empty{
+	display: none !important;
+}                 
+
+.divMensagemOk {
+	color: #009900;
+	clear: both;
+	background: #ffffff url("../imagens/22x22/ico_sucesso.png") no-repeat scroll 10px 0px;
+}
+
+ .divMensagemErro {
+	clear: both;
+	color: #FF0000;
+	background: #ffffff url("../imagens/22x22/ico_erro.png") no-repeat scroll 10px 0px;
+}
+
+
+.AssinadorTJGO{    
+    z-index: 100;
+    width: 70px;
+    height: 37px;
+    margin-bottom: -15px;   
+}
+
+.notaProcesso{
+	position: relative;
+	float: right;	
+}
+
+/* The Modal (background) */
+.modalBusca {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  /*overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modalBusca-content1 {
+	position: relative;
+	/*left: 50%;*/
+	/*top: 50%;*/
+	margin-left: 17%;
+	margin-top:50px;
+	background-color:rgb(255,255,255);	  	
+  	border: 1px solid #888;
+  	width: 66%;
+  	overflow: auto;
+  	z-index: 10000;
+}
+
+.modalBusca-content2 {  
+  margin: auto;
+  padding: 20px;
+  overflow:auto;
+}
+
+/* The Close Button */
+.modal_close {
+	color: #aaaaaa;
+	float: right;  
+	font-size:28px;
+	margin-top:-5px;
+}
+
+.modal_close:hover,
+.modal_close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modalTitulo p {
+	margin: 0 auto;
+}
+
+.modalTitulo{
+	width: 99%;
+	display: flex;
+	align-items: center;
+	justify-content:center;
+	background-color:#183e65;
+	color: white;	
+  	font-size: 20px;
+  	font-weight: bold; 
+  	padding: 6px;
+  	margin: 0 auto;
+  	line-height: 25px;
+}

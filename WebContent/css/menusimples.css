@@ -1,0 +1,110 @@
+
+/* cor do fundo em comum*/
+/*cor principal do menu*/
+.menuEspecial ul li a{	
+	color: #fff !important;		
+}
+.menuEspecial ul li ul li a{	
+	color: #666 !important;		
+}
+.menuEspecial ul li ul li a:hover{	
+	color: #666 !important;	
+	background-color:#eee;
+	border-radius:0;	
+}
+
+/*cor quando passar o mouse*/
+/*menu hover*/
+.menuEspecial ul li a:hover {	
+	color: #fff !important;
+}
+
+.TemFilho{
+	background-image: url(../imagens/expand3.gif);
+	background-repeat: no-repeat;
+	background-position: 100% 50%;	
+}
+
+.menuEspecial {
+	float: left;
+	text-align: center;
+	background-color: #2b69aa;
+	border-radius: 5px;
+	padding-left: 25px;
+	padding-right: 25px;
+	margin: 0 10px 0 0;
+	z-index: 98;
+
+}
+
+
+.menuEspecial:hover{
+	background-color:#7fa5c;
+}
+
+
+.menuEspecial a {
+	text-decoration:none;	
+	display: block;	
+	padding: 5px;
+	border-radius: 5px;	
+}
+
+.menuEspecial ul {
+	z-index: 99;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 130px;
+	float: left;	
+	z-index: 1000;
+	padding: 3px;
+	border-radius: 3px;	
+			
+}
+
+
+.menuEspecial li {
+	z-index: 99;
+	position: relative;
+	white-space: nowrap;
+}
+.menuEspecial ul li {
+	color:#fff;
+	padding:5px 3px;
+}
+
+.menuEspecial ul li ul {
+  border: 0;
+}
+
+.menuEspecial ul ul {
+	position: absolute;	
+	width: auto;
+	min-width: 150px;
+	font-weight:normal;
+	background-image:none;	
+	background-color: #ddd !important;
+	box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
+	text-align:left;
+	color:#f00 !important;	
+	left: -20px;	
+}
+
+.menuEspecial ul ul ul, .menuEspecial ul ul ul ul {
+	position: absolute;
+	top: 0;
+	left: 100%;
+}
+
+.menuEspecial ul ul,
+.menuEspecial ul li:hover ul ul,
+.menuEspecial ul ul li:hover ul ul,
+.menuEspecial ul ul ul li:hover ul ul
+{display: none; }
+
+.menuEspecial ul li:hover ul,
+.menuEspecial ul ul li:hover ul,
+.menuEspecial ul ul ul li:hover ul,
+.menuEspecial ul ul ul ul li:hover ul
+{display: inline;}

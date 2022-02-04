@@ -1,0 +1,17 @@
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoExecucaoDt"%>
+
+<!-- Variáveis para controlar Passos do Cadastro -->
+<input id="Passo1" name="Passo1" type="hidden" value="<%=ProcessoExecucaodt_PE.getPasso1()%>">
+<input id="Passo2" name="Passo2" type="hidden" value="<%=ProcessoExecucaodt_PE.getPasso2()%>">
+<input id="Passo3" name="Passo3" type="hidden" value="<%=ProcessoExecucaodt_PE.getPasso3()%>">
+<input id="Passo4" name="Passo4" type="hidden" value="<%=ProcessoExecucaodt_PE.getPasso4()%>">
+
+<% if (!ProcessoExecucaodt_PE.getPasso1().equals("")){ %>
+<input name="imgPasso1" type="submit" value="<%=ProcessoExecucaodt_PE.getPasso1()%>" onClick="AlterarValue('PaginaAtual', '<%=Configuracao.Editar%>');AlterarValue('PassoEditar','-3');">
+<% } if (!ProcessoExecucaodt_PE.getPasso2().equals("")){ %>				
+<input name="imgPasso2" type="submit" value="<%=ProcessoExecucaodt_PE.getPasso2()%>" onClick="AlterarValue('PaginaAtual', '<%=Configuracao.Editar%>');AlterarValue('PassoEditar','0');">
+<% } if (!ProcessoExecucaodt_PE.getPasso3().equals("") && ProcessoExecucaodt_PE.getCadastroTipo() != ProcessoExecucaoDt.PROCESSO_CALCULO){ %>				
+<input name="imgPasso3" type="submit" value="<%=ProcessoExecucaodt_PE.getPasso3()%>" onClick="AlterarValue('PaginaAtual', '<%=Configuracao.Editar%>');AlterarValue('PassoEditar','-2');">
+<% } if (!ProcessoExecucaodt_PE.getPasso4().equals("") && ProcessoExecucaodt_PE.getCadastroTipo() != ProcessoExecucaoDt.PROCESSO_CALCULO){ %>				
+<input name="imgPasso4" type="submit" value="<%=ProcessoExecucaodt_PE.getPasso4()%>" onClick="AlterarValue('PaginaAtual', '<%=Configuracao.Editar%>');AlterarValue('PassoEditar','1');">
+<% } %>

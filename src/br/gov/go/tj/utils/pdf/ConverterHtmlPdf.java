@@ -1,0 +1,419 @@
+package br.gov.go.tj.utils.pdf;
+
+/**
+ *
+ * @author Leandro de Souza Bernardes
+ * @email lsbernardes@tj.go.gov.br
+ * @author Jesus Rodrigo 03/03/2015
+ */
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.w3c.tidy.Tidy;
+import org.xhtmlrenderer.pdf.ITextRenderer;
+
+import br.gov.go.tj.utils.ValidacaoUtil;
+import br.gov.go.tj.utils.Certificado.Signer;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.tool.xml.Pipeline;
+import com.itextpdf.tool.xml.XMLWorker;
+import com.itextpdf.tool.xml.XMLWorkerFontProvider;
+import com.itextpdf.tool.xml.XMLWorkerHelper;
+import com.itextpdf.tool.xml.css.CssFilesImpl;
+import com.itextpdf.tool.xml.css.StyleAttrCSSResolver;
+import com.itextpdf.tool.xml.html.CssAppliers;
+import com.itextpdf.tool.xml.html.CssAppliersImpl;
+import com.itextpdf.tool.xml.html.HTML;
+import com.itextpdf.tool.xml.html.TagProcessorFactory;
+import com.itextpdf.tool.xml.html.Tags;
+import com.itextpdf.tool.xml.parser.XMLParser;
+import com.itextpdf.tool.xml.pipeline.css.CssResolverPipeline;
+import com.itextpdf.tool.xml.pipeline.end.PdfWriterPipeline;
+import com.itextpdf.tool.xml.pipeline.html.HtmlPipeline;
+import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
+import com.lowagie.text.DocumentException;
+
+public class ConverterHtmlPdf {
+	public final static String BRASAO_BASE64="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEwAAABeCAYAAACJifK7AAAACXBIWXMAAC4jAAAuIwF4pT92AAAMdUlEQVR4nO3cd6iWZR8H8Kuysm02zJZpe+9dVJYNCRsEERZFQdE/DSpSgv4I/EekICq0oIgGUZEgLdrL1PYu20sb2h629H37/F6uw30ezznel8/jqPf+ws15nntc43v99n09p99//kZqUBv9lvUA/mloCCtEQ1gh2iLspZdeSjNnzuzUWJYK9tlnn7Tlllsu9vNtEfbWW2+lhx56qJ0mljoGDx687Aj7f0RDWCGWG8JWX331UJUVVlih2/k///wzffjhh+n3339fRiPrjuWGsI033jhdfPHFCxH2/fffp3HjxqWvvvpqGY2sO5Ybwv4paAgrRENYIRrCCtEQVoiGsEI0hBWiIawQDWGFaAgrRENYIRrCCtEQVoiGsEI0hBWiIawQDWGFaAgrRENYIRrCCtEQVoiGsEI0hBWiIawQDWGFaAgrRENYIRrCCtEQVoiGsEI0hBWiIawQDWGF6Bhha621Vjr88MPTp59+mt5///30448/dqrpxcL666+ftt566zRgwID06KOPpj/++KMj7XaEMNssjzzyyHTcccelBQsWpL/++ivNmjUrvfvuu+mTTz6Jz1988UX67bffOtHdQlhjjTViy+emm26atthii7TddtulDTbYIK200kpx/bvvvkvTp0/vSF8dIcze9yOOOCI+r7jiimmVVVZJQ4cOjcNvvxxInDNnThD37bffxt5VE/H3559/TvPnz0/XXXdd1/1gISxA//79gwhSTGLWXXfdONZbb720ySabxGf9ur91jywcf/zx6c0330w//fRT23PtCGEGTA233XbbmFwVeRJINDlHFT39mM65niae2ysBkj777LO09tprLz+EWT3HyiuvHFvHqcSwYcNCKtZZZ524p4SAUlIgS+Y333wT29Qdb7/9dthUUtoptEWYiVGFDGrFbjnydWqz2WabpY022ihU18Egr7nmmqlfv37F5CDF3v0ffvghVPzLL78MNfcXOc63ojrGxVmMKtoijKH3Y6dSzJ07N+wYm0RVWtW4JyBq3rx5YfN+/fXX+E6iLYajLjbccMPi8VbRFmE8kWNpgGT4tYhjWaIJXAvREFaIhrBCNIQVYokR1hp89hWMLisszpiKCNMBty53E7n3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";
+	public final static String BRASAO_BASE64_REDUZIDO="data:image/png;base64,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";
+	public final static String BRASAO_ESTADO_GOIAS_BASE64="data:image/png;base64,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";
+	
+	public static byte[] converteHtmlPDF(byte[] byteHtmlSujo, HtmlPipelineContext hpc) throws Exception {
+		byte[] byTemp =null;
+    	ByteArrayOutputStream tempOut=null;
+    	try{
+    		//limpo o html transformando em um input com o html limpo
+    		InputStream inputHtmlLimpo=new ByteArrayInputStream(limparHtml(byteHtmlSujo, false));
+    		
+            tempOut = new ByteArrayOutputStream(); 
+            
+            //sempre que houver conversão de pdf usar o acesso ssl, simulando certificado
+            //Usado para figura https - certificado
+            Signer.acceptSSL(); 
+            
+            //Define-se a folha como A4 por padrão. Caso seja usada um outro tamanho de folha
+            //ela será redimensionada para esse tamanho.
+            Rectangle tamanho = new Rectangle(PageSize.A4.getLeft(), PageSize.A4.getBottom(), PageSize.A4.getRight(), PageSize.A4.getTop());
+            tamanho.setRotation(PageSize.A4.getRotation());		
+    		Document document = new Document(tamanho);
+    		PdfWriter writer = PdfWriter.getInstance(document, tempOut);
+    		
+    		document.open();
+    		
+    		final TagProcessorFactory tagProcessorFactory = Tags.getHtmlTagProcessorFactory();
+    	    
+    		tagProcessorFactory.removeProcessor(HTML.Tag.IMG);
+    	    tagProcessorFactory.addProcessor(new ImageTagProcessor(), HTML.Tag.IMG);
+    	     
+    	    final CssFilesImpl cssFiles = new CssFilesImpl();
+    	    cssFiles.add(XMLWorkerHelper.getInstance().getDefaultCSS());
+    	    final StyleAttrCSSResolver cssResolver = new StyleAttrCSSResolver(cssFiles);    	    
+    	    hpc.setAcceptUnknown(true).autoBookmark(true).setTagFactory(tagProcessorFactory);
+    	    final HtmlPipeline htmlPipeline = new HtmlPipeline(hpc, new PdfWriterPipeline(document, writer));
+    	    final Pipeline<?> pipeline = new CssResolverPipeline(cssResolver, htmlPipeline);
+    	     
+    	    final XMLWorker worker = new XMLWorker(pipeline, true);
+    	    final Charset charset = Charset.forName("ISO-8859-1");
+    	    final XMLParser xmlParser = new XMLParser(true, worker, charset);
+    	     
+    	    xmlParser.parse(inputHtmlLimpo, charset);
+    		
+    		//ISO-8859-1 ISO Latin Alphabet No. 1, a.k.a. ISO-LATIN-1
+    		//Charset ISO_8859_1 = Charset.forName("ISO-8859-1");
+    		//XMLWorkerHelper.getInstance().parseXHtml(writer, document, inputHtmlLimpo, ISO_8859_1);
+
+    	    document.close();
+    	    byTemp = tempOut.toByteArray();
+            
+	    } finally {
+			try{
+				if (tempOut!=null){
+					tempOut.close();
+				}		
+    		} catch(Exception e) {tempOut=null; }
+		}
+    	return byTemp;
+	}
+	
+	/**
+	 * Método que converte um documento HTML em PDF, retirando formatações desnecessárias para o PDF.
+	 * @param byteHtmlSujo - código HTML do documento
+	 * @param isDocumentoInterno - se o documento é criado internamente (os documentos internos não costumam ter os excessos de formatações e não precisam ser limpos)
+	 * @return código para geração do PDF
+	 * @throws Exception
+	 */
+    public static byte[] converteHtmlPDF(byte[] byteHtmlSujo, boolean isDocumentoInterno) throws Exception {
+    	byte[] byTemp =null;
+    	ByteArrayOutputStream tempOut=null;
+    	try{
+    		InputStream inputHtmlLimpo = new ByteArrayInputStream(limparHtml(byteHtmlSujo, isDocumentoInterno));
+
+    		tempOut = new ByteArrayOutputStream(); 
+            
+            //sempre que houver conversão de pdf usar o acesso ssl, simulando certificado
+            //Usado para figura https - certificado
+            Signer.acceptSSL(); 
+            
+            //Define-se a folha como A4 por padrão. Caso seja usada um outro tamanho de folha
+            //ela será redimensionada para esse tamanho.
+            Rectangle tamanho = new Rectangle(PageSize.A4.getLeft(), PageSize.A4.getBottom(), PageSize.A4.getRight(), PageSize.A4.getTop());
+            tamanho.setRotation(PageSize.A4.getRotation());		
+    		Document document = new Document(tamanho);
+    		PdfWriter writer = PdfWriter.getInstance(document, tempOut);
+    		
+    		document.open();
+    		
+    		final TagProcessorFactory tagProcessorFactory = Tags.getHtmlTagProcessorFactory();
+    	    
+    		tagProcessorFactory.removeProcessor(HTML.Tag.IMG);
+    	    tagProcessorFactory.addProcessor(new ImageTagProcessor(), HTML.Tag.IMG);
+    	     
+    	    final CssFilesImpl cssFiles = new CssFilesImpl();
+    	    cssFiles.add(XMLWorkerHelper.getInstance().getDefaultCSS());
+    	    final StyleAttrCSSResolver cssResolver = new StyleAttrCSSResolver(cssFiles);
+    	    final HtmlPipelineContext hpc = new HtmlPipelineContext((CssAppliers) new CssAppliersImpl(new XMLWorkerFontProvider()));
+    	    hpc.setAcceptUnknown(true).autoBookmark(true).setTagFactory(tagProcessorFactory);
+    	    final HtmlPipeline htmlPipeline = new HtmlPipeline(hpc, new PdfWriterPipeline(document, writer));
+    	    final Pipeline<?> pipeline = new CssResolverPipeline(cssResolver, htmlPipeline);
+    	     
+    	    final XMLWorker worker = new XMLWorker(pipeline, true);
+    	    final Charset charset = Charset.forName("ISO-8859-1");
+    	    final XMLParser xmlParser = new XMLParser(true, worker, charset);
+    	     
+    	    xmlParser.parse(inputHtmlLimpo, charset);
+    		
+    		//ISO-8859-1 ISO Latin Alphabet No. 1, a.k.a. ISO-LATIN-1
+    		//Charset ISO_8859_1 = Charset.forName("ISO-8859-1");
+    		//XMLWorkerHelper.getInstance().parseXHtml(writer, document, inputHtmlLimpo, ISO_8859_1);
+
+    	    document.close();
+    	    byTemp = tempOut.toByteArray();
+            
+	    } finally {
+			try{
+				if (tempOut!=null){
+					tempOut.close();
+				}		
+    		} catch(Exception e) {tempOut=null; }
+		}
+    	return byTemp;
+    }
+        
+    public static byte[] limparHtml(byte[] input, boolean isDocumentoInterno) throws Exception {
+    	
+    	// Se não foi informado nenhum html, retornar um html em branco. Evitar NullPointException
+    	if (ValidacaoUtil.isNulo(input)) return new String("<html><head></head><body></body></html>").getBytes();
+    	
+    	StringBuilder textoHtml = new StringBuilder().append(new String(input));
+		
+		if (!isDocumentoInterno){
+			try {
+				// Tamanho da folha e Margem: Cima Direita Baixo Esquerda
+				// Não há necessidade de determinar margens, pois elas serão definidas posteriormente.
+				if (textoHtml.indexOf("table") > 0){
+					textoHtml.insert(0, "<style>@page {margin: 0px 0px 0px 0px; }</style>");
+				}
+				
+				// Insere a tag <html><head></head><body> no inicio do texto
+				textoHtml.insert(0, "<html><head></head><body>");
+				
+				// Insere a tag </body></html> no final do texto
+				textoHtml.append("</body></html>");
+				
+				// Devido a Nova API essa tag "transparent" estava deixando o pdf gerado com um tag preta
+				List<String[]> params = new ArrayList<>();
+				params.add(new String[]{"background:.*?transparent;", ""});
+				params.add(new String[]{"background-color:.*?transparent.*", "\""});
+				params.add(new String[]{"background:.*?transparent\"", "\""});
+				params.add(new String[]{"background:.*?transparent.*?;", ""});
+				params.add(new String[]{"background-color:rgb.*?;", ""});
+				params.add(new String[]{"border-color:rgb.*?;", ""});
+				
+				// Retirando linhas que possuem line-height que desconfiguram o arquivo fazendo com que as linhas se sobreponham
+				params.add(new String[]{"line-height:.*?;", ""});
+				params.add(new String[]{"line-height:.*?\"", "\""});
+				replaceAll(textoHtml, Pattern.compile("style=\".*?\""), params);
+				
+				// Trecho que localiza arquivos HTML que foram gerados com atributos height e width em px e não em %. Esses atributos, quando tem valores
+				// maiores que o tamanho de uma página A4, desconfiguram o PDF gerado.
+				// O trecho é substituído por width=100% para ocupar toda a página A4.
+				params.clear();
+				params.add(new String[]{"style=\".*?\"", "style=\"width:100%;\""});
+				replaceAll(textoHtml, Pattern.compile("<table.*?>"), params);
+				
+				//Devido a Nova API essa tag "table deve possuir no minimo uma coluna"
+				replaceAll(textoHtml, Pattern.compile("<table border=\"1\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n</table>"), "");
+				
+			} catch (Exception ex){
+				throw ex;
+			}
+		}
+		
+		// Converte brasao em bytes codificado em base64
+		replaceAll(textoHtml, Pattern.compile("src=\"https://projudi.tjgo.jus.br/imagens/logoEstadoGoias02.jpg\""), "src=\""+ConverterHtmlPdf.BRASAO_BASE64+"\"");
+		replaceAll(textoHtml, Pattern.compile("src=\"https://projudi.tjgo.jus.br/imagens/brasaoGoias.png\""), "src=\""+ConverterHtmlPdf.BRASAO_ESTADO_GOIAS_BASE64+"\"");		
+		replaceAll(textoHtml, Pattern.compile("src=\"https://projudi.dsi.teste.tjgo.jus.br/imagens/brasaoGoias.png\""), "src=\""+ConverterHtmlPdf.BRASAO_ESTADO_GOIAS_BASE64+"\"");
+		replaceAll(textoHtml, Pattern.compile("src=\"http://www.tj.go.gov.br/projudi/imagens/brasaoPetroBranco.jpg\""), "src=\""+ConverterHtmlPdf.BRASAO_BASE64+"\"");
+		replaceAll(textoHtml, Pattern.compile("src=\"https://homolog.tjgo.jus.br/imagens/logoEstadoGoias02.jpg\""), "src=\""+ConverterHtmlPdf.BRASAO_BASE64+"\"");
+		replaceAll(textoHtml, Pattern.compile("src=\"https://projudi.dsi.teste.tjgo.jus.br/imagens/logoEstadoGoias02.jpg\""), "src=\""+ConverterHtmlPdf.BRASAO_BASE64+"\"");
+		replaceAll(textoHtml, Pattern.compile("src=\"https://localhost//imagens/logoEstadoGoias02.jpg\""), "src=\""+ConverterHtmlPdf.BRASAO_BASE64+"\"");
+		replaceAll(textoHtml, Pattern.compile("src=\"https://pjd.tjgo.jus.br/imagens/logoEstadoGoias02.jpg\""), "src=\""+ConverterHtmlPdf.BRASAO_BASE64+"\"");
+				
+		return textoHtml.toString().getBytes();
+    	
+    }
+    
+    /**
+     * Converte o html para o pdf utilizando a biblioteca ITextRenderer
+     * @param input
+     * @return
+     * @throws DocumentException
+     */
+    public static byte[] converteHtmlPDFAlternativo(byte[] input) throws DocumentException {
+    	byte[] arrayRetorno = null;
+    	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    	Signer.acceptSSL();    	
+    	Tidy tidy = new Tidy();
+    	org.w3c.dom.Document doc = tidy.parseDOM(new ByteArrayInputStream(input), null);
+    	org.xhtmlrenderer.pdf.ITextRenderer renderer = new ITextRenderer();		
+		renderer.setDocument(doc, null);
+		renderer.layout();
+		renderer.createPDF(baos);
+		arrayRetorno = baos.toByteArray();
+		try{
+			baos.close();
+		} catch(IOException e) {
+			try{if (baos!=null) baos.close(); } catch(Exception ex ) {};
+		}
+    	return arrayRetorno;
+    }
+    
+    /**
+	 * Implementação do ReplaceALL para StringBuilder
+	 * @param sb
+	 * @param pattern
+	 * @param replacement
+	 */
+	public static void replaceAll(StringBuilder sb, Pattern pattern, String replacement) {
+	    Matcher m = pattern.matcher(sb);
+	    int start = 0;
+	    while (m.find(start)){
+	        sb.replace(m.start(), m.end(), replacement);
+	        start = m.start() + replacement.length();
+	    }
+	    pattern = null;
+	    replacement = null;
+	}
+		
+	/**
+	 * Implementação do ReplaceALL para StringBuilder
+	 * @param sb
+	 * @param defaultPattern
+	 * @param internalPattern
+	 * @param internalReplacement
+	 */
+	public static void replaceAll(StringBuilder sb, Pattern defaultPattern, List<String[]> internal){		
+		Matcher m = defaultPattern.matcher(sb);
+		int start = 0;
+		String groupMatches = null;
+	    while (m.find(start)) {
+	    	groupMatches = m.group();
+	    	for (String[] p : internal){
+	    		groupMatches = groupMatches.replaceAll(p[0], p[1]);
+	    	}    	
+	        sb.replace(m.start(), m.end(), groupMatches);
+	        start = m.start() + groupMatches.length();
+	        groupMatches = null;
+	    }
+	    defaultPattern = null;
+	    internal = null;
+	}
+	
+    public static byte[] converteCartaPDF(byte[] byteHtml, float margemLat, float margemSup, float margemInf) throws Exception {
+    	byte[] byTemp =null;
+    	ByteArrayOutputStream tempOut=null;
+    	try{
+    		InputStream inputHtmlLimpo = new ByteArrayInputStream(limparHtmlCarta(byteHtml, true));
+    		tempOut = new ByteArrayOutputStream(); 
+            
+            //sempre que houver conversão de pdf usar o acesso ssl, simulando certificado. Usado para figura https - certificado
+            Signer.acceptSSL(); 
+            
+            Rectangle tamanho = new Rectangle(PageSize.A4.getLeft(), PageSize.A4.getBottom(), PageSize.A4.getRight(), PageSize.A4.getTop());
+            tamanho.setRotation(PageSize.A4.getRotation());		
+    		Document document = new Document(tamanho, margemLat, margemLat, margemSup, margemInf);
+    		PdfWriter writer = PdfWriter.getInstance(document, tempOut);
+    		
+    		document.open();
+    		
+    		final TagProcessorFactory tagProcessorFactory = Tags.getHtmlTagProcessorFactory();
+    	    
+    		tagProcessorFactory.removeProcessor(HTML.Tag.IMG);
+    	    tagProcessorFactory.addProcessor(new ImageTagProcessor(), HTML.Tag.IMG);
+    	     
+    	    final CssFilesImpl cssFiles = new CssFilesImpl();
+    	    cssFiles.add(XMLWorkerHelper.getInstance().getDefaultCSS());
+    	    final StyleAttrCSSResolver cssResolver = new StyleAttrCSSResolver(cssFiles);
+    	    final HtmlPipelineContext hpc = new HtmlPipelineContext((CssAppliers) new CssAppliersImpl(new XMLWorkerFontProvider()));
+    	    hpc.setAcceptUnknown(true).autoBookmark(true).setTagFactory(tagProcessorFactory);
+    	    final HtmlPipeline htmlPipeline = new HtmlPipeline(hpc, new PdfWriterPipeline(document, writer));
+    	    final Pipeline<?> pipeline = new CssResolverPipeline(cssResolver, htmlPipeline);
+    	     
+    	    final XMLWorker worker = new XMLWorker(pipeline, true);
+    	    final Charset charset = Charset.forName("ISO-8859-1");
+    	    final XMLParser xmlParser = new XMLParser(true, worker, charset);
+    	     
+    	    xmlParser.parse(inputHtmlLimpo, charset);
+
+    	    document.close();
+    	    byTemp = tempOut.toByteArray();
+            
+	    } finally {
+			try {
+				if (tempOut != null) {
+					tempOut.close();
+				}
+			} catch (Exception e) {
+				tempOut = null;
+			}
+		}
+    	return byTemp;
+    }
+    
+    public static byte[] limparHtmlCarta(byte[] input, boolean isDocumentoInterno) throws Exception {
+    	
+    	// Se não foi informado nenhum html, retornar um html em branco. Evitar NullPointException
+    	if (ValidacaoUtil.isNulo(input)) return new String("<html><head></head><body></body></html>").getBytes();
+    	
+    	StringBuilder textoHtml = new StringBuilder().append(new String(input));
+		
+		if (!isDocumentoInterno){
+			try {
+				// Tamanho da folha e Margem: Cima Direita Baixo Esquerda
+				// Não há necessidade de determinar margens, pois elas serão definidas posteriormente.
+				if (textoHtml.indexOf("table") > 0){
+					textoHtml.insert(0, "<style>@page {margin: 0px 0px 0px 0px; }</style>");
+				}
+				
+				// Insere a tag <html><head></head><body> no inicio do texto
+				textoHtml.insert(0, "<html><head></head><body>");
+				
+				// Insere a tag </body></html> no final do texto
+				textoHtml.append("</body></html>");
+				
+				// Devido a Nova API essa tag "transparent" estava deixando o pdf gerado com um tag preta
+				List<String[]> params = new ArrayList<>();
+				params.add(new String[]{"background:.*?transparent;", ""});
+				params.add(new String[]{"background-color:.*?transparent.*", "\""});
+				params.add(new String[]{"background:.*?transparent\"", "\""});
+				params.add(new String[]{"background:.*?transparent.*?;", ""});
+				params.add(new String[]{"background-color:rgb.*?;", ""});
+				params.add(new String[]{"border-color:rgb.*?;", ""});
+				
+				// Retirando linhas que possuem line-height que desconfiguram o arquivo fazendo com que as linhas se sobreponham
+				params.add(new String[]{"line-height:.*?;", ""});
+				params.add(new String[]{"line-height:.*?\"", "\""});
+				replaceAll(textoHtml, Pattern.compile("style=\".*?\""), params);
+				
+				// Trecho que localiza arquivos HTML que foram gerados com atributos height e width em px e não em %. Esses atributos, quando tem valores
+				// maiores que o tamanho de uma página A4, desconfiguram o PDF gerado.
+				// O trecho é substituído por width=100% para ocupar toda a página A4.
+				params.clear();
+				params.add(new String[]{"style=\".*?\"", "style=\"width:100%;\""});
+				replaceAll(textoHtml, Pattern.compile("<table.*?>"), params);
+				
+				//Devido a Nova API essa tag "table deve possuir no minimo uma coluna"
+				replaceAll(textoHtml, Pattern.compile("<table border=\"1\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n</table>"), "");
+				
+			} catch (Exception ex){
+				throw ex;
+			}
+		}
+		
+		// Converte brasao em bytes codificado em base64
+		replaceAll(textoHtml, Pattern.compile("src=\"https://projudi.tjgo.jus.br/imagens/logoEstadoGoias02.jpg\""), "src=\""+ConverterHtmlPdf.BRASAO_BASE64_REDUZIDO+"\"");
+		replaceAll(textoHtml, Pattern.compile("src=\"https://projudi.tjgo.jus.br/imagens/brasaoGoias.png\""), "src=\""+ConverterHtmlPdf.BRASAO_ESTADO_GOIAS_BASE64+"\"");		
+		replaceAll(textoHtml, Pattern.compile("src=\"https://projudi.dsi.teste.tjgo.jus.br/imagens/brasaoGoias.png\""), "src=\""+ConverterHtmlPdf.BRASAO_ESTADO_GOIAS_BASE64+"\"");
+		replaceAll(textoHtml, Pattern.compile("src=\"http://www.tj.go.gov.br/projudi/imagens/brasaoPetroBranco.jpg\""), "src=\""+ConverterHtmlPdf.BRASAO_BASE64_REDUZIDO+"\"");
+		replaceAll(textoHtml, Pattern.compile("src=\"https://homolog.tjgo.jus.br/imagens/logoEstadoGoias02.jpg\""), "src=\""+ConverterHtmlPdf.BRASAO_BASE64_REDUZIDO+"\"");
+		replaceAll(textoHtml, Pattern.compile("src=\"https://projudi.dsi.teste.tjgo.jus.br/imagens/logoEstadoGoias02.jpg\""), "src=\""+ConverterHtmlPdf.BRASAO_BASE64_REDUZIDO+"\"");
+		replaceAll(textoHtml, Pattern.compile("src=\"https://localhost//imagens/logoEstadoGoias02.jpg\""), "src=\""+ConverterHtmlPdf.BRASAO_BASE64_REDUZIDO+"\"");
+		replaceAll(textoHtml, Pattern.compile("src=\"https://pjd.tjgo.jus.br/imagens/logoEstadoGoias02.jpg\""), "src=\""+ConverterHtmlPdf.BRASAO_BASE64_REDUZIDO+"\"");
+		replaceAll(textoHtml, Pattern.compile("src=\"http://localhost/imagens/brasaoGoias.png\""), "src=\""+ConverterHtmlPdf.BRASAO_BASE64_REDUZIDO+"\"");
+				
+		return textoHtml.toString().getBytes();
+    	
+    }
+}

@@ -1,0 +1,53 @@
+
+   <input type="hidden" id="tempBuscaId_Usuario" name="tempBuscaId_Usuario">
+   <input type="hidden" id="tempBuscaUsuario" name="tempBuscaUsuario">
+   <%
+    String c = (String) request.getAttribute("c");
+   	String st = (String) request.getAttribute("st");
+   	String l = (String) request.getAttribute("l");
+   	String o = (String) request.getAttribute("o");
+   	String ou = (String) request.getAttribute("ou");
+   	String cn = (String) request.getAttribute("cn");
+   	String e = (String) request.getAttribute("e");
+	String validade = (String) request.getAttribute("validade");
+   %>
+   
+ <div id="divEditar" class="divEditar">
+<fieldset class="formEdicao"> 
+    <legend class="formEdicaoLegenda">Criar certificado raiz </legend>
+    <fieldset> 
+    	<legend class="formDNLegenda">*DN</legend>
+    	<label class="formEdicaoLabel" for="c">*C</label> <input title="País" class="formEdicaoInput" name="c" id="c"  type="text" value="<%=c%>"  size="50" maxlength="50" onKeyUp=" autoTab(this,60)"/><br />
+		<label class="formEdicaoLabel" for="st">*ST</label> <input title="Estado" class="formEdicaoInput " name="st" type="text" id="st"  value="<%=st%>"  size="50" maxlength="50" onKeyUp=" autoTab(this,60)"/><br />
+		<label class="formEdicaoLabel" for="l">*L</label> <input  title="Cidade" class="formEdicaoInput " name="l" type="text" id="l"  value="<%=l%>"  size="50" maxlength="50" onKeyUp=" autoTab(this,60)"/><br />   
+		<label class="formEdicaoLabel" for="o">*O</label> <input title="Organização" class="formEdicaoInput " name="o" type="text"  id="o" value="<%=o%>" size="50" maxlength="50" onKeyUp=" autoTab(this,60)"/><br />
+		<label class="formEdicaoLabel" for="ou">*OU</label> <input  title="Unidade Organizacional" class="formEdicaoInput " name="ou" type="text" id="ou" value="<%=ou%>" size="50" maxlength="50" onKeyUp=" autoTab(this,60)"/><br />
+		<label class="formEdicaoLabel" for="cn">*CN</label> <input title="Nome comum" class="formEdicaoInput " name="cn" type="text" id="cn" value="<%=cn%>" size="50" maxlength="50" onKeyUp=" autoTab(this,60)"/><br />
+		<label class="formEdicaoLabel" for="e">*E</label> <input title="E-mail" class="formEdicaoInput "  name="e" type="text" id="e" value="<%=e%>" size="50" maxlength="50" onKeyUp=" autoTab(this,60)"/><br />	
+		<label class="formEdicaoLabel" for="validade">*Validade:</label> <input title="Validade" class="formEdicaoInput "  name="validade" type="text" id="v" value="<%=validade%>" size="15" maxlength="2" onKeyUp=" autoTab(this,60)">  anos.<br />
+	</fieldset>
+	<%if (!request.getAttribute("PaginaAnterior").toString().equalsIgnoreCase(String.valueOf(Configuracao.Salvar))) {%>
+		<div id="divConfirmarSalvar" class="ConfirmarSalvar">
+				<button type="submit"  title="Criar Certificado Raiz"  name="operacao" onclick="AlterarValue('PaginaAtual','<%=String.valueOf(Configuracao.Salvar)%>'); AlterarValue('Curinga','<%="D"%>')" >
+					<!-- <img src="imagens/22x22/ico_sucesso.png" alt="Criar Certificado Raiz" /> -->
+						Criar Certificado Raiz
+				</button>
+				<br />
+		</div>
+	<%}%>
+</fieldset/><br />
+
+ <%if (request.getAttribute("PaginaAnterior").toString().equalsIgnoreCase(String.valueOf(Configuracao.Salvar))) {%>
+      <div id="divConfirmarSalvar" class="ConfirmarSalvar">
+				<button type="submit"  title="Criar Certificado Raiz"  name="operacao" onclick="AlterarValue('PaginaAtual','<%=String.valueOf(Configuracao.SalvarResultado)%>'); AlterarValue('Curinga','<%="D"%>')" >
+					<img src="imagens/22x22/ico_sucesso.png" alt="Criar" />
+						Confirmar
+				</button>
+				<br />
+		</div>
+ <%}%>
+ 
+</div>
+
+<script type="text/javascript" src="./js/Digitacao/DigitarSoNumero.js" ></script>
+<script type="text/javascript" src="./js/Digitacao/AutoTab.js" ></script>

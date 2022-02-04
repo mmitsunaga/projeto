@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="calculoLiquidacaoDetalhes_PRD"
+		 columnCount="1"
+		 printOrder="Horizontal"
+		 orientation="Landscape"
+		 pageWidth="842"
+		 pageHeight="535"
+		 columnWidth="842"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+
+	<field name="tempoTotalCondenacaoAnos" class="java.lang.String"/>
+	<field name="totalCondenacaoPSCHoras" class="java.lang.String"/>
+	<field name="horasCumpridasPSC" class="java.lang.String"/>
+	<field name="horasRestantePSC" class="java.lang.String"/>
+	<field name="totalCondenacaoLFSDias" class="java.lang.String"/>
+	<field name="diasCumpridosLFS" class="java.lang.String"/>
+	<field name="diasRestanteLFS" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="72"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="263"
+						y="35"
+						width="50"
+						height="12"
+						key="textField">
+							<printWhenExpression><![CDATA[new Boolean(Integer.parseInt($F{totalCondenacaoPSCHoras}) > 0)]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{totalCondenacaoPSCHoras}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="115"
+						y="33"
+						width="1"
+						height="0"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Texto Estático]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="35"
+						width="262"
+						height="12"
+						key="staticText-2">
+							<printWhenExpression><![CDATA[new Boolean(Integer.parseInt($F{totalCondenacaoPSCHoras}) > 0)]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<text><![CDATA[Tempo total da condenação para Prestação de Serviço à Comunidade:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="313"
+						y="35"
+						width="35"
+						height="12"
+						key="staticText-3">
+							<printWhenExpression><![CDATA[new Boolean(Integer.parseInt($F{totalCondenacaoPSCHoras}) > 0)]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<text><![CDATA[(horas)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="360"
+						y="35"
+						width="63"
+						height="12"
+						key="staticText-4">
+							<printWhenExpression><![CDATA[new Boolean(Integer.parseInt($F{totalCondenacaoPSCHoras}) > 0)]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<text><![CDATA[Horas cumpridas:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="519"
+						y="35"
+						width="63"
+						height="12"
+						key="staticText-5">
+							<printWhenExpression><![CDATA[new Boolean(Integer.parseInt($F{totalCondenacaoPSCHoras}) > 0)]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<text><![CDATA[Horas restante:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="423"
+						y="35"
+						width="49"
+						height="12"
+						key="textField">
+							<printWhenExpression><![CDATA[new Boolean(Integer.parseInt($F{totalCondenacaoPSCHoras}) > 0)]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{horasCumpridasPSC}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="582"
+						y="35"
+						width="51"
+						height="12"
+						key="textField">
+							<printWhenExpression><![CDATA[new Boolean(Integer.parseInt($F{totalCondenacaoPSCHoras}) > 0)]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{horasRestantePSC}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="472"
+						y="35"
+						width="35"
+						height="12"
+						key="staticText-6">
+							<printWhenExpression><![CDATA[new Boolean(Integer.parseInt($F{totalCondenacaoPSCHoras}) > 0)]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<text><![CDATA[(horas)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="633"
+						y="35"
+						width="35"
+						height="12"
+						key="staticText-7">
+							<printWhenExpression><![CDATA[new Boolean(Integer.parseInt($F{totalCondenacaoPSCHoras}) > 0)]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<text><![CDATA[(horas)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="-1"
+						width="241"
+						height="12"
+						key="staticText-15"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="6"/>
+					</textElement>
+				<text><![CDATA[*DICC: Data de Início de Cumprimento da(s) Condenação(ões)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="48"
+						width="263"
+						height="12"
+						key="staticText-17"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<text><![CDATA[Tempo total da condenação para Limitação de Fim de Semana:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="263"
+						y="48"
+						width="50"
+						height="12"
+						key="textField-1"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{totalCondenacaoLFSDias}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="313"
+						y="48"
+						width="35"
+						height="12"
+						key="staticText-18"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<text><![CDATA[(dias)]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="217"
+						y="17"
+						width="61"
+						height="12"
+						key="textField-2"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{tempoTotalCondenacaoAnos}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="56"
+						y="17"
+						width="161"
+						height="12"
+						key="staticText-19"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<text><![CDATA[Tempo total da condenação:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="278"
+						y="17"
+						width="35"
+						height="12"
+						key="staticText-20"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<text><![CDATA[(a-m-d)]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="68"
+						width="781"
+						height="0"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="360"
+						y="48"
+						width="63"
+						height="12"
+						key="staticText-21"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<text><![CDATA[Dias cumpridos:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="518"
+						y="48"
+						width="64"
+						height="12"
+						key="staticText-22"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<text><![CDATA[Dias restante:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="423"
+						y="48"
+						width="49"
+						height="12"
+						key="textField-3"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{diasCumpridosLFS}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="582"
+						y="48"
+						width="51"
+						height="12"
+						key="textField-4"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{diasRestanteLFS}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="472"
+						y="48"
+						width="35"
+						height="12"
+						key="staticText-23"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<text><![CDATA[(dias)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="633"
+						y="48"
+						width="35"
+						height="12"
+						key="staticText-24"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<text><![CDATA[(dias)]]></text>
+				</staticText>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

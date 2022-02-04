@@ -1,0 +1,27 @@
+<label class="formEdicaoLabel"> Editor Texto
+<input class="FormEdicaoimgLocalizar" name="imaLocalizarArquivoTipo" type="image"  src="./imagens/imgEditorTextoPequena.png" 
+	onclick="MostrarOcultar('Editor'); return false;" title="Abrir Editor de Texto" />
+</label>
+  		        		
+<div id="Editor" class="Editor" style="display:none" >        			
+	<textarea class="ckeditor" cols="80" id="editor1" name="TextoEditor" rows="15"><%=request.getAttribute("TextoEditor")%></textarea>
+														
+	<script type="text/javascript">
+   		
+		<%
+			if (request.getAttribute("TextoEditor") != null && !request.getAttribute("TextoEditor").equals("") ){			
+				%>MostrarOcultar('Editor');
+			<%}%>		
+	</script>
+</div>
+
+<input type="hidden" id="arquivo" name="arquivo" value="">
+<input type="hidden" name="nomeArquivo" id="nomeArquivo" value="" />
+
+<div id="divBotoesCentralizados" class="divBotoesCentralizados"> 
+	 <button type="button"  onclick="javascript:anexarArquivoNaoAssinado();">
+		Inserir
+	</button>
+</div>
+		
+<%@ include file="ListaArquivos.jspf"%>

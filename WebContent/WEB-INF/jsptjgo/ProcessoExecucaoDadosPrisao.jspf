@@ -1,0 +1,81 @@
+<%@page import="br.gov.go.tj.projudi.dt.CondenacaoExecucaoDt"%>
+<input type="hidden" id="posicaoLista" name="posicaoLista">
+<div >
+	<fieldset class="formEdicao"><legend class="formEdicaoLegenda">Prisão</legend>
+	
+<%if (ProcessoExecucaodt_PE.getId_ProcessoExecucaoPenal().length() == 0 || ProcessoExecucaodt_PE.getId_ProcessoExecucaoPenal().equals("null") || ProcessoExecucaodt_PE.getDataPrimeiroRegime().length() > 0){ %>
+			
+			
+   	    <label class="formEdicaoLabel" for="PrisaoProvisoria" style="width:200px">Prisão Provisória</label>    
+	    <input class="formEdicaoInput" name="PrisaoProvisoria" id="PrisaoProvisoria" type="text" size="10" maxlength="10" value="<%=ProcessoExecucaodt_PE.getDataPrisaoProvisoria()%>" onblur="verifica_data(this);" onKeyPress="return DigitarSoNumero(this, event)"/>
+	    <img class="formLocalizarLabel"  style="margin-right:20px; height:13px; min-width:3px; padding-right: 0px" id="calendarioDataFato" src="./imagens/dlcalendar_2.gif" title="Calendário"  alt="Calendário" onclick="displayCalendar(document.forms[0].PrisaoProvisoria,'dd/mm/yyyy',this)"/>
+
+		<label class="formEdicaoLabel" for="LiberdadeProvisoria" style="width:200px">Interrupção da Prisão Provisória</label>    
+	    <input class="formEdicaoInput" name="LiberdadeProvisoria" id="LiberdadeProvisoria" type="text" size="10" maxlength="10" value="<%=ProcessoExecucaodt_PE.getDataLiberdadeProvisoria()%>"
+			onBlur="verifica_data(this); compararData('PrisaoProvisoria', 'LiberdadeProvisoria', 'A data da Interrupção da Prisão Provisória não pode ser anterior à data da Prisão Provisória.')" onKeyPress="return DigitarSoNumero(this, event)"/>
+	    <img class="formLocalizarLabel"  style="margin-right:20px; height:13px; min-width:3px; padding-right: 0px" id="calendarioDataFato" src="./imagens/dlcalendar_2.gif" title="Calendário"  alt="Calendário" onclick="displayCalendar(document.forms[0].LiberdadeProvisoria,'dd/mm/yyyy',this)"/>
+
+		<button type="submit" name="operacao" value="Incluir Modalidade" onClick="AlterarValue('PassoEditar','11');AlterarValue('PaginaAtual','<%=Configuracao.Editar%>');" style="font-size: 11px !important; margin-top: 0px; vertical-align: top;">
+			<img src="imagens/16x16/Mais.png" alt="Inclur prisão provisória" />
+			Incluir Prisão Provisória
+		</button>
+		<br /><br />
+
+		
+	   	<fieldset id="VisualizaDados" class="VisualizaDados" style="width: 520px;margin-left: 180px;">
+	   	   
+			<%
+	   			List listaPrisoes = ProcessoExecucaodt_PE.getListaPrisoesProvisorias();
+				List listaLiberdades = ProcessoExecucaodt_PE.getListaLiberdadesProvisorias();
+	   	    	if (listaPrisoes != null && listaPrisoes.size() > 0){ %>
+	   		   	<table width="98%" border="0" cellpadding="0" cellspacing="0" style="font-size: 10px !important;">
+	   				<thead align="left">
+	   					<tr>
+	   						<th width="50%">Prisao Provisória</th>
+							<th width="50%">Interrupção da Prisão Provisória</th>
+	   						<th></th>
+	   					</tr>
+	   				</thead>
+				<%
+	   	    		for (int i=0;i < listaPrisoes.size();i++){
+	   	    			String dataPrisao = (String)listaPrisoes.get(i);
+	   	    			String dataLiberdade = (String)listaLiberdades.get(i); %>
+		   			<tbody>
+						<tr>
+	       					<td><%=dataPrisao%></td>
+							<td><%=dataLiberdade%></td>
+	       	 				<td><input name="imgExcluir" class="imgExcluir" type="image" src="./imagens/imgExcluirPequena.png" 
+										onclick="AlterarValue('PaginaAtual','<%=Configuracao.Editar%>');AlterarValue('PassoEditar','11');AlterarValue('posicaoLista','<%=i%>')" 
+										title="Excluir prisão/interrupção da prisão provisória"/></td>
+	       	 			</tr>
+	       	 		</tbody>
+	       		<%	} %>
+	       	</table>
+	   		<% } else { %>
+	   			<em> Nenhuma prisão provisória cadastrada </em>
+	   		<% } %>
+		</fieldset>
+		<br />
+		<br />
+
+
+		<script language="javascript">
+			function mostrar(){
+				$("#data1").hide();
+			}
+		</script>
+
+		<div id="divPrimeiroRegime">
+			<label class="formEdicaoLabel" for="DataPrimeiroRegime" style="width:300px"> *Primeiro Regime ou Início da Pena Restritiva de Direito </label>    
+		    <div id="data1" style="display: block;">
+			<input class="formEdicaoInput" name="DataPrimeiroRegime" id="DataPrimeiroRegime" type="text" size="10" maxlength="10" value="<%=ProcessoExecucaodt_PE.getDataPrimeiroRegime()%>" onblur="verifica_data(this);" />
+		    <img class="formLocalizarLabel"  style="margin-right:20px; height:13px; min-width:3px; padding-right: 0px" id="calendarioDataFato" src="./imagens/dlcalendar_2.gif" title="Calendário"  alt="Calendário" onclick="displayCalendar(document.forms[0].DataPrimeiroRegime,'dd/mm/yyyy',this)"/>
+			</div>
+			<input id="chkPrimeiroRegime" name="chkPrimeiroRegime[]" type="checkbox" value="S" onclick="MostrarOcultar('data1');"/>Não iniciou o cumprimento da pena<br />
+			<br />
+		</div>
+<% } else { %>
+<font color="red">Inserir as possíveis prisões ou interrupções relacionadas à presente condenação através do menu "Incluir Evento de Execução".</font>
+<% } %>
+   	</fieldset>	
+</div>

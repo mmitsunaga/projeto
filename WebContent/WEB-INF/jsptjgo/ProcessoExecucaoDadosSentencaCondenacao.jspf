@@ -1,0 +1,63 @@
+<label class="formEdicaoLabel" for="TempoPena" style="width:170px">Beneficio SURSIS:</label>
+<input class="formEdicaoInput" name="SursisAno" id="SursisAno" type="text" size="4" maxlength="4" value="<%=ProcessoExecucaodt_PE.getTempoSursisAno()%>" onKeyPress="return DigitarSoNumero(this, event)"/>
+<input class="formEdicaoInput" name="SursisMes" id="SursisMes" type="text" size="4" maxlength="4" value="<%=ProcessoExecucaodt_PE.getTempoSursisMes()%>" onKeyPress="return DigitarSoNumero(this, event)"/>
+<input class="formEdicaoInput" name="SursisDia" id="SursisDia" type="text" size="4" maxlength="4" value="<%=ProcessoExecucaodt_PE.getTempoSursisDia()%>" onKeyPress="return DigitarSoNumero(this, event)"/>(anos/meses/dias)
+<br />
+<label class="formEdicaoLabel" for="DataInicioSursis" style="width:170px">Início de cumprimento do SURSIS:</label>
+<input class="formEdicaoInput" name="DataInicioSursis" id="DataInicioSursis" type="text" size="10" maxlength="10" value="<%=ProcessoExecucaodt_PE.getDataInicioSursis()%>" onKeyPress="return DigitarSoNumero(this, event)"/>
+<img class="formLocalizarLabel" style="margin-right:20px; height:13px; min-width:3px; padding-right: 0px" id="calendarioDataInicioSursis" src="./imagens/dlcalendar_2.gif" height="13" width="13" title="Calendário"  alt="Calendário" onclick="displayCalendar(document.forms[0].DataInicioSursis,'dd/mm/yyyy',this)"/>
+<br /><br />
+
+<fieldset class="formEdicao"><legend class="formEdicaoLegenda">Condenação</legend>
+	<div><a href="javascript: MostrarOcultar('sub_NovaCondenacao')" title="Mostrar/Ocultar nova condenação"> Nova condenação </a></div>
+	<div id="sub_NovaCondenacao" style="height: 100% !important; width: 100% !important; display:<%=request.getSession().getAttribute("displayNovaCondenacao")%>;">
+		<%String crimeDescricao = "";
+  	    			if (ProcessoExecucaodt_PE.getCrimeExecucao().length()>80) {
+  	    				crimeDescricao = ProcessoExecucaodt_PE.getCrimeExecucao().substring(0,80) + "...";
+  	    			}
+  	    			else {
+  	    				crimeDescricao = ProcessoExecucaodt_PE.getCrimeExecucao();
+  	    			}
+  	    %>
+		<label class="formEdicaoLabel" for="Id_CrimeExecucao">*Crime</label>  
+   		<input class="FormEdicaoimgLocalizar" id="imaLocalizarCrimeExecucao" name="imaLocalizarCrimeExecucao" type="image"  src="./imagens/imgLocalizarPequena.png"  onclick="AlterarValue('PaginaAtual','<%=String.valueOf(CrimeExecucaoDt.CodigoPermissao * Configuracao.QtdPermissao + Configuracao.Localizar)%>'); AlterarValue('PassoEditar', '-1');" >  
+   		<input class="formEdicaoInputSomenteLeitura" readonly name="CrimeExecucao" id="CrimeExecucao" type="text" size="100" maxlength="100" value="<%=crimeDescricao%>" title="<%=ProcessoExecucaodt_PE.getCrimeExecucao()%>"/>
+		<br />
+		<label class="formEdicaoLabel" for="Observacao" style="width:170px">Observação:</label>  
+   		<input class="formEdicaoInput" name="ObservacaoCondenacao" id="ObservacaoCondenacao" type="text" size="50" maxlength="100" value="<%=ProcessoExecucaodt_PE.getObservacaoCondenacao()%>" />
+		<br />
+		<label class="formEdicaoLabel" for="TempoPena" style="width:170px">*Pena imposta:</label>
+		<input class="formEdicaoInput" name="Ano" id="Ano" type="text" size="4" maxlength="4" value="<%=ProcessoExecucaodt_PE.getTempoCondenacaoAno()%>" onKeyPress="return DigitarSoNumero(this, event)"/>
+		<input class="formEdicaoInput" name="Mes" id="Mes" type="text" size="4" maxlength="4" value="<%=ProcessoExecucaodt_PE.getTempoCondenacaoMes()%>" onKeyPress="return DigitarSoNumero(this, event)"/>
+		<input class="formEdicaoInput" name="Dia" id="Dia" type="text" size="4" maxlength="4" value="<%=ProcessoExecucaodt_PE.getTempoCondenacaoDia()%>" onKeyPress="return DigitarSoNumero(this, event)"/>(anos/meses/dias)
+		<br />	
+		<label class="formEdicaoLabel" for="DataFato" style="width:170px">*Data do Fato:</label>    
+	    <input class="formEdicaoInput" name="DataFato" id="DataFato" type="text" size="10" maxlength="10" value="<%=ProcessoExecucaodt_PE.getDataFato()%>" onblur="verifica_data(this);" onKeyPress="return DigitarSoNumero(this, event)"/>
+		<img class="formLocalizarLabel" style="margin-right:20px; height:13px; min-width:3px; padding-right: 0px" id="calendarioDataFato" src="./imagens/dlcalendar_2.gif" height="13" width="13" title="Calendário"  alt="Calendário" onclick="displayCalendar(document.forms[0].DataFato,'dd/mm/yyyy',this)"/>
+		<br/>
+		<label class="formEdicaoLabel" for="Reincidente" style="width:170px;">*Reincidente:</label>
+		<input style="text-align: left;" id="radioReincidente" name="radioReincidente" type="radio" value="t"
+			<% if (ProcessoExecucaodt_PE.getReincidente().equalsIgnoreCase("true")){%> checked <%} %> >Sim</input> 
+		<input style="text-align: left;"  id="radioReincidente" name="radioReincidente" type="radio" value="f"
+			<% if (ProcessoExecucaodt_PE.getReincidente().equalsIgnoreCase("false") || ProcessoExecucaodt_PE.getReincidente().equals("")){%> checked <%} %> >Não</input>
+		<br/>
+		<label class="formEdicaoLabel" for="Extincao" style="width:170px">Extinção da Pena:</label>    
+		<select name="Id_CondenacaoExecucaoSituacao" id="Id_CondenacaoExecucaoSituacao">
+			<option value="3" selected="selected">Não</option> 
+	    	<option value="1">Por Prescrição</option>
+	    	<option value="2">Por Cumprimento</option>
+	    </select>
+
+		<button type="submit" name="operacao" value="Incluir Condenação" onClick="AlterarValue('PaginaAtual','<%=Configuracao.LocalizarAutoPai%>');" style="font-size: 11px !important; margin-top: 0px; vertical-align: top;" >
+			<img src="imagens/16x16/Mais.png" alt="Incluir Condenação"/>
+			Incluir Condenação
+		</button>
+	</div>
+	<br /><br />
+	<%@ include file="CondenacoesExecucaoProcesso.jspf"%>
+
+</fieldset>
+<br /><br />
+
+<%@ include file="ProcessoExecucaoDadosSentencaCondenacaoModalidade.jspf"%>
+

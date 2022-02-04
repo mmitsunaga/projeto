@@ -1,0 +1,41 @@
+Layout de Arquivo TXT para inclusão no CADIN ESTADUAL
+Para campos Numéricos, deve ser alinhado à direita e preenchido com Zeros à esquerda.
+Para Alfanuméricos, deve ser alinhado à esquerda e com espaços em branco até o total do campo.
+Para DATAS será utilizado o formato DDMMYYYY
+Para VALORES não será utilizado pontos e virgulas, por exemplo 1.254,80 deverá ser enviado 00000000125480
+
+
+
+Tipo do Cocumento            (N01)  sendo 1-CPF 2-CNPJ
+Número do documento CPF/CNPJ (N14) 
+Nome da Pessoa               (A60)
+Número do Processo no Órgão  (A25) 
+Natureza da Pendencia        (N02) 01-TRIBUTÁRIA 02-NÃO TRIBUTÁRIA
+Categoria da Pendencia       (N02) 08 Não tributário, confirmar outros valores com Administrado do Sistema
+Data Vencimento Débito       (N08) formato ddmmyyyy
+Valor Devido                 (N14) Sem pontos e vírgulas
+Meio de Envio de Comunicado  (n02) sendo 01-DTE 02-EDITAL 03-CARTA
+Data de Envio de Comunicado  (N08) DDMMYYYY
+Data de Ciencia  Comunicado  (N08) DDMMYYYY
+TIPO_LOGRADOURO              (A03) Deve seguir a tabela informada abaixo
+NOME_LOGRADOURO	             (A60)
+NUMR_ENDERECO	             (A10)
+NUMR_LOTE_ENDERECO           (A09)
+NUMR_QUADRA_ENDERECO         (A10)
+DESC_COMPL_ENDERECO          (A80)
+NOME_BAIRRO	             (A60)
+CODG_CEP	             (N08)
+NOME_MUNICIPIO               (A60)
+NOME_UF                      (A02)
+Observação da Pendencia      (A150)
+
+
+
+Tipos de Logradouros Cadastrados que serão aceitos:
+'ACE' , 'ACP' , 'AER' , 'ALD' , 'ALT' , 'ARE' , 'ATA' , 'AVE' , 'BEC' , 'CAI' ,
+  'CHA' , 'COL' , 'CON' , 'DES' , 'DIS' , 'EST' , 'ETA' , 'ETV' , 'FAV' , 'FAZ' ,
+  'GAL' , 'GRN' , 'ILH' , 'JAR' , 'LAD' , 'LGO' , 'LOC' , 'LOT' , 'MAG' , 'PAT' ,
+  'PCA' , 'POR' , 'POV' , 'PRA' , 'PRQ' , 'PTE' , 'QDA' , 'REC' , 'ROD' , 'RUA' ,
+  'SET' , 'SIT' , 'TER' , 'TRE' , 'TRV' , 'VAL' , 'VDO' , 'VIA' , 'VIE' , 'VIL'
+
+

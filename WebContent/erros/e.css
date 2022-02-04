@@ -1,0 +1,11 @@
+body { background-color:#222; color: #404040 !important; font-family: "Open Sans",Helvetica,Arial,sans-serif !important; font-size: 15px !important; letter-spacing: normal; line-height: 1.5 !important; }
+div,img { display:block; clear:both; margin:auto; }
+h1 { display:inline; }
+ul#rodape { margin-left:150px; }
+ul#rodape li { display:inline-block; *display:inline; *zoom:1; margin:0; padding:2px 5px 0 5px; margin-top:140px; border-right:1px solid; font-size:9px; }
+ul#rodape li:last-child { border-right:none; }
+a { color:#2698de; transition:color 0.2s ease-out 0s; text-decoration:none; }
+#quadro { margin-top:2cm; width:750px; height:600px; background:white; }
+#logo { padding-top:30px; }
+#faixa { margin-top:10px; background:-moz-linear-gradient(center top, #dedede 0%, #ebebeb 3%, #ebebeb 97%, #dedede 100%) repeat scroll 0 0 #ebebeb; overflow-x:hidden; }
+.msg { padding:10px; width:590px; text-align:justify; text-justify:inter-word;}

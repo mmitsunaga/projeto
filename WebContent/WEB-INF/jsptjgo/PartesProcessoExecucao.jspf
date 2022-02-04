@@ -1,0 +1,55 @@
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoParteDt"%>
+<%@page import="br.gov.go.tj.utils.Funcoes"%>
+<%@page import="br.gov.go.tj.utils.Configuracao"%>
+	
+	<!-- SENTENCIADO -->
+   	<input type="hidden" id="posicaoLista" name="posicaoLista">
+   	
+   	<fieldset id="VisualizaDados" class="VisualizaDados">   
+   		<legend> Sentenciado 
+	   	    <input class="FormEdicaoimgLocalizar" id="imaLocalizarParteSentenciado" name="imaLocalizarParteSentenciado" type="image"  src="./imagens/imgLocalizarPequena.png"
+ 			<% if (ProcessoExecucaodt_PE.getCadastroTipo() == 1) {%>
+					onclick="AlterarValue('PaginaAtual','<%=Configuracao.Editar%>');AlterarValue('PassoEditar','7');"
+			<% } else { %>
+					onclick="AlterarValue('PaginaAtual','<%=Configuracao.Editar%>');AlterarValue('PassoEditar','16');"
+			<% } %>
+					title="Cadastrar Sentenciado"/>
+   	    </legend>
+		
+		<%
+   			List listaPromovidos = ProcessoExecucaodt_PE.getProcessoDt().getListaPolosPassivos();
+			if (listaPromovidos != null && listaPromovidos.size() > 0){
+   	    		for (int i=0;i < listaPromovidos.size();i++){
+	   			  	ProcessoParteDt parteDt = (ProcessoParteDt)listaPromovidos.get(i);
+   		%>
+
+       	<div> Nome </div> <span class="span1"><%=parteDt.getNome()%></span>
+		<div> CPF </div> <span class="span2"><%=parteDt.getCpfFormatado()%></span><br />
+       	<div> Nome da Mãe</div> <span class="span1"><%=parteDt.getNomeMae()%></span>
+		<div> RG</div> 
+		<span class="span2"><%=parteDt.getRg() + "  " + parteDt.getSiglaOrgaoExpedidor() + "   " + parteDt.getRgDataExpedicao()%></span><br />
+		<div> Nome do Pai</div> <span class="span1"><%=parteDt.getNomePai()%></span>
+		<div> Naturalidade</div> <span class="span2"><%=parteDt.getCidadeNaturalidade()%></span><br />
+		<div> Data de Nascimento</div> <span class="span1"><%=parteDt.getDataNascimento()%></span>
+		<div> Estado Civil</div> <span class="span2"><%=parteDt.getEstadoCivil()%></span><br />
+		<div> Sexo</div> <span class="span1"><%=parteDt.getSexo()%></span>
+		<div> Profissão</div> <span class="span2"><%=parteDt.getProfissao()%></span><br />
+		
+
+        <div><a href="javascript: MostrarOcultar('sub<%=parteDt.getNome()%>')" title="Mostrar/Ocultar"> Endereço </a></div>
+   		
+ 		
+  		<fieldset id="sub<%=parteDt.getNome()%>" class="fieldsetEndereco">
+  			<legend> Endereço </legend>
+			<%=parteDt.getEnderecoParte().getLogradouro() + " " + parteDt.getEnderecoParte().getComplemento()%><br />
+    		<%=parteDt.getEnderecoParte().getBairro() + " " + parteDt.getEnderecoParte().getCidade() + " " + parteDt.getEnderecoParte().getUf()%><br />
+    		<%=parteDt.getEnderecoParte().getCep() + " " + parteDt.getEMail() + " " + parteDt.getTelefone() %>
+		</fieldset>
+       	<% } %>
+	
+   	    <%} else {	%>
+   	    <em> Selecione o sentenciado. </em>
+   	    <% } %>
+	</fieldset>
+	
+	<br />

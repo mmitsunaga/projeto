@@ -1,0 +1,47 @@
+<%@page import="br.gov.go.tj.projudi.dt.MovimentacaoDt"%>
+<%@page import="br.gov.go.tj.utils.Configuracao"%>
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoDt"%>
+
+		<%	
+		List processos = Movimentacaodt.getListaProcessos();	
+		if (request.getSession().getAttribute("TodosProcessosClassificados")!=null){%>
+			<div class="destaque">
+				ATEN«√O: Os <%=processos.size()%> processos que est„o classificados em <%=(String)request.getSession().getAttribute("Classificado") %> ser„o movimentados.
+			</div>
+		<%}else{
+		
+			
+			if( processos != null && processos.size() > 0 ) {
+				for (int i=0;i<processos.size();i++) {
+					ProcessoDt processoDt = (ProcessoDt)processos.get(i);
+					if(processoDt != null) {
+			%>
+				<div class="destaque">
+					<img class="maismenos" id="imagem<%=i%>" src="./imagens/16x16/Mais.png" onclick="MostrarOcultarDiv('corpo<%=i%>','imagem<%=i%>',1)" title="Mostrar/Ocultar Detalhes do Processo"/>
+					<a href="BuscaProcesso?Id_Processo=<%=processoDt.getId_Processo()%>"><%=processoDt.getProcessoNumero()%></a>
+				</div>
+			
+				<div id="corpo<%=i%>" class="corpo" style="display: block;">
+					<fieldset id="VisualizaDados" class="VisualizaDados">
+						<legend> Dados Processo</legend>
+						
+						<div> Classe </div>
+						<span style="width:300px;"> <%=processoDt.getProcessoTipo()%> </span><br />				
+						<div> Serventia </div>
+						<span> <%=processoDt.getServentia()%> </span>
+						<br />
+						
+						<div> Data Distribui√ßao</div>
+						<span> <%=processoDt.getDataRecebimento()%> </span>
+						
+						<div> Valor </div>
+						<span> <%=processoDt.getValor()%> </span>
+						<br />
+						
+						<%@ include file="PartesProcesso.jspf"%>
+					</fieldset>
+				</div>
+				<%	}
+				} 
+			}
+		}%>

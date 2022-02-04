@@ -1,0 +1,41 @@
+<!-- Tabela de arquivos de pendencia -->
+<%@page import="br.gov.go.tj.projudi.dt.PendenciaTipoDt"%>
+<%@ include file="js/buscarArquivos.js"%>
+<table class="Tabela" id="TabelaArquivos">
+	<thead>
+		<tr>
+			<th>Cod</th>
+			<th>Tipo de Pend&ecirc;ncia</th>
+			<th>Status</th>
+			<th>Anexos</th>
+			<th>Carregar Anteriores</th>
+		</tr>
+	</thead>
+	
+	<tbody>
+		<tr class="primeiraLinha">
+			<td class="colunaMinima"><%=Pendenciadt.getId()%></td>
+			<td><%=Pendenciadt.getPendenciaTipo()%></td>
+			<td><%=Pendenciadt.getPendenciaStatus()%></td>
+			<td class="colunaMinima">
+				<%if (Pendenciadt.getPendenciaTipoCodigoToInt() == PendenciaTipoDt.VERIFICAR_FATO) {%>
+					<a href="#" onclick="buscarArquivosPendenciaSemEdicaoJSON('<%=Pendenciadt.getId()%>');">
+						<img src="imagens/22x22/ico_arquivos.png" alt="Mostrar ou ocultar arquivos" title="Mostrar ou ocultar arquivos" />
+					</a>
+				<%} else {%>
+					<a href="#" onclick="buscarArquivosPendenciaJSON('<%=Pendenciadt.getId()%>');">
+						<img src="imagens/22x22/ico_arquivos.png" alt="Mostrar ou ocultar arquivos" title="Mostrar ou ocultar arquivos" />
+					</a>
+				<%}%>
+			</td>
+			<td class="colunaMinima">
+				<a href="#" onclick="buscarPai('<%=Pendenciadt.getId()%>', 'TabelaArquivos');">
+					<img src="imagens/22x22/ico_carregar_pai.png" alt="Carregar" title="Carregar pend&ecirc;ncia que deu origem a esta" />
+				</a>
+			</td>
+		</tr>
+		<tr id="linha_<%=Pendenciadt.getId()%>" style="display: none;">
+			<td colspan="5" id="pai_<%=Pendenciadt.getId()%>" class="Linha"></td>
+		</tr>
+	</tbody>
+</table>	

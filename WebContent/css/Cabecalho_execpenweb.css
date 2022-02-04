@@ -1,0 +1,259 @@
+/**
+ * Tela inicial projudi
+ * @author Ronneesley Moura Teles
+ * @author Ademar Filho
+ * @since 20/05/2008
+ */
+/*
+
+*/
+
+/* Cabecalho */
+#pgn_cabecalho {
+/*	float: left;
+	display: inline;*/
+	height: 36px;
+	color: #ffffff;
+	background-image: url("../imagens/bkg_sup.jpg");
+	background-repeat: repeat-x;
+	padding-bottom: 1px;
+}
+
+#pgn_cabecalho a {
+	text-decoration: none;
+	/*font-size:11px;*/
+	color: #ffffff;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
+/*#pgn_cabecalho a:hover{*/
+/*	font-weight: bold;*/
+/*}*/
+
+#pgn_cabecalho #img_logotj {
+	float: left;
+	margin-top: 2px;
+	margin-left: 10px;
+	width: 200px;
+	height: 30px;
+	background-image: url("../imagens/img_logoexecpen.jpg");
+	background-repeat: no-repeat;
+}
+
+#pgn_cabecalho #img_titulo {
+	float: left;
+	margin-left: 10px;
+	margin-top: 5px;
+	width: 215px;
+	height: 22px;
+	background-image: url("../imagens/img_titulo.png");
+	background-repeat: no-repeat;
+}
+
+#pgn_cabecalho #lnk_acesso {
+	float: left;
+	height: 20px;
+	padding-top: 8px;
+	padding-right: 10px; 
+	padding-bottom: 5px;
+}
+
+#pgn_cabecalho #img_logo {
+	float: left;
+	width: 66px;	
+	height: 29px;
+	margin-top: 2px;
+	padding-right: 10px; 
+	background: url("../imagens/img_logo.jpg"); 
+	background-repeat: no-repeat;
+}
+
+/*BOXES*/
+#bkg_acesso, #bkg_outros, #bkg_projudi {
+	width: 998px;
+	margin: 0px;
+	padding: 0px;
+	background-repeat: no-repeat;	
+}
+
+/*BOX EXECPENWEB*/
+#bkg_execpenweb {
+	height: 162px;
+	margin: 0px;
+	padding: 0px;
+	background-image: url("../imagens/bkg_04.jpg");
+}
+
+/*BOX ACESSO*/
+#bkg_acesso {
+	height: 212px;
+	background-image: url("../imagens/bkg_02.jpg");
+}
+
+#bkg_acesso div.divisao_esquerda {
+	width: 48%;
+	float: left;
+}
+
+#bkg_acesso div.divisao_direita {
+	float: left;
+}
+
+#bkg_acesso #box_texto {
+	width: 200px;
+	text-align: justify;
+	font-size: 0.6em;
+	float: right;
+	color: #ffffff;
+}
+
+#bkg_acesso #box_texto h2 {
+	font-weight: bold;
+	padding: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-left: 0px;
+	margin-bottom: 0px;
+	padding-top: 4px;
+	padding-bottom: 2px;
+}
+
+#bkg_acesso #box_texto p {
+	padding: 0px;
+	margin: 0px;
+}
+
+#bkg_acesso #box_texto p b {
+	color: #B8681B;
+}
+
+#bkg_acesso fieldset {
+	margin-left: 20px;
+}
+
+#bkg_acesso fieldset, #bkg_acesso fieldset legend {
+	border: 0px;
+	color: #ffffff;
+}
+
+#bkg_acesso fieldset legend {
+	font-weight: bold;
+	padding-top: 2px;
+}
+
+/*Configuracoes do formulario de login*/
+#bkg_acesso fieldset label {
+	cursor: pointer;
+	width: 55px;
+	height: 18px;
+	padding-left: 7px;
+	padding-top: 4px;
+	float: left;
+	color: #ffffff;
+}
+
+/*Campos de texto*/
+#bkg_acesso fieldset input[type=text],
+#bkg_acesso fieldset input[type=password],
+#bkg_acesso fieldset input.text {
+	width: 120px;
+	height: 17px;
+	padding-left: 1px;
+	padding-top: 3px;
+	padding-right: 1px;
+	padding-bottom: 0px;
+	margin-bottom: 2px;
+	/*font-size: 13px;*/
+	border: 1px solid #cccccc;	
+	color: #333333;
+}
+
+/*Botoes*/
+#bkg_acesso fieldset input[type=submit],
+#bkg_acesso fieldset input[type=reset],
+#bkg_acesso fieldset input.botao {
+	font-size: 1.4em;	
+	width: 50px;
+	padding-bottom: 1px;
+	cursor: pointer;
+}
+
+/*Botoes e links*/
+#bkg_acesso fieldset input[type=submit],
+#bkg_acesso fieldset input[type=reset],
+#bkg_acesso fieldset input.botao,
+#bkg_acesso a.transparencia {
+	border: 1px solid #ffffff;
+	background-color: #1e628f;
+	color: #ffffff;
+}
+
+/*Links*/
+#bkg_acesso a.transparencia {
+	cursor: pointer;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	text-decoration: none;
+}
+
+/*BOXES OUTROS*/
+#bkg_outros {
+	height: 162px;
+	background-image: url("../imagens/bkg_03.jpg");
+}
+
+#boxes {
+	float: right;
+	/*width: 60%;*/
+	width: 67%;
+}
+
+#boxes div {
+	/*width: 280px;*/
+	width: 220px;
+	float: left;
+	margin-top: 25px;	
+}
+
+#boxes div img {
+	width: 205px;
+	height: 80px;
+	border: 0px;
+	clear: right;
+}
+
+#boxes div a {
+	text-decoration: none;
+	color: #ffffff;
+	font-weight: bold;
+}
+
+#boxes div a span {
+	display: block;
+	padding-left: 25px;
+	padding-top: 0px;
+	margin-top: 0px;
+}
+
+
+/**
+ * Diversos
+ * @author Ronneesley Moura Teles
+ * @since 17/09/2008 15:05
+ */ 
+#box_texto p.diversos {
+	text-indent: 10px;
+}
+
+#box_texto p.diversos a {
+	color: #ffffff;
+	text-decoration: none;
+	border: 0px;
+	border-bottom: 1px;
+	border-style: dashed;
+}
+
+#box_texto p.diversos a:hover {
+	
+}

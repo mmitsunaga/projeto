@@ -1,0 +1,176 @@
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoParteDt"%>
+<%@page import="br.gov.go.tj.utils.Funcoes"%>
+<%@page import="br.gov.go.tj.projudi.dt.UsuarioDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.GrupoDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoParteTipoDt"%>
+<%@page import="br.gov.go.tj.utils.Configuracao"%>
+	
+	
+	<script type="text/javascript">
+		function carregarApletImprimirEtiqueta(){
+			$( ".divApletImprimrEtiqueta" ).html("<object name='ImprimirEtiqueta'  id='ImprimirEtiqueta' type='application/x-java-applet' width='0' height='0' align='top'  style='z-index:-100'> <param name='code' value='ImprimirEtiqueta'> <param name='archive' value='./applet/ImprimirEtiqueta.jar'> <param name='mayscript' value='yes'> <param name='scriptable' value='true'> <param name='name' value='ImprimirEtiqueta'> <param name='java_arguments' value='-Djnlp.packEnabled=true'/> </object>"); 	
+		}
+	</script>
+	
+	<div id="divApletImprimrEtiqueta" class="divApletImprimrEtiqueta" ></div>
+	
+	<input id="CodigoHashEOutros" name="CodigoHashEOutros" type="hidden" value="<%=request.getAttribute("CodigoHashEOutros")%>"></input>
+	
+	<!-- PROMOVENTES -->
+ 	<fieldset id="VisualizaDados" class="VisualizaDados">
+		<legend> Polo Ativo </legend>
+   	<%
+   		List listaPromoventes = processoDt.getListaPolosAtivos();
+   	    if (listaPromoventes != null){
+   	    	for (int i=0; i<listaPromoventes.size();i++){
+   			  	ProcessoParteDt parteDt = (ProcessoParteDt)listaPromoventes.get(i);   			 	 
+   				// Se existirem apenas 6 partes vinculadas são exibidas todas, caso seja um número superior serão exibidas apenas as 5 primeiras
+	       		if ((i >= Configuracao.QtdPartesDadosProcesso) && (listaPromoventes.size() != (Configuracao.QtdPartesDadosProcesso + 1))){%>
+	       			<div> </div>	       									       				       			 
+	       			<span class="span1">
+	       				<ul><li>
+	       						<a href="javascript:mostrarTodasPartes()">
+								e outros
+								</a>
+						</li></ul>	       				
+	       			</span>	       			
+	       		<%break;
+	       		}%>
+	       	<div> Nome </div> 
+			<span class="span1">
+				<span class="nomes">
+					<%=parteDt.getNome()%>
+				</span>
+	       		<% if (!parteDt.getAusenciaProcessoParte().equals("")){ %> <font color="red"><%=parteDt.getAusenciaProcessoParte()%></font> <%} %>
+	       	</span>
+	       	
+	       	<%if(!(UsuarioSessao.isConsultor() || UsuarioSessao.isPublico())) { %>
+	       	<div> CPF </div> 
+	       	<span class="span2"><%=parteDt.getCpfCnpjFormatado()%></span>
+	       	
+	 		<div style="width:50px">
+	 			<% if (UsuarioSessao.isPodeGerarCodigoAcesso(processoDt.getId_Serventia())){ %>
+	 			<a href="DescartarPendenciaProcesso?PaginaAtual=1&amp;id_Parte=<%=parteDt.getId_ProcessoParte()%>">
+					<img src="imagens/16x16/btn_codigo.png" lt="Gerar Código de Acesso para Parte" title="Gerar Código de Acesso para Parte" style="color: white;"/>
+				</a> 
+				<% } %>	 			
+	 			<input name="inputEndereco" type="image" src="./imagens/16x16/btn_endereco.png" onClick="MostrarOcultar('sub<%=parteDt.getNome()%>');return false;" title="Mostrar/Ocultar Endereço" />
+			</div><br />
+	 		
+	 		<div> Filia&ccedil;&atilde;o </div>
+	       	<span class="span1"><%=parteDt.getNomeMae()%></span>
+	       	
+	       	<div> Data de Nascimento </div> 
+	       	<span class="span2"><%=parteDt.getDataNascimento()%></span>
+	       	
+	       	<div id="sub<%=parteDt.getNome()%>"  class="DivInvisivel">
+		  		<fieldset class="fieldsetEndereco">
+		  			<legend> Endereço </legend>
+					<%=parteDt.getEnderecoParte().getLogradouro() + " nº " + parteDt.getEnderecoParte().getNumero() + " " + parteDt.getEnderecoParte().getComplemento()%><br />
+		    		<%=parteDt.getEnderecoParte().getBairro() + " " + parteDt.getEnderecoParte().getCidade() + " " + parteDt.getEnderecoParte().getUf()%><br />
+		    		<%=parteDt.getEnderecoParte().getCep()%><br />
+			    	<%=parteDt.getEMail() + " " + parteDt.getTelefone()%>  	   		    		
+				</fieldset>
+				<%if (UsuarioSessao.isPodeCarregarApplet()){ %>
+					<input type="button" name="Imprimir" value="Imprimir" title="Clique para imprimir o Endereço" OnClick="carregarApletImprimirEtiqueta(); javascript:DoPrintingApplet('<%=processoDt.getProcessoNumeroCompleto() %>','<%=parteDt.getNome() %>',
+					'<%=parteDt.getEnderecoParte().getBairro()%>','<%=parteDt.getEnderecoParte().getCidade()%>',
+					'<%=parteDt.getEnderecoParte().getUf()%>','<%=parteDt.getEnderecoParte().getLogradouro()%>',
+					'<%=parteDt.getEnderecoParte().getNumero()%>','<%=parteDt.getEnderecoParte().getCep() %>',
+					'<%=parteDt.getEnderecoParte().getComplemento() %>')">
+				<%} %>
+			</div>
+			
+			<% } %>
+			<br />
+	       	<div style="width:100%; margin:3px 0"></div>
+       	<%
+       		}
+   		}
+   		%>
+	</fieldset>
+	
+	<!-- PROMOVIDOS -->
+	<fieldset id="VisualizaDados" class="VisualizaDados">
+   		<legend> Polo Passivo </legend>
+   	<%
+   		List listaPromovidos = processoDt.getListaPolosPassivos();
+   		if (listaPromovidos != null){
+   			for (int i=0; i<listaPromovidos.size();i++){
+   			  	ProcessoParteDt parteDt = (ProcessoParteDt)listaPromovidos.get(i);
+   				// Se existirem apenas 6 partes vinculadas são exibidas todas, caso seja um número superior serão exibidas apenas as 5 primeiras
+	       		if ((i >= Configuracao.QtdPartesDadosProcesso) && (listaPromovidos.size() != (Configuracao.QtdPartesDadosProcesso + 1))){%>
+	       			<div> </div>	       									       				       			 
+	       			<span class="span1">
+	       				<ul><li>
+	       						<a href="javascript:mostrarTodasPartes()">
+								e outros
+								</a>
+						</li></ul>	       				
+	       			</span>	          			
+	       		<%break;
+	       		}%>
+	    	<div> Nome </div> 
+	    	<span class="span1">
+				<span class="nomes">
+					<%=parteDt.getNome()%>
+				</span>
+	    		<% if (!parteDt.getAusenciaProcessoParte().equals("")){ %> <font color="red"><%=parteDt.getAusenciaProcessoParte()%></font> <%} %>
+	    	</span>
+	    	
+	       	<% if (!(UsuarioSessao.isConsultor() || UsuarioSessao.isPublico())) { %>
+	       	<div> CPF </div>
+	       	<span class="span2"><%=parteDt.getCpfCnpjFormatado()%></span>
+	       	
+			<div style="width:50px">
+	 			<% if (UsuarioSessao.isPodeGerarCodigoAcesso(processoDt.getId_Serventia())){ %>
+	 			<a href="DescartarPendenciaProcesso?PaginaAtual=1&amp;id_Parte=<%=parteDt.getId_ProcessoParte()%>">
+					<img src="imagens/16x16/btn_codigo.png" lt="Gerar Código de Acesso para Parte" title="Gerar Código de Acesso para Parte" style="color: white;"/>
+				</a> 
+				<% } %>	 			
+	 			<input name="inputEndereco" type="image" src="./imagens/16x16/btn_endereco.png" onClick="MostrarOcultar('sub<%=parteDt.getNome()%>');return false;" title="Mostrar/Ocultar Endereço" />
+			</div><br />
+			
+	       	<div> Filia&ccedil;&atilde;o </div> 
+	       	<span class="span1"><%=parteDt.getNomeMae()%></span>
+	       	
+	       	<div> Data de Nascimento </div> 
+	       	<span class="span2"><%=parteDt.getDataNascimento()%></span>
+	       	
+			<div id="sub<%=parteDt.getNome()%>" class="DivInvisivel">
+		  		<fieldset class="fieldsetEndereco">
+		  			<legend> Endereço </legend>
+					<%=parteDt.getEnderecoParte().getLogradouro() + " nº " + parteDt.getEnderecoParte().getNumero() + " " + parteDt.getEnderecoParte().getComplemento()%><br />
+		    		<%=parteDt.getEnderecoParte().getBairro() + " " + parteDt.getEnderecoParte().getCidade() + " " + parteDt.getEnderecoParte().getUf()%><br />
+		    		<%=parteDt.getEnderecoParte().getCep()%><br />
+			    	<%=parteDt.getEMail() + " " + parteDt.getTelefone()%>  	 	
+				</fieldset>
+				<%if (UsuarioSessao.isPodeCarregarApplet()){ %>
+					<input type="button" name="Imprimir" value="Imprimir" title="Clique para imprimir o Endereço" OnClick="carregarApletImprimirEtiqueta(); javascript:DoPrintingApplet('<%=processoDt.getProcessoNumeroCompleto() %>','<%=parteDt.getNome() %>',
+					'<%=parteDt.getEnderecoParte().getBairro()%>','<%=parteDt.getEnderecoParte().getCidade()%>',
+					'<%=parteDt.getEnderecoParte().getUf()%>','<%=parteDt.getEnderecoParte().getLogradouro()%>',
+					'<%=parteDt.getEnderecoParte().getNumero()%>','<%=parteDt.getEnderecoParte().getCep() %>',
+					'<%=parteDt.getEnderecoParte().getComplemento() %>')">
+				<%} %>
+			</div>
+			
+			<% } %>
+			<br />
+			<div style="width:100%; margin:3px 0"></div>
+       	<% 	
+   			}
+   		}
+   		%>
+	</fieldset> 
+
+	<%@ include file="Padroes\OutrasPartes.jspf"%>	 	   	
+	
+	<script language="JavaScript1.2">
+	<!--
+	function DoPrintingApplet(numProcesso,nome,bairro,cidade,estado,logradouro,numero,cep,complemento){
+		bairroCidadeUF = bairro+'  ,'+cidade+'-'+estado;
+		ruaNumero = logradouro+'  N:'+numero;		
+		document.ImprimirEtiqueta.imprimirEtiqueta(numProcesso,nome,bairroCidadeUF,cep,ruaNumero,complemento);
+		alert("Imprimindo Etiqueta!");
+	}
+	//-->
+	</script>	

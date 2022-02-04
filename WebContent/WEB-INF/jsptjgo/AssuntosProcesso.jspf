@@ -1,0 +1,34 @@
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoAssuntoDt"%>
+
+<input type="hidden" id="posicaoLista" name="posicaoLista">
+	
+   	<fieldset id="VisualizaDados" style="background-color:#f5f5f5";>   
+   		<legend>
+   			<a href="http://www.cnj.jus.br/sgt/consulta_publica_assuntos.php" target="blank" title="Clique neste link para visualizar a tabela de Assuntos do CNJ">*Assunto(s)</a> 
+   			<input class="FormEdicaoimgLocalizar" id="imaLocalizarAssunto" name="imaLocalizarAssunto" type="image"  src="./imagens/imgLocalizarPequena.png"  onclick="AlterarValue('PaginaAtual','<%=String.valueOf(AssuntoDt.CodigoPermissao * Configuracao.QtdPermissao + Configuracao.Localizar)%>')" >
+   		</legend>
+   		<%
+   			List listaAssuntos = ProcessoCadastroDt.getListaAssuntos();
+   	    	if (listaAssuntos != null && listaAssuntos.size() > 0){ %>
+   			<table width="98%" border="0" cellpadding="0" cellspacing="0" style="font-size: 10px !important;">
+   				<thead align="left">
+   					<tr>
+   						<th width="90%">Descrição</th>
+   						<th>Excluir</th>
+   					</tr>
+   				</thead>
+			<%
+   	    		for (int i=0;i < listaAssuntos.size();i++){
+   	    			ProcessoAssuntoDt assuntoDt = (ProcessoAssuntoDt)listaAssuntos.get(i); %>
+	   			<tbody>
+					<tr>
+       					<td><%=assuntoDt.getAssunto()%></td>
+       	 				<td><input name="imgExcluir" class="imgExcluir" type="image" src="./imagens/imgExcluirPequena.png" onclick="AlterarValue('PaginaAtual','<%=Configuracao.Editar%>');AlterarValue('PassoEditar','8');AlterarValue('posicaoLista','<%=i%>')" title="Excluir assunto"/></td>
+       	 			</tr>
+       	 		</tbody>
+       		<%	} %>
+       	</table>
+   		<% } else { %>
+   			<em> Insira um Assunto. </em>
+   		<% } %>
+	</fieldset>	

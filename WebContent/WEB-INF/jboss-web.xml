@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>      
+<jboss-web>
+    <resource-ref>
+        <res-ref-name>jdbc/projudiTJGO</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <jndi-name>java:/projudiOracleDS</jndi-name>
+    </resource-ref>
+     
+	<resource-ref>
+        <res-ref-name>jdbc/projudiTJGO_STBY</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <jndi-name>java:/projudiOracleSTBY</jndi-name>
+    </resource-ref>
+
+	<resource-ref>
+        <res-ref-name>jdbc/AdabasProjudiDS</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <jndi-name>java:/AdabasProjudiDS</jndi-name>
+    </resource-ref>
+    
+    <resource-ref>
+        <res-ref-name>jdbc/PJEProjudiDS</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <jndi-name>java:/PJEProjudiDS</jndi-name>
+    </resource-ref>
+    
+     <resource-ref>
+        <res-ref-name>jdbc/dataSourceSPG</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <jndi-name>java:/dataSourceSPGDS</jndi-name>
+    </resource-ref>
+    
+    <resource-ref>
+        <res-ref-name>jdbc/audienciaTJGO</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <jndi-name>java:/audienciaOracleDS</jndi-name>
+    </resource-ref>
+    
+    <resource-ref>
+        <res-ref-name>jdbc/audienciaTJGO_FB</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <jndi-name>java:/audienciaTJGO_FBDS</jndi-name>
+    </resource-ref>
+	
+    <replication-config>
+       <replication-granularity>SESSION</replication-granularity>
+       <replication-trigger>SET_AND_NON_PRIMITIVE_GET</replication-trigger>
+    </replication-config>     
+   
+	<context-root />
+
+<!--  	<context-root>/ssp</context-root>   -->
+			
+    <!-- A configuração de security-domain só é válida para o ambiente de DESENVOLVIMENTO, em homologação e produção ela deve estar comentada -->  
+	<!--<security-domain>java:/jaas/projudi</security-domain>-->
+
+</jboss-web>

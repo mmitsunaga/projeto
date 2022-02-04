@@ -1,0 +1,44 @@
+<%@page import="br.gov.go.tj.utils.Configuracao"%>
+<div class="clear"></div>
+<div style="height:60px">
+	<%if (request.getAttribute("PaginaAnterior").toString().equalsIgnoreCase(String.valueOf(Configuracao.Salvar))) {%> 	
+    	<div id="divConfirmarSalvar" class="ConfirmarSalvar">
+			<button name="imgConfirmarSalvar" value="Confirmar Excluir" onclick="Ocultar('divConfirmarSalvar');AlterarValue('PaginaAtual','<%=String.valueOf(Configuracao.SalvarResultado)%>')">
+               	<img src="./imagens/imgSalvar.png" alt="Confirmar Salvar">
+               	Confirmar Salvar
+            </button> <br />
+			<% if (request.getAttribute("Mensagem") != null && !request.getAttribute("Mensagem").equals("")) { %>
+        		<div class="divMensagemsalvar"><%=request.getAttribute("Mensagem")%></div>
+           	<% } else { %>
+           		<div class="divMensagemsalvar">Clique para confirmar os dados </div>
+           	<% }%> 
+      	</div>
+ 	<%}%>
+ 	<%if (request.getAttribute("PaginaAnterior").toString().equalsIgnoreCase(String.valueOf(Configuracao.Excluir))) {%> 	  
+    	<div id="divConfirmarxcluir" class="ConfirmarExcluir">
+			<button name="imgConfirmarExcluir" value="Confirmar Excluir" onclick="Ocultar('divConfirmarxcluir');AlterarValue('PaginaAtual','<%=String.valueOf(Configuracao.ExcluirResultado)%>')">
+               	<img src="../imagens/imgExcluir.png" alt="Confirmar Excluir">
+               	Confirmar Excluir
+            </button> <br />
+        	<% if (request.getAttribute("Mensagem") != null && !request.getAttribute("Mensagem").equals("")) { %>
+				<div class="divMensagemexcluir"><%=request.getAttribute("Mensagem")%></div>
+			<% } else { %>        	        	 
+           	<div class="divMensagemexcluir">Clique para confirmar a exclusão dos dados </div>
+           	<% }%> 
+           	
+      	</div>
+ 	<%}%>
+	<%if (request.getAttribute("PaginaAnterior").toString().equalsIgnoreCase(String.valueOf(Configuracao.Curinga6))) {%> 	
+    	<div id="divConfirmarEnviar" class="ConfirmarSalvar">
+			<button name="imgConfirmarSalvar" value="Confirmar o envio de IRDR para CNJ" onclick="Ocultar('divConfirmarSalvar');AlterarValue('PaginaAtual','<%=String.valueOf(Configuracao.Curinga7)%>')">
+               	<img src="./imagens/imgSalvar.png" alt="Confirmar o envio de IRDR para CNJ">
+               	Confirmar o envio de IRDR
+            </button> <br />
+			<% if (request.getAttribute("Mensagem") != null && !request.getAttribute("Mensagem").equals("")) { %>
+        		<div class="divMensagemsalvar"><%=request.getAttribute("Mensagem")%></div>
+           	<% } else { %>
+           		<div class="divMensagemsalvar">Clique para confirmar o envio de IRDR </div>
+           	<% }%> 
+      	</div>
+ 	<%}%> 	
+</div>

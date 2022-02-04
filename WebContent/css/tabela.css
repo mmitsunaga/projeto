@@ -1,0 +1,184 @@
+/**
+ * Inicio configuracoes da tabela
+ * @author Ronnneesley Moura Teles
+ * @since 29/04/2008 - 09:14
+ * Apenas modificacoes
+ */
+
+#divLocalizar #divTabela, .divTabela {
+	margin-top: 10px;
+	clear: both;
+	width: 100%;
+}
+
+table.Tabela thead tr th[title] {
+	cursor: help !important;
+}
+
+#divTabela table.Tabela,
+#Tabela,
+table.Tabela, .divTabela table {
+	font-family: verdana;
+	font-size: 11px;
+	border: 1px solid #d5d5d5;
+	padding: 0px !important;
+	margin: 0px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 100%;	
+	background-color:#fff;
+	text-align: left;
+}
+
+#divTabela table.Tabela tbody tr td,
+table.Tabela tbody tr td {
+	color: #333333;
+	/*padding: 2px;*/
+}
+
+#divTabela table.Tabela tbody tr:hover,
+table.Tabela tbody tr:hover {
+	background-color: rgba(128,128,128,0.1);
+/*	cursor: pointer;*/
+}
+
+/* Erro 1 - elemento tabela deve ser th */
+#divTabela .TituloColuna,
+#Tabela .TituloColuna,
+#divTabela table.Tabela thead td,
+#divTabela table.Tabela thead th,
+table.Tabela thead th,
+table.Tabela thead td {
+	font-weight: bold;
+	color: #222222;
+	background-color: #dcdcdc;
+	padding: 3px;
+	background-repeat: repeat-x; 
+	background-position: left top;
+}
+
+.TabelaLinha1, 
+#Tabela .Linha1,
+#divTabela .Tabela tbody tr.TabelaLinha1, 
+table.Tabela tbody tr.TabelaLinha1 {
+	background-color: #f0f0f0;
+}
+
+.TabelaLinha2,
+#Tabela .Linha2,
+#divTabela .Tabela tbody tr.TabelaLinha2,
+table.Tabela tbody tr.TabelaLinha2 {
+	background-color: #F8F8F8;
+}
+
+/**
+ * Coluna Minima 
+ */
+.colunaMinima {
+	width: 1px;	
+}
+
+table tbody tr td.colunaMinima {
+	text-align: center;
+}
+
+.colunaNumero {
+	text-align: right !important;
+}
+
+#divTabela table.Tabela tbody tr td a,
+table.Tabela tbody tr td a {
+	text-decoration: none;
+	/*border-bottom: 1px dashed #3333ff;*/
+	color: #3181c3;
+	cursor: pointer;
+	display:block;	
+}
+
+/*table.Tabela tbody tr td a:hover,*/
+/*table.Tabela tbody tr td a:hover,*/
+
+  .TabelaLinha2:hover,  .TabelaLinha1:hover {
+	color: #3333aa;
+	/*border-bottom: 1px solid #0000ff;*/
+	/*background:#FFFF00 !important;*/
+	background:rgba(128,128,128,0.2) !important;
+	text-shadow:Olive;
+	cursor: pointer;
+	/*display:block;*/
+}
+
+#divTabela table.Tabela tfoot tr td,
+table.Tabela tfoot tr td {
+	text-align: right !important;
+	font-weight: bold;
+	background-color: #c8c8c8;
+}
+
+table.Tabela tr td a img {
+	border: none;
+}
+
+/**
+ * Tabela de arquivos
+ * @author Marielli de Paula
+ * @author Ronneesley Moura Teles
+ * @since 02/09/2008 14:06
+ */
+#TabelaArquivos {
+	/*font-size: 12px;*/
+}
+
+#TabelaArquivos tbody tr td {
+	padding: 0px;
+	margin: 0px;
+}
+
+/*cor mais escura*/
+#TabelaArquivos .primeiraLinha {
+	/*background: #e2e2e2 !important;*/
+	background-color: #f0f0f0 !important;	
+}
+
+/*cor mais clara*/
+#TabelaArquivos .Linha, 
+#TabelaArquivos td.Linha,
+#TabelaArquivos .Linha:hover, 
+#TabelaArquivos td.Linha:hover {
+	background: #ffffff !important;
+}
+
+#TabelaArquivos td.Linha fieldset {
+	padding: 1px;
+	border: none;	
+}
+
+#TabelaArquivos td.Linha fieldset legend {
+	border-top: 1px solid #a0a0a0;
+	border-left: 1px solid #a0a0a0 !important;
+	border-right: 1px solid #a0a0a0 !important;
+	font-size: 11px;
+}
+
+table.Arquivos tbody tr:hover {
+	background-color: #b4f1d6 !important;
+}
+
+table.Arquivos {
+	width: 100%;
+	border: 1px solid #a0a0a0;
+}
+
+table tr td.lista_data {
+	text-align: center;
+	font-weight: bold;
+	width: 85px;
+}
+
+table tr td.lista_id {
+	font-weight: bold;
+	color: blue !important;
+}
+.center{
+	text-align:center;
+}

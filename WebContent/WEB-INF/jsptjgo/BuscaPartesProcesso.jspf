@@ -1,0 +1,196 @@
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoParteDt"%>
+<%@page import="br.gov.go.tj.utils.Funcoes"%>
+<%@page import="br.gov.go.tj.projudi.dt.UsuarioDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.GrupoDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoParteTipoDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.AssuntoDt"%>
+<%@page import="br.gov.go.tj.utils.Configuracao"%>
+<%@page import="br.gov.go.tj.utils.Funcoes"%>
+<%@page import="java.util.ArrayList"%>
+
+	<script type="text/javascript">
+		function carregarApletImprimirEtiqueta(){
+			$( ".divApletImprimrEtiqueta" ).html("<object name='ImprimirEtiqueta'  id='ImprimirEtiqueta' type='application/x-java-applet' width='0' height='0' align='top'  style='z-index:-100'> <param name='code' value='ImprimirEtiqueta'> <param name='archive' value='./applet/ImprimirEtiqueta.jar'> <param name='mayscript' value='yes'> <param name='scriptable' value='true'> <param name='name' value='ImprimirEtiqueta'> <param name='java_arguments' value='-Djnlp.packEnabled=true'/> </object>"); 	
+		}		
+	</script>
+	
+	<script type="text/javascript" src="./js/FormProcessoParteTipificacao.js"></script>
+	<script type="text/javascript" src="./js/FormProcessoPartePrisoes.js"></script>
+	<script type="text/javascript" src="./js/FormProcessoParteBeneficios.js"></script>
+		
+	<div id="divApletImprimrEtiqueta" class="divApletImprimrEtiqueta" ></div>
+	
+	<input id="CodigoHashEOutros" name="CodigoHashEOutros" type="hidden" value="<%=request.getAttribute("CodigoHashEOutros")%>"></input>
+	
+	<!-- PROMOVENTES -->
+	
+ 	<fieldset id="VisualizaDados" class="VisualizaDados <%=processoDt.getClassCorProcesso()%>" >
+		<legend> Polo Ativo | <%=processoDt.getDescricaoPoloAtivo()%> </legend>
+   	<%
+   		List listaPromoventes = processoDt.getListaPolosAtivos();
+   	    
+  	    for (int i=0; listaPromoventes != null && i<listaPromoventes.size();i++){
+  			ProcessoParteDt parteDt = (ProcessoParteDt)listaPromoventes.get(i);   			 	 
+  			// Se existirem apenas 6 partes vinculadas são exibidas todas, caso seja um número superior serão exibidas apenas as 5 primeiras
+       		if ((i >= Configuracao.QtdPartesDadosProcesso) && (listaPromoventes.size() != (Configuracao.QtdPartesDadosProcesso + 1))){%>
+       			<div> </div>	       									       				       			 
+       			<span class="span1">
+       				<ul><li>
+       						<a href="javascript:mostrarTodasPartes()">
+							e outros
+							</a>
+					</li></ul>	       				
+       			</span>	       			
+       		<%break;
+       		}%>
+    	<fieldset  class="VisualizaDados">     			
+   			<div>Nome</div>		<span class="span1 nomes" title="Nome da Parte" alt="Nome da Parte"><%=parteDt.getNome()%>	</span> <div><b><font color="red"><%=parteDt.getAusenciaProcessoParte()%>&#32;<%=parteDt.getReuPreso()%></font></b></div>       	       	
+	       	<%if(!(UsuarioSessao.isConsultor() || UsuarioSessao.isPublico())) { %>
+		       		       			       	
+		 		<div style="float:right;">
+		 			<% if (UsuarioSessao.isPodeGerarCodigoAcesso(processoDt.getId_Serventia())){ %>
+		 			<a href="DescartarPendenciaProcesso?PaginaAtual=1&amp;id_Parte=<%=parteDt.getId_ProcessoParte()%>">
+						<img src="imagens/16x16/btn_codigo.png" lt="Gerar Código de Acesso para Parte" title="Gerar Código de Acesso para Parte" style="color: white;"/>
+					</a> 
+					<% } %>	 			
+		 			<input name="inputEndereco" type="image" src="./imagens/16x16/btn_endereco.png" onClick="MostrarOcultar('sub<%=parteDt.getId()%>');return false;" title="Mostrar/Ocultar Endereço" />
+				</div><br />
+		 		<div> CPF/CNPJ </div> 
+		       	<span class="span2"><%=parteDt.getCpfCnpjFormatado()%></span>
+		       	
+		       	<div> Dt. Nascimento </div> 
+		       	<span class="span3"><%=parteDt.getDataNascimento()%></span>
+		       	<br />
+		 		<div> Filia&ccedil;&atilde;o </div>	<span class="span1 nomes"> <%=parteDt.getNomeMae()%> </span>
+		       			       			       
+		       	<div id="sub<%=parteDt.getId()%>"  class="DivInvisivel">
+			  		<fieldset class="fieldsetEndereco">
+			  			<legend> Endereço </legend>		  			
+							<%=parteDt.getEnderecoParte().getLogradouro() + " nº " + parteDt.getEnderecoParte().getNumero() + " " + parteDt.getEnderecoParte().getComplemento()%><br />
+				    		<%=parteDt.getEnderecoParte().getBairro() + " " + parteDt.getEnderecoParte().getCidade() + " " + parteDt.getEnderecoParte().getUf()%><br />
+				    		<%=Funcoes.formatarCep( parteDt.getEnderecoParte().getCep() )%><br />
+					    	<%=parteDt.getEMail() + " " + parteDt.getTelefone()%>			    		    		
+					</fieldset>
+					<%if (UsuarioSessao.isPodeCarregarApplet()){ %>
+			  			<div id='divEndereco<%=parteDt.getId()%>' class='DivInvisivel'>
+			  				<br />	Processo N. <%=processoDt.getProcessoNumeroCompleto()%> <br />
+			  				Ilustrissimo(a) Senhor(a) <br /> 
+			  				<%=Funcoes.RemoveAcentos(parteDt.getNome()) %> <br />
+							<%=Funcoes.RemoveAcentos(parteDt.getEnderecoParte().getLogradouro()) + " nº " + parteDt.getEnderecoParte().getNumero() + " " + Funcoes.RemoveAcentos(parteDt.getEnderecoParte().getComplemento())%> <br />
+				    		<%=Funcoes.RemoveAcentos(parteDt.getEnderecoParte().getBairro()) + " " + Funcoes.RemoveAcentos(parteDt.getEnderecoParte().getCidade()) + " " + Funcoes.RemoveAcentos(parteDt.getEnderecoParte().getUf())%> <br />
+				    		<%=Funcoes.formatarCep( parteDt.getEnderecoParte().getCep() )%><br />
+					    	<br />
+					    	<br />
+					    	<br />
+					    	<br />
+				    	</div> 
+						<input type='button' name='Imprimir_direto' value='Imprimir' onclick='imprimirEtiqueta("divEndereco<%=parteDt.getId()%>");return false' >
+					<%} %>
+				</div>
+			
+			<%} %>
+		</fieldset>
+     <%} //fim for%>   	
+     
+	</fieldset>
+	
+	<!-- PROMOVIDOS -->
+	
+	<fieldset id="VisualizaDados" class="VisualizaDados <%=processoDt.getClassCorProcesso()%>" >
+   		<legend> Polo Passivo | <%=processoDt.getDescricaoPoloPassivo()%> </legend>
+   	<%
+   		List listaPromovidos = processoDt.getListaPolosPassivos();
+   		
+		for (int i=0; listaPromovidos != null && i<listaPromovidos.size();i++){
+   		  	ProcessoParteDt parteDt = (ProcessoParteDt)listaPromovidos.get(i);
+   			// Se existirem apenas 6 partes vinculadas são exibidas todas, caso seja um número superior serão exibidas apenas as 5 primeiras
+      		if ((i >= Configuracao.QtdPartesDadosProcesso) && (listaPromovidos.size() != (Configuracao.QtdPartesDadosProcesso + 1))){%>
+       			<div> </div>	       									       				       			 
+       			<span class="span1">
+       				<ul><li>
+       						<a href="javascript:mostrarTodasPartes()">
+							e outros
+							</a>
+					</li></ul>	       				
+       			</span>	          			
+       		<%break;
+       		}%>
+	    	<fieldset  class="VisualizaDados">  	    		
+	    		<div>Nome</div>		<span class="span1 nomes" title="Nome da Parte" alt="Nome da Parte"> 	<%=parteDt.getNome()%>	</span> <div><b><font color="red"><%=parteDt.getAusenciaProcessoParte()%>&#32;<%=parteDt.getReuPreso()%></font></b></div>
+		       	<% if (!(UsuarioSessao.isConsultor() || UsuarioSessao.isPublico())) { %>		       		    	
+					<div style="float:right;">
+			 			<% if (UsuarioSessao.isPodeGerarCodigoAcesso(processoDt.getId_Serventia())){ %>
+				 			<a href="DescartarPendenciaProcesso?PaginaAtual=1&amp;id_Parte=<%=parteDt.getId_ProcessoParte()%>">
+								<img src="imagens/16x16/btn_codigo.png" lt="Gerar Código de Acesso para Parte" title="Gerar Código de Acesso para Parte" style="color: white;"/>
+							</a> 
+						<% }%>	 			
+			 			<input name="inputEndereco" type="image" src="./imagens/16x16/btn_endereco.png" onClick="MostrarOcultar('sub<%=parteDt.getId()%>');return false;" title="Mostrar/Ocultar Endereço" />
+				 		<%if(processoDt.isCriminal()) {%>
+				 			<img src="./imagens/16x16/tip.jpeg" onClick="mostrarTipificacao('<%=parteDt.getId()%>','<%=parteDt.getId_Processo()%>')" title="Mostrar/Ocultar Tipificação/Assunto" alt="Mostrar/Ocultar Tipificação/Assunto" />
+				 			<img src="./imagens/16x16/prisao.jpeg" onClick="mostrarPrisoes('<%=parteDt.getId()%>','<%=parteDt.getId_Processo()%>')"  title="Mostrar/Ocultar Prisão" alt="Mostrar/Ocultar Prisão" />
+				 			<img src="./imagens/16x16/beneficio.jpeg" onClick="mostrarBeneficio('<%=parteDt.getId()%>')"  title="Mostrar/Ocultar Benefício" alt="Mostrar/Ocultar Benefício" />
+							<% if (false && UsuarioSessao.isPodeGerarInformacaoAntecedentes(processoDt.getId())){ %> 			
+				 			<a href="CertidaoAntecedenteCriminal?PaginaAtual=1&amp;id_Parte=<%=parteDt.getId_ProcessoParte()%>">
+								<img src="imagens\22x22\ico_informacao.png" lt="Gerar Antecedentes Criminais da Parte" title="Gerar Antecedentes Criminais da Parte" style="color: blue;"/>
+							</a>
+						 	<%} %>
+						<% } %>	
+					</div>
+					<br />
+					<div> CPF/CNPJ </div>
+		       		<span class="span2"><%=parteDt.getCpfCnpjFormatado()%></span>
+		       		<div> Dt. Nascimento </div>       	<span class="span3"><%=parteDt.getDataNascimento()%></span>
+		       			       
+					<%if(parteDt.getIdade() != "" && processoDt.isCriminal()) {%>										
+				       	<span class="span2"><%=parteDt.getIdade()%> anos </span>
+			       	<%}%>	
+			       	<br />   
+		       		<div> Filia&ccedil;&atilde;o </div>   	<span class="span1 nomes"><%=parteDt.getNomeMae()%></span>
+		       			       	
+					<div id="sub<%=parteDt.getId()%>" class="DivInvisivel">
+				  		<fieldset class="fieldsetEndereco">
+				  			<legend> Endereço </legend>
+							<%=parteDt.getEnderecoParte().getLogradouro() + " nº " + parteDt.getEnderecoParte().getNumero() + " " + parteDt.getEnderecoParte().getComplemento()%><br />
+				    		<%=parteDt.getEnderecoParte().getBairro() + " " + parteDt.getEnderecoParte().getCidade() + " " + parteDt.getEnderecoParte().getUf()%><br />
+				    		<%=Funcoes.formatarCep( parteDt.getEnderecoParte().getCep() )%><br />
+					    	<%=parteDt.getEMail() + " " + parteDt.getTelefone()%>  	 	
+						</fieldset>
+						<%if (UsuarioSessao.isPodeCarregarApplet()){ %>
+						<div id='divEndereco<%=parteDt.getId()%>' class='DivInvisivel'>
+			  				<br />	Processo N. <%=processoDt.getProcessoNumeroCompleto()%> <br />
+			  				Ilustrissimo(a) Senhor(a) <br /> 
+			  				<%=Funcoes.RemoveAcentos(parteDt.getNome()) %> <br />
+							<%=Funcoes.RemoveAcentos(parteDt.getEnderecoParte().getLogradouro()) + " nº " + parteDt.getEnderecoParte().getNumero() + " " + Funcoes.RemoveAcentos(parteDt.getEnderecoParte().getComplemento())%> <br />
+				    		<%=Funcoes.RemoveAcentos(parteDt.getEnderecoParte().getBairro()) + " " + Funcoes.RemoveAcentos(parteDt.getEnderecoParte().getCidade()) + " " + Funcoes.RemoveAcentos(parteDt.getEnderecoParte().getUf())%> <br />
+				    		<%=Funcoes.formatarCep( parteDt.getEnderecoParte().getCep() )%><br />
+					    	<br />
+					    	<br />
+					    	<br />
+					    	<br />
+				    	</div> 
+						<input type='button' name='Imprimir_direto' value='Imprimir' onclick='imprimirEtiqueta("divEndereco<%=parteDt.getId()%>");return false' >
+						<%} %>
+					</div>
+					<%if(processoDt.isCriminal() ) {%>
+						<div id="sub_tip<%=parteDt.getId()%>" class="DivInvisivel">
+							<!-- Aqui será inserido o formulario/tabela -->
+						</div>				  		
+				  		<blockquote  id="sub_pri<%=parteDt.getId()%>" class="DivInvisivel col100">
+							<!-- Aqui será inserido o formulario/tabela -->			  		
+				  		</blockquote >
+				  		<blockquote  id="sub_ben<%=parteDt.getId()%>" class="DivInvisivel col100">
+							<!-- Aqui será inserido o formulario/tabela -->			  		
+				  		</blockquote >
+					<% } %>
+				<% } %>
+			</fieldset>
+										
+    <%}//fim do for %>
+    
+	</fieldset> 
+
+	<%@ include file="Padroes\OutrasPartes.jspf"%>	 		       	 	       	 	   	     	    					
+
+	<a href="ProcessoParte?PaginaAtual=<%=Configuracao.Curinga6%>">
+		<input name="btOutrasPartes" id="btOutrasPartes" type="button" value="Visualizar Todas as Partes do Processo" title="Visualizar Todas as Partes do Processo" />
+	</a>	

@@ -1,0 +1,29 @@
+<script>
+function selecionaModalidade(){
+	document.getElementById("Modalidade").value = $("#Id_Modalidade option:selected").text();
+}
+</script>
+<fieldset class="formEdicao"><legend class="formEdicaoLegenda">Substituição da Pena</legend>
+
+	<div id="DivModalidade">
+		<input id="Modalidade" name="Modalidade" type="hidden" />
+		<label class="formEdicaoLabel" for="Id_Modalidade">Modalidade</label>  
+		<select name="Id_Modalidade" id="Id_Modalidade" onchange="selecionaModalidade();">
+	    <option value=""></option>
+		<%List listaMod = (List) request.getSession().getAttribute("ListaModalidade");
+			if (listaMod != null){%> 
+			<%for (int i=0; i<listaMod.size(); i++) {%>					
+    	<option value="<%=((RegimeExecucaoDt)listaMod.get(i)).getId()%>" <%if (ProcessoExecucaodt_PE.getId_Modalidade().equals(((RegimeExecucaoDt)listaMod.get(i)).getId())){%>selected<%}%>><%=((RegimeExecucaoDt)listaMod.get(i)).getRegimeExecucao()%></option>
+			<%} %>
+		<%}%>
+  		</select>
+		<button type="submit" name="operacao" value="Incluir Modalidade" onClick="AlterarValue('PaginaAtual','<%=Configuracao.Editar%>');AlterarValue('PassoEditar','21');" style="font-size: 11px !important; margin-top: 0px; vertical-align: top;" >
+			<img src="imagens/16x16/Mais.png" alt="Incluir Modalidade"/>
+			Incluir Modalidade
+		</button>
+	</div>
+	<br />
+	<%@ include file="ModalidadesProcessoExecucao.jspf"%>
+</fieldset>	
+<br />
+

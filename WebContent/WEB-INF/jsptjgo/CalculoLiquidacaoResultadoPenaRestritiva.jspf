@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<%@page import="java.util.*"%>
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoEventoExecucaoDt"%>
+<%@page import="br.gov.go.tj.utils.Funcoes"%>
+<%@page import="br.gov.go.tj.projudi.dt.CalculoLiquidacaoDt"%>
+
+	
+<div id="divPenaRestritiva" class="divEditar" >
+<% if (CalculoLiquidacaodt.getCalculoPenaRestritivaDt() != null) { %>
+		<!--INÍCIO PSC-->
+		<%if (CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getTotalCondenacaoPSCHoras().length() > 0
+				&& !CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getTotalCondenacaoPSCHoras().equals("0")) { %>
+		<fieldset class="formEdicao" style="width: 95%;"><legend class="formEdicaoLegenda">Prestação de Serviço à Comunidade (PSC)</legend>
+			<table id="TabelaPSC">
+				<tbody id="tabPSC">
+					<tr><td align="right"><b>Tempo total da Condenação para PSC:</b></td>
+						<td> <%=CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getTotalCondenacaoPSCHoras() %> (horas)</td></tr>
+					<tr><td align="right"><b>Horas Cumpridas PSC:</b></td>
+						<td><%=CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getHorasCumpridasPSC()%> (horas)</td></tr>
+					<tr><td align="right"><b>Horas Restantes PSC:</b></td>
+						<td><%=CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getHorasRestantePSC()%> (horas)</td></tr>
+				</tbody>
+			</table>
+		</fieldset>
+		<%} %>
+		<!--FIM PSC-->
+		<!--INÍCIO LFS-->
+		<%if (CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getTotalCondenacaoLFSDias().length() > 0
+				&& !CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getTotalCondenacaoLFSDias().equals("0")) { %>
+		<fieldset class="formEdicao" style="width: 95%;"><legend class="formEdicaoLegenda">Limitação de Fim de Semana (LFS)</legend>
+			<table id="TabelaLFS">
+				<tbody id="tabLFS">
+					<%if (CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getObservacaoCalculoLFS().length() > 0){ %>
+					<tr><td> <%=CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getObservacaoCalculoLFS() %></td></tr>
+					<%} else { %>
+					<tr><td align="right"><b>Tempo total da Condenação para LFS:</b></td>
+						<td> <%=CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getTotalCondenacaoLFSAnos() %> (a-m-d)</td></tr>
+					<tr><td align="right"><b>Tempo de Interrupção LFS:</b></td>
+						<td><%=CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getTempoInterrupcaoLFSAnos()%> (a-m-d)</td></tr>
+					<tr><td align="right"><b>Tempo Cumprido LFS até Data Atual:</b></td>
+						<td><%=CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getTempoCumpridoLFSAnos()%> (a-m-d)</td></tr>
+					<tr><td align="right"><b>Restante da Pena LFS até Data Atual:</b></td>
+						<td><%=CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getTempoRestanteLFSAnos()%> (a-m-d)</td></tr>
+					<tr><td align="right"><b>Provável Término da LFS:</b></td>
+						<td><%=CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getDataTerminoLFS()%></td></tr>
+					<% }%>
+				</tbody>
+			</table>
+		</fieldset>
+		<%} %>
+		<!--FIM LFS-->
+		<!--INÍCIO PEC-->
+		<%if (CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getTotalPagamentoPEC().length() > 0) { %>
+		<fieldset class="formEdicao" style="width: 95%;"><legend class="formEdicaoLegenda">Prestação Pecuniária (PEC)</legend>
+			<table id="TabelaPEC">
+				<tbody id="tabPEC">
+					<tr><td align="right"><b>Total do Pagamento PEC:</b></td>
+						<td> <%=CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getTotalPagamentoPEC() %></td></tr>
+					<tr><td align="right"><b>Valor Pago:</b></td>
+						<td> <%=CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getValorPagoPEC()%></td></tr>
+					<tr><td align="right"><b>Valor Devido:</b></td>
+						<td><%=CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getValorDevidoPEC()%></td></tr>
+				</tbody>
+			</table>
+		</fieldset>
+		<%} %>
+		<!--FIM PEC-->
+		<!--INÍCIO PCB-->
+		<%if (CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getTotalPagamentoPCB().length() > 0) { %>
+		<fieldset class="formEdicao" style="width: 95%;"><legend class="formEdicaoLegenda">Cesta Básica (PCB)</legend>
+			<table id="TabelaPCB">
+				<tbody id="tabPCB">
+					<tr><td align="right"><b>Total do Pagamento PCB:</b></td>
+						<td> <%=CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getTotalPagamentoPCB() %></td></tr>
+					<tr><td align="right"><b>Valor Pago:</b></td>
+						<td> <%=CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getQtdPagaPCB()%></td></tr>
+					<tr><td align="right"><b>Valor Devido:</b></td>
+						<td><%=CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getQtdDevidaPCB()%></td></tr>
+				</tbody>
+			</table>
+		</fieldset>
+		<%} %>
+		<!--FIM PCB-->
+		<!--INÍCIO ITD-->
+		<%if (CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getTotalCondenacaoITDDias().length() > 0
+				&& !CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getTotalCondenacaoITDDias().equals("0")) { %>
+		<fieldset class="formEdicao" style="width: 95%;"><legend class="formEdicaoLegenda">Interdição Temporária de Direito (ITD)</legend>
+			<table id="TabelaITD">
+				<tbody id="tabITD">
+					<%if (CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getObservacaoCalculoITD().length() > 0){ %>
+					<tr><td> <%=CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getObservacaoCalculoITD() %></td></tr>
+					<%} else { %>
+					<tr><td align="right"><b>Tempo total da Condenação para ITD:</b></td>
+						<td> <%=CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getTotalCondenacaoITDAnos() %> (a-m-d)</td></tr>
+					<tr><td align="right"><b>Tempo Cumprido ITD até Data Atual:</b></td>
+						<td><%=CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getTempoCumpridoITDAnos()%> (a-m-d)</td></tr>
+					<tr><td align="right"><b>Restante da Pena ITD até Data Atual:</b></td>
+						<td><%=CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getTempoRestanteITDAnos()%> (a-m-d)</td></tr>
+					<tr><td align="right"><b>Provável Término da ITD:</b></td>
+						<td><%=CalculoLiquidacaodt.getCalculoPenaRestritivaDt().getDataTerminoITD()%></td></tr>
+					<% }%>
+				</tbody>
+			</table>
+		</fieldset>
+		<%} %>
+		<!--FIM ITD-->
+		
+</div>
+<br />
+<%} %>

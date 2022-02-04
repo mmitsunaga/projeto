@@ -1,0 +1,802 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="calculoLiquidacaoDetalhes_PROGRESSAO"
+		 columnCount="1"
+		 printOrder="Horizontal"
+		 orientation="Landscape"
+		 pageWidth="842"
+		 pageHeight="535"
+		 columnWidth="842"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+
+	<field name="tempoCumpridoDataBaseAnos" class="java.lang.String"/>
+	<field name="novoRegimeProgressao" class="java.lang.String"/>
+	<field name="tempoCondenacaoComumProgressaoAnos" class="java.lang.String"/>
+	<field name="tempoCondenacaoHediondoProgressaoAnos" class="java.lang.String"/>
+	<field name="tempoCondenacaoHediondoReincidenteProgressaoAnos" class="java.lang.String"/>
+	<field name="tempoACumprirProgressaoAnos" class="java.lang.String"/>
+	<field name="dataBaseProgressao" class="java.lang.String"/>
+	<field name="dataRequisitoTemporalProgressao" class="java.lang.String"/>
+	<field name="tempoComumLivramentoAnos" class="java.lang.String"/>
+	<field name="tempoComumReincidenteLivramentoAnos" class="java.lang.String"/>
+	<field name="tempoHediondoLivramentoAnos" class="java.lang.String"/>
+	<field name="tempoHediondoReincidenteLivramentoAnos" class="java.lang.String"/>
+	<field name="tempoACumprirLivramentoAnos" class="java.lang.String"/>
+	<field name="dataBaseLivramento" class="java.lang.String"/>
+	<field name="dataRequisitoTemporalLivramento" class="java.lang.String"/>
+	<field name="tempoInterrupcaoAposDataBaseAnos" class="java.lang.String"/>
+	<field name="tempoInterrupcaoTotalAnos" class="java.lang.String"/>
+	<field name="tempoTotalRemicaoAnos" class="java.lang.String"/>
+	<field name="tempoRestanteDataBaseAnos" class="java.lang.String"/>
+	<field name="tempoTotalCondenacaoAnos" class="java.lang.String"/>
+	<field name="mensagemProgressao" class="java.lang.String"/>
+	<field name="mensagemLivramento" class="java.lang.String"/>
+	<field name="tempoCumpridoDataBaseLivramentoAnos" class="java.lang.String"/>
+	<field name="tempoRestanteDataBaseLivramentoAnos" class="java.lang.String"/>
+	<field name="tempoInterrupcaoAposDataBaseLivramentoAnos" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="158"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="429"
+						y="21"
+						width="341"
+						height="67"
+						key="textField-46"
+						positionType="Float"
+						isPrintWhenDetailOverflows="true"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="SansSerif" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[( $F{dataRequisitoTemporalLivramento} == "" ? $F{mensagemLivramento} : "" )]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="69"
+						y="21"
+						width="274"
+						height="62"
+						key="textField-47"
+						positionType="Float"
+						isPrintWhenDetailOverflows="true"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="SansSerif" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[( $F{dataRequisitoTemporalProgressao} == "" ? $F{mensagemProgressao} : "" )]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="41"
+						y="3"
+						width="119"
+						height="12"
+						key="staticText-15"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean( $F{dataRequisitoTemporalProgressao} != "" || $F{mensagemProgressao} != "" )]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[PROGRESSÃO DE REGIME]]></text>
+				</staticText>
+				<elementGroup><!--  Start: 1 !-->
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="52"
+						width="182"
+						height="12"
+						key="textField-17"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalProgressao} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Tempo de interrupção após data base:"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="64"
+						y="16"
+						width="147"
+						height="12"
+						key="textField-18"
+						positionType="Float"
+						isPrintWhenDetailOverflows="true"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[( $F{dataRequisitoTemporalProgressao} == "" ? "" : "Projeção para o regime:" )]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="64"
+						y="76"
+						width="147"
+						height="12"
+						key="textField-19"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalProgressao} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Cálculo:"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="64"
+						y="100"
+						width="147"
+						height="12"
+						key="textField-20"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalProgressao} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Saldo devedor**:"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="64"
+						y="112"
+						width="147"
+						height="12"
+						key="textField-21"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalProgressao} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Data base:"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="64"
+						y="124"
+						width="147"
+						height="12"
+						key="textField-22"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalProgressao} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Requisito temporal:"]]></textFieldExpression>
+				</textField>
+				</elementGroup><!-- End 1 !-->
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="211"
+						y="52"
+						width="61"
+						height="12"
+						key="textField"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalProgressao} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{tempoInterrupcaoAposDataBaseAnos}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="216"
+						y="16"
+						width="120"
+						height="12"
+						key="textField-1"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalProgressao} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{novoRegimeProgressao}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="211"
+						y="100"
+						width="61"
+						height="12"
+						key="textField-3"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalProgressao} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{tempoACumprirProgressaoAnos}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="211"
+						y="112"
+						width="61"
+						height="12"
+						key="textField-4"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalProgressao} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{dataBaseProgressao}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="211"
+						y="124"
+						width="61"
+						height="12"
+						key="textField-5"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalProgressao} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{dataRequisitoTemporalProgressao}]]></textFieldExpression>
+				</textField>
+				<elementGroup><!--  Start: 2 !-->
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="272"
+						y="52"
+						width="35"
+						height="12"
+						key="textField-23"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalProgressao} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["(a-m-d)"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="272"
+						y="100"
+						width="35"
+						height="12"
+						key="textField-27"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalProgressao} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["(a-m-d)"]]></textFieldExpression>
+				</textField>
+				</elementGroup><!-- End 2 !-->
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="138"
+						width="782"
+						height="0"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="358"
+						y="4"
+						width="0"
+						height="132"
+						key="line-4"
+						positionType="Float"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="396"
+						y="3"
+						width="128"
+						height="12"
+						key="staticText-30"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean( $F{dataRequisitoTemporalLivramento} != "" || $F{mensagemLivramento} != "" )]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[LIVRAMENTO CONDICIONAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="439"
+						y="64"
+						width="105"
+						height="12"
+						key="staticText-33"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalLivramento} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Cálculo:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="439"
+						y="100"
+						width="105"
+						height="12"
+						key="staticText-34"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalLivramento} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Saldo devedor**:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="439"
+						y="112"
+						width="105"
+						height="12"
+						key="staticText-35"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalLivramento} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Data base:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="439"
+						y="124"
+						width="105"
+						height="12"
+						key="staticText-36"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalLivramento} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Requisito temporal:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="544"
+						y="100"
+						width="61"
+						height="12"
+						key="textField-11"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalLivramento} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{tempoACumprirLivramentoAnos}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="544"
+						y="112"
+						width="61"
+						height="12"
+						key="textField-12"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalLivramento} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{dataBaseLivramento}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="544"
+						y="124"
+						width="61"
+						height="12"
+						key="textField-13"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalLivramento} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{dataRequisitoTemporalLivramento}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="605"
+						y="100"
+						width="35"
+						height="12"
+						key="staticText-44"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalLivramento} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<text><![CDATA[(a-m-d)]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="11"
+						y="28"
+						width="200"
+						height="12"
+						key="textField-34"
+						positionType="Float"
+						isPrintWhenDetailOverflows="true">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalProgressao} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Tempo cumprido até data base:"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="211"
+						y="28"
+						width="61"
+						height="12"
+						key="textField-35"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalProgressao} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{tempoCumpridoDataBaseAnos}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="272"
+						y="28"
+						width="35"
+						height="12"
+						key="textField-36"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalProgressao} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["(a-m-d)"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="363"
+						y="40"
+						width="181"
+						height="12"
+						key="textField-38"
+						positionType="Float"
+						isPrintWhenDetailOverflows="true">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalLivramento} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{tempoInterrupcaoAposDataBaseLivramentoAnos} == "" ? "Tempo de remição total:" : "Tempo de interrupção após data base:")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="544"
+						y="40"
+						width="61"
+						height="12"
+						key="textField-37"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalLivramento} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{tempoInterrupcaoAposDataBaseLivramentoAnos} == "" ? $F{tempoTotalRemicaoAnos} : $F{tempoInterrupcaoAposDataBaseLivramentoAnos})]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="605"
+						y="40"
+						width="35"
+						height="12"
+						key="staticText-48"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalLivramento} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<text><![CDATA[(a-m-d)]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="363"
+						y="28"
+						width="181"
+						height="12"
+						key="textField-39"
+						positionType="Float"
+						isPrintWhenDetailOverflows="true">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalLivramento} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{tempoRestanteDataBaseLivramentoAnos} == "" ? "Tempo de interrupção total:" : "Restante da pena até data base:")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="544"
+						y="28"
+						width="61"
+						height="12"
+						key="textField-40"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalLivramento} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{tempoRestanteDataBaseLivramentoAnos} == "" ? $F{tempoInterrupcaoTotalAnos} : $F{tempoRestanteDataBaseLivramentoAnos})]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="605"
+						y="28"
+						width="35"
+						height="12"
+						key="staticText-49"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalLivramento} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<text><![CDATA[(a-m-d)]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="40"
+						width="182"
+						height="12"
+						key="textField-41"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalProgressao} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Restante da pena até data base:"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="211"
+						y="40"
+						width="61"
+						height="12"
+						key="textField-42"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalProgressao} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{tempoRestanteDataBaseAnos}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="272"
+						y="40"
+						width="35"
+						height="12"
+						key="textField-43"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalProgressao} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["(a-m-d)"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="363"
+						y="16"
+						width="181"
+						height="12"
+						key="textField-44"
+						positionType="Float"
+						isPrintWhenDetailOverflows="true"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[( $F{dataRequisitoTemporalLivramento} == "" ? "" : ($F{tempoCumpridoDataBaseLivramentoAnos} == "" ? "Tempo total da condenação unificada:" : "Tempo cumprido até data base:" ) )]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="544"
+						y="16"
+						width="61"
+						height="12"
+						key="textField-45"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalLivramento} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{tempoCumpridoDataBaseLivramentoAnos} == "" ? $F{tempoTotalCondenacaoAnos} : $F{tempoCumpridoDataBaseLivramentoAnos})]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="605"
+						y="16"
+						width="35"
+						height="12"
+						key="staticText-50"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalLivramento} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<text><![CDATA[(a-m-d)]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="221"
+						y="64"
+						width="136"
+						height="36"
+						key="textField-48"
+						positionType="Float"
+						isRemoveLineWhenBlank="true">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalProgressao} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{tempoCondenacaoComumProgressaoAnos} != "" ? "1/6  de  " + $F{tempoCondenacaoComumProgressaoAnos} + " (a-m-d)": "") +
+($F{tempoCondenacaoHediondoProgressaoAnos} != "" ? "\n2/5  de  " + $F{tempoCondenacaoHediondoProgressaoAnos} + " (a-m-d)": "") + 
+($F{tempoCondenacaoHediondoReincidenteProgressaoAnos} != "" ? "\n3/5  de  " + $F{tempoCondenacaoHediondoReincidenteProgressaoAnos} + " (a-m-d)": "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="552"
+						y="52"
+						width="140"
+						height="36"
+						key="textField-49"
+						positionType="Float"
+						isRemoveLineWhenBlank="true">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalLivramento} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{tempoComumLivramentoAnos} != "" ? "1/3  de  " + $F{tempoComumLivramentoAnos} + " (a-m-d)": "") +
+($F{tempoComumReincidenteLivramentoAnos} != "" ? "\n1/2  de  " + $F{tempoComumReincidenteLivramentoAnos} + " (a-m-d)": "") + 
+($F{tempoHediondoLivramentoAnos} != "" ? "\n2/3  de  " + $F{tempoHediondoLivramentoAnos} + " (a-m-d)": "") +
+($F{tempoHediondoReincidenteLivramentoAnos} != "" ? "\n1/1  de  " + $F{tempoHediondoReincidenteLivramentoAnos} + " (a-m-d)": "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="11"
+						y="140"
+						width="435"
+						height="12"
+						key="textField-50"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($F{dataRequisitoTemporalProgressao} != "")]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="7" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["**Saldo devedor é o tempo que o sentenciado tem que cumprir, após a Data Base, para alcançar o Requisito Temporal. "]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

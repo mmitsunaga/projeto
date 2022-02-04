@@ -1,0 +1,53 @@
+	<script type="text/javascript">
+	$(document).ready(function() {
+			
+			var msn_servidor;
+			msn_servidor = window.location.origin;
+			if(msn_servidor != 'https://projudi.tjgo.jus.br'){
+				$('#servidor').html("&nbsp;<i class='fa fa-quote-left'></i> Servidor de Homologação <i class='fa fa-quote-right'></i> ");
+			}
+	});
+	</script>
+
+	<div id="pgn_cabecalho" class="pgn_cabecalho_execpen">
+        
+        <div id="img_logotj_execpen" title="Logo"><h1>EXECPENWEB</h1><div id="servidor"></div></div>
+        
+        
+
+        <div style="float: right;">
+
+            <div id="cssmenu" >
+            	<ul>
+            	
+					<li class="has-sub">
+						<a href="#" title="Consulta"><span><i class="fa fa-search"></i></span></a>
+						<ul>
+							<li><a href="./BuscaProcessoPublica?PaginaAtual=<%=Configuracao.Novo%>" title="Consultar Processos de 1&ordm e 2&ordm grau"> P&uacute;blica processual &nbsp;<i class="fa fa-search"></i></a></li>				
+							<li><a href="/RelatorioInterrupcoes?PaginaAtual=<%=Configuracao.Novo%>"&Sistema=1 title="Relat&oacute;rio de Interrup&ccedil;&otilde;es"> Relat&oacute;rio de Interrup&ccedil;&otilde;es &nbsp;<i class="fa fa-search"></i></a></li>			
+						</ul>
+					</li>
+					<li>
+					<li>
+						<a href="./CalculadoraTemposDatasPublica" title="Calculadora de Tempos e Datas do Execpenweb" target="_blank"><i class="fa fa-calculator"></i></a>
+                    	
+					</li>
+					<li class="has-sub">  
+						<a href="#" title="Download"><i class="fa fa-download"></i> </a>
+                  		<ul>
+							<li><a href="http://br.mozdev.org/firefox/download.html" target="_blank" title="Recomendamos o uso do Mozilla Firefox">Mozilla Firefox  &nbsp;<i class="fa fa-download"></i></a></li>
+	  					</ul>
+	  				</li>
+                <li><a href="LogOn?PaginaAtual=-200&Acesso=Execpenweb" target="_self"><i class="fa fa-sign-out"></i> </a></li>   
+                
+                </ul>        
+             </div>
+                           
+        </div>
+        
+    </div>	
+
+	<div style="clear:both;width:1300px;height:28px;background-color:#ccc; margin: 0 auto;"></div>
+    <nav id="breadcrumb" class="breadcrumb" >
+		<!--<a href="#" class="breadcrumb--active"><i class="fa fa-key"></i> Login</a>-->
+	</nav> 

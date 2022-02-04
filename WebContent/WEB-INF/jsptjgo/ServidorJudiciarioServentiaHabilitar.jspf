@@ -1,0 +1,65 @@
+<%@page import="br.gov.go.tj.projudi.dt.GrupoDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.UsuarioServentiaGrupoDt"%>
+<div>
+   	<input id="Id_UsuarioServentiaGrupo" name="Id_UsuarioServentiaGrupo" type="hidden" />
+
+	<div id="divTabela" class="divTabela" > 
+    	<table id="Tabela" class="Tabela">
+        	<thead>
+            	<tr class="TituloColuna">
+                	<th></td>                  
+                  	<th>Serventia</th>                
+                  	<th>Grupo</th>
+                  	<th>Status</th>
+                  	<th class="colunaMinima">Opções</th>
+                  	<th class="colunaMinima">Editar</th>                 
+               	</tr>
+           	</thead>
+           	<tbody id="tabListaUsuario">
+			<%
+  			List liTemp = ServidorJudiciariodt.getListaUsuarioServentias();
+			UsuarioServentiaGrupoDt objTemp;
+  			String stTempNome="";
+  			for(int i = 0 ; i< liTemp.size();i++) {
+      			objTemp = (UsuarioServentiaGrupoDt)liTemp.get(i); %>
+				<%if (stTempNome.equalsIgnoreCase("")) { stTempNome="a";%> 
+                <tr class="TabelaLinha1"> 
+				<%}else{ stTempNome=""; %>    
+                <tr class="TabelaLinha2">
+				<%}%>
+                	<td> <%=i+1%></td>                   
+                   	<td><%= objTemp.getServentia()%></td>               
+                   	<td><%= objTemp.getGrupo()%></td>
+                   	<%if (objTemp.getAtivo().equalsIgnoreCase("true")){ %>
+					<td>ATIVO</td>
+					<%} else {%>
+					<td><font color="red" size="-1"><strong>INATIVO</strong></font></td>
+					<%}
+      				if(objTemp.getAtivo().equalsIgnoreCase("true")) {%>
+      				<td class="Centralizado"><input name="formLocalizarimgexcluir" type="image" title="Desabilitar Servidor na Serventia" src="./imagens/imgExcluirPequena.png" onclick="AlterarValue('PaginaAtual','<%=Configuracao.Excluir%>'); AlterarValue('Usuario','<%=objTemp.getUsuario()%>'); AlterarValue('Id_Usuario',''); AlterarValue('Id_UsuarioServentiaGrupo','<%=objTemp.getId()%>'); AlterarValue('tempFluxo1','F')"> </td>
+     				<%} else { %>
+     				<td class="Centralizado">
+<%
+						if ((Integer.parseInt(objTemp.getGrupoCodigo()) != GrupoDt.ASSESSOR) && (Integer.parseInt(objTemp.getGrupoCodigo()) != GrupoDt.ASSESSOR_JUIZES_VARA) && (Integer.parseInt(objTemp.getGrupoCodigo()) != GrupoDt.ASSESSOR_ADVOGADOS) && (Integer.parseInt(objTemp.getGrupoCodigo()) != GrupoDt.ASSESSOR_JUIZES_SEGUNDO_GRAU) && (Integer.parseInt(objTemp.getGrupoCodigo()) != GrupoDt.ASSESSOR_PRESIDENTE_SEGUNDO_GRAU) && (Integer.parseInt(objTemp.getGrupoCodigo()) != GrupoDt.ASSESSOR_DESEMBARGADOR) && (Integer.parseInt(objTemp.getGrupoCodigo()) != GrupoDt.ASSESSOR_MP)) {
+%>
+    	 					<input name="formLocalizarimgEditar" type="image" title="Habilitar Servidor na Serventia" src="./imagens/imgRestaurarPequena.png" onclick="AlterarValue('PaginaAtual','<%=Configuracao.Excluir%>'); AlterarValue('Usuario','<%=objTemp.getUsuario()%>'); AlterarValue('Id_Usuario',''); AlterarValue('Id_UsuarioServentiaGrupo','<%=objTemp.getId()%>'); AlterarValue('tempFluxo1','G')">
+<%
+						}
+%>
+     				</td>
+     				<%}%>
+     				<td class="Centralizado">
+<%
+						if ((Integer.parseInt(objTemp.getGrupoCodigo()) != GrupoDt.ASSESSOR) && (Integer.parseInt(objTemp.getGrupoCodigo()) != GrupoDt.ASSESSOR_JUIZES_VARA) && (Integer.parseInt(objTemp.getGrupoCodigo()) != GrupoDt.ASSESSOR_ADVOGADOS) && (Integer.parseInt(objTemp.getGrupoCodigo()) != GrupoDt.ASSESSOR_JUIZES_SEGUNDO_GRAU) && (Integer.parseInt(objTemp.getGrupoCodigo()) != GrupoDt.ASSESSOR_PRESIDENTE_SEGUNDO_GRAU) && (Integer.parseInt(objTemp.getGrupoCodigo()) != GrupoDt.ASSESSOR_DESEMBARGADOR) && (Integer.parseInt(objTemp.getGrupoCodigo()) != GrupoDt.ASSESSOR_MP)) {
+%>
+	     					<input name="formLocalizarimgEditar" type="image" title="Editar Servidor na Serventia" src="./imagens/imgEditarPequena.png" onclick="AlterarValue('PaginaAtual','<%=Configuracao.Editar%>');AlterarValue('Id_Usuario',''); AlterarValue('Usuario','<%=objTemp.getUsuario()%>');AlterarValue('Id_UsuarioServentiaGrupo','<%=objTemp.getId()%>')">
+<%
+						}
+%>
+     				</td>
+               </tr>
+<%}%>
+           </tbody>
+       </table>
+   </div> 
+</div>

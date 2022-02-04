@@ -1,0 +1,15 @@
+  <div id="divEditar" class="divEditar">
+<fieldset class="formEdicao"> 
+    <legend class="formEdicaoLegenda">Relatório Processo </legend>
+    <label class="formEdicaoLabel" for="Id_Serventia">*Serventia (Vara)
+    <input class="FormEdicaoimgLocalizar" name="imaLocalizarServentia" type="image"  src="./imagens/imgLocalizarPequena.png"  onclick="AlterarValue('PaginaAtual','<%=String.valueOf(((ServentiaDt.CodigoPermissao - EstatisticaProcessoServentiaDt.CodigoPermissao) * Configuracao.QtdPermissao) + (Configuracao.Localizar + (EstatisticaProcessoServentiaDt.CodigoPermissao * Configuracao.QtdPermissao)))%>')" >
+    </label><br>
+   
+    <input  class="formEdicaoInputSomenteLeitura" id="Id_Serventia"  readonly type="text" size="60" maxlength="60" value="<%=EstatisticaProcessoServentiadt.getServentia()%>"/><br />
+<label class="formEdicaoLabel" for="Id_ProcessoTipo">Especificar Tipo de Ação
+<input class="FormEdicaoimgLocalizar" name="imaLocalizarProcessoTipo" type="image"  src="./imagens/imgLocalizarPequena.png"  onclick="AlterarValue('PaginaAtual','<%=String.valueOf(((ProcessoTipoDt.CodigoPermissao - EstatisticaProcessoServentiaDt.CodigoPermissao) * Configuracao.QtdPermissao) + (Configuracao.Localizar + (EstatisticaProcessoServentiaDt.CodigoPermissao * Configuracao.QtdPermissao)))%>')" >
+</label><br>    <input  class="formEdicaoInputSomenteLeitura" id="Id_ProcessoTipo"  readonly type="text" size="60" maxlength="60" value="<%=EstatisticaProcessoServentiadt.getProcessoTipo()%>"/><br />
+</fieldset>
+</div>
+<script type="text/javascript" src="./js/Digitacao/DigitarSoNumero.js" ></script>
+<script type="text/javascript" src="./js/Digitacao/AutoTab.js" ></script>

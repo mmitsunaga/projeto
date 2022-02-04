@@ -1,0 +1,48 @@
+<%@page import="br.gov.go.tj.utils.Configuracao"%>
+
+<div id="Paginacao" class="Paginacao"> 
+	<b>P&aacute;gina </b>
+	<a href="BuscaProcessoUsuarioExterno?PaginaAtual=<%=request.getAttribute("TipoConsulta")%>&PosicaoPaginaAtual=0&PassoBusca=<%=request.getAttribute("PassoBusca")%>&QuantidadeRegistrosPagina=<%=request.getAttribute("QuantidadeRegistrosPagina")%>">Primeira</a>
+	<%
+		long pagina = (Long)request.getAttribute("PosicaoPaginaAtual"); 
+		long total = (Long)request.getAttribute("QuantidadePaginas");  	
+		long totalGeral = total;
+		//Conta a qtde de registros que aparecerá em cada tela
+		long loConte =1;
+		//Guarda a última página selecionada
+		long loConte1= pagina;
+		
+		int quantidadeRegistrosPagina = 0;		
+		if (request.getAttribute("QuantidadeRegistrosPagina") != null) {
+			quantidadeRegistrosPagina = br.gov.go.tj.utils.Funcoes.StringToInt((String)request.getAttribute("QuantidadeRegistrosPagina"));
+		}				
+		if (quantidadeRegistrosPagina <= 0) quantidadeRegistrosPagina = Configuracao.TamanhoRetornoConsulta;
+
+		//Determina quantas pag.serão necessarias de acordo com a qtde de registros.
+		if ((total%quantidadeRegistrosPagina) != 0){
+			total=total/quantidadeRegistrosPagina+1;
+		}else{
+			total=total/quantidadeRegistrosPagina;
+		}
+		
+		//Se última pag.selecionada for maior q 5, entao a contagem começará da metade da qtde de registros q aparece por página
+		if (pagina>(quantidadeRegistrosPagina/2)) 
+			pagina-=(quantidadeRegistrosPagina/2); 
+		else 
+			pagina=1;
+		//Aparecerá uma qtde de páginas a serem escolhidas, sendo que a ultima pag. escolhida ficara sempre marcada
+		//Ex. : 1 2 3 4 5 |6| 7 8 9 10 (pag.escolhida 6)
+		while(pagina<=total && loConte<=quantidadeRegistrosPagina){		 			   
+			if ((pagina-1)==loConte1){ %> 
+						<%="<b>| " + (pagina) + " |</b>"%>    					
+			<%		} else { %>
+						<a href="BuscaProcessoUsuarioExterno?PaginaAtual=<%=request.getAttribute("TipoConsulta")%>&PosicaoPaginaAtual=<%=(pagina-1)%>&PassoBusca=<%=request.getAttribute("PassoBusca")%>"><%=pagina%></a>    
+			<%		} 
+			loConte++;
+			pagina++;
+		}	
+	%>
+	<a href="BuscaProcessoUsuarioExterno?PaginaAtual=<%=request.getAttribute("TipoConsulta")%>&PosicaoPaginaAtual=<%=(total-1)%>&PassoBusca=<%=request.getAttribute("PassoBusca")%>&QuantidadeRegistrosPagina=<%=request.getAttribute("QuantidadeRegistrosPagina")%>">Última</a>
+	<input id="PosicaoPagina" name="PosicaoPagina" class="CaixaTextoPosicionar" value="<%=request.getAttribute("PosicaoPagina")%>" type="text" size="5" maxlength="10" />
+	<input class="BotaoIr" type="button" value="Ir" onclick="javascript: AlterarValue('PaginaAtual', '<%=request.getAttribute("TipoConsulta")%>');submit();"/><b> Total de: <%=totalGeral %></b>
+</div>

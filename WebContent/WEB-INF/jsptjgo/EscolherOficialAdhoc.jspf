@@ -1,0 +1,70 @@
+					<div id="divLocalizar" class="divLocalizar" >		
+					<fieldset>
+						<legend>Oficial Ad Hoc (Só usar esta opção se o oficial for nomeado nos autos)</legend>
+						
+<!-- 							<label>Escolher Oficial Ad hoc? -->
+<%-- 							<input type="radio" name="temadhoc" value="nao" <%= request.getAttribute("temadhoc") != null && request.getAttribute("temadhoc").equals("sim") ? "" : "checked='checked'" %>>Não</input> --%>
+<%-- 							<input type="radio" name="temadhoc" value="sim" <%= request.getAttribute("temadhoc") != null && request.getAttribute("temadhoc").equals("sim") ? "checked='checked'" : "" %>>Sim</input> --%>
+<!-- 							</label> -->
+						
+<!-- 							<br/><br/> -->
+						
+							<div id='divEscolherOficialAdhoc'>
+							
+								<input type="hidden" id="Id_OficialAdhoc" name="Id_OficialAdhoc" value="<%= Pendenciadt.getId_OficialAdhoc() != null ? Pendenciadt.getId_OficialAdhoc() : "" %>" />
+								
+												
+									<label class="formEdicaoLabel">Informe o Oficial Nomeado
+									<input class="FormEdicaoimgLocalizar" name="imaLocalizarServentia" type="image"  src="./imagens/imgLocalizarPequena.png" 
+										onclick="return pesquisarAdhoc();" 
+														title="Selecione o oficial ad hoc" />
+									<input class="FormEdicaoimgLocalizar" name="imaLimparOficialAdhoc" type="image"  src="./imagens/16x16/edit-clear.png"
+										onclick="LimparChaveEstrangeira('Id_OficialAdhoc', 'OficialAdhoc'); return false;" title="Limpar o oficial ad hoc" />
+									</label><br/>
+									
+									
+									<input class="formEdicaoInputSomenteLeitura" id="OficialAdhoc" name="OficialAdhoc" readonly="true" type="text" size="40" maxlength="40"  
+										value="<%= Pendenciadt.getOficialAdhoc() != null ? Pendenciadt.getOficialAdhoc() : "" %>" />	
+								
+								<br />
+							
+							</div>	
+					</fieldset>
+					</div>	
+					
+					
+					<script>
+					
+						function pesquisarAdhoc() {
+							
+							if( $('#Id_ServentiaExpedir').val() == '' || $('#Id_ServentiaExpedir').val() == 'null' ){
+								alert("É necessário escolher uma serventia para expedir antes de escolher o oficial Ad hoc");
+								return false;
+							} else {
+								AlterarValue('PaginaAtual', '<%=String.valueOf(ServentiaCargoEscalaDt.CodigoPermissao * Configuracao.QtdPermissao + Configuracao.Curinga6)%>');
+							}
+						}
+						
+						$(documment).ready(function(){
+						$('#Id_OficialAdhoc').change(function(){
+							alert("teestseta");
+							LimparChaveEstrangeira('Id_OficialAdhoc', 'OficialAdhoc');
+						});
+						});
+						
+// 						function mostrarEsconderAdhoc(){
+// 							if($("input[name='temadhoc']:checked").val() == "sim") {
+// 								$("#divEscolherOficialAdhoc").show('fast');
+// 							} else {
+// 								$("#divEscolherOficialAdhoc").hide('fast');
+// 							}
+// 						}
+// 						$("input[name='temadhoc']").change(function(){
+// 							mostrarEsconderAdhoc();
+// 						});
+						
+// 						$(document).ready(function(){
+// 							mostrarEsconderAdhoc();
+// 						});
+					</script>
+					

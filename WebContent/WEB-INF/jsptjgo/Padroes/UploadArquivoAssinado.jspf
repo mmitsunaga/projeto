@@ -1,0 +1,123 @@
+<%@page import="java.util.Enumeration"%>
+<%@page import="java.util.List"%>
+<%@page import="br.gov.go.tj.projudi.dt.ArquivoDt"%>
+
+<link rel="stylesheet" href="css/upload.css">
+<div id="dialogoUploadArquivoAssinado" title="Transmitindo Arquivos Assinados" style="height: 150px;">	
+	<form action="UploadArquivoAssinado?PassoUpload=7" method="post" enctype="multipart/form-data">
+		
+		<% 	Enumeration<String> e = request.getAttributeNames(); 
+			while(e.hasMoreElements()){
+				String p = e.nextElement();
+				Object value = request.getAttribute(p);
+				if(!p.startsWith("javax.") && !"Arquivo".equalsIgnoreCase(p)){
+					if(value !=null){
+		%>		
+		<input id="<%= p %>" name="<%= p %>" type="hidden" value="<%=value%>">
+  		<% 			}
+  				} else {
+  					if("javax.servlet.include.servlet_path".equals(p)){
+  		%>		
+  		<input  id="RetornarPara" name="RetornarPara" type="hidden" value="<%=value%>">
+  		<% 
+					}
+  				}
+			}
+		%>
+  		<span class="btn btn-success fileinput-button" style="display:none">
+	        <i class="glyphicon glyphicon-plus"></i>
+	        <span>Selecionar arquivos...</span>
+			<input type="file" id="fileupload" name="files[]" multiple accept="<%=UsuarioSessao.getTipoArquivoUpload()%>" onchange="if (!selecionaArquivoAssinado(this.files)) {this.value='';preparaUploadArquivoAssinado();}"/>
+	    </span>
+	    <div id="progress" class="progress">
+	        <div class="progress-bar progress-bar-success"></div>
+	    </div>
+	    <div id="progresso"></div>
+		<div id="divBotoesCentralizados" class="divBotoesCentralizados" style="display:none">
+			<input type="submit" id="botaoOK" value="OK" onsubmit="dialogo.dialog('close');">
+			<button type="button" id="botaoCancelar" onclick="cancelaArquivoAssinado();dialogo.dialog('close');">Cancelar</button>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript" src="js/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="js/jquery.iframe-transport.js"></script>
+<script type="text/javascript" src="js/jquery.fileupload.js"></script>
+
+<script type="text/javascript">
+	var dialogo = $('#dialogoUploadArquivoAssinado').dialog({
+		autoOpen : false,
+		height : 150,
+		width : 450,
+		closeOnEscape: false,
+		modal : true
+	});
+	function abreDialogoUploadArquivoAssinado() {
+		if (podeAssinar() == 'true') {
+			preparaUploadArquivoAssinado();
+			$('#fileupload').click();
+		}
+	}
+	function detectarCancelar(event) {
+	  var target = event.target || event.srcElement;
+	  if (target.value.length == 0) {
+    	cancelaArquivoAssinado();
+    	dialogo.dialog('close');
+	  }
+	}
+	var totalArquivos = 0;
+	var progressoArquivos = 0;
+	var progressoErros = 0;
+	var errosUpload = "";
+	function atualizarProgresso() {
+		$('#progresso').text("Transmitindo " + totalArquivos + " arquivo(s)... Enviados = " + progressoArquivos + ", Não enviados = " + progressoErros);
+		if((progressoArquivos + progressoErros) == totalArquivos){
+			window.setTimeout(
+	           	function (){
+	            	if(errosUpload.length != 0) 
+	   	            	tratarErroUpload();
+	            	$('#botaoOK').click();
+	   			}
+	       	, 500);
+		}
+	}
+	function tratarErroUpload() {
+		alert("Não foi possível transmitir arquivos abaixo, por favor tente anexá-los novamente:\n\n" + errosUpload);
+	}
+	$(function () {
+		'use strict';
+	    $('#fileupload').fileupload({
+	        url: 'UploadArquivoAssinado?PassoUpload=6&AJAX=AJAX',
+	        sequentialUploads: true,
+	        progressall: function (e, data) {
+	            var progress = parseInt(data.loaded / data.total * 100, 10);
+	            $('#progress .progress-bar').css(
+	                'width',
+	                progress + '%'
+	            );
+	        }
+	    })
+	    .bind('fileuploadchange', function (e, data) {
+		    errosUpload = "";
+		    dialogo.dialog("open");
+		    totalArquivos = data.files.length;
+		    atualizarProgresso();
+		})
+	    .bind('fileuploaddone', function(e, data){
+		    progressoArquivos++;
+		    atualizarProgresso();
+		})
+	    .bind('fileuploadfail', function(e, data){
+		    progressoErros++;
+		    if(errosUpload.length != 0)
+			    errosUpload+="\n";
+		    errosUpload+=data.files[0].name;
+		    removeArquivoAssinado(data.files[0].name);
+		    atualizarProgresso();
+		});
+	});
+    <% List<ArquivoDt> arquivoAssinado = (List<ArquivoDt>) request.getSession().getAttribute("ArquivoAssinadoCompleto"); %>
+	if(<%= ((arquivoAssinado != null)) %>){
+		$('#botaoAplicar').click();
+	}
+</script>

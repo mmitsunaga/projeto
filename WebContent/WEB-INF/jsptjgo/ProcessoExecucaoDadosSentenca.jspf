@@ -1,0 +1,175 @@
+<%@page import="br.gov.go.tj.projudi.dt.PenaExecucaoTipoDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.LocalCumprimentoPenaDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.RegimeExecucaoDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.CrimeExecucaoDt"%>
+<%@page import="java.util.*"%>
+
+<script type="text/javascript">
+$(document).ready(
+		function() {
+			if ($("#Id_PenaExecucaoTipo").val() == 3){ //medida de segurança
+				$("#RegimeMS").show();
+				$("#RegimePPL").hide();
+				$("#divCondenacao").hide();
+			} else if ($("#Id_PenaExecucaoTipo").val() == 2){
+				$("#RegimePPL").show();
+				$("#RegimeMS").hide();
+				$("#divCondenacao").show();
+			} else {
+				$("#RegimePPL").hide();
+				$("#RegimeMS").hide();
+				$("#divCondenacao").hide();
+			}
+			<%if ((ProcessoExecucaodt_PE.getListaCondenacoes() !=  null && ProcessoExecucaodt_PE.getListaCondenacoes().size() > 0)
+				|| (ProcessoExecucaodt_PE.getListaModalidade() !=  null && ProcessoExecucaodt_PE.getListaModalidade().size() > 0)){%>
+				$("#divCondenacao").show();
+				<%}%>
+		});
+
+	function consultarRegime(idPenaExecucaoTipo){
+		document.getElementById("PenaExecucaoTipo").value = $("#Id_PenaExecucaoTipo option:selected").text();
+		
+		if (idPenaExecucaoTipo == 3){ //medida de segurança
+			$("#RegimeMS").show();
+			$("#RegimePPL").hide();
+			$("#divCondenacao").hide();
+		} else {
+			$("#RegimePPL").show();
+			$("#RegimeMS").hide();
+			$("#divCondenacao").show();
+		}
+		calcularTamanhoIframe();
+	}
+
+	function selecionaRegimePPL(){
+		document.getElementById("RegimeExecucao").value = $("#Id_RegimeExecucao_PPL option:selected").text();
+	}
+	
+	function selecionaRegimeMS(){
+		document.getElementById("RegimeExecucao").value = $("#Id_RegimeExecucao_MS option:selected").text();
+	}
+</script>
+
+<div id="divEditar" class="divEditar">
+ 	<br />
+	<label class="formEdicaoLabel" for="DataDistribuicao" style="width:280px">Distribuição da Ação Penal:</label>    
+	<input class="formEdicaoInput" name="DataDistribuicao" id="DataDistribuicao" type="text" size="10" value="<%=ProcessoExecucaodt_PE.getDataDistribuicao()%>" onblur="verifica_data(this);" onKeyPress="return DigitarSoNumero(this, event)"/>
+	<img class="formLocalizarLabel" style="margin-right:20px; height:13px; min-width:3px; padding-right: 0px" id="calendarioDataDistribuicao" src="./imagens/dlcalendar_2.gif" height="13" width="13" title="Calendário"  alt="Calendário" onclick="displayCalendar(document.forms[0].DataDistribuicao,'dd/mm/yyyy',this)"/>
+	
+	<label class="formEdicaoLabel" for="DataPronuncia" style="width:220px">Pronúncia:</label>    
+	<input class="formEdicaoInput" name="DataPronuncia" id="DataPronuncia" type="text" size="10" maxlength="10" value="<%=ProcessoExecucaodt_PE.getDataPronuncia()%>" onBlur="verifica_data(this); compararData('DataDenuncia', 'DataPronuncia', 'A data da Pronúncia não pode ser anterior à data da Denúncia.')" onKeyPress="return DigitarSoNumero(this, event)"/>
+	<img class="formLocalizarLabel" style="margin-right:20px; height:13px; min-width:3px; padding-right: 0px" id="calendarioDataDenuncia" src="./imagens/dlcalendar_2.gif" height="13" width="13" title="Calendário"  alt="Calendário" onclick="displayCalendar(document.forms[0].DataPronuncia,'dd/mm/yyyy',this)"/>
+	<br />
+	<label class="formEdicaoLabel" for="DataDenuncia" style="width:280px">*Recebimento da Denúncia:</label>    
+	<input class="formEdicaoInput" name="DataDenuncia" id="DataDenuncia" type="text" size="10" maxlength="10" value="<%=ProcessoExecucaodt_PE.getDataDenuncia()%>" onBlur="verifica_data(this); compararData('DataDistribuicao', 'DataDenuncia', 'A data da Denúncia não pode ser anterior à data da Distribuição.')" onKeyPress="return DigitarSoNumero(this, event)"/>
+	<img class="formLocalizarLabel" style="margin-right:20px; height:13px; min-width:3px; padding-right: 0px" id="calendarioDataDenuncia" src="./imagens/dlcalendar_2.gif" height="13" width="13" title="Calendário"  alt="Calendário" onclick="displayCalendar(document.forms[0].DataDenuncia,'dd/mm/yyyy',this)"/>
+	
+	<label class="formEdicaoLabel" for="DataAcordao" style="width:220px">Acórdão:</label>    
+	<input class="formEdicaoInput" name="DataAcordao" id="DataAcordao" type="text" size="10" maxlength="10" value="<%=ProcessoExecucaodt_PE.getDataAcordao()%>" onBlur="verifica_data(this); compararData('DataSentenca', 'DataAcordao', 'A data do Acórdão não pode ser anterior à data de Publicação da Sentença.')" onKeyPress="return DigitarSoNumero(this, event)"/>
+	<img class="formLocalizarLabel" style="margin-right:20px; height:13px; min-width:3px; padding-right: 0px" id="calendarioDataAcordao" src="./imagens/dlcalendar_2.gif" height="13" width="13" title="Calendário"  alt="Calendário" onclick="displayCalendar(document.forms[0].DataAcordao,'dd/mm/yyyy',this)"/>
+	<br />
+	<label class="formEdicaoLabel" for="DataSentenca" style="width:280px">*Publicação da Sentença:</label>    
+	<input class="formEdicaoInput" name="DataSentenca" id="DataSentenca" type="text" size="10" maxlength="10" value="<%=ProcessoExecucaodt_PE.getDataSentenca()%>" onBlur="verifica_data(this);  compararData('DataPronuncia', 'DataSentenca', 'A data de Publicação da Sentença não pode ser anterior à data da Pronúncia.');
+					compararData('DataDenuncia', 'DataSentenca', 'A data de Publicação da Sentença não pode ser anterior à data da Denuncia.');" onKeyPress="return DigitarSoNumero(this, event)"/>
+	<img class="formLocalizarLabel" style="margin-right:20px; height:13px; min-width:3px; padding-right: 0px" id="calendarioDataSentenca" src="./imagens/dlcalendar_2.gif" height="13" width="13" title="Calendário"  alt="Calendário" onclick="displayCalendar(document.forms[0].DataSentenca,'dd/mm/yyyy',this)"/>
+	
+	<label class="formEdicaoLabel" for="DataAdmonitoria" style="width:220px">Audiência Admonitória:</label>    
+	<input class="formEdicaoInput" name="DataAdmonitoria" id="DataAdmonitoria" type="text" size="10" maxlength="10" value="<%=ProcessoExecucaodt_PE.getDataAdmonitoria()%>" onblur="verifica_data(this);" onKeyPress="return DigitarSoNumero(this, event)"/>
+	<img class="formLocalizarLabel" style="margin-right:20px; height:13px; min-width:3px; padding-right: 0px" id="calendarioDataAdmonitoria" src="./imagens/dlcalendar_2.gif" height="13" width="13" title="Calendário"  alt="Calendário" onclick="displayCalendar(document.forms[0].DataAdmonitoria,'dd/mm/yyyy',this)"/>
+	<br />
+	
+	<label class="formEdicaoLabel" for="DataTJ_MP" style="width:280px">Trânsito em Julgado Acusação:</label>    
+	<input class="formEdicaoInput" name="DataTJ_MP" id="DataTJ_MP" type="text" size="10" maxlength="10" value="<%=ProcessoExecucaodt_PE.getDataTransitoJulgadoMP()%>" onblur="verifica_data(this);" onKeyPress="return DigitarSoNumero(this, event)"/>
+	<img class="formLocalizarLabel" style="margin-right:20px; height:13px; min-width:3px; padding-right: 0px" id="calendarioDataTJ_MP" src="./imagens/dlcalendar_2.gif" height="13" width="13" title="Calendário"  alt="Calendário" onclick="displayCalendar(document.forms[0].DataTJ_MP,'dd/mm/yyyy',this)"/>
+	<br />
+	
+	<%if (ProcessoExecucaodt_PE.getGuiaRecolhimento().equalsIgnoreCase("D")){ %>
+	<label class="formEdicaoLabel" for="DataTransito" style="width:280px">*Trânsito em Julgado Defesa:</label>
+	<%} else if (ProcessoExecucaodt_PE.getGuiaRecolhimento().equalsIgnoreCase("P")){ %>
+	<label class="formEdicaoLabel" for="DataGuia" style="width:280px">*Emissão da Guia de Recolhimento:</label>
+	<%} else {%>
+	<label class="formEdicaoLabel" for="DataTransito" style="width:280px">*TJ Defesa/Emissão da GRP:</label>
+	<%} %>
+	<input align="middle" class="formEdicaoInput" name="DataTransito" id="DataTransito" type="text" size="10" maxlength="10" value="<%=ProcessoExecucaodt_PE.getDataTransitoJulgado()%>" onBlur="verifica_data(this); compararData('DataAcordao', 'DataTransito', 'A data do Trânsito não pode ser anterior à data do Acórdão.');
+					compararData('DataSentenca', 'DataTransito', 'A data do Trânsito não pode ser anterior à data de Publicação da Sentença.');" onKeyPress="return DigitarSoNumero(this, event)"/>
+	<img class="formLocalizarLabel" style="margin-right:20px; height:13px; min-width:3px; padding-right: 0px" id="calendarioDataTransito" src="./imagens/dlcalendar_2.gif" height="13" width="13" title="Calendário"  alt="Calendário" onclick="displayCalendar(document.forms[0].DataTransito,'dd/mm/yyyy',this)"/>
+	<br />
+	<br />
+	<label class="formEdicaoLabel" for="DataInicioCumprimentoPena" style="width:280px">Início de Cumprimento da Cond. (DICC):</label>    
+	<input class="formEdicaoInput" name="DataInicioCumprimentoPena" id="DataInicioCumprimentoPena" type="text" size="10" maxlength="10" value="<%=ProcessoExecucaodt_PE.getDataInicioCumprimentoPena()%>"  onblur="verifica_data(this);" onKeyPress="return DigitarSoNumero(this, event)"/>
+	<img class="formLocalizarLabel"  style="margin-right:20px; height:13px; min-width:3px; padding-right: 0px" id="calendarioDataFato" src="./imagens/dlcalendar_2.gif" title="Calendário"  alt="Calendário" onclick="displayCalendar(document.forms[0].DataInicioCumprimentoPena,'dd/mm/yyyy',this)"/>
+	<br/>
+	<span>
+		<br/>PODE SER DICC (DATA DE INÍCIO DE CUMPRIMENTO DA CONDENAÇÃO):<br/>
+		<br/>-  a data do flagrante, se houver flagrante na condenação observada;
+		<br/>-  a data da próxima prisão após a data do fato. Se não houver flagrante, pode ser a prisão preventiva, prisão temporária ou ainda prisão simples;
+		<br/>-  a data do fato, quando o crime for cometido dentro da cadeia;
+		<br/>-  a data do Trânsito em Julgado, quando o sentenciado está no regime semiaberto ou aberto comete fato novo, mas não é preso e, continua após a nova condenação no mesmo regime;
+		<br/>-  a data do primeiro regime, se o sentenciado não foi preso ao responder o processo, ou se não é nenhum dos casos acima.
+	</span>
+	<br /><br />
+	<br />
+
+	<label class="formEdicaoLabel" for="Id_PenaExecucaoTipo">*Pena</label>
+	<input id="PenaExecucaoTipo" name="PenaExecucaoTipo" type="hidden" />
+	<select name="Id_PenaExecucaoTipo" id="Id_PenaExecucaoTipo" onChange="consultarRegime(this.value);">
+	    <option value=""></option>
+		<%List listaPenaExecucaoTipo = (List) request.getSession().getAttribute("ListaPenaExecucaoTipo");
+			if (listaPenaExecucaoTipo != null){%> 
+			<%for (int i=0; i<listaPenaExecucaoTipo.size(); i++) {%>					
+    	<option value="<%=((PenaExecucaoTipoDt)listaPenaExecucaoTipo.get(i)).getId()%>" <%if (ProcessoExecucaodt_PE.getId_PenaExecucaoTipo().equals(((PenaExecucaoTipoDt)listaPenaExecucaoTipo.get(i)).getId())){%>selected<%}%>><%=((PenaExecucaoTipoDt)listaPenaExecucaoTipo.get(i)).getPenaExecucaoTipo()%></option>
+			<%} %>
+		<%}%>
+    </select>
+	<br />
+
+	<div id="RegimePPL">
+		<input id="RegimeExecucao" name="RegimeExecucao" type="hidden" />
+		<label class="formEdicaoLabel" for="Id_RegimeExecucao">*Regime</label>  
+		<select name="Id_RegimeExecucao_PPL" id="Id_RegimeExecucao_PPL" onchange="selecionaRegimePPL();">
+	    <option value=""></option>
+		<%List listaRegime_PPL = (List) request.getSession().getAttribute("ListaRegime_PPL");
+			if (listaRegime_PPL != null){%> 
+			<%for (int i=0; i<listaRegime_PPL.size(); i++) {%>					
+    	<option value="<%=((RegimeExecucaoDt)listaRegime_PPL.get(i)).getId()%>" <%if (ProcessoExecucaodt_PE.getId_RegimeExecucao().equals(((RegimeExecucaoDt)listaRegime_PPL.get(i)).getId())){%>selected<%}%>><%=((RegimeExecucaoDt)listaRegime_PPL.get(i)).getRegimeExecucao()%></option>
+			<%} %>
+		<%}%>
+  		</select>
+	</div>
+	<div id="RegimeMS">
+		<input id="RegimeExecucao" name="RegimeExecucao" type="hidden" />
+		<label class="formEdicaoLabel" for="Id_RegimeExecucao">*Regime</label>  
+		<select name="Id_RegimeExecucao_MS" id="Id_RegimeExecucao_MS" onchange="selecionaRegimeMS();">
+	    <option value=""></option>
+		<%List listaRegime_MS = (List) request.getSession().getAttribute("ListaRegime_MS");
+			if (listaRegime_MS != null){%> 
+			<%for (int i=0; i<listaRegime_MS.size(); i++) {%>					
+    	<option value="<%=((RegimeExecucaoDt)listaRegime_MS.get(i)).getId()%>" <%if (ProcessoExecucaodt_PE.getId_RegimeExecucao().equals(((RegimeExecucaoDt)listaRegime_MS.get(i)).getId())){%>selected<%}%>><%=((RegimeExecucaoDt)listaRegime_MS.get(i)).getRegimeExecucao()%></option>
+			<%} %>
+		<%}%>
+  		</select>
+	</div>
+	<br />
+	<input id="LocalCumprimentoPena" name="LocalCumprimentoPena" type="hidden" />
+	<label class="formEdicaoLabel" for="Id_LocalCumprimentoPena">*Estabelecimento Penal</label>  
+  	<select name="Id_LocalCumprimentoPena" id="Id_LocalCumprimentoPena">
+	    <option value=""></option>
+		<%List listaLocal = (List) request.getSession().getAttribute("ListaLocal");
+		if (listaLocal != null){%> 
+			<%for (int i=0; i<listaLocal.size(); i++) {%>					
+		<option value="<%=((LocalCumprimentoPenaDt)listaLocal.get(i)).getId()%>" 
+				<%if (ProcessoExecucaodt_PE.getId_LocalCumprimentoPena().equals(((LocalCumprimentoPenaDt)listaLocal.get(i)).getId())){%>
+					selected
+				<%}%>	>
+				<%=((LocalCumprimentoPenaDt)listaLocal.get(i)).getLocalCumprimentoPena()%>
+		</option>
+			<%} %>
+		<%}%>
+    </select>
+	<br />
+
+	<div id="divCondenacao">
+	<%@ include file="ProcessoExecucaoDadosSentencaCondenacao.jspf"%>
+	</div>
+</div>
+	

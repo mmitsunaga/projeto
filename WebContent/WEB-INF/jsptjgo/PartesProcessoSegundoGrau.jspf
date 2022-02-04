@@ -1,0 +1,149 @@
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoParteDt"%>
+<%@page import="br.gov.go.tj.utils.Funcoes"%>
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoParteTipoDt"%>
+
+<fieldset id="VisualizaDados" class="VisualizaDados">
+	<legend> *Polo Ativo
+		<input class="FormEdicaoimgLocalizar" id="imaLocalizarPartePromovente" name="imaLocalizarPartePromovente" type="image"  src="./imagens/imgLocalizarPequena.png" 
+			onclick="AlterarValue('PaginaAtual','<%=Configuracao.Editar%>');AlterarValue('ParteTipo','<%=ProcessoParteTipoDt.POLO_ATIVO_CODIGO%>');AlterarValue('PassoEditar','7');" title="Cadastrar Promovente"/> 
+	</legend>
+	
+	<div <%= ProcessoCadastroDt.getListaPolosAtivos() != null && ProcessoCadastroDt.getListaPolosAtivos().size() > 0 && request.getSession().getAttribute("parteDependenteJaSelecionada").equals("true") ? "style=\"display:none;\"": "style=\"width: 100%; height: auto; float:left; text-align:left;\"" %> >
+	
+		<%
+			List listaPartes = ProcessoCadastroDt.getProcessoDependenteDt()!=null?ProcessoCadastroDt.getProcessoDependenteDt().getPartesProcesso():null;
+    		if(listaPartes != null && listaPartes.size()>0){
+			for (int i=0;i < listaPartes.size();i++){
+			  			ProcessoParteDt parteDt = (ProcessoParteDt)listaPartes.get(i);
+			  			if (parteDt.getDataBaixa().length() == 0){
+			%>
+	   				<div>
+		   				<input name="Recorrente" id="Recorrente" type="checkbox" value="<%=parteDt.getId_ProcessoParte()%>" />
+	   				</div> 
+	       			<span><%=parteDt.getNome()%></span>
+	       			<div> CPF </div>
+	        		<span><%=parteDt.getCpfCnpjFormatado()%></span>
+	        		<br /><br/>
+			<% 			}
+ 	    			}
+			%>
+				<span>
+					<button id="adicionarPartePromovente" name="adicionarPartePromovente" <%=ProcessoCadastroDt.getListaPolosAtivos()!=null && ProcessoCadastroDt.getListaPolosAtivos().size()>0 && request.getSession().getAttribute("parteDependenteJaSelecionada").equals("true") ? "disabled=disabled style=\"color: #000000; background-color: #ffffff;\" class=\"formEdicaoInputSomenteLeitura\"":""%> onclick="AlterarValue('PaginaAtual','<%=Configuracao.Curinga9%>');">Adicionar</button>
+				</span>
+				<br /><br/>
+			<%
+ 	    	} 
+ 	    		%>	
+	</div>
+	
+	
+ 	    	<%
+ 	   			List listaPromoventes = ProcessoCadastroDt.getListaPolosAtivos();
+ 	   	    	if (listaPromoventes != null && listaPromoventes.size() > 0){
+ 	   	    		for (int i=0;i < listaPromoventes.size();i++){
+ 		   			  	ProcessoParteDt parteDt = (ProcessoParteDt)listaPromoventes.get(i);
+ 	   		%>
+				
+	 	       	<div> Nome </div>
+	 	       	<span class="span1"><%=parteDt.getNome()%></span>
+	 	       	
+	 	       	<div> CPF </div>
+	 	        <span class="span2"><%=parteDt.getCpfCnpjFormatado()%></span>
+	 	           
+	 	        <div><a href="javascript: MostrarOcultar('sub<%=parteDt.getNome()%>')" title="Mostrar/Ocultar"> <img src="./imagens/16x16/btn_endereco.png"> </a>
+	 	   		<input name="imgExcluir" class="imgExcluir" type="image" src="./imagens/imgExcluirPequena.png" onclick="AlterarValue('PaginaAtual','<%=Configuracao.Excluir%>');AlterarValue('ParteTipo','<%=ProcessoParteTipoDt.POLO_ATIVO_CODIGO%>');AlterarValue('posicaoLista','<%=i%>')" title="Excluir promovente"/>
+	 	   		<%if(request.getAttribute("tempRetorno") != null &&  ( request.getAttribute("tempRetorno").toString().equalsIgnoreCase("ProcessoCivelSemAssistencia") || request.getAttribute("tempRetorno").toString().equalsIgnoreCase("ProcessoSegundoGrauCivelSemAssistenciaCt") ) ) { %>
+	 	   			<input name="imgEditar"  type="image" src="./imagens/imgEditarPequena.png" onclick="AlterarValue('PassoEditar','<%=13%>');AlterarValue('ParteTipo','<%=ProcessoParteTipoDt.POLO_ATIVO_CODIGO%>');AlterarValue('posicaoLista','<%=i%>')" title="Editar promovente"/><br />
+	 	   		<%}%>
+	 	 		</div>
+	 	 		
+	 	 		<div id="sub<%=parteDt.getNome()%>"  class="DivInvisivel">
+	 	  			<fieldset class="fieldsetEndereco">
+	 	  				<legend> Endereço </legend>
+	 					<%=parteDt.getEnderecoParte().getLogradouro() + " nº " + parteDt.getEnderecoParte().getNumero() + " " + parteDt.getEnderecoParte().getComplemento()%><br />
+	 	    			<%=parteDt.getEnderecoParte().getBairro() + " " + parteDt.getEnderecoParte().getCidade() + " " + parteDt.getEnderecoParte().getUf()%><br />
+	 	    			<%=parteDt.getEnderecoParte().getCep() + " " + parteDt.getEMail() + " " + parteDt.getTelefone() %>
+	 				</fieldset>
+	 			</div>
+				<br>
+	 	       	<% 		}
+	 	   			} 
+	 	    
+			%>
+	</fieldset>
+	
+	<fieldset id="VisualizaDados" class="VisualizaDados">
+	   		<legend> *Polo Passivo 
+	   			<input class="FormEdicaoimgLocalizar" id="imaLocalizarPartePromovido" name="imaLocalizarPartePromovido" type="image"  src="./imagens/imgLocalizarPequena.png" onclick="AlterarValue('ParteTipo','<%=ProcessoParteTipoDt.POLO_PASSIVO_CODIGO%>');AlterarValue('PassoEditar','7');" title="Cadastrar Recorrido" /> <br />
+			</legend>
+	 		<%
+	 			List listaRecorridos = ProcessoCadastroDt.getListaPolosPassivos();
+	 			if (listaRecorridos != null && listaRecorridos.size()>0){
+            		for(int i = 0 ; i < (listaRecorridos.size());i++) {
+	   			  		ProcessoParteDt parteDt = (ProcessoParteDt)listaRecorridos.get(i);
+		   	%>
+	    	<div> Nome </div>
+	       	<span class="span1"><%=parteDt.getNome()%></span>
+	       	
+	       	<div> CPF </div>
+	        <span class="span2"><%=parteDt.getCpfCnpjFormatado()%></span>
+	           
+	        <div>
+	        <a href="javascript: MostrarOcultar('sub<%=parteDt.getNome()%>')" title="Mostrar/Ocultar"> <img src="./imagens/16x16/btn_endereco.png"> </a>
+	       	<input name="imgExcluir" class="imgExcluir" type="image" src="./imagens/imgExcluirPequena.png" onclick="AlterarValue('PaginaAtual','<%=Configuracao.Excluir%>');AlterarValue('ParteTipo','<%=ProcessoParteTipoDt.POLO_PASSIVO_CODIGO%>');AlterarValue('posicaoLista','<%=i%>')" title="Excluir Recorrido" />
+	 		<%if(request.getAttribute("tempRetorno") != null &&  ( request.getAttribute("tempRetorno").toString().equalsIgnoreCase("ProcessoCivelSemAssistencia") || request.getAttribute("tempRetorno").toString().equalsIgnoreCase("ProcessoSegundoGrauCivelSemAssistenciaCt") ) ) { %>
+			<input name="imgEditar"  type="image" src="./imagens/imgEditarPequena.png" onclick="AlterarValue('PassoEditar','<%=13%>');AlterarValue('ParteTipo','<%=ProcessoParteTipoDt.POLO_PASSIVO_CODIGO%>');AlterarValue('posicaoLista','<%=i%>')" title="Editar promovido"/><br />
+			<%}%>
+	        </div>
+	   		
+	 		<div id="sub<%=parteDt.getNome()%>"  class="DivInvisivel">
+	  			<fieldset class="fieldsetEndereco">
+		  			<legend> Endereço </legend>
+					<%=parteDt.getEnderecoParte().getLogradouro() + " " + parteDt.getEnderecoParte().getComplemento()%><br />
+		    		<%=parteDt.getEnderecoParte().getBairro() + " " + parteDt.getEnderecoParte().getCidade() + " " + parteDt.getEnderecoParte().getUf()%><br />
+			   		<%=parteDt.getEnderecoParte().getCep() + " " + parteDt.getEMail() + " " + parteDt.getTelefone() %>	
+				</fieldset>
+			</div>
+	       	<% 		}   
+	   			}  else {
+	   		%>
+	   		<em> Insira uma parte promovida. </em>
+	   		<% } %>
+		</fieldset>
+		
+		<!-- OUTRAS PARTES -->
+		<fieldset id="VisualizaDados" class="VisualizaDados">
+	   		<legend>Outras Partes / Sujeitos <label id="lblVitima" style="display:none;">/ Vítimas </label>
+	   			<input class="FormEdicaoimgLocalizar" id="imaLocalizarParteOutrasPartes" name="imaLocalizarParteOutrasPartes" type="image"  src="./imagens/imgLocalizarPequena.png" onclick="AlterarValue('PaginaAtual','<%=Configuracao.Editar%>');AlterarValue('ParteTipo','-1');AlterarValue('PassoEditar','7');" title="Cadastrar Outras Partes"/>
+	   			<input class="FormEdicaoimgLocalizar" id="imaLocalizarParteVitimas" name="imaLocalizarParteVitimas" type="image"  src="./imagens/imgLocalizarPequenaVitima.png" onclick="AlterarValue('PaginaAtual','<%=Configuracao.Editar%>');AlterarValue('ParteTipo','<%=ProcessoParteTipoDt.VITIMA%>');AlterarValue('PassoEditar','7');" title="Cadastrar Vítimas" style="display:none;"/>
+			</legend>
+	 		<%
+	   			List listaOutrasPartes = ProcessoCadastroDt.getListaOutrasPartes();
+	   			if (listaOutrasPartes != null && listaOutrasPartes.size() > 0){
+	   				for (int i=0;i < listaOutrasPartes.size();i++){
+	   			  		ProcessoParteDt parteDt = (ProcessoParteDt)listaOutrasPartes.get(i);
+		   	%>
+	    	<div> Nome </div>
+	       	<span class="span1" title="<%=parteDt.getProcessoParteTipo()%>"><%=parteDt.getNome() + " - [" + parteDt.getProcessoParteTipo() + "]"%></span>
+	       	
+	       	<div> CPF </div>
+	        <span class="span2"><%=parteDt.getCpfCnpjFormatado()%></span>
+	           
+	        <div><a href="javascript: MostrarOcultar('sub<%=parteDt.getNome()%>')" title="Mostrar/Ocultar"> Endereço </a></div>
+	   		<input name="imgExcluir" class="imgExcluir" type="image" src="./imagens/imgExcluirPequena.png" onclick="AlterarValue('PaginaAtual','<%=Configuracao.Excluir%>');AlterarValue('ParteTipo','-1');AlterarValue('posicaoLista','<%=i%>')" title="Excluir Outras Partes"/><br />
+	 		
+	  		<div id="sub<%=parteDt.getNome()%>"  class="DivInvisivel">
+	  			<fieldset class="fieldsetEndereco">
+		  			<legend> Endereço </legend>
+					<%=parteDt.getEnderecoParte().getLogradouro() + " nº " + parteDt.getEnderecoParte().getNumero() + " " + parteDt.getEnderecoParte().getComplemento()%><br />
+		    		<%=parteDt.getEnderecoParte().getBairro() + " " + parteDt.getEnderecoParte().getCidade() + " " + parteDt.getEnderecoParte().getUf()%><br />
+			   		<%=parteDt.getEnderecoParte().getCep() + " " + parteDt.getEMail() + " " + parteDt.getTelefone() %>	
+				</fieldset>
+			</div>
+	       	<% 		}   
+	   			}  else {
+	   		%>
+	   		<em> Insira Outras Partes. </em>
+	   		<% } %>
+		</fieldset>
+		<br />

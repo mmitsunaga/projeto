@@ -1,0 +1,25 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//ENhttp://www.w3.org/TR/html4/loose.dtd">
+
+<%@page import="java.util.*"%>
+<%@page import="br.gov.go.tj.utils.Configuracao"%>
+<%@page import="br.gov.go.tj.projudi.dt.CidadeDt"%>
+
+
+
+<div id="divEditar" class="divEditar">
+	<fieldset class="formEdicao"> <legend class="formEdicaoLegenda">Ação Penal</legend>
+   	    <br />
+		<label class="formEdicaoLabel" for="NumeroAcaoPenal">Nº do Processo de Ação Penal:</label>    
+	    <input class="formEdicaoInput" name="NumeroAcaoPenal" id="NumeroAcaoPenal" type="text" size="15" maxlength="15" value="<%=ProcessoExecucaodt_PE.getNumeroAcaoPenal()%>"/><br />
+    	<br />
+		<label class="formEdicaoLabel" for="Id_CidadeOrigem">*Comarca de Origem:</label>  
+		<input class="FormEdicaoimgLocalizar" id="imaLocalizarCidade" name="imaLocalizarCidade" type="image"  src="./imagens/imgLocalizarPequena.png"  onclick="AlterarValue('PaginaAtual','<%=String.valueOf(CidadeDt.CodigoPermissao * Configuracao.QtdPermissao + Configuracao.Localizar)%>'); AlterarValue('PassoEditar', '0');" >							
+	    <input class="formEdicaoInput" name="CidadeOrigem" id="CidadeOrigem" type="text" size="54" maxlength="54" value="<%=ProcessoExecucaodt_PE.getCidadeOrigem()%>"/>				    		
+		<input class="formEdicaoInputSomenteLeitura"  readonly name="EstadoOrigem" id="EstadoOrigem" type="text" size="2" maxlength="2" value="<%=ProcessoExecucaodt_PE.getUfOrigem()%>"/>
+   	    <br />
+		<label class="formEdicaoLabel" for="VaraOrigem">*Vara de Origem:</label>    
+	    <input class="formEdicaoInput" name="VaraOrigem" id="VaraOrigem" type="text" size="66" maxlength="66" value="<%=ProcessoExecucaodt_PE.getVaraOrigem()%>"/><br />
+    	<br />
+		<%@ include file="ProcessoExecucaoDadosSentenca.jspf"%>
+	</fieldset>
+</div>

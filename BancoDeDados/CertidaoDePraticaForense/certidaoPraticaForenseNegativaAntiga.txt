@@ -1,0 +1,124 @@
+<p style="text-align:center"><span style="font-size:12px">${brasao}<br />
+Estado de Goi&aacute;s<br />
+Poder Judici&aacute;rio<br />
+Comarca de ${serventia.comarca}</span></p>
+
+<p style="text-align:center"><span style="font-size:12px"><strong>${serventia.nome}</strong></span></p>
+
+<p>&nbsp;</p>
+
+<p style="margin-left:350px; text-align:justify"><span style="font-size:12px">${usuario.nome}, escriv&atilde;o(&atilde;) de ${serventia.nome}, da Comarca de ${serventia.comarca}, Estado de Goi&aacute;s, na forma da lei, etc.</span></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p style="text-align:center"><span style="font-size:12px"><strong>CERTID&Atilde;O DE PR&Aacute;TICA FORENSE</strong></span></p>
+
+<p>&nbsp;</p>
+
+<p style="margin-left:80px; text-align:justify"><span style="font-size:12px">CERTIFICA a requerimento verbal da parte interessada que, revendo em cart&oacute;rio o seu banco de dados informatizado, <strong>CONSTAR</strong> que o(a):</span></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p style="text-align:left"><span style="font-size:12px"><strong>Identifica&ccedil;&atilde;o</strong></span><br />
+&nbsp;</p>
+
+<table border="0" cellpadding="1" cellspacing="1">
+	<tbody>
+		<tr>
+			<td><span style="font-size:12px">Requerente</span></td>
+			<td><span style="font-size:12px">:</span></td>
+			<td><span style="font-size:12px">${certidao.identificacao.requerente}</span></td>
+		</tr>
+		<tr>
+			<td><span style="font-size:12px">Naturalidade</span></td>
+			<td><span style="font-size:12px">:</span></td>
+			<td><span style="font-size:12px">${certidao.identificacao.naturalidade}</span></td>
+		</tr>
+		<tr>
+			<td><span style="font-size:12px">Estado Civil</span></td>
+			<td><span style="font-size:12px">:</span></td>
+			<td><span style="font-size:12px">${certidao.identificacao.estado.civil}</span></td>
+		</tr>
+		<tr>
+			<td><span style="font-size:12px">Sexo</span></td>
+			<td><span style="font-size:12px">:</span></td>
+			<td><span style="font-size:12px">${certidao.identificacao.sexo}</span></td>
+		</tr>
+		<tr>
+			<td><span style="font-size:12px">CPF</span></td>
+			<td><span style="font-size:12px">:</span></td>
+			<td><span style="font-size:12px">${certidao.identificacao.cpfCnpj}</span></td>
+		</tr>
+		<tr>
+			<td><span style="font-size:12px">OAB</span></td>
+			<td><span style="font-size:12px">:</span></td>
+			<td><span style="font-size:12px">${certidao.identificacao.oab}</span></td>
+		</tr>
+		<tr>
+			<td><span style="font-size:12px">Identidade</span></td>
+			<td><span style="font-size:12px">:</span></td>
+			<td><span style="font-size:12px">${certidao.identificacao.rg}</span></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>&nbsp;</p>
+
+<p><span style="font-size:12px">n&atilde;o figurou(a) como procurador(a) ou advogado(a) em nenhum processo desta comarca durante o per&iacute;odo de ${certidao.pratica.forense.data.inicial} a ${certidao.pratica.forense.data.final} .</span></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<table border="0" cellpadding="1" cellspacing="1">
+	<tbody>
+		<tr>
+			<td><span style="font-size:12px">Certid&atilde;o</span></td>
+			<td><span style="font-size:12px">:</span></td>
+			<td><span style="font-size:12px">R$ ${certidao.custa.certidao}</span></td>
+		</tr>
+		<tr>
+			<td><span style="font-size:12px">Taxa Judici&aacute;ria</span></td>
+			<td><span style="font-size:12px">:</span></td>
+			<td><span style="font-size:12px">R$ ${certidao.custa.taxa.judiciaria}</span></td>
+		</tr>
+		<tr>
+			<td><span style="font-size:12px">Total</span></td>
+			<td><span style="font-size:12px">:</span></td>
+			<td><span style="font-size:12px">R$ ${certidao.custa.total}</span></td>
+		</tr>
+		<tr>
+			<td><span style="font-size:12px">N&uacute;mero da Guia</span></td>
+			<td><span style="font-size:12px">:</span></td>
+			<td><span style="font-size:12px">${certidao.numero.guia}</span></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p style="margin-left:80px; text-align:justify"><span style="font-size:12px">NADA MAIS. &Eacute; o que foi pedido para certificar, de que se reporta e d&aacute; f&eacute;.</span></p>
+
+<p>&nbsp;</p>
+
+<p style="margin-left:80px; text-align:justify"><span style="font-size:12px">Dada e passada nesta Cidade e Comarca, do Estado de Goi&aacute;s, em ${data}.</span></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p style="text-align:center"><span style="font-size:12px">CART&Oacute;RIO DISTRIBUIDOR</span></p>
+
+<p>&nbsp;</p>
+
+<p><span style="font-size:12px">ESTA CERTID&Atilde;O N&Atilde;O ABRANGE OS PROCESSOS DO SISTEMA DE PRIMEIRO GRAU - SPG</span></p>
+
+<p><span style="font-size:12px">${hora}&nbsp; ${usuario.nome} ${usuario.matricula}</span></p>

@@ -1,0 +1,445 @@
+
+/**
+ * Configuracoes do Fieldset
+ * @author Ronneesley Moura Teles
+ * @since 29/04/2008 - 10:44
+ * Somente alteracoes
+ */
+
+fieldset {	
+border: 1px solid #ddd;
+	/*	margin: 0 auto;*/
+	background: #fafafa;
+	margin:10px 0;
+	padding-top: 4px;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-bottom: 10px;
+}
+
+/*
+label[title] {
+	cursor: help !important;
+}
+
+label, table tr td, table tr th * {
+	/*font-size: 12px !important;
+}*/
+
+.FormEdicaoimgLocalizar{
+	width:13px;
+	height:13px;
+}
+
+fieldset legend,
+.formEdicaoLegenda,
+#Editar legend {
+	padding: 0 5px;
+	font-weight: bold;
+	font-size: 13px;
+	margin-top: 1px;
+	color: #183e65;
+	margin-left:10px;
+	text-transform:uppercase;
+	letter-spacing:-0.8px;
+	border-left:5px solid #ccc;
+	border-radius:5px;
+}
+
+fieldset label {
+	padding-top: 2px;
+	padding-bottom: 2px;
+	cursor: pointer;
+	text-align:left;
+	color:#444;
+	font-weight:bold;
+	padding-bottom:3px;
+}
+
+/* Div Editar */
+.divEditar {
+	display:block;
+	margin: 0 auto;
+	width: 98%;
+	/*min-height: 540px;*/
+	height: auto;
+	clear: both;
+	
+}
+
+.formEdicao, 
+.formLocalizar,
+#Editar, 
+fieldset.fieldEdicaoEscuro {
+	border: 1px solid #ddd;
+	/*	margin: 0 auto;*/
+	background: #f5f5f5;
+	margin:15px 0 5px 0;
+	padding: 10px 20px;
+}
+
+/* o label do editar e do localizar*/
+.formEdicaoLabel, 
+.formLocalizarLabel, 
+#Editar label,
+form label.lbl {
+	min-width: 150px;
+}
+
+label.lblNormal {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.formEdicaoLabelPequeno{
+	min-width: 60px;
+}
+
+.formEdicaoLabel, 
+.formLocalizarLabel, 
+#Editar label,
+form label.lbl,
+label.lblNormal {
+	float: left;
+	text-align: left;
+	padding-right: 2px;
+	font-weight: bold;
+	margin: 3px 0 0 3px;
+	cursor: pointer;
+	height: 15px;
+	color: #444;
+}
+.lbTelaCompensacao {
+	width: 200px;
+	text-align: right !important;
+}
+
+
+ 
+.formEdicaoInputSomenteLeitura,
+input.somenteLeitura {
+	margin-bottom: 6px;
+	background-color: #DCDCDC;
+	padding-left:2px;
+	cursor: default;
+	min-width:10px; 
+/*	background-image:url(bkg_read_only.jpg);	*/
+}
+
+
+.formEdicaoInputSomenteLeituraVermelho,
+input.somenteLeituraVermelho {
+	margin-bottom: 6px;
+	background-color: #FF7F55;
+	cursor: default;
+}
+
+
+ .formEdicaoCombo {
+	background:#FFFFFF none repeat scroll 0%;
+	border:1px solid #CCCCCC;
+	text-transform:uppercase;
+	font-size:12px;
+	cursor:pointer;
+}
+
+
+.formEdicao input[type=text], 
+.formEdicao input[type=password],
+.formEdicao select {
+	float: left;
+	margin-top:0;
+}
+
+.formEdicao input[type=image]{
+	margin-top:0;
+}
+
+.divEditar input[type="text"],
+.divEditar select,
+input.somenteLeitura {
+	font-size: 12px !important;
+	border: 1px solid #ddd !important;
+	margin-bottom: 2px;
+	margin-left: 2px;
+	margin-right: 2px;
+	padding: 5px;
+}
+
+.divEditar input[type="radio"]{
+	margin-top:8px;	
+}
+
+.divEditar input[disabled]{
+	background-color: #e2e2e2;
+	border: #a0a0a0;
+}
+
+/*
+.divEditar input, .divEditar select {
+	background-color: #FFFFFF;
+}
+*/
+.divEditar input[type=image]{
+	border: none !important;
+}
+
+input[type=button], 
+input[type=submit], 
+input[type=reset], 
+button {
+	border: 1px solid #2b69aa;
+	cursor: pointer;
+	font-size: 13px !important;
+	background-color: #2b69aa;	
+	border-radius:3px;
+	color: #fff;
+	height: 30px;
+	font-weight: bold; 
+/*	float: left;*/
+}
+
+button img {
+	border: none !important;
+}
+
+button {
+	font-weight: bold;
+	margin-left: 3px;
+	/*margin-top: 5px;*/
+}
+
+input[type=checkbox]{
+	cursor: pointer;
+}
+
+a.link {
+	text-decoration: none; 
+	border-bottom: 1px dashed #0000ff;
+}
+
+a.link img {
+	border: none;
+}
+
+fieldset legend input{
+	float: none !important;
+	margin-bottom: 0px !important;	
+	margin-top: 1px;
+}
+
+.botaoCinza {
+	font-family:sans-serif;
+	color:#333333;
+	vertical-align: middle;
+	border-bottom: 2px outset #B6AFA3;
+	border-right: 2px outset #B6AFA3;
+	font-weight:normal;
+	font-size: 12px !important;
+	margin-top: 0;
+	width: 100px;
+	height: 24px;
+	background-color: #D4D0C8;
+}
+
+/*
+img.calendario {
+	float:left;
+}
+*/
+/* Input Styles starts here */
+ .periodo{
+ 	float:left;
+ 	width: 30%;
+ 	margin-left:5px;
+ }
+ .col5 , .col10 , .col15 , .col20 ,.col25 ,.col30 ,.col35 ,.col40 ,.col45 ,.col50 ,.col55 ,.col60 ,.col65 ,.col70 ,.col75 ,.col80 ,.col85 ,.col90 ,.col95 , .col100 {
+ 	margin: 0 0 0 0 !important;
+  	float:left !important;
+  	margin-top:2px !important;
+ 	margin-left:3px !important;
+ 	margin-right:10px !important;
+ 	text-align: left !important;
+ }
+ .col5{	width: 5%!important;}
+ .col10{	width: 10%!important;}
+ .col15{ 	width: 15%!important;}
+ .col20{ 	width: 20%!important;}
+ .col25{ 	width: 25%!important;}
+ .col30{ 	width: 30%!important;}
+ .col35{	width: 35%!important;}
+ .col40{	width: 40%!important;}
+ .col45{ 	width: 45%!important;}
+ .col50{ 	width: 50%!important;}
+ .col55{ 	width: 55%!important;}
+ .col60{ 	width: 60%!important;}
+ .col65{	width: 65%!important;}
+ .col70{ 	width: 70%!important;}
+ .col75{ 	width: 75%!important;}
+ .col80{ 	width: 80%!important;}
+ .col85{ 	width: 85%!important;}
+ .col90{ 	width: 90%!important;}
+ .col100{ 	width: 100% !important;}
+ 
+.col5 label, .col10 label, .col15 label, .col20 label,.col25 label,.col30 label,.col35 label,.col40 label,.col45 label,.col50 label,.col55 label,.col60 label,.col65 label,.col70 label,.col75 label,.col80 label,.col85 label,.col90 label,.col95 label, .col100 label{
+ 	display: block;
+ 	margin-left:3px; 	
+ 	width:95%; 	
+ }
+ 
+ col5 input[type="text"], .col10 input[type="text"], .col15 input[type="text"], .col20 input[type="text"],.col25 input[type="text"],.col30 input[type="text"],.col35 input[type="text"],.col40 input[type="text"],.col45 input[type="text"],.col50 input[type="text"],.col55 input[type="text"],.col60 input[type="text"],.col65 input[type="text"],.col70 input[type="text"],.col75 input[type="text"],.col80 input[type="text"],.col85 input[type="text"],.col90 input[type="text"],.col95 input[type="text"], .col100 input[type="text"]{
+ 	margin: 0 0 0 0;
+ 	width:95%; 	
+ }
+ 
+  col5 select, .col10 select, .col15 select, .col20 select,.col25 select,.col30 select,.col35 select,.col40 select,.col45 select,.col50 select,.col55 select,.col60 select,.col65 select,.col70 select,.col75 select,.col80 select,.col85 select,.col90 select,.col95 select, .col100 select{
+ 	margin: 0 0 0 0;
+ 	width:95%; 	
+ }
+
+ col5 input[type="checkbox"], .col10 input[type="checkbox"], .col15 input[type="checkbox"], .col20 input[type="checkbox"],.col25 input[type="checkbox"],.col30 input[type="checkbox"],.col35 input[type="checkbox"],.col40 input[type="checkbox"],.col45 input[type="checkbox"],.col50 input[type="checkbox"],.col55 input[type="checkbox"],.col60 input[type="checkbox"],.col65 input[type="checkbox"],.col70 input[type="checkbox"],.col75 input[type="checkbox"],.col80 input[type="checkbox"],.col85 input[type="checkbox"],.col90 input[type="checkbox"],.col95 input[type="checkbox"], .col100 input[type="checkbox"]{ 
+ 	margin: 2px 4px 2px 2px; 	
+ }
+  
+ .clear{
+ clear:both;
+ }
+ .imgMargeLeft{
+ 	margin-left: 3px;
+ 	vertical-align: middle;
+ }
+ 
+ #calendarioDataNascimento,
+ #calendarioRgDataExpedicao,
+ #calendarioRgDataExpedicao{
+ margin-top:5px;
+ }
+
+ 	.switch {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	width: 56px;
+	height: 20px;
+	padding: 3px;
+	background-color: white;
+	border-radius: 18px;
+	box-shadow: inset 0 -1px #fff, inset 0 1px 1px rgba(0,0,0,0.05);
+	cursor: pointer;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box
+}
+.switch-input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0
+}
+.switch-label {
+	position: relative;
+	display: block;
+	height: inherit;
+	font-size: 10px;
+	text-transform: uppercase;
+	background: #f9f9f9;
+	border-radius: inherit;
+	box-shadow: inset 0 1px 2px rgba(0,0,0,0.12), inset 0 0 2px rgba(0,0,0,0.15);
+	-webkit-transition: .15s ease-out;
+	-moz-transition: .15s ease-out;
+	-o-transition: .15s ease-out;
+	transition: .15s ease-out;
+	-webkit-transition-property: opacity background;
+	-moz-transition-property: opacity background;
+	-o-transition-property: opacity background;
+	transition-property: opacity background
+}
+.switch-label:before, .switch-label:after {
+	position: absolute;
+	top: 50%;
+	margin-top: -0.5em;
+	line-height: 1;
+	-webkit-transition: inherit;
+	-moz-transition: inherit;
+	-o-transition: inherit;
+	transition: inherit
+}
+.switch-label:before {
+	content: attr(data-off);
+	right: 11px;
+	color: #aaa;
+	text-shadow: 0 1px rgba(255,255,255,0.5)
+}
+.switch-label:after {
+	content: attr(data-on);
+	left: 11px;
+	color: white;
+	text-shadow: 0 1px rgba(0,0,0,0.2);
+	opacity: 0
+}
+.switch-input:checked ~ .switch-label {
+	background: #c7cbd5;
+	box-shadow: inset 0 1px 2px rgba(0,0,0,0.15), inset 0 0 3px rgba(0,0,0,0.2)
+}
+.switch-input:checked ~ .switch-label:before {
+	opacity: 0
+}
+.switch-input:checked ~ .switch-label:after {
+	opacity: 1
+}
+.switch-handle {
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: 18px;
+	height: 18px;
+	background: white;
+	border-radius: 10px;
+	box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+	background-image: -webkit-linear-gradient(top, #fff 40%, #f0f0f0);
+	background-image: -moz-linear-gradient(top, #fff 40%, #f0f0f0);
+	background-image: -o-linear-gradient(top, #fff 40%, #f0f0f0);
+	background-image: linear-gradient(to bottom, #fff 40%, #f0f0f0);
+	-webkit-transition: left .15s ease-out;
+	-moz-transition: left .15s ease-out;
+	-o-transition: left .15s ease-out;
+	transition: left .15s ease-out
+}
+.switch-handle:before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -6px 0 0 -6px;
+	width: 12px;
+	height: 12px;
+	background: #f9f9f9;
+	border-radius: 6px;
+	box-shadow: inset 0 1px rgba(0,0,0,0.02);
+	background-image: -webkit-linear-gradient(top, #eee, #fff);
+	background-image: -moz-linear-gradient(top, #eee, #fff);
+	background-image: -o-linear-gradient(top, #eee, #fff);
+	background-image: linear-gradient(to bottom, #eee, #fff)
+}
+.switch-input:checked ~ .switch-handle {
+	left: 40px;
+	box-shadow: -1px 1px 5px rgba(0,0,0,0.2)
+}
+.switch-primary>.switch-input:checked ~ .switch-label {
+	background: #36a9e1
+}
+.switch-success>.switch-input:checked ~ .switch-label {
+	background: #78cd51
+}
+.switch-warning>.switch-input:checked ~ .switch-label {
+	background: #fabb3d
+}
+.switch-important>.switch-input:checked ~ .switch-label {
+	background: #ff5454
+}
+.switch-info>.switch-input:checked ~ .switch-label {
+	background: #67c2ef
+}
+.switch-danger>.switch-input:checked ~ .switch-label {
+	background: #d9534f
+}

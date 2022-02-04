@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-05-22T17:22:44 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListagemCidades" pageWidth="595" pageHeight="842" whenNoDataType="NoPages" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4a8595ac-3b66-44aa-9e48-1a4de1ad23c0">
+	<property name="ireport.zoom" value="1.3310000000000184"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="caminhoLogo" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="teste" class="java.lang.String" isForPrompting="false"/>
+	<field name="cpf" class="java.lang.String"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="qtdTotal" class="java.lang.String"/>
+	<field name="pis" class="java.lang.String"/>
+	<field name="agencia" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="101" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText" x="0" y="31" width="555" height="25" uuid="d04263c3-2214-4119-bd99-b59ac1c96b44"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tribunal de Justiça do Estado de Goiás]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="0" y="56" width="275" height="25" uuid="cf3892eb-1c82-4fe4-b31f-977842161e8d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Processo Judicial Digital - PJD - TJGO]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy" isBlankWhenNull="false">
+				<reportElement key="textField" x="275" y="56" width="280" height="25" uuid="9838d001-e7ba-4dc5-8573-0083dc34dede"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText" x="183" y="81" width="194" height="20" uuid="91e4decc-2a33-4c63-9be5-1e3cc9e49beb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Audiências por Conciliador]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement key="image" x="254" y="0" width="39" height="31" uuid="e332f903-5fad-4eee-87d5-58450b3d028b"/>
+				<imageExpression><![CDATA[$P{caminhoLogo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-5" x="280" y="0" width="190" height="16" uuid="65d7072e-b1ae-4217-8979-49c6d65c5a44"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[CPF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-4" x="47" y="0" width="233" height="16" uuid="07b54905-fbe4-489a-b73a-5e945fb25d1f"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-7" x="470" y="0" width="85" height="16" uuid="306c4738-0fb4-4005-9cc0-b363029a5e11"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Quantidade]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line" x="0" y="0" width="555" height="1" uuid="e4c22082-9339-4239-bae5-42efdf0afda2"/>
+			</line>
+			<line>
+				<reportElement key="line" x="0" y="15" width="555" height="1" uuid="25e594bb-b126-4737-bae1-0c7fa1758b1a"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="41" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="47" y="0" width="233" height="20" uuid="ca9566a6-9b71-4a57-94c9-1a710ab08b6a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="280" y="0" width="190" height="20" uuid="625ae32e-5f35-4359-98a5-b9548109a444"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="470" y="0" width="85" height="20" uuid="5289ed81-92f4-4ad3-a865-e95e7dce938c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{qtdTotal}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line" x="-4" y="40" width="555" height="1" forecolor="#CCCCCC" uuid="55e96e32-31b3-417d-874e-1ae9ab3f7b4d"/>
+			</line>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="0" y="0" width="47" height="19" uuid="85775cbf-1504-42a2-b09e-675c19497898"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="47" y="19" width="233" height="20" uuid="e064e2cb-4701-4ea6-83b7-961ca6028fa1"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pis}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="281" y="19" width="190" height="20" uuid="88b569f0-0cc5-4bd4-acbb-15db32931009"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{agencia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="435" y="0" width="80" height="20" uuid="958b1259-9073-4591-a874-b3da56a7a6df"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement key="textField" x="515" y="0" width="40" height="20" uuid="ff80d187-ad86-46d8-9ea0-99eb4b83b63e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="40" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="34" y="20" width="100" height="20" uuid="f39a1c6c-dbe1-4b11-a9b3-c5ee2cdb2e82"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT} + " Conciliadores"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText" x="0" y="20" width="34" height="20" uuid="4271f82a-20b4-46a5-b0ed-eaf777758b77"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Total: ]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,38 @@
+<%@page import="br.gov.go.tj.projudi.dt.ServentiaDt"%>
+<%@page import="br.gov.go.tj.utils.Configuracao"%>
+<%@page import="br.gov.go.tj.projudi.dt.ServentiaCargoDt"%>
+<br />
+
+<input type="hidden" id="Id_Serventia" name="Id_Serventia" value="<%=request.getAttribute("Id_Serventia")%>" />
+<input id="abaEncaminhar" name="abaEncaminhar" type="hidden" value="" />
+
+
+<label class="formEdicaoLabel">Serventia
+<input class="FormEdicaoimgLocalizar" name="imaLocalizarServentia" type="image"  src="./imagens/imgLocalizarPequena.png" 
+	onclick="AlterarValue('PaginaAtual', '<%=String.valueOf(ServentiaDt.CodigoPermissao * Configuracao.QtdPermissao + Configuracao.Localizar)%>'); AlterarValue('abaEncaminhar','<%=String.valueOf("encaminhar")%>');" 
+				title="Selecione a serventia" />
+
+<input class="FormEdicaoimgLocalizar" name="imaLimparServentia" type="image"  src="./imagens/16x16/edit-clear.png"
+	onclick="LimparChaveEstrangeiraCampoRelacionado('Id_Serventia', 'Serventia','Id_ServentiaCargo', 'ServentiaCargo'); return false;" title="Limpar a serventia" />
+</label><br>
+
+
+<input class="formEdicaoInputSomenteLeitura" id="Serventia" name="Serventia" readonly="true" type="text" size="50" maxlength="50" value="<%=request.getAttribute("Serventia")%>" />	
+
+<br />
+
+<input type="hidden" id="Id_ServentiaCargo" name="Id_ServentiaCargo" value="<%=request.getAttribute("Id_ServentiaCargo")%>" />
+
+<label class="formEdicaoLabel">Cargo da Serventia
+<input class="FormEdicaoimgLocalizar" name="imaLocalizarServentiaCargo" type="image"  src="./imagens/imgLocalizarPequena.png" 
+	onclick="AlterarValue('PaginaAtual', '<%=String.valueOf(ServentiaCargoDt.CodigoPermissao * Configuracao.QtdPermissao + Configuracao.Localizar)%>');" 
+				title="Selecione o cargo da serventia" />
+
+<input class="FormEdicaoimgLocalizar" name="imaLimparServentiaCargo" type="image"  src="./imagens/16x16/edit-clear.png"
+	onclick="LimparChaveEstrangeira('Id_ServentiaCargo', 'ServentiaCargo'); return false;" 	title="Limpar o cargo da serventia" />
+</label><br>
+
+
+<input class="formEdicaoInputSomenteLeitura" name="ServentiaCargo" readonly type="text" size="50" maxlength="50" id="ServentiaCargo" value="<%=request.getAttribute("ServentiaCargo")%>" />	
+
+<br /><br />

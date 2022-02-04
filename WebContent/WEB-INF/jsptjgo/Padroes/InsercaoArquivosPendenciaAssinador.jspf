@@ -1,0 +1,129 @@
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="br.gov.go.tj.utils.Configuracao"%>
+<%@page import="br.gov.go.tj.projudi.dt.ModeloDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.ArquivoTipoDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.PendenciaDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.PendenciaTipoDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.MandadoTipoDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.UsuarioServentiaDt"%>
+<%@page import="java.util.List"%>
+
+<script type='text/javascript' src='./dwr/engine.js'></script>
+<script type='text/javascript' src='./dwr/util.js'></script>
+<script type='text/javascript'  src='js/ckeditor/ckeditor.js?v=24092018'></script>
+<script type='text/javascript' src='./js/checks.js'></script>
+
+	
+	<% PendenciaDt PendenciaTemp =(PendenciaDt)request.getSession().getAttribute("Pendenciadt");%>
+			
+	<%@ include file="../js/InsercaoArquivo.js"%> 
+	
+	<!-- Inicio Temporarios -->
+	<input type="hidden" id="tempBuscaId_PendenciaTipo" name="tempBuscaId_PendenciaTipo" />
+	<input type="hidden" id="tempBuscaPendenciaTipo" name="tempBuscaPendenciaTipo" />
+	<!-- Fim Temporarios -->
+	
+	<input type="hidden" id="assinado" name="assinado" value="true" />
+	<input type="hidden" id="gerarAssinatura" name="gerarAssinatura" value="false" /> 
+	 	
+	<div id="divAjuda" class="divAjuda" >
+		<img src="./imagens/imgAjudaPequena.png" onclick="DivFlutuanteValoresIniciais('Ajuda Inserção Arquivos', getMensagem(0),'200','360','0','0', this);" onmouseup="DivFlutuanteUp('Informe');" width="16" height="16" border="0" />
+	</div>
+				
+	<fieldset class="formEdicao" id='AssinarArquivosProcesso'>
+		<legend id="tipo_assinador"></legend>
+		    <div class="col30" >
+		    <label > *Tipo de Arquivos
+		       	<input class="FormEdicaoimgLocalizar" name="imaLocalizarArquivoTipo" type="image" src="./imagens/imgLocalizarPequena.png" onclick="MostrarBuscaPadrao('AssinarArquivosProcesso','Pendencia','Consulta de Arquivo Tipo', 'Digite o nome do Arquivo tipo.', 'id_ArquivoTipo', 'arquivoTipo', ['Arquivo Tipo'], [], '<%=(ArquivoTipoDt.CodigoPermissao * Configuracao.QtdPermissao + Configuracao.Localizar)%>', '<%=Configuracao.TamanhoRetornoConsulta%>'); return false;"/>
+		    	<input class="FormEdicaoimgLocalizar" name="imaLimparArquivoTipo" type="image"  src="./imagens/16x16/edit-clear.png" onclick="LimparChaveEstrangeira('id_ArquivoTipo', 'arquivoTipo'); return false;" title="Limpar Tipo de Arquivo" />
+		    </label>	    
+	    	<input class="formEdicaoInputSomenteLeitura" id="arquivoTipo" name="ArquivoTipo" readonly type="text" size="50" maxlength="50"  value="<%=request.getAttribute("ArquivoTipo")%>" />
+	    	<input type="hidden" id="id_ArquivoTipo" name="Id_ArquivoTipo" value="<%=request.getAttribute("Id_ArquivoTipo")%>" />
+	    </div> 
+	    
+	    <%if (PendenciaTemp != null && PendenciaTemp.getPendenciaTipoCodigoToInt() == PendenciaTipoDt.ALVARA_SOLTURA) {%>
+	    	   <%@ include file="CamposFinalizacaoPendenciaAlvaraSoltura.jspf" %>
+	    <%}  else { %>
+	    	   <%@ include file="CamposExpedicaoConclusaoPendencia.jspf" %>
+	    <%} %>
+	       
+	    <br />
+	    <div id="abasInsercaoArquivos" >
+ 				<ul>
+					<li><a href="#upload"><span>Upload de Arquivos</span></a></li>
+					<li><a href="#editor_html"><span>Modelos, Editor on-line</span></a></li>
+				</ul>	   
+	    				  
+			<!-- Externo -->
+			<div id="upload" >
+				<div id="arquivo_assinado">			
+						<span class="btn btn-success fileinput-button" style="display:none">
+						    <i class="glyphicon glyphicon-plus"></i>
+					    <span>Selecionar arquivos...</span>
+						<input type="file" id="fileupload" name="files[]" multiple accept="<%=UsuarioSessao.getTipoArquivoUpload()%>" onchange="if (!selecionaArquivoAssinado(this.files)) {this.value='';preparaUploadArquivoAssinado();}"/>
+					</span>
+			        <button type="button" title="Clique para adicionar o arquivo" onclick="submeteArquivoAssinado();LimparChaveEstrangeira('id_ArquivoTipo', 'arquivoTipo'); return false;" id="botaoAplicar" style="display:none">Confirmar</button>
+			        <button type="button" title="Clique para carregar o arquivo" onclick="abreDialogoUploadArquivoAssinado();"  id="botaoUpload">Anexar Arquivos</button>
+			        <br />
+			        (<a href="https://docs.tjgo.jus.br/projudi/jar/sai.jar"><i class="fa fa-download"></i> Assinador Externo</a>)
+				</div>
+			</div>
+		     <h3><a href="#">Modelos, Editor on-line</a></h3>	
+			<!-- Interno -->
+			<div id='editor_html' > 	
+				<div class="col45" id="mod_arquivo">
+					<input type="hidden" id="id_Modelo" name="Id_Modelo" value="<%=request.getAttribute("Id_Modelo")%>" />
+					<label class="formEdicaoLabel"> Modelo 
+					<input class="FormEdicaoimgLocalizar" name="imaLocalizarModelo" type="image"  src="./imagens/imgLocalizarPequena.png" onclick="AlterarValue('PaginaAtual', '<%=String.valueOf(ModeloDt.CodigoPermissao * Configuracao.QtdPermissao + Configuracao.Localizar)%>');" title="Selecionar Modelo de Arquivo" />
+					<input class="FormEdicaoimgLocalizar" name="imaLimparModelo" type="image"  src="./imagens/16x16/edit-clear.png" onclick="LimparChaveEstrangeira('id_Modelo', 'modelo'); return false;" title="Limpar Modelo" />
+					</label><br>
+					<input class="formEdicaoInputSomenteLeitura" name="Modelo" readonly type="text" size="50" maxlength="50" id="modelo" value="<%=request.getAttribute("Modelo")%>" />		
+				</div>		
+				<div class="clear"></div>
+				<div class="col100" id="nome_arquivo">
+					<label class="formEdicaoLabel"> Nome Arquivo
+					<input type="image"  src="./imagens/16x16/edit-clear.png" onclick="AlterarValue('nomeArquivo', ''); return false;" title="Limpar nome do arquivo" />
+					</label><br>
+					<input id="nomeArquivo" name="nomeArquivo" type="text" size="55" maxlength="255" value="" />
+				</div>
+				
+				<div id="editor_texto">
+					<label> Editor Texto
+						<input class="FormEdicaoimgLocalizar" name="imaLocalizarArquivoTipo" type="image"  src="./imagens/imgEditorTextoPequena.png" onclick="MostrarOcultar('Editor'); return false;" title="Abrir Editor de Texto" />
+					</label>
+					     		
+					<div id="Editor" class="Editor"  >        			
+						<textarea class="ckeditor" cols="80" id="editor1" name="TextoEditor" rows="20"><%=request.getAttribute("TextoEditor")%></textarea>
+						<script type="text/javascript">			   		
+							<%if (request.getAttribute("TextoEditor") != null && !request.getAttribute("TextoEditor").equals("") ){			
+								%>MostrarOcultar('Editor');
+							<%}%>		
+						</script>
+					</div>						
+				  	<input type="hidden" name="arquivo" id="arquivo" value="" />					
+				</div>
+				<div id="divBotoesCentralizadosAssinador" class="divBotoesCentralizadosAssinador"> 
+					 <!-- servidor -->	
+				     <button id="but_assinar"  type="button"  onclick="javascript:digitarSenhaCertificado(inserirArquivo); return false;">
+							Assinar
+					 </button>                
+					 <button id="but_salvarHtml" type="button"  onclick="javascript:gerarHTML(); return false;">
+							Salvar Html
+					 </button>						   
+			         <button type="button"  onclick="javascript:anexarArquivoNaoAssinado();">
+							Inserir
+					 </button>					 
+					  <button type="button"  onclick="javascript:incluirArquivosAreaTransferencia();">
+							Colar
+					 </button>  					 
+					 <button type="button"  onclick="javascript:limparArquivosAreaTransferencia();">
+							Limpar
+					 </button>  
+				</div>
+				
+			</div>
+		</div>
+	</fieldset>
+	<%@ include file="ListaArquivos.jspf"%>
+

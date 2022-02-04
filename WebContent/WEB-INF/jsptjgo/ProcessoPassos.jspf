@@ -1,0 +1,16 @@
+
+
+
+	<!-- Variáveis para controlar Passos do Cadastro -->
+	<input id="Passo1" name="Passo1" type="hidden" value="<%=ProcessoCadastroDt.getPasso1()%>">
+	<input id="Passo2" name="Passo2" type="hidden" value="<%=ProcessoCadastroDt.getPasso2()%>">
+	<input id="Passo3" name="Passo3" type="hidden" value="<%=ProcessoCadastroDt.getPasso3()%>">
+
+	<% if (!ProcessoCadastroDt.getPasso1().equals("")){ %>
+	<input name="imgPasso1" type="submit" value="<%=ProcessoCadastroDt.getPasso1()%>" onClick="AlterarValue('PaginaAtual', '<%=Configuracao.Editar%>');AlterarValue('PassoEditar','-1');">
+	<% } if (!ProcessoCadastroDt.getPasso2().equals("")){ %>				
+	<input name="imgPasso2" type="submit" value="<%=ProcessoCadastroDt.getPasso2()%>" onClick="AlterarValue('PaginaAtual', '<%=Configuracao.Editar%>');AlterarValue('PassoEditar','0');">
+	<% } if (!ProcessoCadastroDt.getPasso3().equals("")){ %>				
+	<input name="imgPasso3" type="submit" value="<%=ProcessoCadastroDt.getPasso3()%>" onClick="AlterarValue('PaginaAtual', '<%=Configuracao.Editar%>');AlterarValue('PassoEditar','1');">
+	<% } %>
+

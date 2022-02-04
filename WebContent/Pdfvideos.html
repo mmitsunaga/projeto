@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=latin1" />
+<title>Processo Judicial Digital - PDFs dos V&iacute;deos Instrutivos</title>
+	<link href="imagens/favicon.png" TYPE="image/gif" REL="icon"/>
+	<script type='text/javascript' src='./js/Funcoes.js'></script>
+	<script type="text/javascript" src="./js/jquery.js"> </script>
+	<script type="text/javascript" src="./js/ui/jquery-ui.min.js"> </script>
+	
+	<link rel="stylesheet" href="css/Principal.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="css/LogonTJGO.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="css/cupertino/jquery-ui-1.8.1.custom.min.css" type="text/css" media="all" />
+    
+    <style type="text/css">
+
+			#coluna-um{				
+				vertical-align: top;
+				width: 100%;
+				
+			}
+	
+			#coluna-um h2 {
+				width: 100%;
+				height: 20px;
+				padding-top: 9px;
+				padding-right: 0px;
+				padding-bottom: 0px;
+				padding-left: 15px;
+				background-image: none;
+				margin-right: 0px;
+				margin-bottom: 0px;
+				margin-top: 0px;				
+				margin-left: 0px;
+				background: #F6F6F6;
+				font-weight: normal;
+				clear: right;
+				text-align: left;
+				font-weight: bold;
+				font-size: 11px;
+				display: block;
+				color: #494b49;
+				border-bottom-width: medium;
+				border-bottom-style: none;
+				border-bottom-color: -moz-use-text-color;
+				border-top-width: medium;
+				border-top-style: none;
+				border-top-color: -moz-use-text-color;
+				background-image: url("/imagens/bkg_bloco.gif");
+				background-repeat: repeat-x;
+				background-position: 0pt -1px;
+			}
+			
+
+			#coluna-um ul {
+				width: 90%;
+				padding-top: 0pt;
+				padding-right: 0pt;
+				padding-bottom: 0pt;
+				padding-left: 0pt;
+				margin-top: 0px;				
+				margin-right: 0px;
+				margin-bottom: 25px;
+				margin-left: 0px;
+				list-style-type: none;
+				list-style-image: none;
+				list-style-position: outside;
+			}
+
+ 			#coluna-um ul li {
+				line-height: 30px;				
+				margin-top: 0px;				
+				margin-right: 0px;
+				margin-bottom: 0px;
+				margin-left: 0px;
+				padding-top: 0px;
+				padding-right: 0px;
+				padding-bottom: 0px;
+				padding-left: 0px;
+				border-bottom-width: 1px;
+				border-bottom-style: dotted;
+				border-bottom-color: #d7d7d7;
+				background-color: transparent;
+				background-image: none;
+				background-repeat: repeat;
+				background: #ffffff;
+				text-align: left;
+				padding-left: 12px;
+				margin-left: 5px;
+				background-color: transparent;
+				background-image: url("/imagens/img_caixa.gif");
+				background-repeat: no-repeat;
+				background-attachment: scroll;
+				background-position: 0pt 13px;
+			}
+ 			
+			#coluna-um ul li a {
+				color: #333333;
+				font-weight: normal;
+			}
+			
+ 			#coluna-um ul li a:hover {
+				color: #3181c3 !important;
+				
+			}
+			
+			.mensagens {
+				height: 100%;
+				overflow: auto;
+				color: #333;
+				margin-left:50px;
+				/*text-align: justify;*/
+			}
+			.texto {
+				height: auto;
+				width: 95%;
+				padding: 3px;
+				background: #EFFAFF;
+				color: #333;
+				text-align: justify;
+			}				
+			.mensagens p {				
+				text-align: left;
+			}	
+			.mais_noticias{
+				text-align: right;
+				margin-top: 10px;
+				}
+	
+		</style> 
+		     
+    <script type='text/javascript'>
+        $(document).ready(function() {			
+	        $("#accordion").accordion({ autoHeight: false, collapsible: true, active: false });
+	        var a = $("a[targt='_blank']").size();
+			var b = $("a").size();
+			$("#info").html( (b-a) + ' de ' + b   + '   |   ' + ((1 - (a/b))*100).toFixed(2) + "% finalizado");				
+        });
+    </script>			
+
+
+</head>
+
+<body class="fundo">
+
+     
+  		<div id="pgn_cabecalho">
+        
+        <div id="img_logotj" title="Logo"><h1>Processo Judicial</h1></div>
+        
+         <div style="float: right;">
+			<div id="cssmenu" >
+				<!--<ul>
+
+					<li class="has-sub">
+                		<a href="#" title="Ajuda"><span><i class="fa fa-question-circle"></i></span></a> 
+                    	<ul>
+                    		<li><a href="./videos.html" title="Vídeos para aprender a trabalhar com o PROJUDI 2" target="_blank" id="videos"><i class="fa fa-question-circle"></i>&nbsp; V&iacute;deos</a></li>									
+				  			<li><a href="./Pdfvideos.html" title="PDF dos Vídeos para aprender a trabalhar com o PROJUDI 2" target="_blank" id="Pdfvideos"><i class="fa fa-question-circle"></i>&nbsp; PDF dos V&iacute;deos</a></li>
+				  		</ul>
+				  	</li>
+					
+					<li>
+						<a href="mailto:processodigital@tjgo.jus.br" title="Contatos"><i class="fa fa-envelope"></i> </a>  
+					</li>
+					
+	  				
+					
+				  	<li>  
+				  		<a href="Usuario?PaginaAtual=Logout" title="Sair"><i class="fa fa-sign-out"></i> </a>  
+				  	</li>
+				</ul>-->
+			</div>
+		</div>	
+	</div>
+	<div style="clear:both;width:1300px;height:28px;background-color:#ccc; margin: 0 auto;"></div>
+    <nav id="breadcrumb" class="breadcrumb" >
+		<!--<a href="#" class="breadcrumb--active"><i class="fa fa-key"></i> Login</a>-->
+	</nav> 
+  			      
+  			 
+    
+    <div id="divCorpo" class="divCorpo" >
+	<div class="area"><h2><i class="fa fa-file-pdf-o"></i> PDFs dos Vídeos Instrutivos </h2></div>
+    <div id="coluna-um">	
+	    <div id="accordion" >
+		    <h3><a href="#">Todos Usu&aacute;rios</a></h3>
+		    <div>
+				<ul>		
+	     			<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AlterarSenha.pdf"  target="_blank" > Alterar Senha</a> </li>		
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AssinarDocumentoEditor.pdf"  target="_blank" > Assinar Documento Editor</a> </li>		
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AssinarPDF.pdf"  target="_blank" > Assinar PDF</a> </li>		
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/BaixarRecibo.pdf"  target="_blank" > Baixar Recibo</a> </li>	
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/BaixarVisualizadorRecibo.pdf"  target="_blank" > Baixar Visualizador de Recibo</a> </li>	
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/BotaoAssinarNaoAparece.pdf"  target="_blank" >O Bot&atilde;o Assinar n&atilde;o aparece</a> </li>
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/LimpaCacheJavaLinux.pdf"  target="_blank" >O Bot&atilde;o Assinar n&atilde;o aparece </a> <b> LINUX</b></li>	
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/CadastrarAssistente.pdf"  target="_blank" > Cadastrar Assistente</a> </li>			                
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/CadastrarModelo.pdf"  target="_blank" > Cadastrar Modelo </a> </li>	
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/CriarCertificado.pdf" target="_blank" > Criar Certificado</a> </li>	
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/LiberarPendenciaReservada.pdf" target="_blank" > Liberar Pend&ecirc;ncia Reservada</a> </li>	                
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/ResolucaoPossiveisProblemasInserirArquivo.pdf" target="_blank" > Resolu&ccedil;&atilde;o de Poss&iacute;veis Problemas ao Inserir Arquivo</a> </li>	                
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/RevogarCertificado.pdf" target="_blank" > Revogar Certificado</a> </li>	
+	        		<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/SalvarCertificado.pdf" target="_blank" > Salvar Certificado</a> </li>
+	        		<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/TrocarServentia.pdf" target="_blank" > Trocar Serventia</a> </li>                				                
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/VisualizarPendenciaProcesso.pdf"  target="_blank" > Visualizar Pend&ecirc;ncia de Processo</a> </li>
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/VisualizarRecibo.pdf"  target="_blank" > Ver o Recibo</a> </li>	                
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/VisualizarResponsaveisProcesso.pdf"  target="_blank" > Visualizar Respons&aacute;vel pelo Processo</a> </li>  
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/e_carta.pdf"  target="_blank" > Expedi&ccedil;&atilde;o Autom&aacute;tica de Cartas (e-Carta)</a> </li>              	                         	                              	                                                                 
+				</ul>
+	        </div>	        
+	
+		    <h3><a href="#">Advogado/Procurador</a></h3>
+		    <div>
+				<ul>		
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AnalisarParecer.pdf"  target="_blank" > Assinar Pr&eacute;-An&aacute;lise</a> </li>
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/cadastrarProcessos.pdf"  target="_blank" > Cadastrar Processos</a> </li>											    			
+	    			<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/definir_master.pdf"  target="_blank" > Definir Advogado Principal</a> </li>	
+	  				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/DescartarPreAnalisePedidoManifestacao.pdf"  target="_blank" > Descartar Pr&eacute;-An&aacute;lise/Pedido de Manifesta&ccedil;&atilde;o</a> </li>
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/LerIntimacao.pdf"  target="_blank" > Ler Intima&ccedil;&atilde;o/Cita&ccedil;&atilde;o</a> </li>	
+	  				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/PreAnaliseAssitente.pdf"  target="_blank" > Efetuar Pr&eacute;-An&aacute;lise (Advogado e Assistente)</a> </li>
+	  				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/RefazerPreAnalise.pdf"  target="_blank" > Refazer Pr&eacute;-An&aacute;lise (Advogado e Assistente)</a> </li>
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/Peticionamento.pdf"  target="_blank" > Peticionamento</a> </li>
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/PedidoHabilitacaoProcesso.pdf"  target="_blank" > Pedido de Habilita&ccedil;&atilde;o em Processo</a> </li>                	                         	                              	                                                                 
+				</ul>        
+	        </div>
+		    <h3><a href="#">Escritório Juridico</a></h3>
+		    <div>
+				<ul>		
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/coordenador_ej.pdf"  target="_blank" >Coordenador Juridico.</a> </li>	                        	                         	                              	                                                                 
+				</ul>        
+	        </div>	        
+	        
+			
+			<h3 ><a href="#">Analista C&acirc;mara Segundo Grau</a></h3>
+		    <div >
+	        	<ul >
+	               	<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/DevolverProcessoServentiaOrigem_Passo_11.pdf" target="_blank" > Devolver Processo &agrave; Origem</a> </li>                                 
+	              	<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AutuacaoRecurso.pdf" target="_blank" > Definir Polos (Autuar)</a> </li> 
+	               	<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/FinalizarSessaoSegundoGrau_Passo_10.pdf" target="_blank" > Finalizar Sess&atilde;o de 2&deg; Grau</a> </li>                                 
+	               	<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/PedidoRelatorio.pdf" target="_blank" > Pedido de Relat&oacute;rio</a> </li> 
+	               	<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/MarcarSessaoSegundoGrau_Passo_8.pdf" target="_blank" > Criar Sess&atilde;o de 2&deg; Grau</a> </li>                 
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AlteracaoExtratoDaAtaDeJulgamento.pdf" target="_blank" > Alterar extrato da ata de julgamento</a> </li>   
+	                <li> Veja tamb&eacute;m os v&iacute;deos do Analista Judici&aacute;rio e do Analista Turma</li>
+	             </ul>        
+	        </div>
+	        
+		    <h3><a href="#">Analista Judici&aacute;rio</a></h3>
+		    <div>
+				<ul>			
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AcompanharPendencia.pdf"  target="_blank" > Acompanhar pend&ecirc;ncia</a> </li> 
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AlterarDadosParte.pdf"  target="_blank" > Alterar Dados da Parte</a> </li>
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AnalisarDecursoPrazo.pdf"  target="_blank" > Analisar decurso de prazo</a> </li>   
+	    			<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AnalisarNovasPeticoes.pdf" target="_blank" > Analisar Novas Peti&ccedil;&otilde;es</a> </li>				
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AnalisarNovosProcessosServentia.pdf"  target="_blank" > Analisar Novos Processos na Serventia</a> </li>				               
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AnalisarPrevencao.pdf"  target="_blank" > Analisar Preven&ccedil;&atilde;o</a> </li>	                
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/ApensarDesapensar.pdf"  target="_blank" > Apensar/Desapensar</a> </li>   
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/Arquivamento.pdf"  target="_blank" > Arquivamento</a> </li>  
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/BloquearMovimentacaoArquivo.pdf"  target="_blank" > Bloquear Movimenta&ccedil;&atilde;o/Arquivo</a> </li>                   
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/CadastrarBeneficio.pdf"  target="_blank" > Cadastrar Benef&iacute;cio</a> </li>	
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/CadastrarDebito.pdf"  target="_blank" > Cadastrar D&eacute;bito</a> </li>	                
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/cadastrarProcessos.pdf"  target="_blank" > Cadastrar Processos</a> </li>					                
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/citacao_promovida.pdf"  target="_blank" > Citação da Promovida</a> </li>
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/CriarPendencia.pdf"  target="_blank" > Criar Pend&ecirc;ncia para uma Serventia</a> </li>                                	                                 
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/CriarAgendaAudiencia.pdf"  target="_blank" > Criar Agenda de Audi&ecirc;ncia</a> </li>  
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/DesabilitarAdvogado.pdf"  target="_blank" >Desabilitar Advogado</a> </li>                     
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/EncaminharPendencia.pdf"  target="_blank" > Encaminhar pend&ecirc;ncia</a> </li> 		
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/EnvioTurmaRecursal.pdf"  target="_blank" > Envio para Turma Recursal</a> </li>        
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/ExpedirCartaCitacao.pdf"  target="_blank" > Expedir Carta de Cita&ccedil;&atilde;o</a> </li>
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/ExpedindoCartaPrecatoria.pdf"  target="_blank">Expedir Carta Precat&oacute;ria online</a> </li>  
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/ExpedirIntimacao.pdf"  target="_blank" > Expedir Intima&ccedil;&atilde;o</a> </li>                	
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/ExpedirOficioServentia.pdf"  target="_blank" > Expedir Of&iacute;cio para uma Serventia</a> </li>   
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/EstruturaCargos.pdf"  target="_blank" >Estrutura de Cargos</a> </li>                   
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/FinalizarCartaPrecatoria.pdf"  target="_blank" >Finalizar Carta Precat&oacute;ria (modelo antigo)</a> </li>                  
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/GerarCodigoAcessoPartes.pdf"  target="_blank" > Gerar C&oacute;digo de Acesso para Parte</a> </li>                       
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/GerarPdfProcesso.pdf"  target="_blank" > Gerar PDF de Processo</a> </li>   
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/HabilitarAdvogado.pdf"  target="_blank" >Habilitar Advogado</a> </li>
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/habilitar_advogado_ej.pdf"  target="_blank" >Habilitar Advogado Escritório Juridico</a> </li>                        
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/IntimacaoMinisterioPublico.pdf"  target="_blank" > Intima&ccedil;&atilde;o Minist&eacute;rio P&uacute;blico</a> </li>         
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/LiberarPendenciaReservada.pdf" target="_blank" > Liberar Pend&ecirc;ncia Reservada</a> </li>	                                            
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/MandarProcessoConcluso.pdf"  target="_blank" > Mandar Processo Concluso</a> </li>	                            	                 
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/MarcarLeituraIntimacaoCitacao.pdf"  target="_blank" > Marcar leitura Intima&ccedil;&atilde;o e Cita&ccedil;&atilde;o</a> </li>                	                 
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/MarcarAudienciaAutomaticamente.pdf"  target="_blank" >Marcar Audi&ecirc;ncias (Automaticamente)</a> </li>  
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/MarcarAudienciaManualmente.pdf"  target="_blank" >Marcar Audi&ecirc;ncias (Manualmente)</a> </li>  
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/MarcarAudienciaCartaPrecatoria.pdf"  target="_blank" >Marcar Audi&ecirc;ncias em Carta Precat&oacute;ria (modelo antigo)</a> </li>  
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/ModificarDadosProcesso.pdf"  target="_blank" >Modificar Dados do Processo</a> </li>                
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/MovimentarProcessoLote.pdf"  target="_blank" >Movimentar Processo em Lote</a> </li>	                
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/MovimentarProcessoCartaPrecatoria.pdf"  target="_blank" >Movimentar Processo em Carta Precat&oacute;ria (modelo antigo)</a> </li>  
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/OficioRecebidoTurmaEncaminhadoJuiz.pdf"  target="_blank" >Of&iacute;cio Turma (Encaminhar para Juiz)</a> </li>                  
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/PedidoCalculoContadoria.pdf"  target="_blank" > Pedido de C&aacute;lculo a Contadoria</a> </li>                   
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/RedigirCartaPrecatoriaEncaminharJuiz.pdf"  target="_blank">Redigir Carta Precat&oacute;ria</a> </li>  
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/Redistribuicao.pdf"  target="_blank" > Redistribui&ccedil;&atilde;o</a> </li>  
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/RetirarUsuarioCargo.pdf"  target="_blank" > Retirar Usu&aacute;rio de um  Cargo</a> </li>	                              	                                             	                                                            	                                 
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/ReservarAgendaAudiencia.pdf"  target="_blank" > Reservar Agenda de Audi&ecirc;ncia</a> </li>                                	                                                              	                                 
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/ResponderPendencia.pdf"  target="_blank" > Responder pend&ecirc;ncia</a> </li>                                 	                 
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/TrocarResponsavelCargo.pdf"  target="_blank" > Trocar Usu&aacute;rio de um Cargo</a> </li>	                                
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/VerificarRespostaCartaPrecatoria.pdf"  target="_blank" > Verificar Resposta de Carta Precat&oacute;ria (modelo antigo)</a> </li>                	                         	                              	                                 
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/VistarPendenciaExpedidaServentia.pdf"  target="_blank" > Vistar pend&ecirc;ncia expedida para uma Serventia</a> </li>
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/NovoVideo_DevolucaoProcessoCartaPrecatoria.pdf"  target="_blank" > Novo vídeo de Devolução de Processo Carta Precatória</a> </li>
+	                        
+	                            	                         	                              	                                                                 
+				</ul>
+	        </div>
+	
+		    <h3><a href="#">Analista Turma</a></h3>
+		    <div>
+				<ul>		
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AlterarComposicaoTurma.pdf"  target="_blank" > Alterar Composi&ccedil;&atilde;o Turma</a> </li> 
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AlterarDadosParte.pdf"  target="_blank" > Alterar Partes</a> </li>	         
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AutosConclusosDespacho.pdf"  target="_blank" > Autos Conclusos para Despacho</a> </li>	                            
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AutuarRecurso.pdf"  target="_blank" > Definir P&oacute;los (Autuar)</a> </li> 	
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/BloquearMovimentacaoArquivo.pdf"  target="_blank" > Bloquear Movimenta&ccedil;&atilde;o/Arquivo</a> </li>                   
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/CriarSessao.pdf"  target="_blank" > Criar Sess&atilde;o de Julgamento</a> </li> 	
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/DevolverProcessoOrigem.pdf"  target="_blank" > Devolver Processo &agrave; Origem </a> </li> 	                
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/ExpedirIntimacao.pdf"  target="_blank" > Expedir Intima&ccedil;&atilde;o</a> </li> 
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/FinalizarSessaoJulgamento.pdf"  target="_blank" > Finalizar Sess&atilde;o de Julgamento</a> </li>                 	
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/HabilitarAdvogado.pdf"  target="_blank" > Habilita Advogado</a> </li> 
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/MarcarLeituraIntimacao.pdf"  target="_blank" > Ler Intima&ccedil;&atilde;o</a> </li>                 	                
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/MarcarSessao.pdf"  target="_blank" > Marcar Sess&atilde;o para Recurso</a> </li> 
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/ModificarDadosProcesso.pdf"  target="_blank" >Modificar Dados do Processo</a> </li>                                	                
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/MovimentarParecer.pdf"  target="_blank" > Movimentar Parecer</a> </li> 	    
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/OficioExpedidoEnviado.pdf"  target="_blank" > Of&iacute;cio Expedido para Origem</a> </li> 	                                                
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/OficioRecebidoOrigemConclusoRelator.pdf"  target="_blank" > Of&iacute;cio Recebido (Conclus&atilde;o Relator)</a> </li> 	                                                                
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/PedidoUrgente.pdf"  target="_blank" > Pedido Urgente</a> </li>                	                         	                              	                                                                 
+				</ul>        
+	        </div>
+	
+		    <h3><a href="#">Autoridade Policial</a></h3>
+		    <div>
+				<ul>			
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/ImportarProcessoAtravesdDeTCO.pdf" target="_blank" > Importar Processo atrav&eacute;s de TCO</a> </li>	
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/IncluirDiligencia.pdf" target="_blank" > Incluir Dilig&ecirc;ncia</a> </li>                	                         	                              	                                                                 
+				</ul>        
+	        </div>
+	
+		    <h3><a href="#">Cadastrador</a></h3>
+		    <div>
+				<ul>			
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/CadastrarAdvogado.pdf" target="_blank" >Cadastrar Advogado</a> </li>			                
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/CadastrarServidorJudiciario.pdf" target="_blank" >Cadastrar Usu&aacute;rio</a> </li>    
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/InserirDocumentosUsuario.pdf"  target="_blank" >Inserir Documentos Usu&aacute;rio</a> </li>          
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/LiberarCertificadodeUsuario.pdf" target="_blank" >Liberar Certificado Usu&aacute;rio</a> </li>				                                
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/ResetarSenhaDoUsuario.pdf"  target="_blank" >Resetar Senha do Usu&aacute;rio</a> </li>                	                         	                              	                                                                 
+				</ul>        
+	        </div>        
+	
+		    <h3><a href="#">Conciliador</a></h3>
+		    <div>
+				<ul>
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/DesmarcarAudiencia.pdf" target="_blank" >Desmarcar Audi&ecirc;ncia</a> </li>				                                
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/MarcarAudienciaAutomaticamente.pdf"  target="_blank" >Marcar Audi&ecirc;ncias (Automaticamente)</a> </li>  
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/MarcarAudienciaManualmente.pdf"  target="_blank" >Marcar Audi&ecirc;ncias (Manualmente)</a> </li>  
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/RealizarAudienciaConciliacao.pdf" target="_blank" > Realizar Audi&ecirc;ncia de Concilia&Ccedil;&atilde;o</a> </li>				
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/RemarcarAudiencia.pdf" target="_blank" > Remarcar Audi&ecirc;ncia</a> </li>                	                         	                              	                                                                 
+				</ul>        
+	        </div>
+	
+		    <h3><a href="#">Contador</a></h3>
+		    <div>
+				<ul>
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/EfetuarCalculoEmProcesso.pdf" target="_blank" > Efetuar C&aacute;lculo em Processo(s)</a> </li>                	                         	                              	                                                                 
+				</ul>        
+	        </div>
+	       	<h3><a href="#">Coordenador de Promotoria</a></h3>
+		    <div>
+				<ul>
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/TrocarPromotorResponsavelIntimacao.pdf" target="_blank" > Trocar Respons&aacute;vel pela Intima&ccedil;&atilde;o</a> </li>
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/TrocarPromotorResponsavelProcesso.pdf" target="_blank" > Trocar Respons&iacute;vel pelo Processo</a> </li>                	                         	                              	                                                                 
+				</ul>        
+	        </div>
+	        <h3><a href="#">Coordenador de Procuradoria</a></h3>
+		    <div>
+				<ul>
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/TrocarProcuradorResponsavelIntimacao.pdf" target="_blank" > Trocar Respons&iacute;vel pela Intima&ccedil;&atilde;o/Cita&ccedil;&atilde;o</a> </li>
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/TrocarProcuradorResponsavelProcesso.pdf" target="_blank" > Trocar Respons&iacute;vel pelo Processo</a> </li>                	                         	                              	                                                                 
+				</ul>        
+	        </div>
+			<h3><a href="#">Desembargador</a></h3>
+		    <div>		
+	        	<ul>
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AssinarConclusoesPendentesAssinatura.pdf" target="_blank" > Assinar Conclus&otilde;es Aguardando Assinatura</a> </li>        	
+	              	<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AssinaturaPreAnalise.pdf" target="_blank" > Assinar Pr&eacute;-Analise</a> </li>      
+	              	<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/RealizarSessaoSegundoGrau_Passo_9.pdf" target="_blank" > Realizar Sess&atilde;o de 2&deg; Grau</a> </li>
+	              	<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/GuardarParaAssinarPreAnaliseFeitaPorAssistente.pdf"  target="_blank" >Guardar para Assinar (Assinatura em Lote)</a> </li>  
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/InserirAcordaoEmentaVotoVencedor.pdf"  target="_blank" >Inserir Acórdão / Ementa - Voto Vencedor</a> </li>				
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/InserirExtratoDaAtaDeJulgamentoVotoVencedor.pdf" target="_blank" > Inserir extrato da ata de julgamento - voto vencedor</a> </li>                 				
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/InserirExtratoDaAtaDeJulgamentoVotoVencido.pdf" target="_blank" > Inserir extrato da ata de julgamento - voto vencido (por maioria)</a> </li>                 				
+	            </ul>        
+	        </div>
+		    <h3><a href="#">Assistente de Juiz</a></h3>
+		    <div>
+				<ul>
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/CadastrarClassificador.pdf"  target="_blank" >Cadastrar Classificador</a> </li>	               			                                            
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/PreAnaliseSimples.pdf" target="_blank" > Pr&eacute;-an&aacute;lise Simples</a> </li>				
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/PreAnaliseMultipla.pdf"  target="_blank" > Pr&eacute;-an&aacute;lise M&uacute;ltipla</a> </li>	
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/PreAnaliseConclusosTurma.pdf"  target="_blank" > Pr&eacute;-an&aacute;lise Conclus&atilde;o (Of&iacute;cio Turma)</a> </li>	    
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/PreAnaliseConclusoOficioRespostaOrigem.pdf"  target="_blank" > Pr&eacute;-an&aacute;lise Resposta (Of&iacute;cio Turma)</a> </li>	                          
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AlterarClassificadorProcesso.pdf"  target="_blank" > Alterar Classificador do processo</a> </li>                	                         	                              	                                                                 
+				</ul>        
+	        </div>
+	
+		    <h3><a href="#">Juiz</a></h3>
+		    <div>
+				<ul>
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AnalisarConclusao.pdf" target="_blank" > Analisar Conclus&atilde;o</a> </li>				
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AssinarPreAnaliseFeitaPorAssistente.pdf" target="_blank" > Assinar pr&eacute;-an&aacute;lise feita por assistente</a> </li>				
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AssinarPreAnaliseMultipla.pdf" target="_blank" > Assinar pr&eacute;-an&aacute;lise m&uacute;ltipla</a> </li>				                	                
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/CadastrarAssistente.pdf"  target="_blank" > Cadastrar Assistente</a> </li>	
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/CadastrarClassificador.pdf"  target="_blank" >Cadastrar Classificador</a> </li>	   
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/ExpedindoCartaPrecatoria.pdf"  target="_blank">Expedir Carta Precat&oacute;ria online</a> </li>				 
+	                <li> <a href="http://docs.tjgo.jus.br/projudi/pdf/MovimentarProcessoCartaPrecatoria.pdf"  target="_blank" >Movimentar Processo em Carta Precat&oacute;ria (modelo antigo)</a> </li>  
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/OficioRespondidoJuizEnviadoTurma.pdf"  target="_blank" >Respondendo um Of&iacute;cio</a> </li>	                               			                                            			                
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/RealizarAudienciaDeInstrucaoJuizVara.pdf" target="_blank" > Realizar Audi&ecirc;ncia de Instru&ccedil;&atilde;o</a> </li>                	                         	                              	                                                                 
+				</ul>        
+	        </div>
+	
+		    <h3><a href="#">Juiz Turma Recursal</a></h3>
+		    <div>
+				<ul>
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AnalisarConclusao.pdf" target="_blank" > Analisar Conclus&atilde;o</a> </li>				
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/CadastrarAssistente.pdf" target="_blank" > Cadastrar Assistente</a> </li>			
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/RealizarSessaoDeJulgamento.pdf" target="_blank" > Realizar Sess&atilde;o de Julgamento</a> </li>	                               
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/DespachoOficioAssinado.pdf" target="_blank" > Of&iacute;cio &agrave; Origem</a> </li>	                               
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/DespachoOficioAssinadoRespostaOrigem.pdf" target="_blank" > Resposta da Origem</a> </li>                	                         	                              	                                                                 
+				</ul>        
+	        </div>
+	
+	        <h3 ><a href="#">NURER</a></h3>
+		    <div >
+				<ul >
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/tema_origem.pdf" target="_blank" >Cadastrar Tema Origem</a> </li>				
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/tema_situacao.pdf" target="_blank" >Cadastrar Tema Situaç&atilde;o</a> </li>			
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/tema_tipo.pdf" target="_blank" >Cadastrar Tema Tipo</a> </li>	                               
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/tema.pdf" target="_blank" >Cadastrar Tema</a> </li>
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/tema_processo.pdf" target="_blank" >Vincular Tema a Processo</a> </li>   					                               
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/busca_processos_tema.pdf" target="_blank" >Localizar Processo por Tema</a> </li>                	                         	                              	                                                                 
+				</ul>        
+	        </div>
+	        
+		    <h3><a href="#">Promotor</a></h3>
+		    <div>
+				<ul>			
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/AnalisarParecer.pdf"  target="_blank" > Assinar Pr&eacute;-An&aacute;lise</a> </li>
+	        		<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/cadastrarProcessos.pdf"  target="_blank" > Cadastrar Processos</a> </li>
+	        		<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/LerIntimacaoMarcandoAguardandoParecer.pdf"  target="_blank" > Ler Intima&ccedil;&atilde;o - Aguardar Parecer</a> </li>                
+	        		<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/PromotorParecer.pdf"  target="_blank" >Peticionamento</a> </li>				
+	  				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/DescartarPreAnalisePedidoManifestacao.pdf"  target="_blank" > Descartar Pr&eacute;-An&aacute;lise/Pedido de Manifesta&ccedil;&atilde;o</a> </li>
+	  				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/PreAnaliseAssitente.pdf"  target="_blank" > Efetuar Pr&eacute;-An&aacute;lise (Promotor e Assistente)</a> </li>
+	  				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/RefazerPreAnalise.pdf"  target="_blank" > Refazer Pr&eacute;-An&aacute;lise (Promotor e Assistente)</a> </li>
+					<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/TrocarResponsavelPorIntimacaoepb.pdf" target="_blank" > Trocar Respons&aacute;vel por Intima&ccedil;&otilde;es</a> </li>				
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/TrocarResponsavelProcesso.pdf" target="_blank" > Trocar Respons&aacute;vel por Processo</a> </li>
+	   				<li> <a href="http://docs.tjgo.jus.br/projudi/pdf/TrocarResponsavelCargo.pdf"  target="_blank" > Trocar Usu&aacute;rio de um Cargo</a> </li>                	                         	                              	                                                                 
+				</ul>        
+	        </div>
+	   </div>
+   </div>
+</div>
+</body>
+</html>
+

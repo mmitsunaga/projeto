@@ -1,0 +1,212 @@
+	
+	<%@page import="br.gov.go.tj.utils.Configuracao"%>
+	<%@page import="br.gov.go.tj.projudi.dt.*"%>
+	<%@page import="br.gov.go.tj.projudi.dt.ProcessoEncaminhamentoDt"%>
+	
+	<jsp:useBean id="processoEncaminhamentoDt" class= "br.gov.go.tj.projudi.dt.ProcessoEncaminhamentoDt" scope="session"/>
+
+	<!-- ESSA JSP É A PARTE GENÉRICA PARA A GERAÇÃO DE PENDÊNCIAS -->
+	<!-- É utilizada por AnalisarConclusao.jsp, MovimentarProcesso.jsp -->
+		   
+    <%@ include file="./js/MovimentacaoProcesso.js" %>
+        
+    <script type='text/javascript' src='js/Digitacao/DigitarSoNumero.js'></script>
+    <script type='text/javascript' src='js/Digitacao/MascararValor.js'></script>
+	<script type="text/javascript" src="./js/Digitacao/AutoTab.js"></script>
+	<script type="text/javascript" src="./js/jscalendar/dhtmlgoodies_calendar.js?random=20060118"></script>
+	<script type="text/javascript" src="./js/Digitacao/DigitarData.js"></script>	
+	<script type='text/javascript' src='./js/checks.js'></script>
+
+		<br />
+		<div id="divDestinatario" style="display: none;">
+			<label class="formEdicaoLabel" id="labelDestinatario"> Destinatário </label>
+			<input type="hidden" name="destinatario" id="destinatario" />	  	
+			<select name="codDestinatario" id="codDestinatario" size="1"></select>
+		</div>
+											
+		<div id="divOpcoesIntimacao" style="display: none;">
+			<br />
+			<input class="formEdicaoInput" type="checkbox" name="pessoal" id="pessoal" />Pessoal 
+			<br />
+			<input class="formEdicaoInput" type="checkbox" name="pessoalAdvogado" id="pessoalAdvogado" />Pessoal e Advogados 
+			<br />
+			<input class="formEdicaoInput" type="checkbox" name="intimacaoAudiencia" id="intimacaoAudiencia" />Intimação em Audiência/Cartório
+		</div>
+		
+		<div id="divOpcoes" style="clear: both;display: none;">
+			<div id="divOpcoesAguardandoDecursoPrazoProcessoFase" style="clear: both;display: none;">
+				<label> Tipo de Suspensão </label> 	<br/>
+				<select name="codTipoProcessoFase" id="codTipoProcessoFase" size="1">
+					<option value="-1">--Selecione o Tipo de Suspensão-- </option> 
+					<option value="9">Recurso STJ</option>
+					<option value="10">Recurso STF</option>
+					<option value="11">Recurso STF e STJ</option>
+				</select>
+				</br></br>
+			</div>
+			
+			<label class="formEdicaoLabel"> Prazo <i>(dias)</i> </label> 
+			<input id="prazo" name="prazo" type="text" size="10" onKeyPress="return DigitarSoNumero(this, event)" />
+			
+			<div id="divOpcoesAguardandoDecursoPrazo" style="clear: both;display: none;">
+				<label class="formEdicaoLabel"> Ou </label> <br>
+				<label class="formEdicaoLabel">Data Limite</label>
+				<input  placeholder='dd/mm/aaaa' id="dataLimite" name="dataLimite" type="text" size="10" maxlength="10" onblur="verifica_data(this);" onKeyPress="return DigitarSoNumero(this, event)" OnKeyUp="mascara_data(this)">
+				<img id="calendarioDataLimite" src="./imagens/dlcalendar_2.gif" height="13" width="13" title="Calendário"  alt="Calendário" onclick="displayCalendar(document.forms[0].dataLimite,'dd/mm/yyyy',this)"/> <br>
+			</div>
+			<br>
+			<label class="formEdicaoLabel"> Urgente </label>  	  	    
+			<select name="urgencia" size="1">	  
+				<option value="Não" selected>Não</option>
+				<option value="Sim">Sim</option>	   
+			</select>
+		</div>
+		
+		<div id="divAlterarValorCausa" style="clear: both;display: none;">
+			<label class="formEdicaoLabel"> Novo Valor da Causa <i>(R$)</i> </label> 
+			<input id="outros" name="outros" type="text" onkeyup="MascaraValor(this);autoTab(this,20)" onkeypress="return DigitarSoNumero(this, event)" />
+		</div>
+		
+		<div id="divAlterarClasseProcessual" style="clear: both;display: <%=((request.getAttribute("Id_ProcessoTipo") != null && !request.getAttribute("Id_ProcessoTipo").equals(""))?"":"none") %>;">
+			<label class="formEdicaoLabel"> Nova Classe </label>
+			<input class="FormEdicaoimgLocalizar" id="imaLocalizarProcessoTipo" name="imaLocalizarProcessoTipo" type="image"  src="./imagens/imgLocalizarPequena.png"  onclick="AlterarValue('PaginaAtual','<%=String.valueOf(ProcessoTipoDt.CodigoPermissao * Configuracao.QtdPermissao + Configuracao.Localizar)%>')" />
+			<input class="formEdicaoInputSomenteLeitura" readonly name="processoTipo" id="processoTipo" type="text" size="90" maxlength="100" value="<%=(request.getAttribute("ProcessoTipo")!=null?request.getAttribute("ProcessoTipo"):"")%>" /><br />
+			<input id="idProcessoTipo" name="idProcessoTipo" type="hidden" value="<%=(request.getAttribute("Id_ProcessoTipo")!=null?request.getAttribute("Id_ProcessoTipo"):"")%>" />
+		</div>
+		
+		<div id="divOpcoesIntimacaoViaTelefone" style="clear: both;display: none;">
+			<label class="formEdicaoLabel"> Urgente </label>  	  	    
+			<select name="urgencia" size="1">	  
+				<option value="Não" selected>Não</option>
+				<option value="Sim">Sim</option>	   
+			</select>
+		</div>
+		
+		<div id="divOpcoesAudiencia" style="clear: both;display: none;">
+			<label class="formEdicaoLabel" id="labelTipoAudiencia"> Tipo de Audiência </label>
+			<select name="codTipoAudiencia" id="codTipoAudiencia" size="1">
+			<option value="-1">--Selecione o Tipo de Audiência-- </option> 
+			<option value="2">Conciliação</option>
+			<option value="17">Conciliação CEJUSC</option>
+			<option value="8">Instrução e Julgamento</option>
+			<option value="3">Interrogatório</option>
+			<option value="4">Justificação</option>
+			</select>
+		</div>
+		
+		<div id="divOpcoesArquivamento" style="clear: both;display: none;">
+			<label class="formEdicaoLabel" for="Id_Banco">*Arquivamento Tipo
+				<input class="FormEdicaoimgLocalizar" id="imaLocalizarBanco" name="imaLocalizarBanco" type="image"  src="./imagens/imgLocalizarPequena.png"  					
+				onclick="MostrarBuscaPadrao('divOpcoesArquivamento','ProcessoArquivamentoTipo','Consulta tipos de arquivamento', 'Digite a descrição e clique em consultar.', 'id_ProcArquivamentoTipo', 'procArquivamentoTipo', ['Processo Arquivamento Tipo'], [], '<%=(Configuracao.Localizar)%>', '<%=Configuracao.TamanhoRetornoConsulta%>'); return false;" >
+			<input id="id_ProcArquivamentoTipo" name="id_ProcArquivamentoTipo" type="hidden" value="" /> 					
+			</label><br> <input  class="formEdicaoInputSomenteLeitura"  readonly="true" name="procArquivamentoTipo" id="procArquivamentoTipo" type="text" size="60" maxlength="60" value=""/><br />
+		</div>
+				
+		<div id="divSessao" style="display: none;">
+			<br />
+			<label class="formEdicaoLabel"> Data/Hora </label>
+			<br />
+			<select name="id_Sessao" id="id_Sessao" size="1"></select>
+			<input type="hidden" name="dataSessao" id="dataSessao" />			
+		</div>
+		<div id="divSessaoClasse" style="display: none;">
+			<br />
+			<label class="formEdicaoLabel"> Classe </label>
+			<br />
+			<select name="id_Classe" id="id_Classe" size="1"></select>
+			<input type="hidden" name="classe" id="classe" />
+		</div>
+		<br />			
+
+		<div id="divEventoPadrao" style="clear: both;display: none;">
+			<label class="formEdicaoLabel"> Data início</label> 
+			<input name="dataInicio" type="text" size="10" onkeypress="return formataCampo(event, this, 10)"/>
+			
+			<label class="formEdicaoLabel"> Quantidade <i> (dias ou horas) </i></label>  	  	    
+			<input name="quantidade" type="text" size="10"></input>
+			<br />
+			<label class="formEdicaoLabel"> Observação</label>  	  	    
+			<input name="observacao" type="text" size="30"></input>
+		</div>
+	
+		<div id="divEventoLocal" style="clear: both;display: none;">
+			<label class="formEdicaoLabel"> Local de cumprimento da pena</label> 
+			<input name="eventoLocal" type="text" size="10"/>
+		</div>
+		
+		<div id="divEventoRegime" style="clear: both;display: none;">
+			<label class="formEdicaoLabel"> Regime</label> 
+			<input name="eventoRegime" type="text" size="10"/>
+		</div>
+		
+		<div id="divEncaminharProcesso" style="clear: both;display: none;">
+			<label class="formEdicaoLabel"> Serventia de Destino: </label> 
+			<br/>
+			<label class="formEdicaoLabel" for="Id_AreaDistribuicao">*Área de Encaminhamento
+   			<input class="FormEdicaoimgLocalizar" id="imaLocalizarAreaDistribuicao" name="imaLocalizarAreaDistribuicao" type="image"  src="./imagens/imgLocalizarPequena.png"  onclick="AlterarValue('opcaoRedistribuicao','3');AlterarValue('PaginaAtual','<%= AreaDistribuicaoDt.CodigoPermissao * Configuracao.QtdPermissao + Configuracao.Localizar %>')" />  
+   			</label><br>  
+   			<input class="formEdicaoInputSomenteLeitura"  readonly name="AreaDistribuicao" id="AreaDistribuicao" type="text" size="80" maxlength="100" value="<%= processoEncaminhamentoDt.getAreaDistribuicao() %>"/><br />
+   			<input id="idServentiaDestino" name="idServentiaDestino" value="<%= processoEncaminhamentoDt.getIdServentia() %>" type="hidden" />
+   			
+   			<label class="formEdicaoLabel" for="Id_Serventia">*Serventia
+   			<input class="FormEdicaoimgLocalizar" id="imaLocalizarServentia" name="imaLocalizarServentia" type="image"  src="./imagens/imgLocalizarPequena.png"  onclick="AlterarValue('opcaoRedistribuicao','3');AlterarValue('PaginaAtual','<%= ServentiaDt.CodigoPermissao * Configuracao.QtdPermissao + Configuracao.Localizar %>')" />  
+   			</label><br> 
+   			<input class="formEdicaoInputSomenteLeitura" readonly name="Serventia" id="Serventia" type="text" size="80" maxlength="100" value="<%= processoEncaminhamentoDt.getServentia() %>"/><br />
+   			<input id="idAreaDistribuicaoDestino" name="idAreaDistribuicaoDestino" value="<%= processoEncaminhamentoDt.getIdAreaDistribuicao() %>" type="hidden" />
+		</div>
+		
+		<div id="divEncaminharProcessoGabinete" style="clear: both;display: none;">
+			<input id="fluxo" name="fluxo" value="" type="hidden" />
+
+			<label class="formEdicaoLabel" for="Id_ServentiaCargo">*Responsável 
+   			<input class="FormEdicaoimgLocalizar" id="imaLocalizarId_ServentiaCargo" name="imaLocalizarId_ServentiaCargo" type="image"  src="./imagens/imgLocalizarPequena.png"  onclick="AlterarValue('PaginaAtual','<%=String.valueOf(ServentiaCargoDt.CodigoPermissao * Configuracao.QtdPermissao + Configuracao.Localizar)%>');" >  
+			</label><br> 
+			<input class="formEdicaoInputSomenteLeitura"  readonly name="ServentiaCargo" id="ServentiaCargo" type="text" size="80" maxlength="100" value="<%=processoEncaminhamentoDt.getServentiaCargo()%>"/>
+   			<input name="Id_ServentiaCargo" id="Id_ServentiaCargo" type="hidden" value="<%=processoEncaminhamentoDt.getIdServentiaCargo()%>" />
+   			<br />
+		</div>
+		
+		<div id="divBotoesCentralizados" class="divBotoesCentralizados">
+			<input type="button" value="Incluir" title="Incluir os dados na tabela" onclick="inserir(); return false;" />
+		</div>
+		<div id="divLocalizar" class="divLocalizar">		
+			<fieldset class="formLocalizar"> 	
+				<legend>Lista de pendências</legend>
+				
+				<input type="image" name="btnAtualizar" src="./imagens/imgAtualizarPequena.png" title="Atualizar a tabela de pendências"  onclick="atualizarPendencias(); return false;">
+				<input type="image" name="btnExcluir" src="./imagens/imgExcluirPequena.png" onclick="excluirSelecionados('divTabela', 'pendencias'); return false;" style="float: none;" title="Apagar as pendências selecionadas da lista" />
+				<input type="image" name="btnSelecionar" src="./imagens/16x16/imgSelecionaTodos.png" onclick="alterarEstadoChecks('divTabela', true, 'pendencias'); return false;" style="float: none;" title="Selecionar todas as pendências da lista" />
+				<input type="image" name="btnLimpar" src="./imagens/16x16/imgNovaSelecao.png" onclick="alterarEstadoChecks('divTabela', false, 'pendencias'); return false;" style="float: none;"  title="Retirar seleção de pendências da lista" />			
+						
+				<div id="divTabela" class="divTabela">
+					<table class="Tabela">
+						<thead>
+					    	<tr>
+					    		<th class="colunaMinima">
+			    					<input type="checkbox" id="chkSelTodos" value="" onclick="atualizarChecksFiltro(this, 'divTabela', 'pendencias')" title="Alterar os estados de todos os itens da lista" />
+			    				</th>
+					      		<th>Tipo</th>
+					      		<th>Destinatário</th>
+						  		<th class="colunaMinima">Prazo</th>
+						  		<th width="12%">Data Limite</th>
+						  		<th class="colunaMinima">Urgente</th>
+						  		<th width="15%">Outro(s)</th>
+					      		<th class="colunaMinima">Retirar</th>
+					    	</tr>
+					  	</thead>
+			  			<tbody id="corpoTabela">
+			    			<tr id="identificador" style="display:none;">
+			    				<td class="colunaMinima"><input type="checkbox" name="pendencias[]" id="chk_idPendencia" value="" /></td>
+			      				<td><span id="tableTipo">Tipo</span></td>
+			      				<td><span id="tableDestinatario">Destinatário</span></td>
+			     				<td><span id="tablePrazo">Prazo</span></td>
+			     				<td><span id="tableAguardandoDecursoPrazo">Data Limite</span></td>
+				  				<td><span id="tableUrgente">Urgente</span></td>
+			  	  				<td><span id="tableIntimacao">Outro(s)</span></td>
+								<td><input name="button2" id="button2" title="Retirar esta linha" type="image" src="./imagens/imgExcluirPequena.png"  onclick="excluir(this.id); return false;" >      </td>
+			    			</tr>
+			  			</tbody>
+					</table>
+				</div>				
+			</fieldset>
+		</div>

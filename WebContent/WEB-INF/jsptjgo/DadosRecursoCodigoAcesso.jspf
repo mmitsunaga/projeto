@@ -1,0 +1,45 @@
+<%@page import="br.gov.go.tj.projudi.dt.RecursoAssuntoDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.PermissaoEspecialDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.RecursoDt"%>
+<%@page import="java.util.List"%>
+
+	<fieldset id="VisualizaDados" class="VisualizaDados">
+		<legend style="font-size: 13px;"> Dados do Recurso </legend>
+		
+		<% RecursoDt Recursodt = processoDt.getRecursoDt(); %>
+		
+		<div> Processo </div>
+		<span> <%=processoDt.getProcessoNumeroCompleto()%></span>
+		<blockquote id="menu" class="menuEspecial"> <%=(request.getAttribute("MenuEspecial" + PermissaoEspecialDt.OpcoesRecursoCodigo) != null?request.getAttribute("MenuEspecial" + PermissaoEspecialDt.OpcoesRecursoCodigo):"")%> </blockquote/><br />
+		
+		<%@ include file="BuscaPartesRecursoCodigoAcesso.jspf"%>
+	     	
+    	<fieldset id="VisualizaDados" class="VisualizaDados">
+    		<legend> Outras Informações </legend>
+    		
+	   		<div> Data Autuação </div>
+			<span><%=Recursodt.getDataRecebimento()%></span/>
+			
+	   		<div> Classe </div>
+    	  	<span><%=Recursodt.getProcessoTipo()%> </span><br />
+    	  	
+			<div> Assunto(s) </div>
+			<%
+ 					List listaAssuntos = Recursodt.getListaAssuntos();
+ 					if (listaAssuntos != null && listaAssuntos.size() > 0){ %>
+ 						<table width="60%" border="0" cellpadding="0" cellspacing="0" style="font-size: 10px !important;">
+				<%
+ 	    				for (int i=0;i < listaAssuntos.size();i++){
+ 	    					RecursoAssuntoDt assuntoDt = (RecursoAssuntoDt)listaAssuntos.get(i); %>
+  						<tbody>
+						<tr><td><span style="width: 750px;"><%=assuntoDt.getAssunto()%></span></td></tr>
+     	 					</tbody>
+			<% 	
+     					}
+ 					} else {%>
+ 					<br />
+ 					<%	} %>
+ 					</table>
+		</fieldset>
+	</fieldset>
+	<br />

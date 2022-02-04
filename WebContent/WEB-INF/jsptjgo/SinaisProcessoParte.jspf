@@ -1,0 +1,27 @@
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoParteSinalDt"%>
+
+<input type="hidden" id="posicaoLista" name="posicaoLista">
+<fieldset id="VisualizaDados" class="VisualizaDados" style="width:500px; margin-left:175px;">   
+<%
+ List listaSinal = ProcessoPartedt.getListaSinalParte();
+ if (listaSinal != null && listaSinal.size() > 0){ %>
+   			<table width="90%" border="0" cellpadding="0" cellspacing="0" style="font-size: 10px !important;">
+			<%
+   	    		for (int i=0;i < listaSinal.size();i++){
+   	    			ProcessoParteSinalDt sinalDt = (ProcessoParteSinalDt)listaSinal.get(i); %>
+	   			<tbody>
+					<tr>
+       					<td><%=sinalDt.getSinal()%></td>
+       	 				<td><input name="imgExcluir" class="imgExcluir" type="image" src="./imagens/imgExcluirPequena.png" 
+							onclick="AlterarValue('PaginaAtual','<%=Configuracao.Editar%>');AlterarValue('PassoEditar','13');
+									AlterarValue('posicaoLista','<%=i%>')" title="Excluir sinal particular"/></td>
+       	 			</tr>
+       	 		</tbody>
+       		<%	} %>
+       	</table>
+
+<% } else { %>
+   			<em> Nenhum sinal particular cadastrado </em>
+   		<% } %>
+	</fieldset>
+	<br />

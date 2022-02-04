@@ -1,0 +1,94 @@
+<fieldset id="VisualizaDados" class="VisualizaDados">
+							<legend style="background-color: #CCCCCC;">
+		                		Tabela I - Atos do Segundo Grau - Regimento 4 - Taxas de serviço
+		                	</legend>
+		                	
+		                	<fieldset id="VisualizaDados" class="VisualizaDados">
+			                	<legend>
+			                		4.I - Certidões de acordão e de decisões monocráticas
+			                	</legend>
+			                	
+			                	<div> Quantidade </div>
+								<span>
+									<input type="text" name="certidaoAcordao" id="certidaoAcordao" value="<%=GuiaEmissaoDt.getCertidaoAcordao()%>" maxlength="3" size="80" onkeypress="return DigitarSoNumero(this, event)" onblur="zerarCampoLimpo(this, '0')" />
+								</span>
+			                </fieldset>
+			                
+			                <fieldset id="VisualizaDados" class="VisualizaDados">
+			                	<legend>
+			                		4.II - Traslados, desarquivamento dos autos e outras certidões
+			                	</legend>
+			                	
+			                	<div> Quantidade </div>
+								<span>
+									<input type="text" name="desarquivamento" id="desarquivamento" value="<%=GuiaEmissaoDt.getDesarquivamento()%>" maxlength="3" size="80" onkeypress="return DigitarSoNumero(this, event)" onblur="zerarCampoLimpo(this, '0')" />
+								</span>
+			                </fieldset>
+			                
+			                <fieldset id="VisualizaDados" class="VisualizaDados">
+			                	<legend>
+			                		4.III - Restauração de autos
+			                	</legend>
+			                	
+			                	<div> Quantidade </div>
+								<span>
+									<input type="text" name="restauracao" id="restauracao" value="<%=GuiaEmissaoDt.getRestauracao()%>" maxlength="3" size="80" onkeypress="return DigitarSoNumero(this, event)" onblur="zerarCampoLimpo(this, '0')" />
+								</span>
+			                </fieldset>
+			                
+			                <fieldset id="VisualizaDados" class="VisualizaDados">
+			                	<legend>
+			                		4.IV - Por documento publicado no Diário de Justiça
+			                	</legend>
+			                	
+			                	<div> Quantidade </div>
+								<span>
+									<input type="text" name="documentoPublicadoQuantidade" id="documentoPublicadoQuantidade" value="<%=GuiaEmissaoDt.getDocumentoPublicadoQuantidade()%>" maxlength="3" size="80" onkeypress="return DigitarSoNumero(this, event)" onblur="zerarCampoLimpo(this, '0')" />
+								</span>
+			                </fieldset>
+			                
+			                <fieldset id="VisualizaDados" class="VisualizaDados">
+			                	<legend>
+			                		4.V - Porte e remessa de processos físico
+			                	</legend>
+			                	
+			                	<div> Quantidade </div>
+								<span>
+									<input type="text" name="PorteRemessaQuantidade" id="PorteRemessaQuantidade" value="<%=GuiaEmissaoDt.getPorteRemessaQuantidade()%>" maxlength="3" size="80" onkeypress="return DigitarSoNumero(this, event)" onblur="zerarCampoLimpo(this, '0')" />
+								</span>
+			                </fieldset>
+			                
+			                <fieldset id="VisualizaDados" class="VisualizaDados">
+			                	<legend>
+			                		4.VI - Despesas Postais
+			                	</legend>
+			                	
+			                	<div> Quantidade </div>
+								<span>
+									<input type="text" name="correioQuantidadeReg4VI" id="correioQuantidadeReg4VI" value="<%=GuiaEmissaoDt.getCorreioQuantidadeReg4VI()%>" maxlength="3" size="80" onkeypress="return DigitarSoNumero(this, event)" onblur="zerarCampoLimpo(this, '0')" />
+								</span>
+			                </fieldset>
+			                
+			                <fieldset id="VisualizaDados" class="VisualizaDados">
+			                	<legend>
+			                		4.VII - Pela emissão dos documentos de comunicação, notificação, intimação ou citação, por ato expedido
+			                	</legend>
+			                	
+			                	<div> Quantidade </div>
+								<span>
+									<input type="text" name="emissaoDocumentoQuantidade" id="emissaoDocumentoQuantidade" value="<%=GuiaEmissaoDt.getEmissaoDocumentoQuantidade()%>" maxlength="3" size="80" onkeypress="return DigitarSoNumero(this, event)" onblur="zerarCampoLimpo(this, '0')" />
+								</span>
+			                </fieldset>
+			                
+			                <fieldset id="VisualizaDados" class="VisualizaDados">
+			                	<legend>
+			                		4.VIII - Pela emissão dos atos de constrição, por ato expedido
+			                	</legend>
+			                	
+			                	<div> Quantidade </div>
+								<span>
+									<input type="text" name="atosConstricao" id="atosConstricao" value="<%=GuiaEmissaoDt.getAtosConstricao()%>" maxlength="3" size="80" onkeypress="return DigitarSoNumero(this, event)" onblur="zerarCampoLimpo(this, '0')" />
+								</span>
+			                </fieldset>
+			                
+			            </fieldset>

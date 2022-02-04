@@ -1,0 +1,84 @@
+
+<%@page import="java.util.List"%>
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoParteDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoParteAlcunhaDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoParteSinalDt"%>
+<%@page import="br.gov.go.tj.utils.Configuracao"%>
+<%@page import="br.gov.go.tj.utils.Funcoes"%>
+
+	<input id="Id_ProcessoParte" name="Id_ProcessoParte" type="hidden" value="" />
+
+	<%if (request.getAttribute("tempRetorno").equals("CertidaoExecucao")) {%>
+	<script type="text/javascript">
+		function selecionaSubmete(id, descricao){
+			var form =	document.getElementById('Formulario');
+			form.Id_ProcessoParte.value = id;
+			form.PaginaAtual.value = '<%=Configuracao.Editar%>' ;
+			form.submit();
+		}
+	</script>
+	<%} %>
+
+				<%
+					List liTemp = (List) request.getAttribute("ListaProcessoParte");
+					ProcessoParteDt objTemp;
+					boolean boLinha = false;
+					if (liTemp!=null){
+					
+				%>
+			<div id="divTabela" class="divTabela">
+			<table id="Tabela" class="Tabela">
+				<thead>
+					<tr>
+						<th width="20%">Nº Processo Execução</th>
+						<th>Nome do Sentenciado</th>
+						<th>Nome da Mãe</th>
+						<th>Data de Nascimento</th>
+						<th class="colunaMinima"></th>
+					</tr>
+				</thead>
+				<tbody id="tabListaProcessoParte">
+				<%
+					for (int i = 0; i < liTemp.size(); i++) {
+						objTemp = (ProcessoParteDt) liTemp.get(i);
+				%>
+				<tr class="TabelaLinha<%=(boLinha ? 1 : 2)%>">
+					<td title="Processo de Execução" align="center" onclick="AlterarValue('PassoEditar','9'); selecionaSubmete('<%=objTemp.getId()%>','<%=objTemp.getNome()%>');"><%=Funcoes.formataNumeroProcesso(objTemp.getProcessoNumero())%></td>
+					<td	onclick="AlterarValue('PassoEditar','9'); selecionaSubmete('<%=objTemp.getId()%>','<%=objTemp.getNome()%>');"><%=objTemp.getNome()%></td>
+					<td	onclick="AlterarValue('PassoEditar','9'); selecionaSubmete('<%=objTemp.getId()%>','<%=objTemp.getNome()%>');"><%=objTemp.getNomeMae()%></td>
+					<td align="center" onclick="AlterarValue('PassoEditar','9'); selecionaSubmete('<%=objTemp.getId()%>','<%=objTemp.getNome()%>');"><%=objTemp.getDataNascimento()%></td>
+					<td><img src="./imagens/execpen_icons/down.png" title="Outras informações do sentenciado..." style="cursor: pointer; cursor: hand;"
+						onclick="return mostrarLinhaTabela('imprimir_<%=objTemp.getId()%>',this)"></img></td>
+				</tr>
+				<tr>
+					<td colspan=5>
+					<div id="imprimir_<%=objTemp.getId()%>" align="justify" style="display: none">
+						Pai: <%=objTemp.getNomePai()%><br />
+						CPF: <%=objTemp.getCpfFormatado()%><br />
+						Rg:<%=objTemp.getRg() + "  " + objTemp.getSiglaOrgaoExpedidor() + "   " + objTemp.getRgDataExpedicao()%><br />
+						Sexo: <%=objTemp.getSexo()%><br />
+						Estado civil: <%=objTemp.getEstadoCivil()%><br />
+						Profissão: <%=objTemp.getProfissao()%> <br />
+						Naturalidade: <%=objTemp.getCidadeNaturalidade()%> <br />
+						Endereço: <%=objTemp.getEnderecoParte().getLogradouro() + ",  " + objTemp.getEnderecoParte().getComplemento()
+									+ ",  " + objTemp.getEnderecoParte().getBairro() + ",  " + objTemp.getEnderecoParte().getCidade()
+									+ " - " + objTemp.getEnderecoParte().getUf() + " - " + objTemp.getEnderecoParte().getCep() + "    "
+									+ objTemp.getEMail() + "    " + objTemp.getTelefone()%> <br />
+						Alcunha: <%if(objTemp.getListaAlcunhaParte() != null) { 
+										for (int j=0; j<objTemp.getListaAlcunhaParte().size(); j++){%>
+											<%=((ProcessoParteAlcunhaDt)objTemp.getListaAlcunhaParte().get(j)).getAlcunha() + ", " %> 
+								<%}	}%><br />
+						Sinal Particular: <%if(objTemp.getListaSinalParte() != null) { 
+												for (int j=0; j<objTemp.getListaSinalParte().size(); j++){%>
+												<%=((ProcessoParteSinalDt)objTemp.getListaSinalParte().get(j)).getSinal() + ", " %>
+											<%}	}%>
+					</div>
+					</td>
+				</tr>
+				<% boLinha = !boLinha;
+				}
+				}%>
+			</tbody>
+		</table>
+		</div>
+		

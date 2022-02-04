@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <Context path="/projudiTJGO" reloadable="true" debug="5">
+  <Resource
+  auth="Container"
+  description="Pool de Conexao"
+  name="jdbc/projudiTJGO"
+  type="javax.sql.DataSource"
+  driverClassName="oracle.jdbc.OracleDriver"
+  maxIdle="15"
+  maxWait="5000"  
+  username="projudi"
+  password="oracle123"
+  url="jdbc:oracle:thin:@sv-bdo-h00.tjgo.ldc:1521/desenv.tjgo.gov"
+  maxActive="15"/>
+  <Resource
+  auth="Container"
+  description="Pool de Conexao"
+  name="jdbc/projudiTJGO_STBY"
+  type="javax.sql.DataSource"
+  driverClassName="oracle.jdbc.OracleDriver"
+  maxIdle="15"
+  maxWait="5000"
+  username="projudi"
+  password="oracle123"
+  url="jdbc:oracle:thin:@sv-bdo-h00.tjgo.ldc:1521/desenv.tjgo.gov"
+  maxActive="15"/>
+  <Resource
+  auth="Container"
+  description="Pool de Conexao"
+  name="jdbc/AdabasProjudiDS"
+  type="javax.sql.DataSource" 
+  driverClassName="com.Connx.jdbc.TCJdbc.TCJdbcDriver"
+  maxIdle="15"
+  maxWait="5000"
+  username="cxadasql" 
+  password="sag123"
+  url="jdbc:connx:DD=ADABASPROJUDI;GATEWAY=sv-adabas-d00.tjgo.ldc;PORT=7502"
+  maxActive="15"/>
+  <Resource 
+  auth="Container"
+  name="jdbc/PJEProjudiDS" 
+  type="javax.sql.DataSource"
+  driverClassName="org.postgresql.Driver"		    
+  maxIdle="50" 
+  maxWait="10000"
+  username="projudi" 
+  password="projudi123"
+  url="jdbc:postgresql://sv-pje-h00.tjgo.ldc:5432/pje_descanso?characterEncoding=LATIN1"
+  maxActive="40"/>
+  <Resource
+  auth="Container"
+  description="Pool de Conexao"
+  name="jdbc/dataSourceSPGDS"
+  type="javax.sql.DataSource"
+  password="sag123"
+  driverClassName="com.Connx.jdbc.TCJdbc.TCJdbcDriver"
+  maxIdle="50"
+  maxWait="5000"
+  username="cxadasql"
+  url="jdbc:connx:DD=SPGAPROCESSOS;GATEWAY=sv-adabas-d00.tjgo.ldc;PORT=7502"
+  maxActive="15"/>
+</Context>

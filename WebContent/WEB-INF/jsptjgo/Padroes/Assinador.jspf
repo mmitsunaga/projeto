@@ -1,0 +1,16 @@
+		
+  	<input type="hidden" name="arquivo" id="arquivo" value="" />
+  			           
+		    
+	<div id="divBotoesCentralizados" class="divBotoesCentralizados">
+	  			                 		
+         <button type="button"  onclick="javascript:incluirArquivosAreaTransferencia();">
+				Colar
+		 </button>  
+		 
+		 <button type="button"  onclick="javascript:limparArquivosAreaTransferencia();">
+				Limpar
+		 </button>
+		 		               
+	</div>
+	

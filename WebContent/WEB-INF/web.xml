@@ -1,0 +1,3558 @@
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+
+  <display-name>projudi2</display-name>
+  
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>        
+  </welcome-file-list>
+ <!--  
+  <error-page>  
+        <exception-type>java.lang.Throwable</exception-type>  
+        <location>/error.jsp</location>  
+  </error-page>
+ -->    
+     <error-page>       
+		<error-code>403</error-code>
+		<location>/erros/e403.html</location>
+	</error-page>
+	
+	<error-page>       
+		<error-code>404</error-code>
+		<location>/erros/e404.html</location>
+	</error-page>
+	
+	<error-page>       
+		<error-code>409</error-code>
+		<location>/erros/e409.html</location>
+	</error-page>
+	
+	<error-page>       
+		<error-code>410</error-code>
+		<location>/erros/e410.html</location>
+	</error-page>
+	
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<trim-directive-whitespaces>true</trim-directive-whitespaces>
+		</jsp-property-group>
+	</jsp-config>
+<!--  
+ <context-param>
+   <description>Indica o local do arquivo de propriedades principal do sistema</description> 
+   <param-name>projudiProperties</param-name> 
+   <param-value>/WEB-INF/Projudi.properties</param-value> 
+ </context-param>
+ <context-param>
+   <description>Indica o local do arquivo de propriedades do framework de persistencia Torque</description> 
+   <param-name>torqueProperties</param-name> 
+   <param-value>/WEB-INF/Torque.properties</param-value> 
+ </context-param>
+--> 
+
+ <listener>
+   <description>Listener de aplicacao utilizado na inicializacao e finalizacao de componentes da aplicacao</description> 
+   <listener-class>br.gov.go.tj.projudi.Projudi</listener-class> 
+ </listener>
+
+ 
+<!-- 
+	<servlet>
+		<servlet-name>InitTorque</servlet-name>
+		<servlet-class>projudi.servlet.util.InitTorque</servlet-class>
+		<init-param>
+			<param-name>config</param-name>
+			<param-value>/WEB-INF/Torque.properties</param-value>
+		</init-param>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>InitProjudi</servlet-name>
+		<servlet-class>projudi.servlet.util.InitProjudi</servlet-class>
+		<init-param>
+			<param-name>config</param-name>
+			<param-value>/WEB-INF/Projudi.properties</param-value>
+		</init-param>
+		<load-on-startup>4</load-on-startup>
+	</servlet>
+ -->	
+ 
+
+	<resource-ref>
+        <description>Pool de Conexao</description>
+        <res-ref-name>jdbc/projudiTJGO</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Unshareable</res-sharing-scope>
+    </resource-ref>
+    
+    <resource-ref>
+        <description>Pool de Conexao STBY</description>
+        <res-ref-name>jdbc/projudiTJGO_STBY</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Unshareable</res-sharing-scope>
+    </resource-ref>
+    
+    <resource-ref>
+        <description>Pool de Conexao Adabas</description>
+        <res-ref-name>jdbc/AdabasProjudiDS</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Unshareable</res-sharing-scope>
+    </resource-ref>
+    
+    <resource-ref>     
+    	<description>Pool de Conexao Adabas Processos</description>     
+        <res-ref-name>jdbc/dataSourceSPG</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Unshareable</res-sharing-scope>
+     </resource-ref> 
+     
+     <resource-ref>    
+     	<description>Pool de Conexao DRS 3</description>      
+        <res-ref-name>jdbc/audienciaTJGO</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Unshareable</res-sharing-scope>
+     </resource-ref> 
+     
+     <resource-ref>    
+     	<description>Pool de Conexao DRS 2</description>      
+        <res-ref-name>jdbc/audienciaTJGO_FB</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Unshareable</res-sharing-scope>
+     </resource-ref>   
+
+<!-- 	<distributable /> -->
+
+    
+<!-- 
+     <listener>
+        <description>Teste de pool de conexao</description>
+        <listener-class>br.gov.go.tj.utils.ConexaoPool </listener-class>
+    </listener>   
+ -->
+
+ <!-- Inicio das configuracoes para liberar os applets no wildfly localmente na máquina
+
+ <servlet>
+    <servlet-name>default</servlet-name>
+    <servlet-class>io.undertow.servlet.handlers.DefaultServlet</servlet-class>
+    <init-param>
+        <param-name>default-allowed</param-name>
+        <param-value>true</param-value>
+    </init-param>
+    <init-param>
+         <param-name>allowed-extensions</param-name>
+         <param-value>jar</param-value>
+    </init-param>
+    <init-param>
+         <param-name>allowed-extensions</param-name>
+         <param-value>css</param-value>
+    </init-param>
+    <init-param>
+         <param-name>allowed-extensions</param-name>
+         <param-value> gif</param-value>
+    </init-param>
+    <init-param>
+         <param-name>allowed-extensions</param-name>
+         <param-value> png</param-value>
+    </init-param>
+    <init-param>
+         <param-name>allowed-extensions</param-name>
+         <param-value>jpg</param-value>
+    </init-param>
+    <init-param>
+         <param-name>disallowed-extensions</param-name>
+         <param-value>exe</param-value>
+    </init-param>
+        <init-param>
+         <param-name>disallowed-extensions</param-name>
+         <param-value>bat</param-value>
+    </init-param>
+        <init-param>
+         <param-name>disallowed-extensions</param-name>
+         <param-value>sh</param-value>
+    </init-param>
+</servlet> 
+
+ -->
+<!-- Inicio do mapeamento para o novo projudi -->
+
+<!-- Inicio do mapeamento para o novo projudi -->
+ 
+	<servlet>
+        <servlet-name>Tarefa</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.TarefaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Tarefa</servlet-name>
+        <url-pattern>/Tarefa</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>VistoTarefa</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.VistoTarefaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>VistoTarefa</servlet-name>
+        <url-pattern>/VistoTarefa</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>TarefaFinalizar</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.TarefaFinalizarCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TarefaFinalizar</servlet-name>
+        <url-pattern>/TarefaFinalizar</url-pattern>
+    </servlet-mapping>
+
+	<servlet>
+        <servlet-name>ProjetoParticipante</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProjetoParticipanteCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProjetoParticipante</servlet-name>
+        <url-pattern>/ProjetoParticipante</url-pattern>
+    </servlet-mapping>
+    
+	<servlet>
+        <servlet-name>TarefaPrioridade</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.TarefaPrioridadeCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TarefaPrioridade</servlet-name>
+        <url-pattern>/TarefaPrioridade</url-pattern>
+    </servlet-mapping>
+    
+	<servlet>
+        <servlet-name>TarefaTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.TarefaTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TarefaTipo</servlet-name>
+        <url-pattern>/TarefaTipo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>TarefaStatus</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.TarefaStatusCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TarefaStatus</servlet-name>
+        <url-pattern>/TarefaStatus</url-pattern>
+    </servlet-mapping>
+    
+	<servlet>
+        <servlet-name>Projeto</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProjetoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Projeto</servlet-name>
+        <url-pattern>/Projeto</url-pattern>
+    </servlet-mapping>
+    
+	<servlet>
+        <servlet-name>EmpresaTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.EmpresaTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EmpresaTipo</servlet-name>
+        <url-pattern>/EmpresaTipo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoSubtipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoSubtipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoSubtipo</servlet-name>
+        <url-pattern>/ProcessoSubtipo</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProcessoTipoProcessoSubtipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoTipoProcessoSubtipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoTipoProcessoSubtipo</servlet-name>
+        <url-pattern>/ProcessoTipoProcessoSubtipo</url-pattern>
+    </servlet-mapping>
+        
+    <servlet>
+        <servlet-name>GovernoTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GovernoTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GovernoTipo</servlet-name>
+        <url-pattern>/GovernoTipo</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+        <servlet-name>GrupoTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GrupoTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GrupoTipo</servlet-name>
+        <url-pattern>/GrupoTipo</url-pattern>
+    </servlet-mapping>
+    
+        <servlet>
+        <servlet-name>CertidaoNegativaPositiva</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.CertidaoNegativaPositivaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CertidaoNegativaPositiva</servlet-name>
+        <url-pattern>/CertidaoNegativaPositiva</url-pattern>
+    </servlet-mapping>
+    
+            <servlet>
+        <servlet-name>CertidaoSegundoGrauNegativaPositiva</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.CertidaoSegundoGrauNegativaPositivaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CertidaoSegundoGrauNegativaPositiva</servlet-name>
+        <url-pattern>/CertidaoSegundoGrauNegativaPositiva</url-pattern>
+    </servlet-mapping>
+	
+	<servlet>
+        <servlet-name>ComarcaCidade</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ComarcaCidadeCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ComarcaCidade</servlet-name>
+        <url-pattern>/ComarcaCidade</url-pattern>
+    </servlet-mapping>
+    
+	<servlet>
+        <servlet-name>ArquivoImportar</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.temp.ArquivosImportarCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ArquivoImportar</servlet-name>
+        <url-pattern>/ArquivoImportar</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>DescartarPendenciaProcesso</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.DescartarPendenciaProcessoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DescartarPendenciaProcesso</servlet-name>
+        <url-pattern>/DescartarPendenciaProcesso</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+        <servlet-name>SolicitarCargaProcesso</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.SolicitarCargaProcessoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SolicitarCargaProcesso</servlet-name>
+        <url-pattern>/SolicitarCargaProcesso</url-pattern>
+    </servlet-mapping>
+    
+   	<servlet>
+        <servlet-name>CertidaoTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.CertidaoTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CertidaoTipo</servlet-name>
+        <url-pattern>/CertidaoTipo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>CertidaoTipoProcessoTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.CertidaoTipoProcessoTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CertidaoTipoProcessoTipo</servlet-name>
+        <url-pattern>/CertidaoTipoProcessoTipo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>CertificadoImportar</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.temp.CertificadosImportarCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CertificadoImportar</servlet-name>
+        <url-pattern>/CertificadoImportar</url-pattern>
+    </servlet-mapping>
+    
+	<servlet>
+        <servlet-name>servico01</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.webservice.ServicoLogonCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>servico01</servlet-name>
+        <url-pattern>/servico01</url-pattern>
+    </servlet-mapping>
+
+	<servlet>
+        <servlet-name>servico02</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.webservice.Servico02Ct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>servico02</servlet-name>
+        <url-pattern>/servico02</url-pattern>
+    </servlet-mapping>
+
+	<servlet>
+        <servlet-name>servico03</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.webservice.Servico03Ct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>servico03</servlet-name>
+        <url-pattern>/servico03</url-pattern>
+    </servlet-mapping>    
+
+	<servlet>
+        <servlet-name>servico04</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.webservice.Servico04Ct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>servico04</servlet-name>
+        <url-pattern>/servico04</url-pattern>
+    </servlet-mapping>  
+    
+    <servlet>
+        <servlet-name>servico05</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.webservice.Servico05Ct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>servico05</servlet-name>
+        <url-pattern>/servico05</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>servico06</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.webservice.Servico06Ct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>servico06</servlet-name>
+        <url-pattern>/servico06</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>servico07</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.webservice.Servico07Ct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>servico07</servlet-name>
+        <url-pattern>/servico07</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>servico08</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.webservice.Servico08Ct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>servico08</servlet-name>
+        <url-pattern>/servico08</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>servico09</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.webservice.Servico09Ct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>servico09</servlet-name>
+        <url-pattern>/servico09</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+        <servlet-name>servico10</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.webservice.Servico10Ct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>servico10</servlet-name>
+        <url-pattern>/servico10</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+        <servlet-name>servico11</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.webservice.Servico11Ct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>servico11</servlet-name>
+        <url-pattern>/servico11</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ServicosPublicos</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.ServicosPublicosCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServicosPublicos</servlet-name>
+        <url-pattern>/ServicosPublicos</url-pattern>
+    </servlet-mapping>
+    
+	<servlet>
+        <servlet-name>GrupoPendenciaTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GrupoPendenciaTipoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>GrupoPendenciaTipo</servlet-name>
+        <url-pattern>/GrupoPendenciaTipo</url-pattern>
+    </servlet-mapping>
+    	
+	<servlet>
+        <servlet-name>EstatisticaUsuarioPendencia</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.EstatisticaUsuarioPendenciaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EstatisticaUsuarioPendencia</servlet-name>
+        <url-pattern>/EstatisticaUsuarioPendencia</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Estatistica</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.EstatisticaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Estatistica</servlet-name>
+        <url-pattern>/Estatistica</url-pattern>
+    </servlet-mapping>
+    
+	<servlet>
+        <servlet-name>EstatisticaServentia</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.EstatisticaServentiaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EstatisticaServentia</servlet-name>
+        <url-pattern>/EstatisticaServentia</url-pattern>
+    </servlet-mapping>
+        
+	<servlet>
+        <servlet-name>Movimentacao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.MovimentacaoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>Movimentacao</servlet-name>
+        <url-pattern>/Movimentacao</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PendenciaMovimentacao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PendenciaMovimentacaoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>PendenciaMovimentacao</servlet-name>
+        <url-pattern>/PendenciaMovimentacao</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Redistribuicao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.RedistribuicaoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>Redistribuicao</servlet-name>
+        <url-pattern>/Redistribuicao</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>RedistribuicaoLote</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.RedistribuicaoLoteCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>RedistribuicaoLote</servlet-name>
+        <url-pattern>/RedistribuicaoLote</url-pattern>
+    </servlet-mapping>
+    
+	<servlet>
+        <servlet-name>PrazoSuspenso</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PrazoSuspensoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PrazoSuspenso</servlet-name>
+        <url-pattern>/PrazoSuspenso</url-pattern>
+    </servlet-mapping>
+    
+	<servlet>
+        <servlet-name>Administrador</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AdministradorCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Administrador</servlet-name>
+        <url-pattern>/Administrador</url-pattern>
+    </servlet-mapping>
+        
+    <servlet>
+        <servlet-name>PrazoSuspensoTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PrazoSuspensoTipoCt</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>PrazoSuspensoTipo</servlet-name>
+        <url-pattern>/PrazoSuspensoTipo</url-pattern>
+    </servlet-mapping>
+    
+	<servlet>
+        <servlet-name>EstadoCivil</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.EstadoCivilCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EstadoCivil</servlet-name>
+        <url-pattern>/EstadoCivil</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Profissao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProfissaoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Profissao</servlet-name>
+        <url-pattern>/Profissao</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Escolaridade</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.EscolaridadeCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Escolaridade</servlet-name>
+        <url-pattern>/Escolaridade</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Alcunha</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AlcunhaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Alcunha</servlet-name>
+        <url-pattern>/Alcunha</url-pattern>
+	</servlet-mapping>
+   <servlet>
+        <servlet-name>Sinal</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.SinalCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Sinal</servlet-name>
+        <url-pattern>/Sinal</url-pattern>
+    </servlet-mapping>
+	<servlet>
+        <servlet-name>UsuarioServentiaAfastamento</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.UsuarioServentiaAfastamentoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UsuarioServentiaAfastamento</servlet-name>
+        <url-pattern>/UsuarioServentiaAfastamento</url-pattern>
+    </servlet-mapping>
+	<servlet>
+        <servlet-name>Advogado</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AdvogadoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Advogado</servlet-name>
+        <url-pattern>/Advogado</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdvogadoCertificado</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AdvogadoCertificadoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdvogadoCertificado</servlet-name>
+        <url-pattern>/AdvogadoCertificado</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Assistente</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AssistenteCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Assistente</servlet-name>
+        <url-pattern>/Assistente</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ServidorJudiciario</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ServidorJudiciarioCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServidorJudiciario</servlet-name>
+        <url-pattern>/ServidorJudiciario</url-pattern>
+    </servlet-mapping>
+	<servlet>
+        <servlet-name>UsuarioParte</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.UsuarioParteCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UsuarioParte</servlet-name>
+        <url-pattern>/UsuarioParte</url-pattern>
+    </servlet-mapping>    
+	<servlet>
+        <servlet-name>Comarca</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ComarcaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Comarca</servlet-name>
+        <url-pattern>/Comarca</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Forum</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ForumCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Forum</servlet-name>
+        <url-pattern>/Forum</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Serventia</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ServentiaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Serventia</servlet-name>
+        <url-pattern>/Serventia</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ServentiaRelacionada</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ServentiaRelacionadaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServentiaRelacionada</servlet-name>
+        <url-pattern>/ServentiaRelacionada</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ServentiaTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ServentiaTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServentiaTipo</servlet-name>
+        <url-pattern>/ServentiaTipo</url-pattern>
+    </servlet-mapping>
+     <servlet>
+        <servlet-name>ServentiaSubtipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ServentiaSubtipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServentiaSubtipo</servlet-name>
+        <url-pattern>/ServentiaSubtipo</url-pattern>
+    </servlet-mapping>
+    
+       <servlet>
+        <servlet-name>CertidaoAntecedenteCriminal</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.CertidaoAntecedenteCriminalCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CertidaoAntecedenteCriminal</servlet-name>
+        <url-pattern>/CertidaoAntecedenteCriminal</url-pattern>
+    </servlet-mapping>
+     <servlet>
+        <servlet-name>ServentiaSubtipoProcessoTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ServentiaSubtipoProcessoTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServentiaSubtipoProcessoTipo</servlet-name>
+        <url-pattern>/ServentiaSubtipoProcessoTipo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ServentiaSubtipoAssunto</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ServentiaSubtipoAssuntoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServentiaSubtipoAssunto</servlet-name>
+        <url-pattern>/ServentiaSubtipoAssunto</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Assunto</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AssuntoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Assunto</servlet-name>
+        <url-pattern>/Assunto</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoParte</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoParteCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoParte</servlet-name>
+        <url-pattern>/ProcessoParte</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+        <servlet-name>ServentiaCargoEscala</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ServentiaCargoEscalaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServentiaCargoEscala</servlet-name>
+        <url-pattern>/ServentiaCargoEscala</url-pattern>
+    </servlet-mapping>
+    
+ 	<servlet>
+        <servlet-name>LogTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.LogTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogTipo</servlet-name>
+        <url-pattern>/LogTipo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Log</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.LogCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Log</servlet-name>
+        <url-pattern>/Log</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>UsuarioArquivo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.UsuarioArquivoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UsuarioArquivo</servlet-name>
+        <url-pattern>/UsuarioArquivo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>CertidaoExecucao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.CertidaoExecucaoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CertidaoExecucao</servlet-name>
+        <url-pattern>/CertidaoExecucao</url-pattern>
+    </servlet-mapping>
+    
+ 	<servlet>
+        <servlet-name>Cidade</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.CidadeCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Cidade</servlet-name>
+        <url-pattern>/Cidade</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Estado</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.EstadoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Estado</servlet-name>
+        <url-pattern>/Estado</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Modelo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ModeloCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Modelo</servlet-name>
+        <url-pattern>/Modelo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Usuario</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.UsuarioCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Usuario</servlet-name>
+        <url-pattern>/Usuario</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Grupo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GrupoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Grupo</servlet-name>
+        <url-pattern>/Grupo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>UsuarioServentiaGrupo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.UsuarioServentiaGrupoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UsuarioServentiaGrupo</servlet-name>
+        <url-pattern>/UsuarioServentiaGrupo</url-pattern>
+    </servlet-mapping>    
+    
+    <servlet>
+        <servlet-name>UsuarioServentiaOab</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.UsuarioServentiaOabCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UsuarioServentiaOab</servlet-name>
+        <url-pattern>/UsuarioServentiaOab</url-pattern>
+    </servlet-mapping>    
+    
+    <servlet>
+        <servlet-name>Permissao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PermissaoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Permissao</servlet-name>
+        <url-pattern>/Permissao</url-pattern>
+    </servlet-mapping>    
+    
+   	<servlet>
+        <servlet-name>PermissaoEspecial</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PermissaoEspecialCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PermissaoEspecial</servlet-name>
+        <url-pattern>/PermissaoEspecial</url-pattern>
+    </servlet-mapping>    
+    
+    <servlet>
+        <servlet-name>GrupoPermissao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GrupoPermissaoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GrupoPermissao</servlet-name>
+        <url-pattern>/GrupoPermissao</url-pattern>
+    </servlet-mapping>     
+  
+     <servlet>
+        <servlet-name>Regiao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.RegiaoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Regiao</servlet-name>
+        <url-pattern>/Regiao</url-pattern>
+    </servlet-mapping>
+    
+	<servlet>
+        <servlet-name>Zona</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ZonaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Zona</servlet-name>
+        <url-pattern>/Zona</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ZonaBairroRegiao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ZonaBairroRegiaoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ZonaBairroRegiao</servlet-name>
+        <url-pattern>/ZonaBairroRegiao</url-pattern>
+    </servlet-mapping>
+   
+    <servlet>
+        <servlet-name>Pais</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PaisCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Pais</servlet-name>
+        <url-pattern>/Pais</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Bairro</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.BairroCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Bairro</servlet-name>
+        <url-pattern>/Bairro</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Area</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AreaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Area</servlet-name>
+        <url-pattern>/Area</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+        <servlet-name>AreaDistribuicao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AreaDistribuicaoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AreaDistribuicao</servlet-name>
+        <url-pattern>/AreaDistribuicao</url-pattern>
+    </servlet-mapping>
+    
+   	<servlet>
+        <servlet-name>MandadoTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.MandadoTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MandadoTipo</servlet-name>
+        <url-pattern>/MandadoTipo</url-pattern>
+    </servlet-mapping>
+    
+   	<servlet>
+        <servlet-name>Escala</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.EscalaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Escala</servlet-name>
+        <url-pattern>/Escala</url-pattern>
+    </servlet-mapping>
+    
+ 	<servlet>
+        <servlet-name>Banco</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.BancoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Banco</servlet-name>
+        <url-pattern>/Banco</url-pattern>
+    </servlet-mapping>
+    
+   	<servlet>
+        <servlet-name>Agencia</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AgenciaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Agencia</servlet-name>
+        <url-pattern>/Agencia</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ArquivoTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ArquivoTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ArquivoTipo</servlet-name>
+        <url-pattern>/ArquivoTipo</url-pattern>
+    </servlet-mapping>
+    
+	<servlet>
+        <servlet-name>MovimentacaoTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.MovimentacaoTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MovimentacaoTipo</servlet-name>
+        <url-pattern>/MovimentacaoTipo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>MovimentacaoTipoClasse</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.MovimentacaoTipoClasseCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MovimentacaoTipoClasse</servlet-name>
+        <url-pattern>/MovimentacaoTipoClasse</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>MovimentacaoTipoMovimentacaoTipoClasse</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.MovimentacaoTipoMovimentacaoTipoClasseCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MovimentacaoTipoMovimentacaoTipoClasse</servlet-name>
+        <url-pattern>/MovimentacaoTipoMovimentacaoTipoClasse</url-pattern>
+    </servlet-mapping>
+    
+   	<servlet>
+        <servlet-name>RgOrgaoExpedidor</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.RgOrgaoExpedidorCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RgOrgaoExpedidor</servlet-name>
+        <url-pattern>/RgOrgaoExpedidor</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoCompletoPDF</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoCompletoPDFCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoCompletoPDF</servlet-name>
+        <url-pattern>/ProcessoCompletoPDF</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoTipo</servlet-name>
+        <url-pattern>/ProcessoTipo</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+        <servlet-name>ProcessoFase</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoFaseCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoFase</servlet-name>
+        <url-pattern>/ProcessoFase</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoTema</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoTemaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoTema</servlet-name>
+        <url-pattern>/ProcessoTema</url-pattern>
+    </servlet-mapping>
+    
+   <servlet>
+        <servlet-name>TemaOrigem</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.TemaOrigemCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TemaOrigem</servlet-name>
+        <url-pattern>/TemaOrigem</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>TemaSituacao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.TemaSituacaoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TemaSituacao</servlet-name>
+        <url-pattern>/TemaSituacao</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>TemaTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.TemaTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TemaTipo</servlet-name>
+        <url-pattern>/TemaTipo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Tema</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.TemaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Tema</servlet-name>
+        <url-pattern>/Tema</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>TemaPendencia</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.TemaPendenciaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TemaPendencia</servlet-name>
+        <url-pattern>/TemaPendencia</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoPrioridade</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoPrioridadeCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoPrioridade</servlet-name>
+        <url-pattern>/ProcessoPrioridade</url-pattern>
+    </servlet-mapping>
+    
+   	<servlet>
+        <servlet-name>ProcessoParteAusencia</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoParteAusenciaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoParteAusencia</servlet-name>
+        <url-pattern>/ProcessoParteAusencia</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoDebito</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoDebitoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoDebito</servlet-name>
+        <url-pattern>/ProcessoDebito</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoDebitoStatus</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoDebitoStatusCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoDebitoStatus</servlet-name>
+        <url-pattern>/ProcessoDebitoStatus</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoBeneficio</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoBeneficioCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoBeneficio</servlet-name>
+        <url-pattern>/ProcessoBeneficio</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoParteDebito</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoParteDebitoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoParteDebito</servlet-name>
+        <url-pattern>/ProcessoParteDebito</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoParteBeneficio</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoParteBeneficioCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoParteBeneficio</servlet-name>
+        <url-pattern>/ProcessoParteBeneficio</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoParteTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoParteTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoParteTipo</servlet-name>
+        <url-pattern>/ProcessoParteTipo</url-pattern>
+    </servlet-mapping>
+    
+   	<servlet>
+        <servlet-name>PendenciaTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PendenciaTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PendenciaTipo</servlet-name>
+        <url-pattern>/PendenciaTipo</url-pattern>
+    </servlet-mapping>
+    
+   	<servlet>
+        <servlet-name>PendenciaTipoRelacionada</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PendenciaTipoRelacionadaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PendenciaTipoRelacionada</servlet-name>
+        <url-pattern>/PendenciaTipoRelacionada</url-pattern>
+    </servlet-mapping>    
+    
+	<servlet>
+        <servlet-name>PendenciaStatus</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PendenciaStatusCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PendenciaStatus</servlet-name>
+        <url-pattern>/PendenciaStatus</url-pattern>
+    </servlet-mapping>
+    
+   	<servlet>
+        <servlet-name>Pendencia</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PendenciaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Pendencia</servlet-name>
+        <url-pattern>/Pendencia</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PendenciaResponsavel</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PendenciaResponsavelCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PendenciaResponsavel</servlet-name>
+        <url-pattern>/PendenciaResponsavel</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>DistribuicaoPendencia</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.DistribuicaoPendenciaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DistribuicaoPendencia</servlet-name>
+        <url-pattern>/DistribuicaoPendencia</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PendenciaUsuarioServentiaResponsavel</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PendenciaUsuarioServentiaResponsavelCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PendenciaUsuarioServentiaResponsavel</servlet-name>
+        <url-pattern>/PendenciaUsuarioServentiaResponsavel</url-pattern>
+    </servlet-mapping> 
+    
+    <servlet>
+        <servlet-name>PendenciaServentiaCargoResponsavel</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PendenciaServentiaCargoResponsavelCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PendenciaServentiaCargoResponsavel</servlet-name>
+        <url-pattern>/PendenciaServentiaCargoResponsavel</url-pattern>
+    </servlet-mapping>  
+    
+     <servlet>
+        <servlet-name>TrocarConclusaoMagistrado</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.TrocarConclusaoMagistradoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TrocarConclusaoMagistrado</servlet-name>
+        <url-pattern>/TrocarConclusaoMagistrado</url-pattern>
+    </servlet-mapping>  
+    
+  	<servlet>
+        <servlet-name>Afastamento</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AfastamentoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Afastamento</servlet-name>
+        <url-pattern>/Afastamento</url-pattern>
+    </servlet-mapping>  
+    
+    <servlet>
+        <servlet-name>ContaUsuario</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ContaUsuarioCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ContaUsuario</servlet-name>
+        <url-pattern>/ContaUsuario</url-pattern>
+    </servlet-mapping> 
+    
+	<servlet>
+        <servlet-name>Classificador</servlet-name>        
+        <servlet-class>br.gov.go.tj.projudi.ct.ClassificadorCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>Classificador</servlet-name>
+    	<url-pattern>/Classificador</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>ProcessoStatus</servlet-name>
+    	<servlet-class>br.gov.go.tj.projudi.ct.ProcessoStatusCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>ProcessoStatus</servlet-name>
+    	<url-pattern>/ProcessoStatus</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>MandadoJudicial</servlet-name>
+    	<servlet-class>br.gov.go.tj.projudi.ct.MandadoJudicialCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>MandadoJudicial</servlet-name>
+    	<url-pattern>/MandadoJudicial</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>MandadoJudicialStatus</servlet-name>
+    	<servlet-class>br.gov.go.tj.projudi.ct.MandadoJudicialStatusCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>MandadoJudicialStatus</servlet-name>
+    	<url-pattern>/MandadoJudicialStatus</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>DistribuirMandado</servlet-name>
+    	<servlet-class>br.gov.go.tj.projudi.ct.DistribuirMandadoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>DistribuirMandado</servlet-name>
+    	<url-pattern>/DistribuirMandado</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>ExpedirMandado</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.ExpedirMandadoCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ExpedirMandado</servlet-name>
+		<url-pattern>/ExpedirMandado</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>DadosUsuario</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.DadosUsuarioCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DadosUsuario</servlet-name>
+		<url-pattern>/DadosUsuario</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+        <servlet-name>Certificado</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.CertificadoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Certificado</servlet-name>
+        <url-pattern>/Certificado</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CertificadoUsuario</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.CertificadoUsuarioCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CertificadoUsuario</servlet-name>
+        <url-pattern>/CertificadoUsuario</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>CertificadoConfiavel</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.CertificadoConfiavelCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CertificadoConfiavel</servlet-name>
+        <url-pattern>/CertificadoConfiavel</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>EstatisticaProcessoServentia</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.EstatisticaProcessoServentiaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EstatisticaProcessoServentia</servlet-name>
+        <url-pattern>/EstatisticaProcessoServentia</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>EstatisticaPendencia</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.EstatisticaPendenciaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EstatisticaPendencia</servlet-name>
+        <url-pattern>/EstatisticaPendencia</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>EstatisticaMovimentacao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.EstatisticaMovimentacaoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EstatisticaMovimentacao</servlet-name>
+        <url-pattern>/EstatisticaMovimentacao</url-pattern>
+    </servlet-mapping>
+    
+        <servlet>
+        <servlet-name>ProcessoCadastroRestaurar</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoCadastroRestaurarCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoCadastroRestaurar</servlet-name>
+        <url-pattern>/ProcessoCadastroRestaurar</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+		<servlet-name>EstatisticaPublica</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.publicos.EstatisticaPublicaCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EstatisticaPublica</servlet-name>
+		<url-pattern>/EstatisticaPublica</url-pattern>
+	</servlet-mapping>
+    
+    <servlet>
+		<servlet-name>RelatorioAnaliticoProdutividade</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioAnaliticoProdutividadeCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioAnaliticoProdutividade</servlet-name>
+		<url-pattern>/RelatorioAnaliticoProdutividade</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RelatorioAnaliticoProcesso</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioAnaliticoProcessoCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioAnaliticoProcesso</servlet-name>
+		<url-pattern>/RelatorioAnaliticoProcesso</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RelatorioAnaliticoPendencia</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioAnaliticoPendenciaCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioAnaliticoPendencia</servlet-name>
+		<url-pattern>/RelatorioAnaliticoPendencia</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RelatorioSumarioProdutividade</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioSumarioProdutividadeCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioSumarioProdutividade</servlet-name>
+		<url-pattern>/RelatorioSumarioProdutividade</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RelatorioRecursoRepetitivo</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioRecursoRepetitivoCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioRecursoRepetitivo</servlet-name>
+		<url-pattern>/RelatorioRecursoRepetitivo</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RelatorioSumarioProcesso</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioSumarioProcessoCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioSumarioProcesso</servlet-name>
+		<url-pattern>/RelatorioSumarioProcesso</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RelatorioSumarioPendencia</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioSumarioPendenciaCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioSumarioPendencia</servlet-name>
+		<url-pattern>/RelatorioSumarioPendencia</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RelatorioMaioresPromoventesPromovidos</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioMaioresPromoventesPromovidosCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioMaioresPromoventesPromovidos</servlet-name>
+		<url-pattern>/RelatorioMaioresPromoventesPromovidos</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RelatorioSumarioProcessosServentia</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioSumarioProcessosServentiaCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioSumarioProcessosServentia</servlet-name>
+		<url-pattern>/RelatorioSumarioProcessosServentia</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RelatorioSumarioProcessosComarca</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioSumarioProcessosComarcaCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioSumarioProcessosComarca</servlet-name>
+		<url-pattern>/RelatorioSumarioProcessosComarca</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RelatorioConclusoesPrimeiroGrau</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioConclusoesPrimeiroGrauCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioConclusoesPrimeiroGrau</servlet-name>
+		<url-pattern>/RelatorioConclusoesPrimeiroGrau</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RelatorioConclusoesSegundoGrau</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioConclusoesSegundoGrauCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioConclusoesSegundoGrau</servlet-name>
+		<url-pattern>/RelatorioConclusoesSegundoGrau</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RelatorioSituacaoGabinete</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioSituacaoGabineteCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioSituacaoGabinete</servlet-name>
+		<url-pattern>/RelatorioSituacaoGabinete</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RelatorioProcessoSegundoGrauArea</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioProcessoSegundoGrauAreaCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioProcessoSegundoGrauArea</servlet-name>
+		<url-pattern>/RelatorioProcessoSegundoGrauArea</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RelatorioProcessoSegundoGrauDesembargadores</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioProcessoSegundoGrauDesembargadoresCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioProcessoSegundoGrauDesembargadores</servlet-name>
+		<url-pattern>/RelatorioProcessoSegundoGrauDesembargadores</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RelatorioProcessoPrimeiroGrauJuizes</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioProcessoPrimeiroGrauJuizesCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioProcessoPrimeiroGrauJuizes</servlet-name>
+		<url-pattern>/RelatorioProcessoPrimeiroGrauJuizes</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RelatorioImplantacao</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioImplantacaoCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioImplantacao</servlet-name>
+		<url-pattern>/RelatorioImplantacao</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RelatorioPeriodico</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioPeriodicoCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioPeriodico</servlet-name>
+		<url-pattern>/RelatorioPeriodico</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RelatorioDesembargadores</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioDesembargadoresCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioDesembargadores</servlet-name>
+		<url-pattern>/RelatorioDesembargadores</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RelatorioExecpenweb</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioExecpenwebCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioExecpenweb</servlet-name>
+		<url-pattern>/RelatorioExecpenweb</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>EstatisticaProdutividadeItem</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.EstatisticaProdutividadeItemCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EstatisticaProdutividadeItem</servlet-name>
+		<url-pattern>/EstatisticaProdutividadeItem</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GraficoProcesso</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.GraficoProcessoCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GraficoProcesso</servlet-name>
+		<url-pattern>/GraficoProcesso</url-pattern>
+	</servlet-mapping>
+	
+    <servlet>
+        <servlet-name>Peticionamento</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PeticionamentoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Peticionamento</servlet-name>
+        <url-pattern>/Peticionamento</url-pattern>
+    </servlet-mapping> 
+    
+    <servlet>
+        <servlet-name>ProcessoParteAdvogado</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoParteAdvogadoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoParteAdvogado</servlet-name>
+        <url-pattern>/ProcessoParteAdvogado</url-pattern>
+    </servlet-mapping> 
+    
+    <servlet>
+        <servlet-name>AudienciaAgenda</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AudienciaAgendaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AudienciaAgenda</servlet-name>
+        <url-pattern>/AudienciaAgenda</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Audiencia</servlet-name>
+    <servlet-class>br.gov.go.tj.projudi.ct.AudienciaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Audiencia</servlet-name>
+        <url-pattern>/Audiencia</url-pattern>
+    </servlet-mapping>  
+    
+    <servlet>
+        <servlet-name>AudienciaFisico</servlet-name>
+    <servlet-class>br.gov.go.tj.projudi.ct.AudienciaFisicoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AudienciaFisico</servlet-name>
+        <url-pattern>/AudienciaFisico</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AudienciaMovimentacao</servlet-name>
+    <servlet-class>br.gov.go.tj.projudi.ct.AudienciaMovimentacaoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AudienciaMovimentacao</servlet-name>
+        <url-pattern>/AudienciaMovimentacao</url-pattern>
+    </servlet-mapping>  
+    
+    <servlet>
+        <servlet-name>AudienciaProcessoMovimentacao</servlet-name>
+    <servlet-class>br.gov.go.tj.projudi.ct.AudienciaProcessoMovimentacaoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AudienciaProcessoMovimentacao</servlet-name>
+        <url-pattern>/AudienciaProcessoMovimentacao</url-pattern>
+    </servlet-mapping>  
+    
+    <servlet>
+        <servlet-name>AudienciaSegundoGrau</servlet-name>
+    <servlet-class>br.gov.go.tj.projudi.ct.AudienciaSegundoGrauCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AudienciaSegundoGrau</servlet-name>
+        <url-pattern>/AudienciaSegundoGrau</url-pattern>
+    </servlet-mapping>  
+    
+    <servlet>
+        <servlet-name>AudienciaTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AudienciaTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AudienciaTipo</servlet-name>
+        <url-pattern>/AudienciaTipo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AudienciaProcessoStatus</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AudienciaProcessoStatusCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AudienciaProcessoStatus</servlet-name>
+        <url-pattern>/AudienciaProcessoStatus</url-pattern>
+    </servlet-mapping>
+
+   
+    <servlet>
+        <servlet-name>AudienciaProcesso</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AudienciaProcessoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AudienciaProcesso</servlet-name>
+        <url-pattern>/AudienciaProcesso</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>MovimentacaoArquivo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.MovimentacaoArquivoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MovimentacaoArquivo</servlet-name>
+        <url-pattern>/MovimentacaoArquivo</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PendenciaArquivo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PendenciaArquivoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PendenciaArquivo</servlet-name>
+        <url-pattern>/PendenciaArquivo</url-pattern>
+    </servlet-mapping>
+        
+     <servlet>
+        <servlet-name>ObjetoPedido</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ObjetoPedidoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ObjetoPedido</servlet-name>
+        <url-pattern>/ObjetoPedido</url-pattern>
+    </servlet-mapping>
+    
+	<servlet>
+        <servlet-name>ProcessoCivel</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoCivelCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoCivel</servlet-name>
+        <url-pattern>/ProcessoCivel</url-pattern>
+    </servlet-mapping>
+    
+   	<servlet>
+        <servlet-name>ProcessoCriminal</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoCriminalCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoCriminal</servlet-name>
+        <url-pattern>/ProcessoCriminal</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoCivelSemAssistencia</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoCivelSemAssistenciaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoCivelSemAssistencia</servlet-name>
+        <url-pattern>/ProcessoCivelSemAssistencia</url-pattern>
+    </servlet-mapping>
+    
+   	<servlet>
+        <servlet-name>ProcessoCriminalSemAssistencia</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoCriminalSemAssistenciaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoCriminalSemAssistencia</servlet-name>
+        <url-pattern>/ProcessoCriminalSemAssistencia</url-pattern>
+    </servlet-mapping>
+  
+  	<servlet>
+        <servlet-name>CadastroProcesso</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.webservice.CadastroProcessoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CadastroProcesso</servlet-name>
+        <url-pattern>/CadastroProcesso</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Recurso</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.RecursoCt</servlet-class>
+		<init-param> 
+			<description>test page</description> 
+			<param-name>testeJesus</param-name> 
+			<param-value>Funciona</param-value> 
+		</init-param> 
+
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>Recurso</servlet-name>
+        <url-pattern>/Recurso</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>CoversaoProcessoRecurso</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.CoversaoProcessoRecursoCt</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>CoversaoProcessoRecurso</servlet-name>
+        <url-pattern>/CoversaoProcessoRecurso</url-pattern>
+    </servlet-mapping>
+    
+	<servlet>
+        <servlet-name>RecursoParte</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.RecursoParteCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RecursoParte</servlet-name>
+        <url-pattern>/RecursoParte</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoSegundoGrauCriminal</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoSegundoGrauCriminalCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoSegundoGrauCriminal</servlet-name>
+        <url-pattern>/ProcessoSegundoGrauCriminal</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoSegundoGrauCivel</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoSegundoGrauCivelCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoSegundoGrauCivel</servlet-name>
+        <url-pattern>/ProcessoSegundoGrauCivel</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoSegundoGrauCivelSemAssistenciaCt</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoSegundoGrauCivelSemAssistenciaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoSegundoGrauCivelSemAssistenciaCt</servlet-name>
+        <url-pattern>/ProcessoSegundoGrauCivelSemAssistenciaCt</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>RecebimentoGuia</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.RecebimentoGuiaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RecebimentoGuia</servlet-name>
+        <url-pattern>/RecebimentoGuia</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ImportarDadosProcesso</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ImportarDadosProcessoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ImportarDadosProcesso</servlet-name>
+        <url-pattern>/ImportarDadosProcesso</url-pattern>
+    </servlet-mapping>
+    
+   	<servlet>
+        <servlet-name>Processo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Processo</servlet-name>
+        <url-pattern>/Processo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Processo2</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.Processo2Ct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Processo2</servlet-name>
+        <url-pattern>/Processo2</url-pattern>
+    </servlet-mapping>
+   	
+   	<servlet>
+        <servlet-name>BuscaProcesso</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.BuscaProcessoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BuscaProcesso</servlet-name>
+        <url-pattern>/BuscaProcesso</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>BuscaProcessoInternaCodigoAcesso</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.BuscaProcessoInternaCodigoAcessoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BuscaProcessoInternaCodigoAcesso</servlet-name>
+        <url-pattern>/BuscaProcessoInternaCodigoAcesso</url-pattern>
+    </servlet-mapping>
+    
+   	<servlet>
+        <servlet-name>BuscaProcessoUsuarioExterno</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.BuscaProcessoUsuarioExternoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BuscaProcessoUsuarioExterno</servlet-name>
+        <url-pattern>/BuscaProcessoUsuarioExterno</url-pattern>
+    </servlet-mapping>
+    
+   	<servlet>
+        <servlet-name>GrupoArquivoTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GrupoArquivoTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GrupoArquivoTipo</servlet-name>
+        <url-pattern>/GrupoArquivoTipo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GrupoMovimentacaoTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GrupoMovimentacaoTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GrupoMovimentacaoTipo</servlet-name>
+        <url-pattern>/GrupoMovimentacaoTipo</url-pattern>
+    </servlet-mapping>
+   	
+   	<servlet>
+        <servlet-name>ProcessoApenso</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoApensoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoApenso</servlet-name>
+        <url-pattern>/ProcessoApenso</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ServentiaCargo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ServentiaCargoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServentiaCargo</servlet-name>
+        <url-pattern>/ServentiaCargo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ServentiaGrupo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ServentiaGrupoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServentiaGrupo</servlet-name>
+        <url-pattern>/ServentiaGrupo</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+        <servlet-name>ServentiaGrupoServentiaCargo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ServentiaGrupoServentiaCargoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServentiaGrupoServentiaCargo</servlet-name>
+        <url-pattern>/ServentiaGrupoServentiaCargo</url-pattern>
+    </servlet-mapping> 
+
+    <servlet>
+        <servlet-name>TrocaServentiaCargo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.TrocaServentiaCargoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TrocaServentiaCargo</servlet-name>
+        <url-pattern>/TrocaServentiaCargo</url-pattern>
+    </servlet-mapping>      
+    
+   	<servlet>
+        <servlet-name>CargoTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.CargoTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CargoTipo</servlet-name>
+        <url-pattern>/CargoTipo</url-pattern>
+    </servlet-mapping>  
+    
+    <servlet>
+        <servlet-name>ProcessoResponsavel</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoResponsavelCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoResponsavel</servlet-name>
+        <url-pattern>/ProcessoResponsavel</url-pattern>
+    </servlet-mapping> 
+    
+    <servlet>
+        <servlet-name>ProcessoRedatorResponsavel</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoRedatorResponsavelCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoRedatorResponsavel</servlet-name>
+        <url-pattern>/ProcessoRedatorResponsavel</url-pattern>
+    </servlet-mapping> 
+    
+    <servlet>
+        <servlet-name>ProcessoResponsavelAssistente</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoResponsavelAssistenteCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoResponsavelAssistente</servlet-name>
+        <url-pattern>/ProcessoResponsavelAssistente</url-pattern>
+    </servlet-mapping>   
+  	
+  	<servlet>
+        <servlet-name>AnalisarConclusao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AnalisarConclusaoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>AnalisarConclusao</servlet-name>
+        <url-pattern>/AnalisarConclusao</url-pattern>
+    </servlet-mapping>
+    
+   	<servlet>
+        <servlet-name>AnalisarPendencia</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AnalisarPendenciaCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>AnalisarPendencia</servlet-name>
+        <url-pattern>/AnalisarPendencia</url-pattern>
+    </servlet-mapping>
+    
+   	<servlet>
+        <servlet-name>PreAnalisarConclusao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PreAnalisarConclusaoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>PreAnalisarConclusao</servlet-name>
+        <url-pattern>/PreAnalisarConclusao</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PreAnalisarPendencia</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PreAnalisarPendenciaCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>PreAnalisarPendencia</servlet-name>
+        <url-pattern>/PreAnalisarPendencia</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>pendenciapublicacao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PendenciaPublicaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>pendenciapublicacao</servlet-name>
+        <url-pattern>/PendenciaPublicacao</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>pendenciapublicacao</servlet-name>
+        <url-pattern>/pendenciapublicacao</url-pattern>
+    </servlet-mapping>       
+    
+    <servlet>
+        <servlet-name>PublicacaoPDF</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.PublicacaoPDFCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>PublicacaoPDF</servlet-name>
+        <url-pattern>/PublicacaoPDF</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>IntimacaoPDF</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.PublicacaoIntimacaoPDFCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>IntimacaoPDF</servlet-name>
+        <url-pattern>/IntimacaoPDF</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>IntimacaoPDFv2</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.PublicacaoIntimacaoPDFV2Ct</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>IntimacaoPDFv2</servlet-name>
+        <url-pattern>/IntimacaoPDFv2</url-pattern>
+    </servlet-mapping>
+    
+    
+    <!-- Execução Penal -->
+    
+    <servlet>
+        <servlet-name>ProcessoExecucao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoExecucaoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoExecucao</servlet-name>
+        <url-pattern>/ProcessoExecucao</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ImportarExecpen</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ImportarExecpenCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ImportarExecpen</servlet-name>
+        <url-pattern>/ImportarExecpen</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>CalculadoraTemposDatas</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.CalculadoraTemposDatasCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>CalculadoraTemposDatas</servlet-name>
+        <url-pattern>/CalculadoraTemposDatas</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Infoseg</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.InfosegCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Infoseg</servlet-name>
+        <url-pattern>/Infoseg</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>CrimeExecucao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.CrimeExecucaoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>CrimeExecucao</servlet-name>
+        <url-pattern>/CrimeExecucao</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ParametroComutacaoExecucao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ParametroComutacaoExecucaoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>ParametroComutacaoExecucao</servlet-name>
+        <url-pattern>/ParametroComutacaoExecucao</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+        <servlet-name>ParametroCrimeExecucao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ParametroCrimeExecucaoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>ParametroCrimeExecucao</servlet-name>
+        <url-pattern>/ParametroCrimeExecucao</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EventoExecucaoTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.EventoExecucaoTipoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>EventoExecucaoTipo</servlet-name>
+        <url-pattern>/EventoExecucaoTipo</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>EventoExecucaoStatus</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.EventoExecucaoStatusCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>EventoExecucaoStatus</servlet-name>
+        <url-pattern>/EventoExecucaoStatus</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>EventoExecucao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.EventoExecucaoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>EventoExecucao</servlet-name>
+        <url-pattern>/EventoExecucao</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ProcessoEventoExecucao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoEventoExecucaoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>ProcessoEventoExecucao</servlet-name>
+        <url-pattern>/ProcessoEventoExecucao</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>RelatorioProcessoExecucao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.RelatorioProcessoExecucaoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>RelatorioProcessoExecucao</servlet-name>
+        <url-pattern>/RelatorioProcessoExecucao</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>RegimeExecucao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.RegimeExecucaoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>RegimeExecucao</servlet-name>
+        <url-pattern>/RegimeExecucao</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>PenaExecucaoTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PenaExecucaoTipoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>PenaExecucaoTipo</servlet-name>
+        <url-pattern>/PenaExecucaoTipo</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>LocalCumprimentoPena</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.LocalCumprimentoPenaCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>LocalCumprimentoPena</servlet-name>
+        <url-pattern>/LocalCumprimentoPena</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Publicos -->
+    <servlet>
+        <servlet-name>BuscaProcessoPublica</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.BuscaProcessoPublicaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BuscaProcessoPublica</servlet-name>
+        <url-pattern>/BuscaProcessoPublica</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>CalculadoraTemposDatasPublica</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.CalculadoraTemposDatasPublicaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CalculadoraTemposDatasPublica</servlet-name>
+        <url-pattern>/CalculadoraTemposDatasPublica</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>vNumProcesso</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.BuscaProcessoPublicaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>vNumProcesso</servlet-name>
+        <url-pattern>/vNumProcesso</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>BuscaProcessoCodigoAcesso</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.BuscaProcessoCodigoAcessoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BuscaProcessoCodigoAcesso</servlet-name>
+        <url-pattern>/BuscaProcessoCodigoAcesso</url-pattern>
+    </servlet-mapping>
+    
+   	<servlet>
+        <servlet-name>PendenciaPublica</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.PendenciaPublicaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PendenciaPublica</servlet-name>
+        <url-pattern>/PendenciaPublica</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+        <servlet-name>ProcessoParalisado</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoParalisadoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>ProcessoParalisado</servlet-name>
+        <url-pattern>/ProcessoParalisado</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoAudiencia</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoAudienciaCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>ProcessoAudiencia</servlet-name>
+        <url-pattern>/ProcessoAudiencia</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoSemMovimentacao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoSemMovimentacaoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>ProcessoSemMovimentacao</servlet-name>
+        <url-pattern>/ProcessoSemMovimentacao</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoTempoVidaTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoTempoVidaTipoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>ProcessoTempoVidaTipo</servlet-name>
+        <url-pattern>/ProcessoTempoVidaTipo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ArrecadacaoCusta</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ArrecadacaoCustaCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>ArrecadacaoCusta</servlet-name>
+        <url-pattern>/ArrecadacaoCusta</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Custa</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.CustaCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>Custa</servlet-name>
+        <url-pattern>/Custa</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>CustaValor</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.CustaValorCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>CustaValor</servlet-name>
+        <url-pattern>/CustaValor</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaModelo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaModeloCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>GuiaModelo</servlet-name>
+        <url-pattern>/GuiaModelo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaCustaModelo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaCustaModeloCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>GuiaCustaModelo</servlet-name>
+        <url-pattern>/GuiaCustaModelo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaTipoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>GuiaTipo</servlet-name>
+        <url-pattern>/GuiaTipo</url-pattern>
+    </servlet-mapping>
+    
+<!-- 	<servlet> -->
+<!-- 		<servlet-name>Locomocao</servlet-name> -->
+<!-- 		<servlet-class>br.gov.go.tj.projudi.ct.LocomocaoCt</servlet-class> -->
+<!-- 	</servlet> -->
+<!-- 	<servlet-mapping> -->
+<!-- 		<servlet-name>Locomocao</servlet-name> -->
+<!-- 		<url-pattern>/Locomocao</url-pattern> -->
+<!-- 	</servlet-mapping> -->
+	
+	<servlet>
+		<servlet-name>GuiaEmissao</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.GuiaEmissaoCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GuiaEmissao</servlet-name>
+		<url-pattern>/GuiaEmissao</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GuiaItem</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.GuiaItemCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GuiaItem</servlet-name>
+		<url-pattern>/GuiaItem</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ServentiaCargoEscalaStatus</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.ServentiaCargoEscalaStatusCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ServentiaCargoEscalaStatus</servlet-name>
+		<url-pattern>/ServentiaCargoEscalaStatus</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+        <servlet-name>ListaJuizados</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.ListaJuizadosCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListaJuizados</servlet-name>
+        <url-pattern>/ListaJuizados</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaInicial</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaInicialCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaInicial</servlet-name>
+        <url-pattern>/GuiaInicial1Grau</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaInicialPublica</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.GuiaInicialPublicaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaInicialPublica</servlet-name>
+        <url-pattern>/GuiaInicial1GrauPublica</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaInicialComplementarPublica</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.GuiaInicialComplementarPublicaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaInicialComplementarPublica</servlet-name>
+        <url-pattern>/GuiaInicialComplementarPublica</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaAgravoRegimental</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaAgravoRegimentalCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaAgravoRegimental</servlet-name>
+        <url-pattern>/GuiaAgravoRegimental</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaRecursoSTJ</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaRecursoStjCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaRecursoSTJ</servlet-name>
+        <url-pattern>/GuiaRecursoSTJ</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaLocomocao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaLocomocaoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaLocomocao</servlet-name>
+        <url-pattern>/GuiaLocomocao</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaLocomocaoComplementar</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaLocomocaoComplementarCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaLocomocaoComplementar</servlet-name>
+        <url-pattern>/GuiaLocomocaoComplementar</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaInicialLocomocaoComplementar</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaInicialLocomocaoComplementarCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaInicialLocomocaoComplementar</servlet-name>
+        <url-pattern>/GuiaInicialLocomocaoComplementar</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaComplementar</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaComplementarCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaComplementar</servlet-name>
+        <url-pattern>/GuiaComplementar</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaHomologacaoAcordo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaHomologacaoAcordoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaHomologacaoAcordo</servlet-name>
+        <url-pattern>/GuiaHomologacaoAcordo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaFinal</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaFinalCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaFinal</servlet-name>
+        <url-pattern>/GuiaFinal</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaFinalZero</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaFinalZeroCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaFinalZero</servlet-name>
+        <url-pattern>/GuiaFinalZero</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaRecursoInominado</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaRecursoInominadoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaRecursoInominado</servlet-name>
+        <url-pattern>/GuiaRecursoInominado</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaRecursoInominadoQueixaCrime</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaRecursoInominadoQueixaCrimeCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaRecursoInominadoQueixaCrime</servlet-name>
+        <url-pattern>/GuiaRecursoInominadoQueixaCrime</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaExecucaoSentenca</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaExecucaoSentencaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaExecucaoSentenca</servlet-name>
+        <url-pattern>/GuiaExecucaoSentenca</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaFazendaMunicipal</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaFazendaMunicipalCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaFazendaMunicipal</servlet-name>
+        <url-pattern>/GuiaFazendaMunicipal</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaExecucaoQueixaCrime</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaExecucaoQueixaCrimeCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaExecucaoQueixaCrime</servlet-name>
+        <url-pattern>/GuiaExecucaoQueixaCrime</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaRecurso</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaRecursoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaRecurso</servlet-name>
+        <url-pattern>/GuiaRecurso</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaPostagem</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaPostagemCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaPostagem</servlet-name>
+        <url-pattern>/GuiaPostagem</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaServicos</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaServicosCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaServicos</servlet-name>
+        <url-pattern>/GuiaServicos</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaCartaPrecatoria</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaCartaPrecatoriaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaCartaPrecatoria</servlet-name>
+        <url-pattern>/GuiaCartaPrecatoria</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaGenerica</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaGenericaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaGenerica</servlet-name>
+        <url-pattern>/GuiaGenerica</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>FinanceiroConsultarGuias</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.FinanceiroConsultarGuiasCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FinanceiroConsultarGuias</servlet-name>
+        <url-pattern>/FinanceiroConsultarGuias</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GerenciaArquivoBanco</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GerenciaArquivoBancoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GerenciaArquivoBanco</servlet-name>
+        <url-pattern>/GerenciaArquivoBanco</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AssinarConclusao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AssinarConclusaoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AssinarConclusao</servlet-name>
+        <url-pattern>/AssinarConclusao</url-pattern>
+    </servlet-mapping>
+	
+	<servlet>
+        <servlet-name>AssinarPendencia</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AssinarPendenciaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AssinarPendencia</servlet-name>
+        <url-pattern>/AssinarPendencia</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoPromotorResponsavel</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoPromotorResponsavelCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoPromotorResponsavel</servlet-name>
+        <url-pattern>/ProcessoPromotorResponsavel</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoProcuradorResponsavel</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoProcuradorResponsavelCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoProcuradorResponsavel</servlet-name>
+        <url-pattern>/ProcessoProcuradorResponsavel</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>UsuarioMovimentacaoTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.UsuarioMovimentacaoTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UsuarioMovimentacaoTipo</servlet-name>
+        <url-pattern>/UsuarioMovimentacaoTipo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AnalisarVotoEmenta</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AnalisarVotoEmentaCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>AnalisarVotoEmenta</servlet-name>
+        <url-pattern>/AnalisarVotoEmenta</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PreAnalisarVotoEmenta</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PreAnalisarVotoEmentaCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>PreAnalisarVotoEmenta</servlet-name>
+        <url-pattern>/PreAnalisarVotoEmenta</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>RelatorioTarefasPeriodo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.RelatorioTarefasPeriodoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>RelatorioTarefasPeriodo</servlet-name>
+        <url-pattern>/RelatorioTarefasPeriodo</url-pattern>
+    </servlet-mapping>       
+    
+    <servlet>
+        <servlet-name>PrisaoTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PrisaoTipoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>PrisaoTipo</servlet-name>
+        <url-pattern>/PrisaoTipo</url-pattern>
+    </servlet-mapping>  
+    
+    <servlet>
+        <servlet-name>MandadoPrisaoStatus</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.MandadoPrisaoStatusCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>MandadoPrisaoStatus</servlet-name>
+        <url-pattern>/MandadoPrisaoStatus</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>MandadoPrisao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.MandadoPrisaoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>MandadoPrisao</servlet-name>
+        <url-pattern>/MandadoPrisao</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>MandadoPrisaoOrigem</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.MandadoPrisaoOrigemCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>MandadoPrisaoOrigem</servlet-name>
+        <url-pattern>/MandadoPrisaoOrigem</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+		<servlet-name>RelatorioPonteiroDistribuicao</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioPonteiroDistribuicaoCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioPonteiroDistribuicao</servlet-name>
+		<url-pattern>/RelatorioPonteiroDistribuicao</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ProcessoLog</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.ProcessoLogCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProcessoLog</servlet-name>
+		<url-pattern>/ProcessoLog</url-pattern>
+	</servlet-mapping>
+	<servlet>
+        <servlet-name>CertidaoPublica</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.CertidaoPublicaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CertidaoPublica</servlet-name>
+        <url-pattern>/CertidaoPublica</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>certidaopublica</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.CertidaoPublicaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>certidaopublica</servlet-name>
+        <url-pattern>/certidaopublica</url-pattern>
+    </servlet-mapping>	
+    
+    <servlet>
+		<servlet-name>RelatorioAdvogadosProcessosOutrosEstados</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioAdvogadosProcessosOutrosEstadosCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioAdvogadosProcessosOutrosEstados</servlet-name>
+		<url-pattern>/RelatorioAdvogadosProcessosOutrosEstados</url-pattern>
+	</servlet-mapping>
+    
+<!-- Mapeamento para uso do , ativação do ajax -->
+<!--     <servlet> -->
+<!--         <servlet-name>dwr-invoker</servlet-name> -->
+<!--         <display-name>DWR Servlet</display-name> -->
+<!--         <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class> -->
+<!--         <init-param> -->
+<!--             <param-name>debug</param-name> -->
+<!--             <param-value>true</param-value> -->
+<!--         </init-param> -->
+<!--         <init-param> -->
+<!-- 			<param-name>allowScriptTagRemoting</param-name> -->
+<!--             <param-value>true</param-value> -->
+<!--         </init-param> -->
+        
+<!--         <init-param> -->
+<!--             <param-name>crossDomainSessionSecurity</param-name> -->
+<!--             <param-value>false</param-value> -->
+<!--         </init-param> -->
+<!--     </servlet>         -->
+    
+<!--     <servlet-mapping> -->
+<!--         <servlet-name>dwr-invoker</servlet-name> -->
+<!--         <url-pattern>/dwr/*</url-pattern> -->
+<!--     </servlet-mapping>    -->
+    
+    <servlet>
+        <servlet-name>OficialCertidao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.OficialCertidaoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OficialCertidao</servlet-name>
+        <url-pattern>/OficialCertidao</url-pattern>
+    </servlet-mapping>      
+    <servlet>
+        <servlet-name>ProcessoFisico</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoFisicoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoFisico</servlet-name>
+        <url-pattern>/ProcessoFisico</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>InversaoPolos</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.InversaoPolosCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InversaoPolos</servlet-name>
+        <url-pattern>/InversaoPolos</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>CertidaoNegativaPositivaPublica</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.CertidaoNegativaPositivaPublicaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CertidaoNegativaPositivaPublica</servlet-name>
+        <url-pattern>/CertidaoNegativaPositivaPublica</url-pattern>
+    </servlet-mapping>
+     <servlet>
+        <servlet-name>CertidaoSegundoGrauNegativaPositivaPublica</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.CertidaoSegundoGrauNegativaPositivaPublicaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CertidaoSegundoGrauNegativaPositivaPublica</servlet-name>
+        <url-pattern>/CertidaoSegundoGrauNegativaPositivaPublica</url-pattern>
+    </servlet-mapping>
+     <servlet>
+        <servlet-name>ConsultaCertidaoNegativaPositiva</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ConsultaCertidaoNegativaPositivaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ConsultaCertidaoNegativaPositiva</servlet-name>
+        <url-pattern>/ConsultaCertidaoNegativaPositiva</url-pattern>
+    </servlet-mapping>
+    <servlet>
+    	<description></description>
+	    <display-name>ValidaCertidaoCt</display-name>
+	    <servlet-name>ValidaCertidaoCt</servlet-name>
+	    <servlet-class>br.gov.go.tj.projudi.ct.publicos.ValidaCertidaoCt</servlet-class>
+	</servlet>
+  	<servlet-mapping>
+    	<servlet-name>ValidaCertidaoCt</servlet-name>
+    	<url-pattern>/ValidaCertidao</url-pattern>
+  	</servlet-mapping>
+    <servlet>
+        <servlet-name>AudienciaServentiaCargoResponsavel</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AudienciaServentiaCargoResponsavelCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AudienciaServentiaCargoResponsavel</servlet-name>
+        <url-pattern>/AudienciaServentiaCargoResponsavel</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GraficoMovimentacaoAdvogado</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GraficoMovimentacaoAdvogadoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GraficoMovimentacaoAdvogado</servlet-name>
+        <url-pattern>/GraficoMovimentacaoAdvogado</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>FormaCumprimentoExecucao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.FormaCumprimentoExecucaoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FormaCumprimentoExecucao</servlet-name>
+        <url-pattern>/FormaCumprimentoExecucao</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Raca</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.RacaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Raca</servlet-name>
+        <url-pattern>/Raca</url-pattern>
+    </servlet-mapping>
+    
+   <servlet>
+    <description>Solicita a emissao do relatorio de interrupcoes</description>
+    <display-name>RelatorioInterrupcoes</display-name>
+    <servlet-name>RelatorioInterrupcoes</servlet-name>
+    <servlet-class>br.gov.go.tj.projudi.ct.publicos.RelatorioInterrupcoesCt</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RelatorioInterrupcoes</servlet-name>
+    <url-pattern>/RelatorioInterrupcoes</url-pattern>
+  </servlet-mapping>
+   <servlet>
+       <servlet-name>TesteWebServiceCNJ</servlet-name>
+       <servlet-class>br.gov.go.tj.projudi.webservice.testes.TesteWebServiceCNJCt</servlet-class>
+   </servlet>
+   <servlet-mapping>
+       <servlet-name>TesteWebServiceCNJ</servlet-name>
+       <url-pattern>/TesteWebServiceCNJ</url-pattern>
+   </servlet-mapping>
+   <servlet>
+     <servlet-name>IntercomunicacaoService</servlet-name>
+     <servlet-class>br.gov.go.tj.projudi.webservice.IntercomunicacaoService</servlet-class>
+   </servlet>  
+   <servlet-mapping>
+     <servlet-name>IntercomunicacaoService</servlet-name>
+     <url-pattern>/IntercomunicacaoService</url-pattern>
+   </servlet-mapping> 
+   <servlet>
+     <servlet-name>GuiaEmissaoConsulta</servlet-name>
+     <servlet-class>br.gov.go.tj.projudi.ct.GuiaEmissaoConsultaCt</servlet-class>
+   </servlet>  
+   <servlet-mapping>
+     <servlet-name>GuiaEmissaoConsulta</servlet-name>
+     <url-pattern>/GuiaEmissaoConsulta</url-pattern>
+   </servlet-mapping>
+   <servlet>
+        <servlet-name>CertidaoNegativaPositivaPublicaPJ</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.CertidaoNegativaPositivaPublicaPJCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CertidaoNegativaPositivaPublicaPJ</servlet-name>
+        <url-pattern>/CertidaoNegativaPositivaPublicaPJ</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>CertidaoSegundoGrauNegativaPositivaPublicaPJ</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.CertidaoSegundoGrauNegativaPositivaPublicaPJCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CertidaoSegundoGrauNegativaPositivaPublicaPJ</servlet-name>
+        <url-pattern>/CertidaoSegundoGrauNegativaPositivaPublicaPJ</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>FinanceiroConsultarRepassePrefeitura</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.FinanceiroConsultarRepassePrefeituraCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FinanceiroConsultarRepassePrefeitura</servlet-name>
+        <url-pattern>/FinanceiroConsultarRepassePrefeitura</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>FinanceiroConsultarRepassePrefeituraWebService</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.FinanceiroConsultarRepassePrefeituraWebServiceCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FinanceiroConsultarRepassePrefeituraWebService</servlet-name>
+        <url-pattern>/FinanceiroConsultarRepassePrefeituraWebService</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>UploadArquivoAssinado</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.UploadArquivoAssinadoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UploadArquivoAssinado</servlet-name>
+        <url-pattern>/UploadArquivoAssinado</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>LoginComCertificado</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.LoginComCertificadoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginComCertificado</servlet-name>
+        <url-pattern>/certificado</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AprovarCandidato</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AprovarCandidatoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AprovarCandidato</servlet-name>
+        <url-pattern>/AprovarCandidato</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>AudienciaProcessoFisicoMovimentacao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AudienciaProcessoFisicoMovimentacaoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AudienciaProcessoFisicoMovimentacao</servlet-name>
+        <url-pattern>/AudienciaProcessoFisicoMovimentacao</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>NaturezaSPG</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.NaturezaSPGCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NaturezaSPG</servlet-name>
+        <url-pattern>/NaturezaSPG</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaLocomocaoPublica</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.GuiaLocomocaoPublicaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaLocomocaoPublica</servlet-name>
+        <url-pattern>/GuiaLocomocaoPublica</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaLocomocaoComplementarPublica</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.GuiaLocomocaoComplementarPublicaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaLocomocaoComplementarPublica</servlet-name>
+        <url-pattern>/GuiaLocomocaoComplementarPublica</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PonteiroCejusc</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PonteiroCejuscCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PonteiroCejusc</servlet-name>
+        <url-pattern>/PonteiroCejusc</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PonteiroLogCompensar</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PonteiroLogCompensarCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PonteiroLogCompensar</servlet-name>
+        <url-pattern>/PonteiroLogCompensar</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>CejuscDisponibilidade</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.CejuscDisponibilidadeCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CejuscDisponibilidade</servlet-name>
+        <url-pattern>/CejuscDisponibilidade</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>VincularGuiaInicialProcesso</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.VincularGuiaInicialProcessoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>VincularGuiaInicialProcesso</servlet-name>
+        <url-pattern>/VincularGuiaInicialProcesso</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaPostagemPublica</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.GuiaPostagemPublicaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaPostagemPublica</servlet-name>
+        <url-pattern>/GuiaPostagemPublica</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GuiaRecursoInominadoPublica</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.GuiaRecursoInominadoPublicaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaRecursoInominadoPublica</servlet-name>
+        <url-pattern>/GuiaRecursoInominadoPublica</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>VincularGuiaComplementarProcesso</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.VincularGuiaComplementarProcessoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>VincularGuiaComplementarProcesso</servlet-name>
+        <url-pattern>/VincularGuiaComplementarProcesso</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>LogOn</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.LogOn</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogOn</servlet-name>
+        <url-pattern>/LogOn</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ConfirmaLink</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.ConfirmaLinkCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ConfirmaLink</servlet-name>
+        <url-pattern>/ConfirmaLink</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>RecuperaSenha</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.RecuperaSenhaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RecuperaSenha</servlet-name>
+        <url-pattern>/RecuperaSenha</url-pattern>
+    </servlet-mapping>
+    
+<!--     <servlet> -->
+<!--         <servlet-name>GuiaResolucaoConflitoPublica</servlet-name> -->
+<!--         <servlet-class>br.gov.go.tj.projudi.ct.publicos.GuiaResolucaoConflitoPublicaCt</servlet-class> -->
+<!--     </servlet> -->
+<!--     <servlet-mapping> -->
+<!--         <servlet-name>GuiaResolucaoConflitoPublica</servlet-name> -->
+<!--         <url-pattern>/GuiaResolucaoConflitoPublica</url-pattern> -->
+<!--     </servlet-mapping> -->
+    
+<!--     <servlet> -->
+<!--         <servlet-name>GuiaConciliacaoPublica</servlet-name> -->
+<!--         <servlet-class>br.gov.go.tj.projudi.ct.publicos.GuiaConciliacaoPublicaCt</servlet-class> -->
+<!--     </servlet> -->
+<!--     <servlet-mapping> -->
+<!--         <servlet-name>GuiaConciliacaoPublica</servlet-name> -->
+<!--         <url-pattern>/GuiaConciliacaoPublica</url-pattern> -->
+<!--     </servlet-mapping> -->
+    
+<!--     <servlet> -->
+<!--         <servlet-name>GuiaMediacaoPublica</servlet-name> -->
+<!--         <servlet-class>br.gov.go.tj.projudi.ct.publicos.GuiaMediacaoPublicaCt</servlet-class> -->
+<!--     </servlet> -->
+<!--     <servlet-mapping> -->
+<!--         <servlet-name>GuiaMediacaoPublica</servlet-name> -->
+<!--         <url-pattern>/GuiaMediacaoPublica</url-pattern> -->
+<!--     </servlet-mapping> -->
+    
+    <servlet>
+        <servlet-name>RecursoNovo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.RecursoNovoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RecursoNovo</servlet-name>
+        <url-pattern>/RecursoNovo</url-pattern>
+    </servlet-mapping>
+
+ 	<servlet>
+        <servlet-name>InsercaoArquivo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.InsercaoArquivoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InsercaoArquivo</servlet-name>
+        <url-pattern>/InsercaoArquivo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AssinarSessaoSegundoGrau</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AssinarSessaoSegundoGrauCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AssinarSessaoSegundoGrau</servlet-name>
+        <url-pattern>/AssinarSessaoSegundoGrau</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>DesvincularGuiaProcesso</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.DesvincularGuiaProcessoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DesvincularGuiaProcesso</servlet-name>
+        <url-pattern>/DesvincularGuiaProcesso</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ValidaConexao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.ValidaConexaoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ValidaConexao</servlet-name>
+        <url-pattern>/ValidaConexao</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+		<servlet-name>RelatorioAudiencias</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatorioAudienciasCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RelatorioAudiencias</servlet-name>
+		<url-pattern>/RelatorioAudiencias</url-pattern>
+	</servlet-mapping>
+	
+<!--  Disponível somente no homolog -->    
+<!--     <servlet> -->
+<!--         <servlet-name>SimularPagamento</servlet-name> -->
+<!--         <servlet-class>br.gov.go.tj.projudi.ct.SimularPagamentoCt</servlet-class> -->
+<!--     </servlet> -->
+<!--     <servlet-mapping> -->
+<!--         <servlet-name>SimularPagamento</servlet-name> -->
+<!--         <url-pattern>/SimularPagamento</url-pattern> -->
+<!--     </servlet-mapping> -->
+
+    <servlet>
+        <servlet-name>PonteiroLog</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PonteiroLogCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PonteiroLog</servlet-name>
+        <url-pattern>/PonteiroLog</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GuiaCertidaoNarrativa</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaCertidaoNarrativaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaCertidaoNarrativa</servlet-name>
+        <url-pattern>/GuiaCertidaoNarrativa</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>CertidaoGuia</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.CertidaoGuiaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CertidaoGuia</servlet-name>
+        <url-pattern>/CertidaoGuia</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>BuscaArquivoPublico</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.BuscaArquivoPublicoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BuscaArquivoPublico</servlet-name>
+        <url-pattern>/BuscaArquivoPublico</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessoParteDebitoFisico</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoParteDebitoFisicoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoParteDebitoFisico</servlet-name>
+        <url-pattern>/ProcessoParteDebitoFisico</url-pattern>
+    </servlet-mapping>
+    
+	<servlet>
+        <servlet-name>InterrupcaoTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.InterrupcaoTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InterrupcaoTipo</servlet-name>
+        <url-pattern>/InterrupcaoTipo</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ConsultaPublicacaoCt</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.ConsultaPublicacaoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ConsultaPublicacaoCt</servlet-name>
+        <url-pattern>/ConsultaPublicacao</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ConsultaJurisprudenciaCt</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.ConsultaJurisprudenciaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ConsultaJurisprudenciaCt</servlet-name>
+        <url-pattern>/ConsultaJurisprudencia</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GerarBoleto</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GerarBoletoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GerarBoleto</servlet-name>
+        <url-pattern>/GerarBoleto</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GuiaCertidaoPraticaForense</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.GuiaCertidaoPraticaForenseCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaCertidaoPraticaForense</servlet-name>
+        <url-pattern>/GuiaCertidaoPraticaForense</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AudienciaPublicada</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AudienciaPublicadaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AudienciaPublicada</servlet-name>
+        <url-pattern>/AudienciaPublicada</url-pattern>
+    </servlet-mapping>
+     <servlet>
+        <servlet-name>PartesIsenta</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.PartesIsentaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PartesIsenta</servlet-name>
+        <url-pattern>/PartesIsenta</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GuiaCertidaoPraticaForensePublica</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.GuiaCertidaoPraticaForensePublicaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaCertidaoPraticaForensePublica</servlet-name>
+        <url-pattern>/GuiaCertidaoPraticaForensePublica</url-pattern>
+    </servlet-mapping>
+    <servlet>
+		<servlet-name>ProcessoDistribuidoPorServentia</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.ProcessoDistribuidoPorServentiaCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProcessoDistribuidoPorServentia</servlet-name>
+		<url-pattern>/ProcessoDistribuidoPorServentia</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ProcessoParteDebitoFinanceiro</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.ProcessoParteDebitoFinanceiroCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProcessoParteDebitoFinanceiro</servlet-name>
+		<url-pattern>/ProcessoParteDebitoFinanceiro</url-pattern>
+	</servlet-mapping>		
+	 <servlet>
+		<servlet-name>RelatoriosMandado</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.RelatoriosMandadoCt</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>RelatoriosMandado</servlet-name>
+		<url-pattern>/RelatoriosMandado</url-pattern>
+	</servlet-mapping>	
+	<servlet>
+		<servlet-name>ImportarRetornoCadin</servlet-name>
+		<servlet-class>br.gov.go.tj.projudi.ct.ImportarRetornoCadinCt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ImportarRetornoCadin</servlet-name>
+		<url-pattern>/ImportarRetornoCadin</url-pattern>
+	</servlet-mapping>
+	<servlet>
+        <servlet-name>GuiaCertidaoNarrativaPublica</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.GuiaCertidaoNarrativaPublicaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GuiaCertidaoNarrativaPublica</servlet-name>
+        <url-pattern>/GuiaCertidaoNarrativaPublica</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ExportarDebitoCadin</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ExportarDebitoCadinCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ExportarDebitoCadin</servlet-name>
+        <url-pattern>/ExportarDebitoCadin</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AudienciaDRS</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.AudienciaDRSCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AudienciaDRS</servlet-name>
+        <url-pattern>/AudienciaDRS</url-pattern>
+    </servlet-mapping>    
+    <servlet>
+        <servlet-name>RecursoExcluir</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.RecursoExcluirCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RecursoExcluir</servlet-name>
+        <url-pattern>/RecursoExcluir</url-pattern>
+    </servlet-mapping>
+   
+    <servlet>
+        <servlet-name>CertidaoNarrativaSemCustas</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.CertidaoNarrativaSemCustasCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CertidaoNarrativaSemCustas</servlet-name>
+        <url-pattern>/CertidaoNarrativaSemCustas</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>CertidaoNarrativaComCustasPublica</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.publicos.CertidaoNarrativaComCustasPublicaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CertidaoNarrativaComCustasPublica</servlet-name>
+        <url-pattern>/CertidaoNarrativaComCustasPublica</url-pattern>
+    </servlet-mapping>
+   	<servlet>
+        <servlet-name>UsuarioFone</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.UsuarioFoneCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UsuarioFone</servlet-name>
+        <url-pattern>/UsuarioFone</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ProcessoParteAssunto</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoParteAssuntoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessoParteAssunto</servlet-name>
+        <url-pattern>/ProcessoParteAssunto</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ListagemPaginaInicial</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ListagemPaginaInicialCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListagemPaginaInicial</servlet-name>
+        <url-pattern>/ListagemPaginaInicial</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>ProcessoArquivamentoTipo</servlet-name>
+    	<servlet-class>br.gov.go.tj.projudi.ct.ProcessoArquivamentoTipoCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>ProcessoArquivamentoTipo</servlet-name>
+    	<url-pattern>/ProcessoArquivamentoTipo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>		
+        <servlet-name>PendenciaJson</servlet-name>		
+        <servlet-class>br.gov.go.tj.projudi.ct.PendenciaCtJson</servlet-class>		
+    </servlet>		
+    <servlet-mapping>		
+        <servlet-name>PendenciaJson</servlet-name>		
+        <url-pattern>/PendenciaJson</url-pattern>		
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>MovimentacaoProcessoJson</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.MovimentacaoProcessoJsonCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>MovimentacaoProcessoJson</servlet-name>
+        <url-pattern>/MovimentacaoProcessoJson</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>EventoTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.EventoTipoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>EventoTipo</servlet-name>
+        <url-pattern>/EventoTipo</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+        <servlet-name>ProcessoPartePrisao</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoPartePrisaoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>ProcessoPartePrisao</servlet-name>
+        <url-pattern>/ProcessoPartePrisao</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>RelatorioPostagemECartas</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.RelatorioPostagemECartasCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>RelatorioPostagemECartas</servlet-name>
+        <url-pattern>/RelatorioPostagemECartas</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>RelatorioAtrasoEntregaPostal</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.RelatorioAtrasoEntregaPostalCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>RelatorioAtrasoEntregaPostal</servlet-name>
+        <url-pattern>/RelatorioAtrasoEntregaPostal</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>RastreamentoCorreios</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.RastreamentoCorreiosCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>RastreamentoCorreios</servlet-name>
+        <url-pattern>/RastreamentoCorreios</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ObjetoTipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ObjetoTipoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>ObjetoTipo</servlet-name>
+        <url-pattern>/ObjetoTipo</url-pattern>
+    </servlet-mapping>
+    
+	<servlet>
+        <servlet-name>EscalaMg</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.EscalaMgCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EscalaMg</servlet-name>
+        <url-pattern>/EscalaMg</url-pattern>
+    </servlet-mapping>
+        
+    <servlet>
+        <servlet-name>ObjetoSubtipo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ObjetoSubtipoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>ObjetoSubtipo</servlet-name>
+        <url-pattern>/ObjetoSubtipo</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProcessoObjetoArquivo</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.ProcessoObjetoArquivoCt</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>ProcessoObjetoArquivo</servlet-name>
+        <url-pattern>/ProcessoObjetoArquivo</url-pattern>
+    </servlet-mapping>  
+    
+    <servlet>
+        <servlet-name>MidiaPublicada</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.MidiaPublicadaCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MidiaPublicada</servlet-name>
+        <url-pattern>/MidiaPublicada</url-pattern>
+    </servlet-mapping>   
+
+    <servlet>
+        <servlet-name>ServicoCertificadoUsuario</servlet-name>
+        <servlet-class>br.gov.go.tj.projudi.ct.CertificadoUsuarioCt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServicoCertificadoUsuario</servlet-name>
+        <url-pattern>/ServicoCertificadoUsuario</url-pattern>
+    </servlet-mapping>  
+                   
+</web-app>

@@ -1,0 +1,83 @@
+<%@page import="java.util.List"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="br.gov.go.tj.projudi.dt.PendenciaArquivoDt"%>
+<fieldset class="formLocalizar">
+	<legend>Arquivos</legend>
+	
+	<%
+		int colspan = 4;
+		if (request.getAttribute("comOpcao") != null){
+			colspan++;
+		}
+	%>	
+
+	<table class="Tabela">
+		<thead>
+	    	<tr>
+	    		<%if (request.getAttribute("comOpcao") != null){%>
+	    		<th title="Op&ccedil;&otilde;es para movimenta&ccedil;&atilde;o">Op.</th>
+	    		<%}%>
+	      		<th width="30%">Descri&ccedil;&atilde;o</th>
+	      		<th>Usu&aacute;rio Assinador</th>
+	      		<th title="Identifica se um arquivo &eacute; uma resposta">Resposta</th>
+	      		<th>Nome do Arquivo</th>
+	    	</tr>
+	  	</thead>
+	  	
+	  	<%if (request.getAttribute("ListaArquivos") != null){
+			List lista = (List)request.getAttribute("ListaArquivos");
+			Iterator it = lista.iterator();
+			int qtd = 0;
+			%>
+			
+			<tfoot>
+				<tr>
+					<td colspan="<%=colspan%>">Quantidade de arquivos: <%=lista.size()%></td>
+				</tr>
+			</tfoot>
+				
+		  	<tbody>
+				<%
+				while (it.hasNext()){
+					PendenciaArquivoDt obj = (PendenciaArquivoDt)it.next();
+					%>
+					<tr>
+						<%if (request.getAttribute("comOpcao") != null){%>
+						<td>
+							<input type="checkbox" name="arquivos[]" value="<%=obj.getArquivoDt().getId()%>" />
+						</td>
+						<%}%>
+					  	<td><%=obj.getArquivoDt().getArquivoTipo()%></td>
+					  	<td>
+					  		<%if (obj.getArquivoDt().getUsuarioAssinadorFormatado() == null || obj.getArquivoDt().getUsuarioAssinadorFormatado().trim().equals("")) {%>
+					  			ARQUIVO N&Atilde;O ASSINADO
+					  		<%}else {%>
+					  			<%=obj.getArquivoDt().getUsuarioAssinadorFormatado()%>					  			
+					  		<%}%>
+					  	</td>
+					  	<td><%=obj.getRespostaLiteral()%></td>
+				      	<td>
+				      		<a href="<%=request.getAttribute("linkArquivo")%>?PaginaAtual=<%=request.getAttribute("paginaArquivo")%>&amp;<%=request.getAttribute("campoArquivo")%>=<%=obj.getId()%>&amp;hash=<%=obj.getHash()%>&amp;finalizado=true">
+				      			<%=obj.getArquivoDt().getNomeArquivoFormatado()%>
+				      		</a>
+				      		
+				      		<%if (obj.getArquivoDt().getRecibo().equals("true")){%>
+					      		<a href="<%=request.getAttribute("linkArquivo")%>?PaginaAtual=<%=request.getAttribute("paginaArquivo")%>&amp;<%=request.getAttribute("campoArquivo")%>=<%=obj.getId()%>&amp;hash=<%=obj.getHash()%>&amp;recibo=true&amp;finalizado=true">
+					      			Recibo
+					      		</a>
+				      		<%}%>
+				      	</td>			  	  							    
+				    </tr>
+					<%
+				}
+				%>
+		  	</tbody>
+		<%} else { %>
+			<tbody>
+				<tr>
+					<td colspan="<%=colspan%>">N&atilde;o h&aacute; arquivos</td>
+				</tr>
+			</tbody>
+		<%}%>
+	</table>
+</fieldset>

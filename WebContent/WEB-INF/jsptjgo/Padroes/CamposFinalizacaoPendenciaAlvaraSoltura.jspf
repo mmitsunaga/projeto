@@ -1,0 +1,42 @@
+
+<div class="clear"></div>
+<%if(request.getAttribute("habilitarResponder") != null && request.getAttribute("AguardandoRetorno") != null){ %>
+	<div class="col45">
+		<label class="formEdicaoLabel" for="status">*Status Pendência</label> <br/>
+		<select name="status" id="status" class="formEdicaoCombo" >
+			<option selected><%=PendenciaTemp.getStatusPendenciaRetorno()%></option>
+			    <%String[] listStatus = PendenciaTemp.getListaStatusAguardandoRetorno();
+					if (listStatus != null){
+						for (String status : listStatus) { %>
+							<option><%=status%></option>
+						<%}
+					} else { %>
+					 		<option>Nenhum Status encontrado</option>
+					<% }%>
+		</select>
+	</div>
+	
+	<br/>
+	<div class="col15">
+		<label for="DataRecebimento">Data de Recebimento<img id="calendarioDataRecebimento" src="./imagens/dlcalendar_2.gif" height="13" width="13" title="Calendário"  alt="Calendário" onclick="displayCalendar(document.forms[0].DataRecebimento,'dd/mm/yyyy',this)"/></label>
+		<input class="formEdicaoInput" name="DataRecebimento" id="DataRecebimento" type="text" size="10" maxlength="10" value="<%=PendenciaTemp.getDataFim()%>" onblur="verifica_data(this);" onKeyPress="return DigitarSoNumero(this, event)" OnKeyUp="mascara_data(this)">
+		<br />
+	</div>
+	
+	<input type='hidden' id='Id_ProcessoParte' name='Id_ProcessoParte' value='<%=PendenciaTemp.getId_ProcessoParte()%>' />
+ 	<input type='hidden' id='Id_EventoTipo' name='Id_EventoTipo' value='<%=PendenciaTemp.getId_EventoTipo()%>' /> <%--MandadoPrisaodt.getProcessoPartePrisaoDt().getId_EventoTipo() --%>
+	<input type='hidden' id='Id_Processo' name='Id_Processo' value='<%=PendenciaTemp.getId_Processo()%>'/>		
+	
+	<blockquote class='col15'>
+		<label  for='DataEvento'>*Data do Evento<img class='imgMargeLeft' src='./imagens/dlcalendar_2.gif' height='13' width='13' title='Calendário'  alt='Calendário' onclick="displayCalendar(document.forms[0].DataEvento,'dd/mm/yyyy',this)"/></label> 
+		<input class='formEdicaoInput' name='DataEvento'  id='DataEvento' type='text' size='10' maxlength='10' onkeyup='mascara_data(this)' onblur='verifica_data(this)' onkeypress='return DigitarSoNumero(this, event)' 
+					value='<%=PendenciaTemp.getDataEvento()%>'> <%-- MandadoPrisaodt.getProcessoPartePrisaoDt().getDataEvento() --%>
+	</blockquote>
+	
+	<blockquote class='col25'>
+		<label  for='EventoTipo'>*Evento Tipo<img class='imgMargeLeft' src='./imagens/imgLocalizarPequena.png' onclick="MostrarBuscaPadrao('Formulario','EventoTipo','Consulta de Tipo de Evento', 'Digite o Tipo de Evento e clique em consultar.', 'Id_EventoTipo', 'EventoTipo', ['Evento Tipo'], [], '2', '15')" ></label> 
+		<input class='formEdicaoInputSomenteLeitura' name='EventoTipo'  id='EventoTipo' size='45' type='text'  readonly value='<%=PendenciaTemp.getEventoTipo()%>'> <%-- MandadoPrisaodt.getProcessoPartePrisaoDt().getEventoTipo() --%>
+	</blockquote>
+	
+	<br/>
+<%}%>				

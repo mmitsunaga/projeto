@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<projudi versao="2.0.65">
+	<versoes>
+		<versao data="22/03/2010" numero="2.0.01">			
+				Contagem inicial das versões, contem todas as alterações desde a versão inicial enviada pelo CNJ.			
+		</versao>
+		<versao data="18/05/2010" numero="2.0.30">			
+				Retirando CodigoTemp ao inserir Movimentação;
+				Retirando erros dwr;
+				Removendo arquivo que não será mais utilizado;
+				Alterações para pemitir que os assistentes do promotor visualizassem as intimações aguardando parecer do seu promotor chefe;
+				Finalizando implementação do Relatório de Processos e inserindo validação para usuário do grupo de Estatística;
+				layout inicial do relatório;											
+		</versao>
+		<versao data="19/05/2010" numero="2.0.31">			
+				Alteração para não mostrar o Classificador do processo para usuários externos, e não mostrar o Endereço e link Habilitar Advogados na consulta pública;
+				Alterando código da permissão para 511;											
+				Correção ao Importar Dados de Processo - não estava setando Comarca e ServentiaSubTipo para verificar prevenção.
+		</versao>					
+		<versao data="25/05/2010" numero="2.0.32">			
+				Correção na consulta dos relatores;
+				..
+		</versao>
+		<versao data="26/05/2010" numero="2.0.33">			
+				Prevenção: Alteração para gerar Movimentação "Processo Distribuído por Prevenção";
+				Arrumado erro da classe usuarioServentiaEscala;
+				Correção do método consultarProcessosTurmaRecursalSemLimitacao para consultar apenas processos ativos;
+				Alteração em função javascript que trata de abas;
+				Criado variável String para receber o tipo de Mensagem;
+				Retirado trecho com alguns "if" e adicionado "switch";
+				Criado variáveis do tipo constante int;
+				Segundo Grau: - iniciando tratamentos de 2º grau, com distribuição para relator, revisor e vogal - Geração de pendência "Pedido Vista";
+				Métodos para retornar o Revisor e Vogal de um processo;
+				Alteração em função que inicializa abas da tela;
+				Retirando ServidorJudiciarioServentiaCtDwr.;
+				Adicionado o método "suspenderOficiaisComPrazoExpirado" que irá suspender os oficiais na execução automática;
+				dwr da busca de servidor judiciario apenas do usuario da sessao;
+				troca do jqDnr.js por jquery-ui.min.js;
+				jsp busca servidor judiciario;
+				Alteração referente a import's de java script.				
+		</versao>	
+		<versao data="28/05/2010" numero="2.0.34">			
+			
+		</versao>
+		<versao data="02/06/2010" numero="2.0.35">			
+			1 - Inserção da informação "Qtde Dias Paralisados" nas consultas de Processos Paralisados;
+			2 - Editor de Modelos: inserindo variável código de pendência para mandado;
+			3 - Web Service: opção para listar dados de processo;
+			4 - Alteração para não buscar todas as pendências finalizada assim que o usuário entrar na tela de cumprimentos finalizados; 
+			5 - Tratamento de pendências do tipo: Pedido de Vista, Relatório e Revisão na situação do Processo; 
+			6 - Correção da consulta de relatório estatística de processos; 
+			7 - Mudança do timeout da consulta de processos para correto funcionamento;
+			8 - Adequação do método consultarProcessosSemMovimentacaoServentia para informar o Tipo de Movimentação e Complemento;
+			9 - Cadastro de Processo: alteração para inserir partes promoventes sempre como "Citada" para que sejam Intimadas da audiência;
+			10 - Corrigido para pessoa júridica a JSP;
+			11 - Corrigido o metodo de busca de processos das certidões, buscando pelo código de área ao invés do Id_Área;
+			12 - Adicionado o metodo para conseguir o Id do tipo de arquivo da certidao em questão;
+			13 - Adicionado o método para saber se a parte é uma pessoa física ou pessoa jurídica;
+			14 - Corrigido o codigo da Certidão Positiva Negativa Criminal e Cível que estavam invertidos.
+		</versao>	
+		<versao data="8/06/2010" numero="2.0.36">			
+			1 - Melhorias em algumas consultas;
+			2 - Corrigido bug das partes, ou seja, quando tentava carregar uma parte que não existe o metodo retornava NullPointerException();
+			3 - svn da 3060 até 3085
+		</versao>
+		<versao data="15/06/2010" numero="2.0.37">			
+			1 - Novo vídeo para os promotores;
+			2 - Campo Data de Nascimento e Filiação na Capa do processo;
+			3 - Alterações referente a visualização de intimações com leitura automática, na tela do promotor e do advogado;
+			4 - Correção na consulta de forum;
+			5 - svn da 3086 até 3110.
+		</versao>	
+		<versao data="16/06/2010" numero="2.0.38">			
+			1 - corrigida a data de distribuição para o formato brasileiro;
+			2 - Correção na sql do método consultarProcessosCertidaoPositivaNegativa(CertidaoDt certidaoDt) na classe ProcessoPs.java;
+			3 - Corrigida a sql do consultaCertidaoNegativaPositiva() no ProcessosPs.java;			
+			5 - svn da 3011 até 3120.
+		</versao>		
+		<versao data="17/06/2010" numero="2.0.39">	
+			1 - Alterações referentes a tela inicial do advogado e do promotor, em intimações lidas mostrar data leitura e data limite;
+			2 - Correção para não mostrar em intimações lidas do advogado e do promotor as intimações descartadas;
+			3 - Alteração em cumprimentos finalizados só fazer a consulta quando o usuário clicar no botão consultar;
+			4 - Correção ao reabrir pendências;							
+			5 - svn da 3120 até 3138.
+		</versao>	
+		<versao data="18/06/2010" numero="2.0.40">	
+			1 - Melhoria na captura do ip do usuário;
+			2 - Melhoria no logDt;									
+			3 - svn da 3139 até 3163.
+		</versao>
+		<versao data="21/06/2010" numero="2.0.41">	
+			1 - Correção na leitura de intimação;											
+			3 - svn da 3164 até 3175.
+		</versao>	
+		<versao data="21/06/2010" numero="2.0.42">	
+			1 - Correção na leitura de intimação;											
+			3 - svn da 3165 até 3184.
+		</versao>
+		<versao data="25/06/2010" numero="2.0.43">	
+			1 - Retirada do código de acesso;											
+			3 - svn da 3185 até 3198.
+		</versao>
+		<versao data="30/06/2010" numero="2.0.44">	
+			1 - Novo do código de acesso;											
+			3 - svn da 3199 até 3228.
+		</versao>			
+		<versao data="06/07/2010" numero="2.0.45">	
+			1 - Consulta conclusos por Juiz;											
+			3 - svn da 3229 até 3248.
+		</versao>
+		<versao data="12/07/2010" numero="2.0.46">	
+			1 - Alteração na consulta de processos conclusos;
+			2 - Alteração no cadastro de processos;											
+			3 - svn da 3230 até 3271.
+		</versao>	
+		<versao data="15/07/2010" numero="2.0.47">	
+			1 - Tratamento para barrar inserção de pendências sem parte vinculada;
+			2 - Execução Automática da Estatística Mensal;
+			3 - Processos Apensos - Alteração para liberar acesso aos arquivos dos processos apensos, ainda que em outra serventia;									
+			4 - Revisões SVN: 3272 até 3300.
+		</versao>	
+		<versao data="15/07/2010" numero="2.0.48">	
+			1 - Análise e Pré-Análise para Advogados, Promotores e seus Assistentes;
+			2 - Consulta de Processos: Disponibilizando consulta por processos em qualquer serventia para Juiz;
+			3 - Relatório Analítico de Processos e Pendências;
+			4 - Revisões SVN: 3301 até 3393.
+		</versao>	
+		<versao data="05/08/2010" numero="2.0.49">	
+			1 - Alteração para permitir que a mesma parte possa atuar no processo como promovente e promovida;
+			2 - Serviço 02: disponibilizando operação de Consulta de Processos para Advogado;
+			3 - Relatório Segundo Grau: alteração para gerar Revisão após análise de Relatório;
+			4 - Alterações para migração para Jboss.
+			5 - Revisões SVN: 3394 a 3436.
+		</versao>
+		<versao data="13/08/2010" numero="2.0.50">	
+			1 - Gerar txt direto nos relatorios;
+			2 - Pré-analise nas precatorias;
+			3 - Correção no Pdf, para nao pegar os arquivos bloqueados;			
+			4 - Revisões SVN: 3436 a 3503.
+		</versao>	
+		<versao data="19/08/2010" numero="2.0.51">
+		
+			* - Revisões SVN: 3504 a 3541.
+		</versao>	
+		<versao data="20/08/2010" numero="2.0.52">	
+	
+			* - Revisões SVN: 3542 a 3551.
+		</versao>
+		<versao data="23/08/2010" numero="2.0.53">	
+	
+			* - Revisões SVN: 3554 a 3557.
+		</versao>
+		<versao data="24/08/2010" numero="2.0.54">
+			1 - aumento no timeout na consulta de agenda no dwr;
+			2 - Correção na busca de pendências no acompanhamento devido a pré-analise de precatória... 		
+			* - Revisões SVN: 3558 a 3563.
+		</versao>
+		<versao data="25/08/2010" numero="2.0.55">			 	
+			* - Revisões SVN: 3564 a 3571.
+		</versao>
+		<versao data="26/08/2010" numero="2.0.56">			 	
+			* - Revisões SVN: 3572 a 3581.
+		</versao>
+		<versao data="30/08/2010" numero="2.0.57">			 	
+			* - Revisões SVN: 3582 a 3599.
+		</versao>	
+		<versao data="02/09/2010" numero="2.0.58">			 	
+			* - Revisões SVN: 3600 a 33649.
+		</versao>
+		<versao data="09/09/2010" numero="2.0.59">			 	
+			* - Revisões SVN: 3650 a 3652.
+		</versao>									
+		<versao data="09/09/2010" numero="2.0.60">			 	
+			* - Revisões SVN: 3653 a 3658.
+		</versao>
+		<versao data="14/09/2010" numero="2.0.61">			 	
+			* - Revisões SVN: 3659 a 3701.
+		</versao>
+		<versao data="14/09/2010" numero="2.0.62">			 	
+			* - Revisões SVN: 3702 a 3702.
+		</versao>
+		<versao data="17/09/2010" numero="2.0.63">			 	
+			* - Revisões SVN: 3706 a 3726.
+		</versao>
+		<versao data="17/09/2010" numero="2.0.64">			 	
+			* - Revisões SVN: 3727 a 3759.
+		</versao>	
+		<versao data="08/11/2010" numero="2.0.65">			 	
+			* - Revisões SVN: 3759 a XXX.
+		</versao>																	
+	</versoes>
+</projudi>
+

@@ -1,0 +1,52 @@
+<%@page import="br.gov.go.tj.utils.Configuracao"%>
+
+<div id="Paginacao" class="Paginacao"> 
+		  <b>P&aacute;gina </b>
+		  <%="<a href=\"javascript:buscaDados(0," + Configuracao.TamanhoRetornoConsulta + ")\">Primeira</a>"%>
+	<%
+		long loPaginaAtual = 0;
+		long total = 0;
+		
+		if (request.getAttribute("PosicaoPaginaAtual")!=null) 	loPaginaAtual=(Long)request.getAttribute("PosicaoPaginaAtual"); 			
+		if (request.getAttribute("QuantidadePaginas")!=null)	total = (Long)request.getAttribute("QuantidadePaginas"); 
+		
+		//total = (total / Configuracao.TamanhoRetornoConsulta);
+		//Determina quantas pag.serão necessarias de acordo com a qtde de registros.
+		if ((total%Configuracao.TamanhoRetornoConsulta) != 0){
+			total=total/Configuracao.TamanhoRetornoConsulta+1;
+		}else{
+			total=total/Configuracao.TamanhoRetornoConsulta;
+		}
+		//Conta a qtde de registros que aparecerá em cada tela
+		long loConte =1;
+		//Guarda a última página selecionada
+		long loPaginaSelecionada= loPaginaAtual;
+		
+		//determino onde vai começar a contagem de páginas
+		long loPaginaInicial= loPaginaAtual - (Configuracao.TamanhoRetornoConsulta / 2 );
+		if (loPaginaInicial<1) loPaginaInicial = 1;
+		
+		long loPaginaFinal = loPaginaInicial + Configuracao.TamanhoRetornoConsulta -1;
+		
+		if (loPaginaFinal > total)
+			loPaginaFinal = total;
+		
+		if (loPaginaInicial > (loPaginaFinal - (Configuracao.TamanhoRetornoConsulta -1)))
+			loPaginaInicial = loPaginaFinal - (Configuracao.TamanhoRetornoConsulta -1); 
+		
+		if (loPaginaInicial<1) loPaginaInicial = 1;
+			
+		//Aparecerá uma qtde de páginas a serem escolhidas, sendo que a ultima pag. escolhida ficara sempre marcada
+		//Ex. : 1 2 3 4 5 |6| 7 8 9 10 (pag.escolhida 6)
+		loPaginaAtual = loPaginaInicial;
+		while(loPaginaAtual<=loPaginaFinal){		 			   
+			if ((loPaginaAtual-1)==loPaginaSelecionada){ %> 
+						<%="<b>| " + (loPaginaAtual) + " |</b>"%>    					
+			<%		} else { %>
+						<%="<a href=\"javascript:buscaDados("+(loPaginaAtual-1)+"," + Configuracao.TamanhoRetornoConsulta + ")\">" + (loPaginaAtual) + "</a>"%>    
+			<%		} 
+			loPaginaAtual++;			
+		}	%>
+		 <%="<a href=\"javascript:buscaDados(" + (total-1) +"," + Configuracao.TamanhoRetornoConsulta + ")\">&Uacute;ltima</a>"%>
+		 <input id="CaixaTextoPosicionar" class="CaixaTextoPosicionar" value="<%=total%>" type="text" size="5" maxlength="10" /><input class="BotaoIr" type="button" value="Ir" onclick="Posicionar(<%=Configuracao.TamanhoRetornoConsulta%>); return false;" />
+</div>

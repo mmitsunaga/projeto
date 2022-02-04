@@ -1,0 +1,181 @@
+<div id="dialog" style="display:none">&nbsp;</div>
+	
+<div id="busca_padrao" style="display:none" class="modalBusca">
+	<div class="modalBusca-content1">
+		<div class="modalTitulo"><p id='modalTitulo'></p><span class="modal_close" onclick='modalClose("busca_padrao");'>&times;</span></div> 
+		<div class="modalBusca-content2">
+			<fieldset id="formLocalizar" > 
+				<legend id="legenda" ></legend>
+				<div id='campos'></div>
+				<br />
+				<div class="Centralizado">
+					<input type="submit" name="Localizar" value="Consultar" onclick="javascript:buscaDadosModal(_stTempRetorno, _paginaAtual, _numeroFiltros , '0', _tamanho, _id, _descricao, _colunasTabela, _fieldName,_filtro); return false;"/>
+				</div>
+			</fieldset>	
+			<div id='divTabelaBuscaPadrao' class="divTabela"></div>
+			<div id="PaginacaoBuscaPadrao" class="Paginacao"></div>
+		</div>
+	</div> 
+</div>
+
+<div id="infoPasso" style="display:none" class="modalBusca">
+	<div class="modalBusca-content1">
+		<div class="modalTitulo"><p id='modalTitulo'></p><span class="modal_close" onclick='modalClose("infoPasso");'>&times;</span></div> 
+		<div class="modalBusca-content2">
+			<div id="divInfoPasso" class="divEditar"> 
+				
+			</div>
+		</div>
+	</div> 
+</div>
+
+<div id="infoFoto" style="display:none" class="modalBusca">
+	<div class="modalBusca-content1">
+		<div class="modalTitulo"><p id='modalTitulo'></p><span class="modal_close" onclick='modalClose("infoFoto");'>&times;</span></div> 
+		<div class="modalBusca-content2">
+			<div id="divInfoPasso" class="divEditar Centralizado"> 
+				<img id='img_infoFoto'>
+			</div>
+		</div>
+	</div> 
+</div>
+
+<%-- Campos hidden necessários para evitar o autocomplete do firefox para os inputs --%>
+<input type="text" style="display:none">
+<input type="password" style="display:none">
+<%-- ------------------------------------------------------------------------------ --%>
+<div id='divLerSenha'  class='divFundoEscuro' style = "display:none">
+	<div id='divPortaSenha' class='divCentroTela' >
+		<h1>Digite a senha do certificado digital</h1>
+		<hr/>
+		<input type='password' name='senhaCertificado' id='senhaCertificado' autocomplete='off' ><br />
+		<div  style="text-align: left;">
+			<input type="checkbox" name='salvarSenhaCertificado' id='salvarSenhaCertificado' >Memorizar a senha do certificado
+		</div>
+		<hr/>
+		<div id="divBotoesCentralizadosAssinador" style="text-align: right; margin-top: 8px;">
+			<button id='but_senhaDigita' type="button">
+				Assinar
+	 		</button>
+	 		<button id='but_cancelar' type="button" onclick="javascript:$('#divLerSenha').hide(); return false;">
+				Cancelar
+	 		</button>
+	 	</div>		
+	</div>
+</div>
+ 
+<script type="text/javascript" >
+	var _stTempRetorno;
+	var _boMostrarExcluir;
+	var _paginaAtual;
+	var _nomeBusca;
+	var _tamanhoRetornoConsulta;	
+	var _numeroFiltros;
+	var _tamanho;
+	var _id;
+	var _descricao;
+	var _colunasTabela;
+	var _fieldName;
+	var _filtro;
+	
+	function MostrarBuscaPadrao(field, ct, titulo, legenda, id, descricao, campos, colunasTabela, paginaAtual, tamanhoConsulta, filtro){
+		
+		_paginaAtual = paginaAtual;
+		_numeroFiltros = campos.length;
+		_tamanho = tamanhoConsulta;
+		_stTempRetorno = ct;
+		_descricao = descricao;
+		_colunasTabela=colunasTabela;
+		_filtro=$("#" + field + " #"+ filtro).val();
+		
+		$("#modalTitulo").html(titulo) ;
+		$("#legenda").html(legenda);		
+		
+		var st_campos ="";
+		var stTabela = "";
+		
+		for (var i = 0; i < campos.length; i++) {
+			st_campos += '<label id="formLocalizarLabel0" class="formLocalizarLabel">'+campos[i]+'</label><br>'; 
+			st_campos += '<input id="nomeBusca'+(i+1)+'" class="formLocalizarInput" name="nomeBusca'+(i+1)+'" value="" style="width : 700px;" type="text">';
+			st_campos += '<br>';
+		}
+		
+		if (_id!=id || field!=_fieldName){
+			_id = id;
+			_fieldName= field;
+			stTabela += '	<table id="tabelaLocalizar" class="Tabela">';
+			stTabela += '		<thead>';
+			stTabela += '			<tr>';
+			stTabela += '				<th align="Center"></th>';
+			stTabela += '				<th align="Center">Id</th>';
+			stTabela += '				<th align="left">'+descricao+'</th>';
+			for (var i = 0; i < colunasTabela.length; i++) {
+				stTabela += '			<th align="left">'+ colunasTabela[i] +'</th>';
+			}
+			//stTabela += '				<th class="colunaMinima" title="Seleciona o registro para edição">Selecionar</th>';	
+			stTabela += '			</tr>';
+			stTabela += '		</thead>';
+			stTabela += '		<tbody id="CorpoTabela">&nbsp;</tbody>';
+			stTabela += '	</table>';	  		
+			$("#divTabelaBuscaPadrao").html(stTabela) ;
+			$("#PaginacaoBuscaPadrao").html("") ;
+		}
+		
+		$("#campos").html(st_campos) ;
+		$("#busca_padrao").show();
+	}
+	
+	function modalClose(_myDiv){
+		$("#"+_myDiv).hide();
+	}
+	
+	$(document).ready(
+		function() {
+			<%String stErro=(String)request.getAttribute("MensagemErro");
+			String stOk =(String)request.getAttribute("MensagemOk");
+			String sTitulo =(String)request.getAttribute("TituloMensagens");
+			if (stErro!=null) stErro = stErro.replace("\n", "<br/>"); else stErro="";
+			if (stOk!=null) stOk = stOk.replace("\n", "<br/>"); else stOk="";
+			if (sTitulo==null) sTitulo = "Processo Judicial";%>
+			var mensagemErro = '<%=stErro%>';		 
+			var mensagemOk = '<%=stOk%>';
+			var titulo ='<%=sTitulo%>';
+										 						
+			if (((mensagemErro!='') && (mensagemErro!='null')) || ((mensagemOk!='') && (mensagemOk!='null'))){
+				
+				if ((mensagemErro!='') && (mensagemErro!='null')) {
+					//titulo+=" Erro";
+					mostrarMensagemErro(titulo, mensagemErro);												
+				}else{
+					//titulo+=" Ok";					
+					mostrarMensagemOk(titulo, mensagemOk);				
+				}				
+				
+				$('#divCorpo').focus();	
+							
+				$('html, body',window.parent.document).animate({scrollTop:0}, 'slow');
+			}
+        }
+	); 
+  
+	function infoPasso( id_form, id, titulo){
+		var campos = $('table#tb_'+id_form+ ' tr#tr_'+ id ).attr("campos");
+		var obJson = JSON.parse(campos);
+		//console.log(campos);
+		var ids = Object.keys(obJson);
+		var valores = Object.values(obJson);
+		var stFormulario ='<fieldset class="formEdicao">'
+		stFormulario+='<legend class="formEdicaoLegenda">'+titulo+'</legend>';
+		for(var i=0; i<ids.length;i++){
+			stFormulario+='<label class="formEdicaoLabel">' + ids[i] + '</label> <input class="formEdicaoInputSomenteLeitura" type="text" readonly="true" size="150" value="' + valores[i] + '"/><br />';
+		}
+		$('div#divInfoPasso').html(stFormulario);
+		$("#infoPasso").show();
+	}
+	function infoFoto(id){		
+		$('img#img_infoFoto').attr('src', $('img#foto'+id).attr('src'));
+		$("#infoFoto").show();
+	}
+</script>
+
+	

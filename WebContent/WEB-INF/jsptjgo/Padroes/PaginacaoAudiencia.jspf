@@ -1,0 +1,40 @@
+<%@page import="br.gov.go.tj.utils.Configuracao"%>
+<div id="Paginacao" class="Paginacao"> 
+	<b>P&aacute;gina </b>
+	<a href="<%=request.getAttribute("tempRetorno")%>?PaginaAtual=<%=Configuracao.Localizar%>&amp;PosicaoPaginaAtual=0&amp;fluxo=<%=request.getAttribute("fluxo")%>">Primeira</a>
+	<%
+		long pagina = (Long)request.getAttribute("PosicaoPaginaAtual"); 
+		long total = (Long)request.getAttribute("QuantidadePaginas");  	
+		//Conta a qtde de registros que aparecerá em cada tela
+		long loConte =1;
+		//Guarda a última página selecionada
+		long loConte1= pagina;
+
+		//Determina quantas pag.serão necessarias de acordo com a qtde de registros.
+		if ((total%Configuracao.TamanhoRetornoConsulta) != 0){
+			total=total/Configuracao.TamanhoRetornoConsulta+1;
+		}else{
+			total=total/Configuracao.TamanhoRetornoConsulta;
+		}
+		
+		//Se última pag.selecionada for maior q 5, entao a contagem começará da metade da qtde de registros q aparece por página
+		if (pagina>(Configuracao.TamanhoRetornoConsulta/2)) 
+			pagina-=(Configuracao.TamanhoRetornoConsulta/2); 
+		else 
+			pagina=1;
+		//Aparecerá uma qtde de páginas a serem escolhidas, sendo que a ultima pag. escolhida ficara sempre marcada
+		//Ex. : 1 2 3 4 5 |6| 7 8 9 10 (pag.escolhida 6)
+		while(pagina<=total && loConte<=Configuracao.TamanhoRetornoConsulta){		 			   
+			if ((pagina-1)==loConte1){ %> 
+						<%="<b>| " + (pagina) + " |</b>"%>    					
+			<%		} else { %>
+						<a href="<%=request.getAttribute("tempRetorno")%>?PaginaAtual=<%=Configuracao.Localizar%>&amp;PosicaoPaginaAtual=<%=(pagina-1)%>&amp;fluxo=<%=request.getAttribute("fluxo")%>"><%=pagina%></a>    
+			<%		} 
+			loConte++;
+			pagina++;
+		}	%>
+		 
+		<a href="<%=request.getAttribute("tempRetorno")%>?PaginaAtual=<%=Configuracao.Localizar%>&amp;PosicaoPaginaAtual=<%=(total-1)%>&amp;fluxo=<%=request.getAttribute("fluxo")%>">Última</a>
+		<input id="CaixaTextoPosicionar" name="CaixaTextoPosicionar" class="CaixaTextoPosicionar" value="<%=request.getAttribute("PosicaoPagina")%>" type="text" size="5" maxlength="10" />
+		<input class="BotaoIr" type="button" value="Ir" onclick="javascript: submit();"/> 
+</div>

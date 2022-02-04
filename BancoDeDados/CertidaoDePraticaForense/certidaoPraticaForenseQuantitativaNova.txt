@@ -1,0 +1,112 @@
+<p style="line-height:20.795454025268555px; text-align:center"><span style="font-family:courier new,courier,monospace">${brasao.goias}<br />
+<span style="font-size:10px">Estado de Goi&aacute;s</span><br />
+<span style="font-size:10px">Poder Judici&aacute;rio<br />
+Comarca de ${serventia.comarca}&nbsp;</span></span><br />
+<span style="font-size:14px"><span style="font-family:courier new,courier,monospace"><strong>${serventia.nome}</strong></span></span></p>
+
+<p style="line-height:20.795454025268555px; text-align:center">&nbsp;</p>
+
+<table border="0" cellpadding="0" cellspacing="0" style="font-size:12.727272033691406px; line-height:20.795454025268555px; width:100%">
+	<tbody>
+		<tr>
+			<td style="width:360px">&nbsp;</td>
+			<td style="text-align:justify"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">Dr.(a), ${certidao.pratica.forense.escrivao}, escriv&atilde;o(&atilde;) do Cart&oacute;rio Distribuidor da Comarca de ${serventia.comarca}, Estado de Goi&aacute;s, na forma da lei, etc.</span></span></td>
+		</tr>
+	</tbody>
+</table>
+
+<p style="line-height:20.795454025268555px; text-align:center">&nbsp;</p>
+
+<p style="line-height:20.795454025268555px; text-align:center"><span style="font-size:20px"><span style="font-family:courier new,courier,monospace"><strong>CERTID&Atilde;O DE PR&Aacute;TICA FORENSE</strong></span></span></p>
+
+<p style="line-height:20.795454025268555px; text-align:center">&nbsp;</p>
+
+<p style="line-height:20.795454025268555px; text-align:center">&nbsp;</p>
+
+<p style="line-height:20.795454025268555px; text-align:justify; text-indent:70px"><span style="font-size:14px"><span style="font-family:courier new,courier,monospace"><strong>CERTIFICA &nbsp;</strong>a requerimento da parte interessada que,revendo os registros do banco de dados informatizado do Sistema de Primeiro Grau (SPG) e do Processo Judicial Digital(PROJUDI), verifica-se&nbsp;<strong>&nbsp;CONSTAR&nbsp;</strong>que o(a)<strong>:</strong></span></span></p>
+
+<p style="line-height:20.795454025268555px; text-align:center">&nbsp;</p>
+
+<table align="left" border="0" cellpadding="2" cellspacing="3" style="font-size:12.727272033691406px; line-height:20.795454025268555px; width:100%">
+	<caption>
+	<p style="text-align:left"><span style="font-size:12px"><strong>Identifica&ccedil;&atilde;o:</strong></span></p>
+	</caption>
+	<tbody>
+		<tr>
+			<td style="width:15%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">Requerente</span></span></td>
+			<td style="width:2%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">:</span></span></td>
+			<td style="width:83%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">${certidao.identificacao.requerente}</span></span></td>
+		</tr>
+		<tr>
+			<td style="width:15%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">Naturalidade</span></span></td>
+			<td style="width:2%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">:</span></span></td>
+			<td style="width:83%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">${certidao.identificacao.naturalidade}</span></span></td>
+		</tr>
+		<tr>
+			<td style="width:15%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">Estado Civil</span></span></td>
+			<td style="width:2%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">:</span></span></td>
+			<td style="width:83%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">${certidao.identificacao.estado.civil}</span></span></td>
+		</tr>
+		<tr>
+			<td style="width:15%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">Sexo</span></span></td>
+			<td style="width:2%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">:</span></span></td>
+			<td style="width:83%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">${certidao.identificacao.sexo}</span></span></td>
+		</tr>
+		<tr>
+			<td style="width:15%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">CPF</span></span></td>
+			<td style="width:2%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">:</span></span></td>
+			<td style="width:83%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">${certidao.identificacao.cpfCnpj}</span></span></td>
+		</tr>
+		<tr>
+			<td style="width:15%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">OAB</span></span></td>
+			<td style="width:2%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">:</span></span></td>
+			<td style="width:83%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">${certidao.identificacao.oab}</span></span></td>
+		</tr>
+		<tr>
+			<td style="width:15%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">Identidade</span></span></td>
+			<td style="width:2%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">:</span></span></td>
+			<td style="width:83%"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">${certidao.identificacao.rg}</span></span></td>
+		</tr>
+	</tbody>
+</table>
+
+<p style="line-height:20.795454025268555px; text-align:justify; text-indent:70px"><span style="font-size:12px"><span style="font-family:courier new,courier,monospace">figurou(a) como procurador(a) e advogado(a) em ${certidao.pratica.forense.quantidade} processo(s) desta comarca durante o per&iacute;odo de ${certidao.pratica.forense.data.inicial} a ${certidao.pratica.forense.data.final}.</span></span></p>
+
+<p style="line-height:20.795454025268555px; text-align:justify; text-indent:70px">&nbsp;</p>
+
+<p style="line-height:20.795454025268555px; text-align:justify; text-indent:70px"><span style="font-size:14px"><span style="font-family:courier new,courier,monospace"><strong>NADA MAIS</strong>. Era tudo o que foi pedido para&nbsp;<strong>CERTIFICAR</strong>, do que se reporta e da f&eacute;. Dada e passada nesta Cidade e Comarca, do Estado de Goi&aacute;s em ${data}.</span></span></p>
+
+<p style="line-height:20.795454025268555px; text-align:justify; text-indent:70px">&nbsp;</p>
+
+<table border="0" cellpadding="2" cellspacing="3" style="font-size:12.727272033691406px; line-height:20.795454025268555px; width:732.7272338867188px">
+	<tbody>
+		<tr>
+			<td style="width:145.11363220214844px"><span style="font-size:10px"><span style="font-family:courier new,courier,monospace">Certid&atilde;o</span></span></td>
+			<td style="width:6.022727012634277px"><span style="font-size:10px"><span style="font-family:courier new,courier,monospace">:</span></span></td>
+			<td><span style="font-size:10px"><span style="font-family:courier new,courier,monospace">R$ ${certidao.custa.certidao}</span></span></td>
+		</tr>
+		<tr>
+			<td><span style="font-size:10px"><span style="font-family:courier new,courier,monospace">Taxa Judici&aacute;ria</span></span></td>
+			<td><span style="font-size:10px"><span style="font-family:courier new,courier,monospace">:</span></span></td>
+			<td><span style="font-size:10px"><span style="font-family:courier new,courier,monospace">R$ ${certidao.custa.taxa.judiciaria}</span></span></td>
+		</tr>
+		<tr>
+			<td><span style="font-size:10px"><span style="font-family:courier new,courier,monospace">Total:</span></span></td>
+			<td><span style="font-size:10px"><span style="font-family:courier new,courier,monospace">:</span></span></td>
+			<td><span style="font-size:10px"><span style="font-family:courier new,courier,monospace">R$ ${certidao.custa.total}</span></span></td>
+		</tr>
+		<tr>
+			<td><span style="font-size:10px"><span style="font-family:courier new,courier,monospace">N&uacute;mero da Guia</span></span></td>
+			<td><span style="font-size:10px"><span style="font-family:courier new,courier,monospace">:</span></span></td>
+			<td><span style="font-size:10px"><span style="font-family:courier new,courier,monospace">${certidao.numero.guia}</span></span></td>
+		</tr>
+	</tbody>
+</table>
+
+<p style="line-height:20.795454025268555px; text-align:center"><span style="font-size:10px"><span style="font-family:courier new,courier,monospace">ESTA CERTID&Atilde;O ABRANGE AS A&Ccedil;&Otilde;ES QUE TRAMITAM NOS JUIZADOS ESPECIAIS.</span></span></p>
+
+<p style="text-align:center"><span style="font-size:10px"><span style="font-family:courier new,courier,monospace">Esta certid&atilde;o n&atilde;o abrange os processos do Sistema Eletr&ocirc;nico de Execu&ccedil;&atilde;o Unificado - SEEU.</span></span></p>
+
+<p style="line-height:20.795454025268555px; text-align:center">&nbsp;</p>
+
+<p style="line-height:20.795454025268555px; text-align:center"><span style="font-size:10px"><span style="font-family:courier new,courier,monospace">${hora} &nbsp;&nbsp;&nbsp;Conferente:&nbsp;${usuario.nome}&nbsp;&nbsp;&nbsp;Usu&aacute;rio:&nbsp;${usuario.matricula}</span></span></p>

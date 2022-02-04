@@ -1,0 +1,466 @@
+<%@page import="java.util.*"%>
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoEventoExecucaoDt"%>
+<%@page import="br.gov.go.tj.utils.Configuracao"%>
+<%@page import="br.gov.go.tj.utils.Funcoes"%>
+<%@page import="br.gov.go.tj.projudi.dt.CalculoLiquidacaoDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.CalculoLiquidacaoPrescricaoDt"%>
+
+<%
+	List listaHistoricoPsc = (List) request.getSession().getAttribute("listaHistoricoPsc");
+	List listaHistoricoLfs = (List) request.getSession().getAttribute("listaHistoricoLfs");
+	List listaHistoricoPec = (List) request.getSession().getAttribute("listaHistoricoPec");
+	List listaHistoricoItd = (List) request.getSession().getAttribute("listaHistoricoItd");
+	List listaHistoricoPcb = (List) request.getSession().getAttribute("listaHistoricoPcb");
+	if ((listaHistoricoLfs != null && listaHistoricoLfs.size() > 0) 
+	|| (listaHistoricoPsc != null && listaHistoricoPsc.size() > 0)
+	|| (listaHistoricoPec != null && listaHistoricoPec.size() > 0)
+	|| (listaHistoricoItd != null && listaHistoricoItd.size() > 0)
+	|| (listaHistoricoPcb != null && listaHistoricoPcb.size() > 0)
+	){
+%>
+<input id="listaEvento" name="listaEvento" type="hidden" value="" />
+
+
+
+<fieldset class="formEdicao">
+	<legend class="formEdicaoLegenda">
+		<a href="javascript: MostrarOcultar('divHistoricoPRD')" title="Mostrar/Ocultar condenação(ões) extinta(s)"> Histórico de Eventos das Modalidades de Pena Restritiva de Direito</a></legend>
+
+<div id="divHistoricoPRD" style="display: block">
+
+	<!--INÍCIO PSC-->
+	<%if (listaHistoricoPsc != null && listaHistoricoPsc.size() > 0) {%>
+	<fieldset class="formEdicao"><legend class="formEdicaoLegenda">Prestação de Serviço à Comunidade (PSC)</legend>
+		<table id="PSC" class="Tabela">
+			<thead>
+				<tr class="TituloColuna">
+					<th class="colunaMinima">Nº</th>
+			        <th width="40%">Evento</th>
+			        <th width="15%">Início</th>
+			        <th width="15%">Fim</th>
+			        <th width="20%">Observação</th>
+					<th class="colunaMinima" title="Arquivo(s)">Arq.</th>
+					<%//para editar ou excluir o evento deve ter permissão e não ser o cálculo de liquidação
+					if ((request.getAttribute("permissaoEditarEvento").toString().equalsIgnoreCase("true")) && (!request.getAttribute("PassoEditar").toString().equals("4"))) {%>									
+					<th class="colunaMinima" title="Editar Evento">Ed.</th>
+					<th class="colunaMinima" title="Excluir Evento">Ex.</th>
+					<%} %>
+				</tr>
+			</thead>
+			<tbody id="tabPSC">
+			<%if  (listaHistoricoPsc != null && listaHistoricoPsc.size() > 0){
+				boolean boLinha1=false; 
+				String id_movimentacao1, movimentacaoDataRealizacao1;
+   	    			for (int i=0; i<listaHistoricoPsc.size(); i++){
+	   			  		ProcessoEventoExecucaoDt processoEventoExecucaoDt = (ProcessoEventoExecucaoDt)listaHistoricoPsc.get(i);
+			%>
+				<tr>
+            		<td class="colunaMinima"> <%=i+1%></td>
+               		<td><%=processoEventoExecucaoDt.getEventoExecucaoDt().getEventoExecucao()%></td>
+               		<td align="center"><%=processoEventoExecucaoDt.getDataInicio()%></td>
+               		<td align="center"><%=Funcoes.verificarCampo(processoEventoExecucaoDt.getDataFim(),"","-")%></td>
+               		<td align="center"><%=Funcoes.verificarCampo(processoEventoExecucaoDt.getObservacao(),"","-")%></td>
+					<td align="center">
+					<%
+						for (int j=0; j<processoDt.getListaMovimentacoes().size(); j++){
+									MovimentacaoDt movimentacaoDt = (MovimentacaoDt)processoDt.getListaMovimentacoes().get(j);
+									if (movimentacaoDt.getId().equals(processoEventoExecucaoDt.getId_Movimentacao())){
+										if (movimentacaoDt.temArquivos()){
+											id_movimentacao1 = movimentacaoDt.getId();
+											movimentacaoDataRealizacao1 = movimentacaoDt.getDataRealizacao().substring(0,10);
+					%>
+					<a href="javascript:buscarArquivosMovimentacaoEventoExecucao('<%=processoEventoExecucaoDt.getId()%>', '<%=id_movimentacao1%>', '<%=movimentacaoDataRealizacao1%>', 'BuscaProcesso', 'Id_MovimentacaoArquivo', <%=Configuracao.Curinga6%>, 'null')">
+						<img src="./imagens/ico_arquivos_14x14.png" alt="Mostrar ou ocultar arquivos" title="Mostrar ou ocultar arquivos" />
+					</a>
+							<%
+								}	else {
+							%>-
+							<%
+								}
+							%>
+					</td>
+					<%
+						//para editar ou excluir o evento deve ter permissão e não ser o cálculo de liquidação
+								if ((request.getAttribute("permissaoEditarEvento").toString().equalsIgnoreCase("true")) && (!request.getAttribute("PassoEditar").toString().equals("4"))) {
+					%>
+					<td><input name="formLocalizarimgEditar" type="image" title="Editar evento" src="./imagens/imgEditar_14x14.png" 
+						onClick="AlterarValue('PassoEditar','0'); AlterarValue('PaginaAtual','-1'); AlterarValue('Id_ProcessoEventoExecucao','<%=processoEventoExecucaoDt.getId()%>'); AlterarValue('posicaoLista','<%=i%>'); AlterarValue('Id_ProcessoExecucao','<%=processoEventoExecucaoDt.getId_ProcessoExecucao()%>');
+								AlterarValue('listaEvento','psc');"	/></td>
+                  	<td>
+						<%
+							if (!processoEventoExecucaoDt.isManterAcaoPenal()){
+						%>
+	               		<input name="formLocalizarimgexcluir" type="image" title="Excluir evento" src="./imagens/imgExcluir_14x14.png" 
+								onClick="AlterarValue('listaEvento','psc'); return confirmaExclusao('Confirma exclusão do evento?', '<%=Configuracao.Curinga8%>', '-1', '<%=i%>');" />
+						<%
+							} else {
+						%>-
+			            <%
+							}
+						%>	
+					</td>
+					<%
+						}
+					%>
+				</tr>
+				<%
+					boLinha1 = !boLinha1;
+							}
+						} // for - lista de movimentação
+				%>
+				<tr id="linha_<%=processoEventoExecucaoDt.getId()%>" style="display: none;">
+					<td colspan="4" id="pai_<%=processoEventoExecucaoDt.getId()%>" class="Linha"></td>
+				</tr>
+			<%
+				} // for - lista de evento
+				} // if - lista de evento
+			%>
+			</tbody>
+		</table>
+	</fieldset>
+	<% } %>
+	<!--FIM PSC-->
+	
+	<!--INÍCIO LFS-->
+	<%if (listaHistoricoLfs != null && listaHistoricoLfs.size() > 0){%>
+	<br> 
+	<fieldset class="formEdicao"><legend class="formEdicaoLegenda">Limitação de Fim de Semana (LFS)</legend>
+		<table id="TabelaLFS" class="Tabela">
+			<thead>
+				<tr class="TituloColuna">
+					<th class="colunaMinima">Nº</th>
+			        <th width="45%">Evento</th>
+			        <th width="10%">Início</th>
+			        <th width="10%">Fim</th>
+			        <th width="15%">Tempo Cumprido (a-m-d)</th>
+			        <th width="20%">Observação</th>
+					<th class="colunaMinima" title="Arquivo(s)">Arq.</th>
+					<%
+						//para editar ou excluir o evento deve ter permissão e não ser o cálculo de liquidação
+								if ((request.getAttribute("permissaoEditarEvento").toString().equalsIgnoreCase("true")) && (!request.getAttribute("PassoEditar").toString().equals("4"))) {
+					%>									
+					<th class="colunaMinima" title="Editar Evento">Ed.</th>
+					<th class="colunaMinima" title="Excluir Evento">Ex.</th>
+					<%
+						}
+					%>
+				</tr>
+	        </thead>
+			<tbody id="tabLFS">
+			<%
+				if  (listaHistoricoLfs != null && listaHistoricoLfs.size() > 0){
+					boolean boLinha2=false; 
+					String id_movimentacao2, movimentacaoDataRealizacao2;
+			   	    			for (int i=0; i<listaHistoricoLfs.size(); i++){
+				   			  		ProcessoEventoExecucaoDt processoEventoExecucaoDt = (ProcessoEventoExecucaoDt)listaHistoricoLfs.get(i);
+			%>
+				<tr>
+           			<td> <%=i+1%></td>
+               		<td><%=processoEventoExecucaoDt.getEventoExecucaoDt().getEventoExecucao()%></td>
+               		<td align="center"><%=processoEventoExecucaoDt.getDataInicio()%></td>
+               		<td align="center"><%=Funcoes.verificarCampo(processoEventoExecucaoDt.getDataFim(),"","-")%></td>
+               		<td align="center"><%=Funcoes.verificarCampo(processoEventoExecucaoDt.getTempoCumpridoAnos(),"","-")%></td>
+               		<td align="center"><%=Funcoes.verificarCampo(processoEventoExecucaoDt.getObservacao(),"","-")%></td>
+					<td align="center">
+					<% for (int j=0; j<processoDt.getListaMovimentacoes().size(); j++){
+							MovimentacaoDt movimentacaoDt = (MovimentacaoDt)processoDt.getListaMovimentacoes().get(j);
+							if (movimentacaoDt.getId().equals(processoEventoExecucaoDt.getId_Movimentacao())){
+
+								if (movimentacaoDt.temArquivos()){
+									id_movimentacao2 = movimentacaoDt.getId();
+									movimentacaoDataRealizacao2 = movimentacaoDt.getDataRealizacao().substring(0,10);
+					%>
+						<a href="javascript:buscarArquivosMovimentacaoEventoExecucao('<%=processoEventoExecucaoDt.getId()%>', '<%=id_movimentacao2%>', '<%=movimentacaoDataRealizacao2%>', 'BuscaProcesso', 'Id_MovimentacaoArquivo', <%=Configuracao.Curinga6 %>, 'null')">
+						<img src="./imagens/ico_arquivos_14x14.png" alt="Mostrar ou ocultar arquivos" title="Mostrar ou ocultar arquivos" />
+						</a>
+								<%}	else {%>-
+								<%} %>
+					</td>
+									<%//para editar ou excluir o evento deve ter permissão e não ser o cálculo de liquidação
+									if ((request.getAttribute("permissaoEditarEvento").toString().equalsIgnoreCase("true")) && (!request.getAttribute("PassoEditar").toString().equals("4"))) {%>
+									<td><input name="formLocalizarimgEditar" type="image" title="Editar evento" src="./imagens/imgEditar_14x14.png" 
+										onClick="AlterarValue('PassoEditar','0'); AlterarValue('PaginaAtual','-1'); AlterarValue('Id_ProcessoEventoExecucao','<%=processoEventoExecucaoDt.getId()%>'); AlterarValue('posicaoLista','<%=i%>'); AlterarValue('Id_ProcessoExecucao','<%=processoEventoExecucaoDt.getId_ProcessoExecucao()%>');
+												AlterarValue('listaEvento','lfs');"	/></td>
+			                   		<td>
+									<%if (!processoEventoExecucaoDt.isManterAcaoPenal()){ %>
+			                   		<input name="formLocalizarimgexcluir" type="image" title="Excluir evento" src="./imagens/imgExcluir_14x14.png" 
+										onClick="AlterarValue('listaEvento','lfs'); return confirmaExclusao('Confirma exclusão do evento?', '<%=Configuracao.Curinga8%>', '-1', '<%=i%>');" />
+									<%}
+			                   		else {%>-
+			                   		<%} %>	
+									</td>
+									<%} %>
+								</tr>
+								
+							<%		
+									boLinha2 = !boLinha2;
+									}
+									} // for - lista de movimentação%>
+									<tr id="linha_<%=processoEventoExecucaoDt.getId()%>" style="display: none;">
+										<td colspan="4" id="pai_<%=processoEventoExecucaoDt.getId()%>" class="Linha"></td>
+									</tr>
+								<%} // for - lista de evento
+						   	    } // if - lista de evento
+							%>
+							</tbody>
+						</table>
+				</fieldset>
+			<%} %>
+	<!--FIM LFS-->
+	
+	<!--INÍCIO PEC-->
+	<%if (listaHistoricoPec != null && listaHistoricoPec.size() > 0) {%>
+	<fieldset class="formEdicao"><legend class="formEdicaoLegenda">Prestação Pecuniária (PEC)</legend>
+		<table id="PEC" class="Tabela">
+			<thead>
+				<tr class="TituloColuna">
+					<th class="colunaMinima">Nº</th>
+			        <th width="40%">Evento</th>
+			        <th width="15%">Início</th>
+			        <th width="15%">Pagamento Efetuado</th>
+			        <th width="20%">Observação</th>
+					<th class="colunaMinima" title="Arquivo(s)">Arq.</th>
+					<%//para editar ou excluir o evento deve ter permissão e não ser o cálculo de liquidação
+					if ((request.getAttribute("permissaoEditarEvento").toString().equalsIgnoreCase("true")) && (!request.getAttribute("PassoEditar").toString().equals("4"))) {%>									
+					<th class="colunaMinima" title="Editar Evento">Ed.</th>
+					<th class="colunaMinima" title="Excluir Evento">Ex.</th>
+					<%} %>
+				</tr>
+			</thead>
+			<tbody id="tabPEC">
+			<%if  (listaHistoricoPec != null && listaHistoricoPec.size() > 0){
+				boolean boLinha1=false; 
+				String id_movimentacao1, movimentacaoDataRealizacao1;
+   	    			for (int i=0; i<listaHistoricoPec.size(); i++){
+	   			  		ProcessoEventoExecucaoDt processoEventoExecucaoDt = (ProcessoEventoExecucaoDt)listaHistoricoPec.get(i);
+			%>
+				<tr>
+            		<td class="colunaMinima"> <%=i+1%></td>
+               		<td><%=processoEventoExecucaoDt.getEventoExecucaoDt().getEventoExecucao()%></td>
+               		<td align="center"><%=processoEventoExecucaoDt.getDataInicio()%></td>
+               		<td align="center"><%=Funcoes.FormatarMoeda(processoEventoExecucaoDt.getQuantidade())%></td>
+               		<td align="center"><%=Funcoes.verificarCampo(processoEventoExecucaoDt.getObservacao(),"","-")%></td>
+					<td align="center">
+					<%
+						for (int j=0; j<processoDt.getListaMovimentacoes().size(); j++){
+									MovimentacaoDt movimentacaoDt = (MovimentacaoDt)processoDt.getListaMovimentacoes().get(j);
+									if (movimentacaoDt.getId().equals(processoEventoExecucaoDt.getId_Movimentacao())){
+										if (movimentacaoDt.temArquivos()){
+											id_movimentacao1 = movimentacaoDt.getId();
+											movimentacaoDataRealizacao1 = movimentacaoDt.getDataRealizacao().substring(0,10);
+					%>
+					<a href="javascript:buscarArquivosMovimentacaoEventoExecucao('<%=processoEventoExecucaoDt.getId()%>', '<%=id_movimentacao1%>', '<%=movimentacaoDataRealizacao1%>', 'BuscaProcesso', 'Id_MovimentacaoArquivo', <%=Configuracao.Curinga6%>, 'null')">
+						<img src="./imagens/ico_arquivos_14x14.png" alt="Mostrar ou ocultar arquivos" title="Mostrar ou ocultar arquivos" />
+					</a>
+							<%}	else {%>
+							-
+							<%}%>
+					</td>
+					<%
+						//para editar ou excluir o evento deve ter permissão e não ser o cálculo de liquidação
+							if ((request.getAttribute("permissaoEditarEvento").toString().equalsIgnoreCase("true")) && (!request.getAttribute("PassoEditar").toString().equals("4"))) {
+					%>
+					<td><input name="formLocalizarimgEditar" type="image" title="Editar evento" src="./imagens/imgEditar_14x14.png" 
+						onClick="AlterarValue('PassoEditar','0'); AlterarValue('PaginaAtual','-1'); AlterarValue('Id_ProcessoEventoExecucao','<%=processoEventoExecucaoDt.getId()%>'); AlterarValue('posicaoLista','<%=i%>'); AlterarValue('Id_ProcessoExecucao','<%=processoEventoExecucaoDt.getId_ProcessoExecucao()%>');
+								AlterarValue('listaEvento','pec');"	/></td>
+                  	<td>
+						<%if (!processoEventoExecucaoDt.isManterAcaoPenal()){%>
+	               		<input name="formLocalizarimgexcluir" type="image" title="Excluir evento" src="./imagens/imgExcluir_14x14.png" 
+								onClick="AlterarValue('listaEvento','pec'); return confirmaExclusao('Confirma exclusão do evento?', '<%=Configuracao.Curinga8%>', '-1', '<%=i%>');" />
+						<%} else {%>
+						-
+			            <%}%>	
+					</td>
+					<%}%>
+				</tr>
+				<%
+					boLinha1 = !boLinha1;
+							}
+						} // for - lista de movimentação
+				%>
+				<tr id="linha_<%=processoEventoExecucaoDt.getId()%>" style="display: none;">
+					<td colspan="4" id="pai_<%=processoEventoExecucaoDt.getId()%>" class="Linha"></td>
+				</tr>
+			<%
+				} // for - lista de evento
+				} // if - lista de evento
+			%>
+			</tbody>
+		</table>
+	</fieldset>
+	<% } %>
+	<!--FIM PEC-->
+	
+	
+	<!--INÍCIO PCB-->
+	<%if (listaHistoricoPcb != null && listaHistoricoPcb.size() > 0) {%>
+	<fieldset class="formEdicao"><legend class="formEdicaoLegenda">Cestas Básicas (PCB)</legend>
+		<table id="PCB" class="Tabela">
+			<thead>
+				<tr class="TituloColuna">
+					<th class="colunaMinima">Nº</th>
+			        <th width="40%">Evento</th>
+			        <th width="15%">Início</th>
+			        <th width="15%">Pagamento Efetuado</th>
+			        <th width="20%">Observação</th>
+					<th class="colunaMinima" title="Arquivo(s)">Arq.</th>
+					<%//para editar ou excluir o evento deve ter permissão e não ser o cálculo de liquidação
+					if ((request.getAttribute("permissaoEditarEvento").toString().equalsIgnoreCase("true")) && (!request.getAttribute("PassoEditar").toString().equals("4"))) {%>									
+					<th class="colunaMinima" title="Editar Evento">Ed.</th>
+					<th class="colunaMinima" title="Excluir Evento">Ex.</th>
+					<%} %>
+				</tr>
+			</thead>
+			<tbody id="tabPCB">
+			<%if  (listaHistoricoPcb != null && listaHistoricoPcb.size() > 0){
+				boolean boLinha1=false; 
+				String id_movimentacao1, movimentacaoDataRealizacao1;
+   	    			for (int i=0; i<listaHistoricoPcb.size(); i++){
+	   			  		ProcessoEventoExecucaoDt processoEventoExecucaoDt = (ProcessoEventoExecucaoDt)listaHistoricoPcb.get(i);
+			%>
+				<tr>
+            		<td class="colunaMinima"> <%=i+1%></td>
+               		<td><%=processoEventoExecucaoDt.getEventoExecucaoDt().getEventoExecucao()%></td>
+               		<td align="center"><%=processoEventoExecucaoDt.getDataInicio()%></td>
+               		<td align="center"><%=processoEventoExecucaoDt.getQuantidade() + " cestas"%></td>
+               		<td align="center"><%=Funcoes.verificarCampo(processoEventoExecucaoDt.getObservacao(),"","-")%></td>
+					<td align="center">
+					<%
+						for (int j=0; j<processoDt.getListaMovimentacoes().size(); j++){
+									MovimentacaoDt movimentacaoDt = (MovimentacaoDt)processoDt.getListaMovimentacoes().get(j);
+									if (movimentacaoDt.getId().equals(processoEventoExecucaoDt.getId_Movimentacao())){
+										if (movimentacaoDt.temArquivos()){
+											id_movimentacao1 = movimentacaoDt.getId();
+											movimentacaoDataRealizacao1 = movimentacaoDt.getDataRealizacao().substring(0,10);
+					%>
+					<a href="javascript:buscarArquivosMovimentacaoEventoExecucao('<%=processoEventoExecucaoDt.getId()%>', '<%=id_movimentacao1%>', '<%=movimentacaoDataRealizacao1%>', 'BuscaProcesso', 'Id_MovimentacaoArquivo', <%=Configuracao.Curinga6%>, 'null')">
+						<img src="./imagens/ico_arquivos_14x14.png" alt="Mostrar ou ocultar arquivos" title="Mostrar ou ocultar arquivos" />
+					</a>
+							<%}	else {%>
+							-
+							<%}%>
+					</td>
+					<%
+						//para editar ou excluir o evento deve ter permissão e não ser o cálculo de liquidação
+							if ((request.getAttribute("permissaoEditarEvento").toString().equalsIgnoreCase("true")) && (!request.getAttribute("PassoEditar").toString().equals("4"))) {
+					%>
+					<td><input name="formLocalizarimgEditar" type="image" title="Editar evento" src="./imagens/imgEditar_14x14.png" 
+						onClick="AlterarValue('PassoEditar','0'); AlterarValue('PaginaAtual','-1'); AlterarValue('Id_ProcessoEventoExecucao','<%=processoEventoExecucaoDt.getId()%>'); AlterarValue('posicaoLista','<%=i%>'); AlterarValue('Id_ProcessoExecucao','<%=processoEventoExecucaoDt.getId_ProcessoExecucao()%>');
+								AlterarValue('listaEvento','pcb');"	/></td>
+                  	<td>
+						<%if (!processoEventoExecucaoDt.isManterAcaoPenal()){%>
+	               		<input name="formLocalizarimgexcluir" type="image" title="Excluir evento" src="./imagens/imgExcluir_14x14.png" 
+								onClick="AlterarValue('listaEvento','pcb'); return confirmaExclusao('Confirma exclusão do evento?', '<%=Configuracao.Curinga8%>', '-1', '<%=i%>');" />
+						<%} else {%>
+						-
+			            <%}%>	
+					</td>
+					<%}%>
+				</tr>
+				<%
+					boLinha1 = !boLinha1;
+							}
+						} // for - lista de movimentação
+				%>
+				<tr id="linha_<%=processoEventoExecucaoDt.getId()%>" style="display: none;">
+					<td colspan="4" id="pai_<%=processoEventoExecucaoDt.getId()%>" class="Linha"></td>
+				</tr>
+			<%
+				} // for - lista de evento
+				} // if - lista de evento
+			%>
+			</tbody>
+		</table>
+	</fieldset>
+	<% } %>
+	<!--FIM PCB-->
+	
+	
+	
+	<!--INÍCIO ITD-->
+	<%if (listaHistoricoItd != null && listaHistoricoItd.size() > 0){%>
+	<br> 
+	<fieldset class="formEdicao"><legend class="formEdicaoLegenda">Interdição Temporária de Direito (ITD)</legend>
+		<table id="TabelaITD" class="Tabela">
+			<thead>
+				<tr class="TituloColuna">
+					<th class="colunaMinima">Nº</th>
+			        <th width="45%">Evento</th>
+			        <th width="10%">Início</th>
+			        <th width="10%">Fim</th>
+			        <th width="15%">Tempo Cumprido (a-m-d)</th>
+			        <th width="20%">Observação</th>
+					<th class="colunaMinima" title="Arquivo(s)">Arq.</th>
+					<%//para editar ou excluir o evento deve ter permissão e não ser o cálculo de liquidação
+								if ((request.getAttribute("permissaoEditarEvento").toString().equalsIgnoreCase("true")) && (!request.getAttribute("PassoEditar").toString().equals("4"))) {
+					%>									
+					<th class="colunaMinima" title="Editar Evento">Ed.</th>
+					<th class="colunaMinima" title="Excluir Evento">Ex.</th>
+					<%}%>
+				</tr>
+	        </thead>
+			<tbody id="tabLFS">
+			<%
+				if  (listaHistoricoItd != null && listaHistoricoItd.size() > 0){
+					boolean boLinha2=false; 
+					String id_movimentacao2, movimentacaoDataRealizacao2;
+			   	    			for (int i=0; i<listaHistoricoItd.size(); i++){
+				   			  		ProcessoEventoExecucaoDt processoEventoExecucaoDt = (ProcessoEventoExecucaoDt)listaHistoricoItd.get(i);
+			%>
+				<tr>
+           			<td> <%=i+1%></td>
+               		<td><%=processoEventoExecucaoDt.getEventoExecucaoDt().getEventoExecucao()%></td>
+               		<td align="center"><%=processoEventoExecucaoDt.getDataInicio()%></td>
+               		<td align="center"><%=Funcoes.verificarCampo(processoEventoExecucaoDt.getDataFim(),"","-")%></td>
+               		<td align="center"><%=Funcoes.verificarCampo(processoEventoExecucaoDt.getTempoCumpridoAnos(),"","-")%></td>
+               		<td align="center"><%=Funcoes.verificarCampo(processoEventoExecucaoDt.getObservacao(),"","-")%></td>
+					<td align="center">
+					<% for (int j=0; j<processoDt.getListaMovimentacoes().size(); j++){
+							MovimentacaoDt movimentacaoDt = (MovimentacaoDt)processoDt.getListaMovimentacoes().get(j);
+							if (movimentacaoDt.getId().equals(processoEventoExecucaoDt.getId_Movimentacao())){
+
+								if (movimentacaoDt.temArquivos()){
+									id_movimentacao2 = movimentacaoDt.getId();
+									movimentacaoDataRealizacao2 = movimentacaoDt.getDataRealizacao().substring(0,10);
+					%>
+						<a href="javascript:buscarArquivosMovimentacaoEventoExecucao('<%=processoEventoExecucaoDt.getId()%>', '<%=id_movimentacao2%>', '<%=movimentacaoDataRealizacao2%>', 'BuscaProcesso', 'Id_MovimentacaoArquivo', <%=Configuracao.Curinga6 %>, 'null')">
+						<img src="./imagens/ico_arquivos_14x14.png" alt="Mostrar ou ocultar arquivos" title="Mostrar ou ocultar arquivos" />
+						</a>
+								<%}	else {%>-
+								<%} %>
+					</td>
+									<%//para editar ou excluir o evento deve ter permissão e não ser o cálculo de liquidação
+									if ((request.getAttribute("permissaoEditarEvento").toString().equalsIgnoreCase("true")) && (!request.getAttribute("PassoEditar").toString().equals("4"))) {%>
+									<td><input name="formLocalizarimgEditar" type="image" title="Editar evento" src="./imagens/imgEditar_14x14.png" 
+										onClick="AlterarValue('PassoEditar','0'); AlterarValue('PaginaAtual','-1'); AlterarValue('Id_ProcessoEventoExecucao','<%=processoEventoExecucaoDt.getId()%>'); AlterarValue('posicaoLista','<%=i%>'); AlterarValue('Id_ProcessoExecucao','<%=processoEventoExecucaoDt.getId_ProcessoExecucao()%>');
+												AlterarValue('listaEvento','itd');"	/></td>
+			                   		<td>
+									<%if (!processoEventoExecucaoDt.isManterAcaoPenal()){ %>
+			                   		<input name="formLocalizarimgexcluir" type="image" title="Excluir evento" src="./imagens/imgExcluir_14x14.png" 
+										onClick="AlterarValue('listaEvento','itd'); return confirmaExclusao('Confirma exclusão do evento?', '<%=Configuracao.Curinga8%>', '-1', '<%=i%>');" />
+									<%}
+			                   		else {%>-
+			                   		<%} %>	
+									</td>
+									<%} %>
+								</tr>
+								
+							<%		
+									boLinha2 = !boLinha2;
+									}
+									} // for - lista de movimentação%>
+									<tr id="linha_<%=processoEventoExecucaoDt.getId()%>" style="display: none;">
+										<td colspan="4" id="pai_<%=processoEventoExecucaoDt.getId()%>" class="Linha"></td>
+									</tr>
+								<%} // for - lista de evento
+						   	    } // if - lista de evento
+							%>
+							</tbody>
+						</table>
+				</fieldset>
+			<%} %>
+	<!--FIM LFS-->
+</div>
+</fieldset>
+<br />
+<% }%>

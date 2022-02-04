@@ -1,0 +1,21 @@
+<%
+  Cookie cookies[] = request.getCookies();
+  String instanciaServidor = null;
+  try {
+  	if(cookies != null){
+		for(Cookie c: cookies){
+		  if(c.getName().equals("JSESSIONID")){
+			instanciaServidor = c.getValue();
+			instanciaServidor = instanciaServidor.substring(instanciaServidor.indexOf(".") + 1);
+			break;
+		  }
+		}
+	}
+	if (instanciaServidor == null) {
+		instanciaServidor = "";
+	} else {
+		instanciaServidor = "|" + instanciaServidor;
+	}
+  } catch(Exception e){}
+%>
+<div class="logoTJ" id="img_logotj" title="Versão 2.14.45[22/04|40180<%=instanciaServidor%>]"><h1>Processo Judicial</h1><div id="servidor"></div></div>

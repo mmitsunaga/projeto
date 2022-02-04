@@ -1,0 +1,86 @@
+<%@page import="br.gov.go.tj.utils.Configuracao"%>
+<%@page import="br.gov.go.tj.projudi.dt.ModeloDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.ArquivoTipoDt"%>
+
+<script type='text/javascript'  src='js/ckeditor/ckeditor.js?v=24092018'></script>
+<script type='text/javascript' src='js/Funcoes.js'></script>
+<script type='text/javascript' src='./js/checks.js'></script>
+
+	<%@ include file="../js/InsercaoArquivo.js"%> 
+
+	<input type="hidden" id="tempBuscaId_PendenciaTipo" name="tempBuscaId_PendenciaTipo" />
+	<input type="hidden" id="tempBuscaPendenciaTipo" name="tempBuscaPendenciaTipo" />
+
+	<input type="hidden" id="assinado" name="assinado" value="true" />
+
+	<input type="hidden" id="id_ArquivoTipo" name="Id_ArquivoTipo" value="<%=request.getAttribute("Id_ArquivoTipo")%>" />
+	<label class="formEdicaoLabel"> *Tipo de Arquivo</label>
+	<input class="FormEdicaoimgLocalizar" name="imaLocalizarArquivoTipo" type="image"  src="./imagens/imgLocalizarPequena.png" onclick="AlterarValue('PaginaAtual', '<%=String.valueOf(ArquivoTipoDt.CodigoPermissao * Configuracao.QtdPermissao + Configuracao.Localizar)%>');" title="Selecionar Tipo de Arquivo" />
+	<input class="FormEdicaoimgLocalizar" name="imaLimparArquivoTipo" type="image"  src="./imagens/16x16/edit-clear.png" onclick="LimparChaveEstrangeira('id_ArquivoTipo', 'arquivoTipo'); return false;" title="Limpar Tipo de Arquivo" />
+	<input class="formEdicaoInputSomenteLeitura" name="ArquivoTipo" readonly type="text" size="50" maxlength="50" id="arquivoTipo" value="<%=request.getAttribute("ArquivoTipo")%>" />		
+	<br />
+	
+	<input type="hidden" id="id_Modelo" name="Id_Modelo" value="<%=request.getAttribute("Id_Modelo")%>" />
+	<label class="formEdicaoLabel"> Modelo </label>
+	<input class="FormEdicaoimgLocalizar" name="imaLocalizarModelo" type="image"  src="./imagens/imgLocalizarPequena.png" onclick="AlterarValue('PaginaAtual', '<%=String.valueOf(ModeloDt.CodigoPermissao * Configuracao.QtdPermissao + Configuracao.Localizar)%>');" title="Selecionar Modelo de Arquivo" />
+	<input class="FormEdicaoimgLocalizar" name="imaLimparModelo" type="image"  src="./imagens/16x16/edit-clear.png" onclick="LimparChaveEstrangeira('id_Modelo', 'modelo'); return false;" title="Limpar Modelo" />
+	<input class="formEdicaoInputSomenteLeitura" name="Modelo" readonly type="text" size="50" maxlength="50" id="modelo"value="<%=request.getAttribute("Modelo")%>" />		
+	<br />
+	
+	<label class="formEdicaoLabel"> Nome Arquivo</label>
+	<input type="image"  src="./imagens/16x16/edit-clear.png" onclick="AlterarValue('nomeArquivo', ''); return false;" title="Limpar nome do arquivo" />
+	<input id="nomeArquivo" name="nomeArquivo" type="text" size="53" maxlength="255" value="<%=request.getAttribute("nomeArquivo")%>" />
+	<br />
+
+	<label class="formEdicaoLabel"> Editor Texto
+		<input class="FormEdicaoimgLocalizar" name="imaLocalizarArquivoTipo" type="image"  src="./imagens/imgEditorTextoPequena.png" 
+			onclick="MostrarOcultar('Editor'); return false;" title="Abrir Editor de Texto" />
+	</label>
+  		        		
+<div id="Editor" class="Editor" style="display:none" >        			
+	<textarea class="ckeditor" cols="80" id="editor1" name="TextoEditor" rows="15"><%=request.getAttribute("TextoEditor")%></textarea>
+														
+	<script type="text/javascript">
+   		
+		<%
+			if (request.getAttribute("TextoEditor") != null && !request.getAttribute("TextoEditor").equals("") ){			
+				%>MostrarOcultar('Editor');
+			<%}%>		
+	</script>
+</div>
+
+<input type="hidden" id="arquivo" name="arquivo" value="">
+<input type="hidden" name="nomeArquivo" id="nomeArquivo" value="" />
+
+  	<input type="hidden" name="arquivo" id="arquivo" value="" />
+
+
+	<div id="divBotoesCentralizadosAssinador" class="divBotoesCentralizadosAssinador"> 
+
+	<%if(request.getAttribute("ocultarBotoesEstagiario") == null) {%>   
+		<object name='AssinadorTJGO'     id='AssinadorTJGO'  class='AssinadorTJGO'    type="application/x-java-applet" mayscript='true' scriptable='true'>       
+			<param name="code" value="br.jus.tjgo.Applet.Assinador">				     	           
+	       	<param name="archive" value="./applet/AssinadorTJGO-05-11-2019.jar">
+	        <param name="mayscript" value="yes">
+	        <param name="scriptable" value="true">
+	        <param name="name" value="AssinadorTJGO">		        
+	        <param name="java_arguments" value="-Djnlp.packEnabled=true"/>		            		
+	    </object>
+     <%} %>
+	                    
+         <button type="button"  onclick="javascript:anexarArquivoNaoAssinado();">
+				Inserir
+		 </button>
+		 
+		  <button type="button"  onclick="javascript:incluirArquivosAreaTransferencia();">
+				Colar
+		 </button>  
+		 
+		 <button type="button"  onclick="javascript:limparArquivosAreaTransferencia();">
+				Limpar
+		 </button>  
+	</div>	
+		
+<%@ include file="ListaArquivos.jspf"%>
+
+

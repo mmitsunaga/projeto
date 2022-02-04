@@ -1,0 +1,42 @@
+<%@page import="br.gov.go.tj.projudi.dt.ServentiaDt"%>
+<%@page import="br.gov.go.tj.utils.Configuracao"%>
+<%@page import="br.gov.go.tj.projudi.dt.ServentiaTipoDt"%>
+
+<div id="divLocalizar" class="divLocalizar" >		
+	<fieldset>
+		<legend>Expedir Para Serventia</legend>
+		
+			<input type="hidden" id="Id_ServentiaTipo" name="Id_ServentiaTipo" 	value="<%=request.getAttribute("Id_ServentiaTipo")%>" />
+							
+				<label class="formEdicaoLabel">Serventia Tipo
+				<input class="FormEdicaoimgLocalizar" name="imaLocalizarServentia" type="image"  src="./imagens/imgLocalizarPequena.png" 
+					onclick="AlterarValue('PaginaAtual', '<%=String.valueOf(ServentiaTipoDt.CodigoPermissao * Configuracao.QtdPermissao + Configuracao.Localizar)%>');" 
+										title="Selecione o tipo de serventia" />
+				<input class="FormEdicaoimgLocalizar" name="imaLimparServentiaTipo" type="image"  src="./imagens/16x16/edit-clear.png"
+					onclick="LimparChaveEstrangeira('Id_ServentiaTipo', 'ServentiaTipo'); return false;" title="Limpar o tipo de serventia" />
+				</label><br>
+				
+				
+				<input class="formEdicaoInputSomenteLeitura" name="ServentiaTipo" readonly type="text" size="40" maxlength="40" id="ServentiaTipo" 
+					value="<%=request.getAttribute("ServentiaTipo")%>" />		
+						
+			<input type="hidden" id="Id_ServentiaExpedir" name="Id_ServentiaExpedir" value="<%=request.getAttribute("Id_ServentiaExpedir")%>" />
+			
+			<br>
+							
+				<label class="formEdicaoLabel">Serventia
+				<input class="FormEdicaoimgLocalizar" name="imaLocalizarServentia" type="image"  src="./imagens/imgLocalizarPequena.png" 
+					onclick="AlterarValue('PaginaAtual', '<%=String.valueOf(ServentiaDt.CodigoPermissao * Configuracao.QtdPermissao + Configuracao.Localizar)%>');" 
+									title="Selecione a serventia" />
+				<input class="FormEdicaoimgLocalizar" name="imaLimparServentia" type="image"  src="./imagens/16x16/edit-clear.png"
+					onclick="LimparChaveEstrangeira('Id_ServentiaExpedir', 'ServentiaExpedir'); return false;" title="Limpar a serventia" />
+				</label><br>
+				
+				
+				<input class="formEdicaoInputSomenteLeitura" id="ServentiaExpedir" name="ServentiaExpedir" readonly="true" type="text" size="40" maxlength="40"  
+					value="<%=request.getAttribute("ServentiaExpedir")%>" />	
+
+			<br />	
+	</fieldset>
+</div>	
+

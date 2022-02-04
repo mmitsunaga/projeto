@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+
+<script>
+
+function abrirAssinador(){		
+	document.Assinador.abrirAssinador();			
+}
+
+function DoPrintingApplet(numProcesso,nome,bairro,cidade,estado,logradouro,numero,cep,complemento){
+	bairroCidadeUF = bairro+'  ,'+cidade+'-'+estado;
+	ruaNumero = logradouro+'  N:'+numero;
+	document.ImprimirEtiqueta.imprimirEtiqueta("teste","asfasdf","adfsdfg adafs","adfas adfa df","sdafasd ASDFASd ","complemento");
+	alert("Imprimindo Etiqueta!");			
+}
+
+function getTextoAssinar(){
+	
+	return "asfa adslkjfaçsdf";
+}
+
+function getNomeArquivo(){
+	return "asdfas.pdf";
+}
+
+function podeAssinar(){
+	
+	return "true";
+}
+
+function configuraAssinador(){
+	
+	return null;
+}
+
+</script>
+
+</head>
+  	
+
+    
+<body>
+    <input type="hidden" name="assinatura" id="assinatura" value="" />
+  	
+       <object name="ImprimirEtiqueta"  id='ImprimirEtiqueta' type="application/x-java-applet" width="0" height="0" align="top"  style="z-index:-100">            
+        <param name="code" value="ImprimirEtiqueta"/>
+        <param name="archive" value="./applet/ImprimirEtiqueta.jar"/>
+        <param name="mayscript" value="yes"/>
+        <param name="scriptable" value="true"/>
+        <param name="name" value="ImprimirEtiqueta"/>
+        <param name="java_arguments" value="-Djnlp.packEnabled=true"/>	            		
+      </object>	
+          
+	<object name='Assinador'     id='Assinador'   class='AssinadorTJGO'  width="33" height="33"  type="application/x-java-applet" mayscript='true' scriptable='true'>       
+		<param name="code" value="br.jus.tjgo.Applet.Assinador"/>				     	           
+       	<param name="archive" value="./applet/AssinadorTJGO-05-11-2019.jar"/>
+        <param name="mayscript" value="true"/>
+        <param name="scriptable" value="true"/>
+        <param name="name" value="Assinador"/>
+        		        
+        <param name="java_arguments" value="-Djnlp.packEnabled=true"/>		            		
+    </object>	
+		    
+	<div id="divBotoesCentralizados" class="divBotoesCentralizados"> 
+		
+		<button type="button"  onclick="javascript:abrirAssinador();">	
+			Assinar
+		 </button>   
+		             
+         <button type="button"  onclick="javascript:DoPrintingApplet();">	
+			Imprimir
+		 </button>               
+	</div>	
+    
+</body>
+</html>

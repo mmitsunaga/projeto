@@ -1,0 +1,15 @@
+--01/08/2018
+--Adicionar coluna com quantidade de locomoções necessárias. (default zero)
+--Adicionado no desenv e homolog. Falta produção.
+ALTER TABLE PROJUDI.MAND_TIPO ADD QTDE_LOCOMOCAO NUMBER(24,0) DEFAULT 0 NULL;
+
+--Alterado view para adicionar o campo(QTDE_LOCOMOCAO) do comando acima.
+CREATE OR REPLACE FORCE VIEW "PROJUDI"."VIEW_MAND_TIPO" ("ID_MAND_TIPO", "MAND_TIPO", "MAND_TIPO_CODIGO", "QTDE_LOCOMOCAO", "CODIGO_TEMP") AS 
+  SELECT 
+    MT.ID_MAND_TIPO AS ID_MAND_TIPO,
+    MT.MAND_TIPO AS MAND_TIPO,
+    MT.MAND_TIPO_CODIGO AS MAND_TIPO_CODIGO,
+    MT.QTDE_LOCOMOCAO AS QTDE_LOCOMOCAO,
+    MT.CODIGO_TEMP AS CODIGO_TEMP 
+  FROM 
+    MAND_TIPO MT;

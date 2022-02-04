@@ -1,0 +1,13 @@
+<!-- inclua esse arquivo dentro do form que será submetido
+	utilese o RecaptchaService para validar do lado do servidor
+ -->
+<script src="https://www.google.com/recaptcha/api.js?render=6Lc9XJQUAAAAALYjdjJnuNNl8u-zCBSVmmFaps7Z"></script>
+<script>
+  grecaptcha.ready(function() {
+	  
+      grecaptcha.execute('6Lc9XJQUAAAAALYjdjJnuNNl8u-zCBSVmmFaps7Z', {action: 'homepage'}).then(function(token) {
+         $("#g-recaptcha-response").attr("value",token);
+      });
+  });
+</script>
+<input id="g-recaptcha-response" type="hidden" name="g-recaptcha-response" value=""/>

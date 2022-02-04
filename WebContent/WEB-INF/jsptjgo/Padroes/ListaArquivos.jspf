@@ -1,0 +1,47 @@
+<div id="divLocalizar" class="divLocalizar" >		
+	<fieldset>
+		<legend>Lista de Arquivos</legend>
+		
+		<input 	name="button" id="button" type="image" src="./imagens/imgAtualizarPequena.png"  
+				onclick="atualizarArquivos(); return false;" style="float: none;" title="Atualizar os arquivos da lista"  />
+		
+		<input 	name="button" type="image" src="./imagens/imgExcluirPequena.png"  
+				onclick="excluirSelecionados('divTabela'); return false;" style="float: none;" 
+				title="Apagar os arquivos selecionados da lista" />
+		
+		<input 	name="button" type="image" src="./imagens/16x16/imgSelecionaTodos.png"  
+				onclick="alterarEstadoChecks('divTabela', true, 'arquivos'); return false;"	style="float: none;" 
+				title="Selecionar todos os arquivos da lista" />
+				
+		<input 	name="button" type="image" src="./imagens/16x16/imgNovaSelecao.png"  
+				onclick="alterarEstadoChecks('divTabela', false, 'arquivos'); return false;" style="float: none;" 
+				title="Retirar seleção de arquivos da lista" />
+	
+		<div id="divTabela" class="divTabela" >
+			<table class="Tabela">
+				<thead>
+			    	<tr>
+			    		<th class="colunaMinima">
+			    			<input type="checkbox" id="chkSelTodos" value="" onclick="atualizarChecksFiltro(this, 'divTabela', 'arquivos')"
+			    				title="Alterar os estados de todos os itens da lista" />
+			    		</th>
+			      		<th width="50%">Descri&ccedil;&atilde;o</th>
+			      		<th>Nome do Arquivo</th>
+			      		<th class="colunaMinima">Op&ccedil;&otilde;es</th>
+			    	</tr>
+			  	</thead>
+			  	<tbody id="corpoTabelaArquivo">
+					<tr id="idArquivo" style="display: none;">
+						<td class="colunaMinima"><input type="checkbox" name="arquivos" id="chk_idArquivo" value="" /></td>
+					  	<td><span id="tableDescricao">Descri&ccedil;&atilde;o</span> </td>
+				      	<td><span id="tableNome">Nome Arquivo</span></td>			  	  							    
+				      	<td class="colunaMinima">
+				      		<input name="button2" id="button2" title="Retirar este arquivo da lista" type="image" 
+				      			src="./imagens/imgExcluirPequena.png"  onclick="excluirArquivo(this.id); return false;" />
+				      	</td>
+				    </tr>
+			  	</tbody>
+			</table>
+		</div>	
+	</fieldset>
+</div>

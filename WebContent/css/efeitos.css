@@ -1,0 +1,17 @@
+/*****EFEITOS********************************/
+
+/*.formEdicaoInput:hover, input:hover,img:hover {
+	background-color: #9fcdf3;
+	opacity: 0.1;
+}*/
+
+.formEdicaoInput:focus{
+	background-color: #9fcdf3;
+	font-weight: normal;
+	opacity: 0.6;
+}
+
+
+
+
+/*******************************************/

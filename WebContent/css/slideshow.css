@@ -1,0 +1,21 @@
+.row_fotos{
+	background: antiquewhite;
+	overflow: auto;
+	height: 175px;
+	white-space: nowrap;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+}
+
+img.foto { 	
+	height: 115px;
+	max-height: 500px;
+}
+.foto_excluir{
+	position: relative;
+	border: 5px solid #fff;
+	background-color: #fff;
+	margin-left: -32px;
+}
+

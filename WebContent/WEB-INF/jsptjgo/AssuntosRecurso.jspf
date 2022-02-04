@@ -1,0 +1,35 @@
+<%@page import="br.gov.go.tj.projudi.dt.RecursoAssuntoDt"%>
+
+<input type="hidden" id="posicaoLista" name="posicaoLista">
+   	
+   	<fieldset id="VisualizaDados" class="VisualizaDados" style="width: 780px;margin-left: 75px;">   
+   		<legend> *Assunto(s) 
+   			<input class="FormEdicaoimgLocalizar" id="imaLocalizarAssunto" name="imaLocalizarAssunto" type="image"  src="./imagens/imgLocalizarPequena.png"  onclick="AlterarValue('PaginaAtual','<%=String.valueOf(AssuntoDt.CodigoPermissao * Configuracao.QtdPermissao + Configuracao.Localizar)%>')" >
+   		</legend>
+   		
+   		<%
+   			List listaAssuntos = Recursodt.getListaAssuntos();
+   	    	if (listaAssuntos != null && listaAssuntos.size() > 0){ %>
+   			<table width="98%" border="0" cellpadding="0" cellspacing="0" style="font-size: 10px !important;">
+   				<thead align="left">
+   					<tr>
+   						<th width="90%">Descrição</th>
+   						<th>Excluir</th>
+   					</tr>
+   				</thead>
+			<%
+   	    		for (int i=0;i < listaAssuntos.size();i++){
+   	    			RecursoAssuntoDt assuntoDt = (RecursoAssuntoDt)listaAssuntos.get(i); %>
+	   			<tbody>
+					<tr>
+       					<td><%=assuntoDt.getAssunto()%></td>
+       	 				<td><input name="imgExcluir" class="imgExcluir" type="image" src="./imagens/imgExcluirPequena.png" onclick="AlterarValue('PaginaAtual','<%=Configuracao.Editar%>');AlterarValue('PassoEditar','2');AlterarValue('posicaoLista','<%=i%>')" title="Excluir assunto"/></td>
+       	 			</tr>
+       	 		</tbody>
+       		<%	} %>
+       	</table>
+   		<% } else { %>
+   			<em> Nenhum assunto cadastrado </em>
+   		<% } %>
+	</fieldset>
+	<br />

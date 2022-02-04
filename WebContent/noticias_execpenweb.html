@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>Cálculo de Liquidação de Pena - EXECPEN WEB</title>
+	<link href="imagens/favicon.png" TYPE="image/gif" REL="icon"/>
+	<script type='text/javascript' src='./js/Funcoes.js'></script>
+	<script type="text/javascript" src="./js/jquery.js"> </script>
+	<script type="text/javascript" src="./js/ui/jquery-ui.min.js"> </script>
+	
+	<link rel="stylesheet" href="css/Principal.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="css/LogonTJGO.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="css/cupertino/jquery-ui-1.8.1.custom.min.css" type="text/css" media="all" />
+    
+    <style type="text/css">
+
+			#coluna-um{				
+				vertical-align: top;
+				width: 100%;
+				
+			}
+	
+			#coluna-um h2 {
+				width: 100%;
+				height: 20px;
+				padding-top: 9px;
+				padding-right: 0px;
+				padding-bottom: 0px;
+				padding-left: 15px;
+				background-image: none;
+				margin-right: 0px;
+				margin-bottom: 0px;
+				margin-top: 0px;				
+				margin-left: 0px;
+				background: #F6F6F6;
+				font-weight: normal;
+				clear: right;
+				text-align: left;
+				font-weight: bold;
+				font-size: 11px;
+				display: block;
+				color: #494b49;
+				border-bottom-width: medium;
+				border-bottom-style: none;
+				border-bottom-color: -moz-use-text-color;
+				border-top-width: medium;
+				border-top-style: none;
+				border-top-color: -moz-use-text-color;
+				background-image: url("/imagens/bkg_bloco.gif");
+				background-repeat: repeat-x;
+				background-position: 0pt -1px;
+			}
+			
+
+			#coluna-um ul {
+				width: 90%;
+				padding-top: 0pt;
+				padding-right: 0pt;
+				padding-bottom: 0pt;
+				padding-left: 0pt;
+				margin-top: 0px;				
+				margin-right: 0px;
+				margin-bottom: 25px;
+				margin-left: 0px;
+				list-style-type: none;
+				list-style-image: none;
+				list-style-position: outside;
+			}
+
+ 			#coluna-um ul li {
+				line-height: 30px;				
+				margin-top: 0px;				
+				margin-right: 0px;
+				margin-bottom: 0px;
+				margin-left: 0px;
+				padding-top: 0px;
+				padding-right: 0px;
+				padding-bottom: 0px;
+				padding-left: 0px;
+				border-bottom-width: 1px;
+				border-bottom-style: dotted;
+				border-bottom-color: #d7d7d7;
+				background-color: transparent;
+				background-image: none;
+				background-repeat: repeat;
+				background: #ffffff;
+				text-align: left;
+				padding-left: 12px;
+				margin-left: 5px;
+				background-color: transparent;
+				background-image: url("/imagens/img_caixa.gif");
+				background-repeat: no-repeat;
+				background-attachment: scroll;
+				background-position: 0pt 13px;
+			}
+ 			
+			#coluna-um ul li a {
+				color: #333333;
+				font-weight: normal;
+			}
+			
+ 			#coluna-um ul li a:hover {
+				color: #3181c3 !important;
+				
+			}
+			
+			.mensagens {
+				height: 100%;
+				overflow: auto;
+				color: #333;
+				margin-left:50px;
+				/*text-align: justify;*/
+			}
+			.texto {
+				height: auto;
+				width: 95%;
+				padding: 3px;
+				background: #EFFAFF;
+				color: #333;
+				text-align: justify;
+			}				
+			.mensagens p {				
+				text-align: left;
+			}	
+			.mais_noticias{
+				text-align: right;
+				margin-top: 10px;
+				}
+	
+		</style> 
+		     
+    <script type='text/javascript'>
+        $(document).ready(function() {	
+        	$("#accordion2016").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion1").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion2").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion3").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion4").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion5").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion6").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion7").accordion({ autoHeight: false, collapsible: true, active: false });
+	        var a = $("a[targt='_blank']").size();
+			var b = $("a").size();
+			$("#info").html( (b-a) + ' de ' + b   + '   |   ' + ((1 - (a/b))*100).toFixed(2) + "% finalizado");				
+        });
+    </script>			
+
+
+</head>
+
+<body class="fundo_execpen">
+
+     
+  		<div id="pgn_cabecalho" class="pgn_cabecalho_execpen">
+        
+        <div id="img_logotj_execpen" title="Logo"><h1>EXECPENWEB</h1></div>
+        
+         <div style="float: right;">
+			<div id="cssmenu" >
+				<!--<ul>
+
+					<li class="has-sub">
+                		<a href="#" title="Ajuda"><span><i class="fa fa-question-circle"></i></span></a> 
+                    	<ul>
+                    		<li><a href="./videos.html" title="Vídeos para aprender a trabalhar com o Sistema de Processo Eletrônico 2" target="_blank" id="videos"><i class="fa fa-question-circle"></i>&nbsp; V&iacute;deos</a></li>									
+				  			<li><a href="./Pdfvideos.html" title="PDF dos Vídeos para aprender a trabalhar com o PROJUDI 2" target="_blank" id="Pdfvideos"><i class="fa fa-question-circle"></i>&nbsp; PDF dos V&iacute;deos</a></li>
+				  		</ul>
+				  	</li>
+					
+					<li>
+						<a href="mailto:processodigital@tjgo.jus.br" title="Contatos"><i class="fa fa-envelope"></i> </a>  
+					</li>
+					
+	  				
+					
+				  	<li>  
+				  		<a href="Usuario?PaginaAtual=Logout" title="Sair"><i class="fa fa-sign-out"></i> </a>  
+				  	</li>
+				</ul>-->
+			</div>
+		</div>	
+	</div>
+	<div style="clear:both;width:1300px;height:28px;background-color:#ccc; margin: 0 auto;"></div>
+    <nav id="breadcrumb" class="breadcrumb" >
+		<!--<a href="#" class="breadcrumb--active"><i class="fa fa-key"></i> Login</a>-->
+	</nav> 
+  			      
+  			 
+    
+    <div id="divCorpo" class="divCorpo" >
+	<div class="area"><h2><i class="fa fa-newspaper-o"></i> Notícias </h2></div>
+	
+	<h3>2015</h3>
+    <div id="coluna-um">	
+	    <div id="accordion2016" >
+		   
+		  <h3><a href="#">Cálculos Duplicados no Execpenweb</a></h3>
+		<div>
+			<p>02/06/2015 - Atenção servidor analista de cálculo, favor observar através do relatório gerencial 'Processos Ativos" os cálculos duplicados no Execpenweb e, excluir do programa o processo cadastrado em duplicidade.</p>		 
+		</div>
+
+
+
+
+
+		
+		</div>
+	
+	
+	
+	<h3>2014</h3>
+    <div id="coluna-um">	
+	    <div id="accordion" >
+		   
+		  <h3><a href="#">Limpeza de Cache Firefox</a></h3>
+		<div>
+			<p>16/09/2014 - Caso o sistema apresente erro ao cadastrar o processo, limpe o CACHE do navegador (ctrl+shift+del).  No campo LIMPAR ESTE PERÍODO selecione TUDO e marque a opção CACHE.</p>		 
+		</div>
+		
+
+<h3><a href="#">Novidades no Sistema</a></h3>
+		<div>
+			
+			<p>10/06/2014 - SOMA DE HORAS - Funcionalidade disponibilizada na calculadora de tempos e datas.</p>
+			<p>02/05/2014 - Disponibilizado escolha da data base no cálculo do Livramento Condicional.</p>
+			<p>15/04/2014 - Disponibilizado os eventos "Dias de Leitura Remidos" e "Perda dos dias de leitura remidos". Na inclusão do evento, informe o tempo remido no campo quantidade.</p>
+			<p>11/04/2014 - Implementado os eventos de "Conversão em Pena Restritiva de Direitos" e "Conversão em Medida de Segurança".</p>
+			<p>01/04/2014 - Disponibilizada extinção da pena por indulto. Neste caso é necessário informar o tempo cumprido a ser extinto. Esta informação é inserida na edição da condenação.</p>
+		</div>
+
+
+		
+		</div>
+		
+		
+		<h3>2012</h3>
+		
+		<div id="accordion1" >
+		
+		<h3><a href="#">GVT Problema Servidor de DNS</a></h3>
+		<div>
+			<p>16/09/2013 - Usuários da ADSL da GVT recebemos várias reclamações sobre problema com acesso ao Sistema de Processo Eletrônico, verificamos em alguns dias que o DNS da GVT não resolvia o endereço para o Sistema de Processo Eletrônico. Assim, se der mensagem de servidor não encontrado, configure um outro servidor de DNS na sua rede.</p>		 
+		</div>		
+			
+	<h3><a href="#">Problema Firefox/JAVA</a></h3>
+		<div>
+			<p> 21/01/2013 - Nas últimas atualizações do navegador Firefox (15,16,17 e 18) foi alterado a forma de bloquear o plugin do JAVA. Caso haja problema com o Assinador do Sistema de Processo Eletrônico verifique se existe um ícone vermelho na barra de Endereço do navegador. Se houver, clique e escolha a opção de sempre ativar plugin para esse site. Também mantenha o JAVA do seu  computador atualizado. </p>   		 
+		</div>
+		
+		
+		</div>
+		
+		<h3>2012</h3>
+		<div id="accordion2" >
+		<h3><a href="#">Fique Atento!</a></h3>
+		<div>
+			<p>26/10/2012 - Caso haja transferência do processo para comarca de outro Estado, arquive o Cálculo e informe o motivo do arquivamento.</p>
+			
+			<p>15/10/2012 - Foi alterada a função de conversão de "dias" para "ano-mês-dia" e vice-versa. Sendo assim, ao montar a lista de eventos, o sistema pode apresentar o tempo da condenção com 1 dia de diferença. Neste caso, basta fazer a correção. Não haverá prejuízo no cálculo de liquidação de pena.</p> 
+		</div>
+		
+		</div>
+		
+		
+		<h3>2010</h3>
+		<div id="accordion3" >
+		
+		
+		<h3><a href="#">Acessibilidade no Menu</a></h3>
+		<div>
+			<p>21/09/2010 - Foi incluída a navegação ao menu do Sistema ExecpenWeb através das teclas (tab e setas), possibilitando uma maior facilidade de uso para os usuários que têm alguma dificuldade com a utilização do mouse.</p> 		 
+		</div>
+			
+	
+		
+	
+		
+	
+		</div>
+		
+		
+		<h3>2009</h3>
+		<div id="accordion4" >
+
+	<h3><a href="#">Numeração Única CNJ</a></h3>
+		<div>
+			<p>25/11/2009 - De acordo com a resolução n.º 65 do CNJ que instituiu a numeração única de processo no seguinte formato: NNNNNNN.DD.AAAA.J.TR.OOOO, sendo na ordem , número do processo, digito verificador, ano de autuação, órgão do poder judiciário, número do tribunal, unidade de origem. Assim, todos os processos terão a apresentação da sua numeração alterada. Ficando da seguinte forma: Ex. para o número 039.2009.0000152, o número será a parte final (152), o ano continua sendo 2009 e o digito será calculado (0000152.12.2009.8.09.0005). Somente o numero e o digito serão utilizados para busca.</p>		 
+		</div>
+	
+	
+	
+		
+		
+	</div>
+					
+	
+
+	  
+	   </div>
+   </div>
+</div>
+</body>
+</html>
+

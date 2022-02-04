@@ -1,0 +1,766 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="listagemSessao2Grau"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="555"
+		 columnSpacing="0"
+		 leftMargin="20"
+		 rightMargin="20"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.zoom" value="2.0" />
+	<property name="ireport.x" value="0" />
+	<property name="ireport.y" value="48" />
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<subDataset name="dataset1" >
+
+
+	</subDataset>
+
+	<parameter name="dataAtual" isForPrompting="false" class="java.util.Date"/>
+	<parameter name="caminhoLogo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="titulo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="nomeSolicitante" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["E:\\Projeto\\Projudi2\\trabalho\\projudi\\jasper\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="serventia" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="dataJulgamento" isForPrompting="true" class="java.lang.String"/>
+
+	<field name="ProcessoTipo" class="java.lang.String"/>
+	<field name="ProcessoNumero" class="java.lang.String"/>
+	<field name="Comarca" class="java.lang.String"/>
+	<field name="Relator" class="java.lang.String"/>
+	<field name="ProcuradorJustica" class="java.lang.String"/>
+	<field name="Promoventes" class="java.lang.Object"/>
+	<field name="Promovidos" class="java.lang.Object"/>
+	<field name="DescricaoPoloAtivo" class="java.lang.String"/>
+	<field name="DescricaoPoloPassivo" class="java.lang.String"/>
+	<field name="AdvogadoPoloPassivo" class="java.lang.String"/>
+	<field name="AdvogadoPoloAtivo" class="java.lang.String"/>
+	<field name="NomePoloAtivo" class="java.lang.String"/>
+	<field name="NomePoloPassivo" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="58"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="40"
+						y="0"
+						width="515"
+						height="19"
+						key="staticText-1"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Tribunal de Justiça do Estado de Goiás]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="40"
+						y="19"
+						width="515"
+						height="19"
+						key="staticText-2"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="14"/>
+					</textElement>
+				<text><![CDATA[Processo Judicial Digital - PROJUDI - TJGO]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="EEEEE, dd ' de ' MMMMM ' de ' yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="274"
+						y="40"
+						width="272"
+						height="16"
+						key="textField-1"/>
+					<box leftPadding="3"></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$P{dataAtual}]]></textFieldExpression>
+				</textField>
+				<image  vAlign="Middle" hAlign="Center" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="38"
+						height="38"
+						key="image-1"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{caminhoLogo}]]></imageExpression>
+				</image>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="60"  isSplitAllowed="true" >
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="0"
+						width="555"
+						height="1"
+						key="line"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="1.0" lineStyle="Double"/>
+</graphicElement>
+				</line>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="21"
+						width="555"
+						height="19"
+						key="textField-2"/>
+					<box leftPadding="3"></box>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{titulo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="2"
+						width="555"
+						height="19"
+						key="textField-2"/>
+					<box leftPadding="3"></box>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{serventia}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="40"
+						width="555"
+						height="19"
+						key="textField-2"/>
+					<box leftPadding="3"></box>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{dataJulgamento}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="-1"
+						y="59"
+						width="555"
+						height="1"
+						key="line"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="1.0" lineStyle="Double"/>
+</graphicElement>
+				</line>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="149"  isSplitAllowed="true" >
+				<elementGroup><!--  Start: 1 !-->
+				<elementGroup><!--  Start: 1.2 !-->
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="38"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="39"
+						y="0"
+						width="8"
+						height="15"
+						key="staticText"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[ - ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="48"
+						y="17"
+						width="100"
+						height="15"
+						key="staticText"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Número Processo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="148"
+						y="17"
+						width="10"
+						height="15"
+						key="staticText"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="48"
+						y="33"
+						width="100"
+						height="15"
+						key="staticText"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Comarca]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="148"
+						y="33"
+						width="10"
+						height="15"
+						key="staticText"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="48"
+						y="0"
+						width="507"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ProcessoTipo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="158"
+						y="17"
+						width="397"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ProcessoNumero}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="48"
+						y="49"
+						width="100"
+						height="15"
+						key="staticText"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Relator]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="148"
+						y="49"
+						width="10"
+						height="15"
+						key="staticText"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="158"
+						y="33"
+						width="397"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{Comarca}]]></textFieldExpression>
+				</textField>
+				</elementGroup><!-- End 1.2 !-->
+				</elementGroup><!-- End 1 !-->
+				<elementGroup><!--  Start: 3 !-->
+				<elementGroup><!--  Start: 3.4 !-->
+				<elementGroup><!--  Start: 4.5 !-->
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="48"
+						y="81"
+						width="100"
+						height="15"
+						key="staticText"
+						stretchType="RelativeToTallestObject"
+						positionType="Float"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DescricaoPoloAtivo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="148"
+						y="81"
+						width="10"
+						height="15"
+						key="staticText"
+						stretchType="RelativeToTallestObject"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				</elementGroup><!-- End 3.4.5 !-->
+				</elementGroup><!-- End 3.4 !-->
+				</elementGroup><!-- End 3 !-->
+				<elementGroup><!--  Start: 6 !-->
+				<elementGroup><!--  Start: 6.7 !-->
+				<elementGroup><!--  Start: 7.8 !-->
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="48"
+						y="115"
+						width="100"
+						height="15"
+						key="staticText"
+						stretchType="RelativeToTallestObject"
+						positionType="Float"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DescricaoPoloPassivo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="148"
+						y="115"
+						width="10"
+						height="15"
+						key="staticText"
+						stretchType="RelativeToTallestObject"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				</elementGroup><!-- End 6.7.8 !-->
+				</elementGroup><!-- End 6.7 !-->
+				</elementGroup><!-- End 6 !-->
+				<elementGroup><!--  Start: 9 !-->
+				<elementGroup><!--  Start: 9.10 !-->
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="158"
+						y="49"
+						width="397"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{Relator}]]></textFieldExpression>
+				</textField>
+				</elementGroup><!-- End 9.10 !-->
+				</elementGroup><!-- End 9 !-->
+				<elementGroup><!--  Start: 11 !-->
+				<elementGroup><!--  Start: 11.12 !-->
+				<elementGroup><!--  Start: 12.13 !-->
+				<staticText>
+					<reportElement
+						x="48"
+						y="65"
+						width="100"
+						height="15"
+						key="staticText"
+						positionType="Float"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Proc. de Justiça]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="148"
+						y="65"
+						width="10"
+						height="15"
+						key="staticText"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="158"
+						y="65"
+						width="397"
+						height="15"
+						key="textField"
+						positionType="Float"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ProcuradorJustica}]]></textFieldExpression>
+				</textField>
+				</elementGroup><!-- End 11.12.13 !-->
+				</elementGroup><!-- End 11.12 !-->
+				</elementGroup><!-- End 11 !-->
+				<line direction="TopDown">
+					<reportElement
+						mode="Opaque"
+						x="28"
+						y="148"
+						width="517"
+						height="1"
+						key="line-2"
+						positionType="Float"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<elementGroup><!--  Start: 14 !-->
+				<elementGroup><!--  Start: 14.15 !-->
+				<elementGroup><!--  Start: 15.16 !-->
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="158"
+						y="81"
+						width="397"
+						height="15"
+						key="staticText-8"
+						stretchType="RelativeToTallestObject"
+						positionType="Float"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NomePoloAtivo}]]></textFieldExpression>
+				</textField>
+				</elementGroup><!-- End 14.15.16 !-->
+				</elementGroup><!-- End 14.15 !-->
+				</elementGroup><!-- End 14 !-->
+				<elementGroup><!--  Start: 17 !-->
+				<elementGroup><!--  Start: 17.18 !-->
+				<elementGroup><!--  Start: 18.19 !-->
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="158"
+						y="98"
+						width="397"
+						height="15"
+						key="staticText-10"
+						stretchType="RelativeToTallestObject"
+						positionType="Float"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{AdvogadoPoloAtivo}]]></textFieldExpression>
+				</textField>
+				</elementGroup><!-- End 17.18.19 !-->
+				</elementGroup><!-- End 17.18 !-->
+				</elementGroup><!-- End 17 !-->
+				<elementGroup><!--  Start: 20 !-->
+				<elementGroup><!--  Start: 20.21 !-->
+				<elementGroup><!--  Start: 21.22 !-->
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="158"
+						y="115"
+						width="397"
+						height="15"
+						key="staticText-11"
+						stretchType="RelativeToTallestObject"
+						positionType="Float"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NomePoloPassivo}]]></textFieldExpression>
+				</textField>
+				</elementGroup><!-- End 20.21.22 !-->
+				</elementGroup><!-- End 20.21 !-->
+				</elementGroup><!-- End 20 !-->
+				<elementGroup><!--  Start: 23 !-->
+				<elementGroup><!--  Start: 23.24 !-->
+				<elementGroup><!--  Start: 24.25 !-->
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="158"
+						y="132"
+						width="397"
+						height="15"
+						key="staticText-12"
+						stretchType="RelativeToTallestObject"
+						positionType="Float"/>
+					<box>					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{AdvogadoPoloPassivo}]]></textFieldExpression>
+				</textField>
+				</elementGroup><!-- End 23.24.25 !-->
+				</elementGroup><!-- End 23.24 !-->
+				</elementGroup><!-- End 23 !-->
+				<elementGroup><!--  Start: 26 !-->
+				<elementGroup><!--  Start: 26.27 !-->
+				<elementGroup><!--  Start: 27.28 !-->
+				<staticText>
+					<reportElement
+						x="111"
+						y="98"
+						width="37"
+						height="15"
+						key="staticText-13"
+						stretchType="RelativeToTallestObject"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Adv(s)]]></text>
+				</staticText>
+				</elementGroup><!-- End 26.27.28 !-->
+				</elementGroup><!-- End 26.27 !-->
+				</elementGroup><!-- End 26 !-->
+				<elementGroup><!--  Start: 29 !-->
+				<elementGroup><!--  Start: 29.30 !-->
+				<elementGroup><!--  Start: 30.31 !-->
+				<staticText>
+					<reportElement
+						x="111"
+						y="132"
+						width="37"
+						height="15"
+						key="staticText-14"
+						stretchType="RelativeToTallestObject"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Adv(s)]]></text>
+				</staticText>
+				</elementGroup><!-- End 29.30.31 !-->
+				</elementGroup><!-- End 29.30 !-->
+				</elementGroup><!-- End 29 !-->
+				<elementGroup><!--  Start: 32 !-->
+				<elementGroup><!--  Start: 32.33 !-->
+				<staticText>
+					<reportElement
+						x="148"
+						y="98"
+						width="10"
+						height="15"
+						key="staticText-15"
+						stretchType="RelativeToTallestObject"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				</elementGroup><!-- End 32.33 !-->
+				</elementGroup><!-- End 32 !-->
+				<elementGroup><!--  Start: 34 !-->
+				<elementGroup><!--  Start: 34.35 !-->
+				<staticText>
+					<reportElement
+						x="148"
+						y="132"
+						width="10"
+						height="15"
+						key="staticText-16"
+						stretchType="RelativeToTallestObject"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				</elementGroup><!-- End 34.35 !-->
+				</elementGroup><!-- End 34 !-->
+				<line direction="TopDown">
+					<reportElement
+						mode="Opaque"
+						x="29"
+						y="114"
+						width="517"
+						height="0"
+						forecolor="#FFFFFF"
+						backcolor="#FFFFFF"
+						key="line-3"
+						positionType="Float"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						mode="Opaque"
+						x="40"
+						y="97"
+						width="517"
+						height="0"
+						forecolor="#FFFFFF"
+						backcolor="#FFFFFF"
+						key="line-4"
+						positionType="Float"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						mode="Opaque"
+						x="39"
+						y="131"
+						width="517"
+						height="0"
+						forecolor="#FFFFFF"
+						backcolor="#FFFFFF"
+						key="line-5"
+						positionType="Float"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="16"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="435"
+						y="1"
+						width="80"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="515"
+						y="1"
+						width="40"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="1"
+						width="190"
+						height="15"
+						forecolor="#666666"
+						key="staticText-7"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[https://projudi.tjgo.jus.br/]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="190"
+						y="1"
+						width="245"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{nomeSolicitante}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="1"
+						width="555"
+						height="1"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

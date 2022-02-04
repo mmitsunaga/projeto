@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="listaOrdemPagamentoAutorizada" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="e2390f62-0c93-47f0-89a0-63b8373256a3">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<subDataset name="dataset1" uuid="85ef0c18-9558-4363-867a-e4442b23caab"/>
+	<parameter name="dataAtual" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="caminhoLogo" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="titulo" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="usuarioResponsavelRelatorio" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="periodo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="NomeUsuario" class="java.lang.String"/>
+	<field name="CpfUsuario" class="java.lang.String"/>
+	<field name="ProcessoNumero" class="java.lang.String"/>
+	<field name="IdMandJud" class="java.lang.String"/>
+	<field name="QuantidadeLocomocao" class="java.lang.String"/>
+	<field name="ValorLocomocao" class="java.lang.Double"/>
+	<field name="NomeServentia" class="java.lang.String"/>
+	<field name="NomeCompanheiro" class="java.lang.String"/>
+	<field name="DataPagamentoStatus" class="java.lang.String"/>
+	<field name="StatusPagamento" class="java.lang.String"/>
+	<variable name="ValorGeral" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{ValorGeral}.add (new BigDecimal($F{ValorLocomocao}))]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<group name="Usuario">
+		<groupExpression><![CDATA[$F{NomeUsuario}]]></groupExpression>
+		<groupHeader>
+			<band height="15">
+				<staticText>
+					<reportElement x="3" y="-1" width="72" height="15" uuid="93766abc-fcf1-4792-b4b7-d0b4c1442200"/>
+					<textElement>
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nome Oficial:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="76" y="-1" width="373" height="15" uuid="b1546bbf-6c7f-456f-be12-f52689059ae4"/>
+					<textElement>
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NomeUsuario}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="2" y="14" width="552" height="1" uuid="bae068e3-1dae-4a32-9168-4bba38f7251c"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="96" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-9" x="39" y="0" width="514" height="19" uuid="7cb94fa8-f24a-446e-bf28-74e1f133227f"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Tribunal de Justiça do Estado de Goiás]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-10" x="39" y="18" width="517" height="19" uuid="72bdd468-2551-4e02-8772-f2f77d8816f4"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Processo Judicial Digital - PROJUDI - TJGO]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement key="image-1" x="0" y="0" width="38" height="38" uuid="b6a57543-7377-4c51-bec9-b1c99213e293"/>
+				<imageExpression><![CDATA[$P{caminhoLogo}]]></imageExpression>
+			</image>
+			<textField pattern="EEE, d MMM yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement key="textField-21" x="367" y="40" width="161" height="16" uuid="0e6a877d-2184-47e6-94f3-3c0f1bc32363"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dataAtual}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line" x="1" y="75" width="554" height="1" uuid="a9354ffe-4753-40b1-8d79-ae2350159301"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="64" y="76" width="57" height="19" uuid="fddd4655-1d2f-42f1-97af-93bf9407f598"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Processo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="76" width="62" height="19" uuid="22b15479-fa51-4661-9477-3492148d2f9d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[C.p.f]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-12" x="39" y="38" width="274" height="18" uuid="450240f8-5861-4d45-891b-a3e721e11843"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="120" y="76" width="57" height="19" uuid="846a2f20-b822-4d4f-88fc-8d330ee12b4c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mandado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="76" width="38" height="19" uuid="3ef85da5-ece3-4ecb-bf06-3db338d7b630"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Loco]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="334" y="76" width="45" height="19" uuid="2a66a491-8517-416a-a316-5b3e0624660b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="43" y="58" width="56" height="19" uuid="97c0b0a2-ca03-4a3f-80db-9c349e2fe9cc"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Período:]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line" x="3" y="93" width="554" height="1" uuid="7c8ffe07-5e2b-47d9-8ad9-cc66dd4bb304"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="237" y="60" width="316" height="15" uuid="dfc38107-1dcf-4b0c-9539-3f68789fc396"/>
+				<textElement>
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NomeServentia}]]></textFieldExpression>
+				<patternExpression><![CDATA[$F{CpfUsuario}.toString()]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="-50" width="132" height="16" uuid="d306689d-323d-494c-a174-f28741231817"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NomeUsuario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="378" y="76" width="71" height="19" uuid="9099381c-c4b5-4908-9628-fb991d4344e1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Companheiro]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="98" y="60" width="188" height="20" uuid="ab8c57f3-d024-4543-98db-a859b59a6893"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{periodo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="179" y="76" width="51" height="19" uuid="c4019718-caea-4630-9aa6-84ba04a987a4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Aut.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="237" y="76" width="59" height="19" uuid="0511df2a-f6e3-48eb-ac61-eaadd5ca3aa0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status Pg.]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField pattern="#,##0;#,##0-" isBlankWhenNull="false">
+				<reportElement x="120" y="1" width="56" height="15" uuid="72229234-30ab-4a8c-b1c7-72f548335be1"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IdMandJud}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="34" height="16" uuid="062ae524-d2e6-420a-a59f-24a70d0ae5ee"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{QuantidadeLocomocao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="64" y="1" width="55" height="15" uuid="32a8f535-3a60-4078-8a96-68b6ff75ec8f"/>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ProcessoNumero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="1" width="61" height="15" uuid="71a9059b-9240-4b7d-b6f7-a2fff47788e7"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CpfUsuario}]]></textFieldExpression>
+				<patternExpression><![CDATA[$F{CpfUsuario}.toString()]]></patternExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="335" y="0" width="44" height="16" uuid="fd7052e2-dcd2-40b7-abc2-2deca9159b67"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ValorLocomocao}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="380" y="0" width="175" height="16" uuid="6a2a87fa-f22c-407d-82f3-fea6ef5d95c9"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NomeCompanheiro}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;#,##0-" isBlankWhenNull="false">
+				<reportElement x="179" y="1" width="61" height="15" uuid="7aa4c893-4913-4850-8cf8-27bc7a01f931"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DataPagamentoStatus}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="1" width="56" height="16" uuid="c5e83e0c-785a-48ab-95e5-0dd13ad706bc"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{StatusPagamento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="428" y="4" width="80" height="15" uuid="d8d87c20-19b1-4ad3-a689-6d3d93681de9"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement key="textField" x="508" y="4" width="47" height="15" uuid="abdc3bac-909e-4e0c-800f-ea2a191e1127"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-7" x="0" y="4" width="175" height="13" forecolor="#000000" uuid="6b3ad009-8405-4661-adb8-f00c6b23b480"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[https://projudi.tjgo.jus.br/]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-10" x="176" y="4" width="252" height="15" uuid="95d232aa-84cd-4cfd-80aa-f950a40f5b37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{usuarioResponsavelRelatorio}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line" x="1" y="18" width="554" height="1" uuid="4850eb47-ceeb-4f3d-94ad-2092198eab60"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement key="line" x="1" y="3" width="549" height="1" uuid="6a4d54fa-7bb7-4103-91cc-c860a2f6ad0e"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="0" width="75" height="19" uuid="a651e64f-9a54-4a9c-8924-18f0a9491400"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Geral:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="78" y="0" width="100" height="20" uuid="c02243d0-2e3e-4172-949c-a073d57a9c60"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{ValorGeral}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line" x="2" y="1" width="554" height="1" uuid="28138ce8-43de-4aa7-87dc-00211a23ee93"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

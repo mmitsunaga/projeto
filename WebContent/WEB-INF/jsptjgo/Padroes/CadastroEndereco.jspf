@@ -1,0 +1,47 @@
+    <%@page import="br.gov.go.tj.projudi.dt.BairroDt"%>
+	<%@page import="br.gov.go.tj.projudi.dt.EnderecoDt"%>
+	<%@page import="br.gov.go.tj.utils.Configuracao"%>
+	<jsp:useBean id="Enderecodt" scope="session" class= "br.gov.go.tj.projudi.dt.EnderecoDt"/>
+	
+	<fieldset id="idCadastroEndereco"> 
+		<legend class="formEdicaoLegenda"> Endereço </legend>
+		 
+		 <div class="col100">   				
+		<label class="formEdicaoLabel" for="Logradouro">*Logradouro</label> <br>
+		<input class="formEdicaoInput" name="Logradouro" id="Logradouro"  type="text" size="106" maxlength="100" value="<%=Enderecodt.getLogradouro()%>" onKeyUp=" autoTab(this,60)">
+		</div>
+    		
+    	<div class="col15 clear"> 			
+    	<label class="formEdicaoLabel" for="Numero">Número</label> <br>
+    	<input class="formEdicaoInput" name="Numero" id="Numero"  type="text" size="11" maxlength="10" value="<%=Enderecodt.getNumero()%>" onKeyPress="return DigitarSoNumero(this, event)" onKeyUp=" autoTab(this,11)">
+		</div>
+			
+		<div class="col45"> 	
+		<label class="formEdicaoLabel" for="Complemento">Complemento</label><br> 
+		<input class="formEdicaoInput" name="Complemento" id="Complemento"  type="text" size="59" maxlength="100" value="<%=Enderecodt.getComplemento()%>" onKeyUp=" autoTab(this,255)">
+		</div>
+			
+		<div class="col100 clear"> 
+		<label class="formEdicaoLabel" for="Bairro">*Bairro
+		<input class="FormEdicaoimgLocalizar" id="imaLocalizarBairro" name="imaLocalizarBairro" type="image"  src="./imagens/imgLocalizarPequena.png"  onclick="AlterarValue('PaginaAtual','<%=String.valueOf(BairroDt.CodigoPermissao * Configuracao.QtdPermissao + Configuracao.Localizar)%>')" >  
+		</label> <br> 
+		
+		<input class="formEdicaoInputSomenteLeitura"  readonly name="Bairro" id="Bairro" type="text" size="80" maxlength="100" value="<%=Enderecodt.getBairro()%>">
+		</div>
+
+		<div class="col45 clear"> 
+		<label class="formEdicaoLabel" for="Cidade">Cidade</label>  <br>
+		<input class="formEdicaoInputSomenteLeitura" readonly name="Cidade" id="Cidade" type="text" size="40" maxlength="60" value="<%=Enderecodt.getCidade()%>">
+		</div>
+		
+		<div class="col15"> 			
+   		<label class="formEdicaoLabel" for="Uf">UF</label> <br>
+		<input class="formEdicaoInputSomenteLeitura" readonly name="Estado" id="Uf"  type="text" size="10" maxlength="10" value="<%=Enderecodt.getUf()%>">
+		</div>
+		
+		<div class="col15"> 
+		<label class="formEdicaoLabel" for="Cep">*CEP</label><br> 
+		<input class="formEdicaoInput" name="Cep" id="Cep"  type="text" size="11" maxlength="8" value="<%=Enderecodt.getCep()%>" onKeyPress="return DigitarSoNumero(this, event)" onKeyUp=" autoTab(this,11)">
+		</div>
+	</fieldset>
+

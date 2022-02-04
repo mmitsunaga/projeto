@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="listaMandadosDistribuidosAnalitico" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="e2390f62-0c93-47f0-89a0-63b8373256a3">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<subDataset name="dataset1" uuid="85ef0c18-9558-4363-867a-e4442b23caab"/>
+	<parameter name="dataAtual" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="caminhoLogo" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="titulo" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="usuarioResponsavelRelatorio" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="dataInicial" class="java.lang.String"/>
+	<parameter name="dataFinal" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="NomeUsuario" class="java.lang.String"/>
+	<field name="Assistencia" class="java.lang.String"/>
+	<field name="NomeComarca" class="java.lang.String"/>
+	<field name="AreaProcesso" class="java.lang.String"/>
+	<field name="StatusPagamento" class="java.lang.String"/>
+	<field name="ProcessoNumero" class="java.lang.String"/>
+	<field name="IdMandJud" class="java.lang.String"/>
+	<field name="MandTipo" class="java.lang.String"/>
+	<field name="DataDist" class="java.lang.String"/>
+	<field name="DataRetorno" class="java.lang.String"/>
+	<field name="StatusMandJud" class="java.lang.String"/>
+	<field name="NomeServentia" class="java.lang.String"/>
+	<field name="EscalaTipo" class="java.lang.String"/>
+	<field name="DataLimite" class="java.lang.String"/>
+	<field name="Valor" class="java.lang.String"/>
+	<field name="QuantidadeLocomocao" class="java.lang.String"/>
+	<field name="Analise" class="java.lang.String"/>
+	<group name="Usuario">
+		<groupExpression><![CDATA[$F{NomeUsuario}]]></groupExpression>
+		<groupHeader>
+			<band height="19">
+				<textField>
+					<reportElement x="57" y="1" width="248" height="16" uuid="717a0067-0540-4a40-a629-71cb21e32843"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true" isItalic="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NomeUsuario}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="4" y="-1" width="51" height="20" uuid="f5f8b275-d7db-4113-818d-b5c2a8c09dfb"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Oficial:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="363" y="0" width="174" height="16" uuid="ae08f877-122f-4467-8378-e79dc77ec843"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true" isItalic="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EscalaTipo}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="24">
+				<textField>
+					<reportElement x="72" y="0" width="100" height="20" uuid="bf9f2814-1f12-4d0b-a282-8b282616b8e0"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Usuario_COUNT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="2" y="0" width="75" height="20" uuid="fef94866-c122-40dc-a8cc-9e0c96a1736c"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total Oficial:]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line" x="2" y="20" width="554" height="1" uuid="382ae089-b8a2-41c7-9aaa-c13d51261782"/>
+					<graphicElement>
+						<pen lineWidth="1.0" lineStyle="Double"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="97" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-9" x="41" y="0" width="514" height="19" uuid="7cb94fa8-f24a-446e-bf28-74e1f133227f"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14" isBold="true" isItalic="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Tribunal de Justiça do Estado de Goiás]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-10" x="37" y="18" width="517" height="19" uuid="72bdd468-2551-4e02-8772-f2f77d8816f4"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Processo Judicial Digital - PROJUDI - TJGO]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement key="image-1" x="0" y="0" width="38" height="38" uuid="b6a57543-7377-4c51-bec9-b1c99213e293"/>
+				<imageExpression><![CDATA[$P{caminhoLogo}]]></imageExpression>
+			</image>
+			<textField pattern="EEE, d MMM yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement key="textField-21" x="326" y="56" width="188" height="16" uuid="0e6a877d-2184-47e6-94f3-3c0f1bc32363"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dataAtual}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line" x="4" y="73" width="549" height="1" uuid="a9354ffe-4753-40b1-8d79-ae2350159301"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="55" y="74" width="48" height="19" uuid="fddd4655-1d2f-42f1-97af-93bf9407f598"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-12" x="40" y="38" width="152" height="18" uuid="450240f8-5861-4d45-891b-a3e721e11843"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="74" width="50" height="19" uuid="846a2f20-b822-4d4f-88fc-8d330ee12b4c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mandado]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-22" x="3" y="56" width="333" height="16" uuid="3ed51534-e338-406a-8a7e-21fcdb410418"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Período de Distribuição: " + $P{dataInicial} +  " a "  + $P{dataFinal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="124" y="73" width="47" height="20" uuid="00bf527b-f5eb-48f9-b3a8-3ef4e1b4a53b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Processo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="74" width="55" height="19" uuid="9df0e41d-7d1d-432b-8dd8-f5cebdec26c0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status Pag]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="492" y="42" width="61" height="15" uuid="7ceff517-d2fd-4212-aa46-e5c7b16d43e1"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Assistencia}]]></textFieldExpression>
+				<patternExpression><![CDATA[]]></patternExpression>
+			</textField>
+			<line>
+				<reportElement key="line" x="3" y="54" width="550" height="1" uuid="f17153c7-a24d-46f3-8304-afbcb2c2217d"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement key="line" x="4" y="94" width="549" height="1" uuid="c85cb210-af1d-42b5-9e38-fced6f59078e"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="300" y="74" width="49" height="19" uuid="2658e321-209f-42f3-9a46-9969a3425de4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dt.Dist]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="406" y="74" width="39" height="19" uuid="f361b8c4-eaf5-4efb-b2f4-3fe251661cf7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dt.Ret]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="182" y="74" width="40" height="19" uuid="65f470ef-545d-4b1d-a009-775f0330a050"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="192" y="41" width="256" height="15" uuid="d49e6996-98f7-40bf-a684-c00fa02622b3"/>
+				<textElement>
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NomeServentia}]]></textFieldExpression>
+				<patternExpression><![CDATA[]]></patternExpression>
+			</textField>
+			<staticText>
+				<reportElement x="350" y="74" width="58" height="19" uuid="8201e2a7-642c-43dd-be02-d03a3275f13d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dt.Limite]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="256" y="73" width="43" height="19" uuid="aeb20002-0e7f-4bd2-a5bc-24fbeb2ecfee"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="74" width="33" height="19" uuid="7f7a7adb-0b94-42a7-b08a-cc28a652e235"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Loc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="500" y="74" width="55" height="19" uuid="9c99e1ae-ecd9-4f3c-b97a-74f7294fc6f1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Análise]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement x="4" y="2" width="55" height="12" uuid="32a8f535-3a60-4078-8a96-68b6ff75ec8f"/>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IdMandJud}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;#,##0-" isBlankWhenNull="false">
+				<reportElement x="123" y="1" width="56" height="13" uuid="a2b80bc2-8155-4096-8862-e7d626812c30"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ProcessoNumero}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="451" y="1" width="47" height="12" uuid="b343360e-61b8-4dc1-a104-698187e5d75c"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{StatusPagamento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;#,##0-" isBlankWhenNull="false">
+				<reportElement x="50" y="1" width="75" height="13" uuid="d3f8c675-22b6-4010-a61a-33f179cd2563"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MandTipo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="301" y="1" width="58" height="13" uuid="32e1806c-930b-4b20-84a8-9f9ee2db2e20"/>
+				<textElement>
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DataDist}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="406" y="1" width="59" height="13" uuid="08c9b20a-5b06-4885-ad2b-b0d1601ba94e"/>
+				<textElement>
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DataRetorno}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="181" y="1" width="57" height="13" uuid="1153ada3-468a-4996-bccd-3080de59e14c"/>
+				<textElement>
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{StatusMandJud}.toLowerCase()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="352" y="0" width="56" height="13" uuid="26df1c7c-cf5c-41ed-867f-83960c7817e6"/>
+				<textElement>
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DataLimite}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="256" y="1" width="43" height="13" uuid="8f589a12-9442-4594-ab62-cfaf50ab07c3"/>
+				<textElement>
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Valor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="231" y="1" width="33" height="13" uuid="5f474e70-d998-437d-80d2-ecef32c57984"/>
+				<textElement>
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{QuantidadeLocomocao}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="498" y="1" width="57" height="12" uuid="a294ac91-7932-488a-bbbc-e35d8f8cd996"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Analise}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="27" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="428" y="6" width="80" height="13" uuid="d8d87c20-19b1-4ad3-a689-6d3d93681de9"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement key="textField" x="508" y="6" width="47" height="13" uuid="abdc3bac-909e-4e0c-800f-ea2a191e1127"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-7" x="0" y="7" width="175" height="13" forecolor="#000000" uuid="6b3ad009-8405-4661-adb8-f00c6b23b480"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[https://projudi.tjgo.jus.br/]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-10" x="176" y="7" width="252" height="13" uuid="95d232aa-84cd-4cfd-80aa-f950a40f5b37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{usuarioResponsavelRelatorio}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="22" width="553" height="2" uuid="a87031a9-c3a5-4c8b-b60d-9e0123e6230a"/>
+			</line>
+			<line>
+				<reportElement x="1" y="2" width="553" height="2" uuid="dd418e2b-879f-4f7b-aec3-5a273c1ed4af"/>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="4" y="2" width="187" height="20" uuid="cfd45b2f-798f-4901-bbaa-99f9a759b05e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Mandados Distribuídos:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="152" y="4" width="100" height="18" uuid="b8f035b5-d255-48b6-b710-94b5f9e73172"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

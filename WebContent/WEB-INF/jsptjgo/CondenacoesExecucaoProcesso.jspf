@@ -1,0 +1,75 @@
+<%@page import="br.gov.go.tj.projudi.dt.CondenacaoExecucaoDt"%>
+
+<input type="hidden" id="posicaoLista" name="posicaoLista">
+   			<%
+		List listaCondenacoes = ProcessoExecucaodt_PE.getListaCondenacoes();
+	    	if (listaCondenacoes != null && listaCondenacoes.size() > 0){ %>
+	  	<table class="Tabela">
+	  		<thead align="center">
+	  			<tr>
+	  				<th width="45%" >Crime</th>
+	  				<th width="5%" >Obs</th>
+					<th width="12%">Pena(a-m-d)</th>
+					<th width="12%">Data do Fato</th>
+					<th width="10%">Reincidência</th>
+					<th width="5%">Extinção</th>
+					<th width="10%">Tempo Cump. Extinto (dias)</th>
+	  				<th width="1%"></th>
+	  			</tr>
+	  		</thead>
+			<%String descricaoCrime = "";
+	  	    		for (int i=0;i < listaCondenacoes.size();i++){
+	  	    			descricaoCrime = "";
+	  	    			CondenacaoExecucaoDt condenacaoDt = (CondenacaoExecucaoDt)listaCondenacoes.get(i);
+	  	    			
+	  	    			if (condenacaoDt.getCrimeExecucao().length()>50) {
+	  	    				descricaoCrime = condenacaoDt.getCrimeExecucao().substring(0,50) + "...";
+	  	    			}
+	  	    			else {
+	  	    				descricaoCrime = condenacaoDt.getCrimeExecucao();
+	  	    			}
+	  	    %>
+	   		<tbody>
+				<tr>
+	      			<td><input class="FormEdicaoimgLocalizar" id="imaLocalizarLocal" name="imaLocalizarLocal" type="image" src="./imagens/imgLocalizarPequena.png" onClick="AlterarValue('PaginaAtual','<%=String.valueOf(CrimeExecucaoDt.CodigoPermissao * Configuracao.QtdPermissao + Configuracao.Localizar)%>'); AlterarValue('PassoEditar', '-1'); AlterarValue('posicaoLista', '<%=i%>');" >  
+						<input class="formEdicaoInputSomenteLeitura" readonly style="width:85%" name="CrimeExecucao_<%=i%>" id="CrimeExecucao_<%=i%>" type="text" value="<%=descricaoCrime%>" title="<%=condenacaoDt.getCrimeExecucao()%>">
+						<input type="hidden" name="Id_CrimeExecucao_<%=i%>" id="Id_CrimeExecucao_<%=i%>"  value="<%=condenacaoDt.getId_CrimeExecucao()%>"/></td>
+
+	      			<td><input class="formEdicaoInput" name="ObservacaoCondenacao_<%=i%>" id="ObservacaoCondenacao_<%=i%>" type="text" value="<%=condenacaoDt.getObservacao()%>"> 
+						</td>
+
+					<td valign="middle" align="center">
+						<input class="formEdicaoInput" name="Ano_<%=i%>" id="Ano_<%=i%>" value="<%=condenacaoDt.getQtdeAno()%>" type="text" size="2" maxlength="3" onkeypress="return DigitarSoNumero(this, event)" style="text-align: center"/>
+						<input class="formEdicaoInput" name="Mes_<%=i%>" id="Mes_<%=i%>" value="<%=condenacaoDt.getQtdeMes()%>" type="text" size="1" maxlength="2" onkeypress="return DigitarSoNumero(this, event)" style="text-align: center"/>
+						<input class="formEdicaoInput" name="Dia_<%=i%>" id="Dia_<%=i%>" value="<%=condenacaoDt.getQtdeDias()%>" type="text" size="1" maxlength="2" onkeypress="return DigitarSoNumero(this, event)" style="text-align: center"/>
+					</td>
+					<td align="center"><input class="formEdicaoInput" name="DataFato_<%=i%>" id="DataFato_<%=i%>" type="text" size="10" maxlength="10" style="text-align:center" 
+						value="<%=condenacaoDt.getDataFato()%>"	onblur="verifica_data(this);" onKeyPress="return DigitarSoNumero(this, event)"/></td>
+					<td valign="middle">
+						<input id="radioReincidente_<%=i%>" name="radioReincidente_<%=i%>" type="radio" value="t"
+						<% if (condenacaoDt.getReincidente().equalsIgnoreCase("t") || condenacaoDt.getReincidente().equalsIgnoreCase("true")){%> checked <%} %>>Sim</input> 
+						<input id="radioReincidente_<%=i%>" name="radioReincidente_<%=i%>" type="radio" value="f"
+						<% if (condenacaoDt.getReincidente().equalsIgnoreCase("f") || condenacaoDt.getReincidente().equalsIgnoreCase("false")){%> checked <%} %>>Não</input>
+					</td>
+					<td>
+						<select name="Id_CondenacaoExecucaoSituacao_<%=i%>" id="Id_CondenacaoExecucaoSituacao_<%=i%>"><%=condenacaoDt.getId_CondenacaoExecucaoSituacao()%>
+							<option value="3" <%if (condenacaoDt.getId_CondenacaoExecucaoSituacao().equals("3")){%>selected<%}%>>Não</option> 
+					    	<option value="1" <%if (condenacaoDt.getId_CondenacaoExecucaoSituacao().equals("1")){%>selected<%}%>>Por Prescrição</option>
+					    	<option value="2" <%if (condenacaoDt.getId_CondenacaoExecucaoSituacao().equals("2")){%>selected<%}%>>Por Cumprimento</option>
+					    	<option value="4" <%if (condenacaoDt.getId_CondenacaoExecucaoSituacao().equals("4")){%>selected<%}%>>Por Indulto</option>
+					    </select>
+					</td>
+					<td align="center"><input class="formEdicaoInput" name="TempoCumpridoExtintoDias_<%=i%>" id="TempoCumpridoExtintoDias_<%=i%>" type="text" size="4" maxlength="4" style="text-align:center" 
+						value="<%=condenacaoDt.getTempoCumpridoExtintoDias()%>" onKeyPress="return DigitarSoNumero(this, event)"/></td>
+   	 				<td valign="middle"><input name="imgExcluir" class="imgExcluir" type="image" src="./imagens/imgExcluirPequena.png" title="Excluir condenação" 
+						onclick="confirmaExclusao('Confirma exclusão da condenação?', '<%=Configuracao.LocalizarAutoPai%>', '-5', '<%=i%>');"/></td>
+	 			</tr>
+			</tbody>
+	      		<%	} %>
+		</table>
+		* Para a extinção por indulto e prescrição, informe o tempo (em dias) a ser considerado como tempo cumprido da condenação extinta.
+   		<% } else { %>
+   			<em> Nenhuma condenação cadastrada </em>
+   		<% } %>
+	<br />
+	

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>Processo Judicial Digital - Notícias</title>
+	<link href="imagens/favicon.png" TYPE="image/gif" REL="icon"/>
+	<script type='text/javascript' src='./js/Funcoes.js'></script>
+	<script type="text/javascript" src="./js/jquery.js"> </script>
+	<script type="text/javascript" src="./js/ui/jquery-ui.min.js"> </script>
+	
+	<link rel="stylesheet" href="css/Principal.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="css/LogonTJGO.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="css/cupertino/jquery-ui-1.8.1.custom.min.css" type="text/css" media="all" />
+    
+    <style type="text/css">
+
+			#coluna-um{				
+				vertical-align: top;
+				width: 100%;
+				
+			}
+	
+			#coluna-um h2 {
+				width: 100%;
+				height: 20px;
+				padding-top: 9px;
+				padding-right: 0px;
+				padding-bottom: 0px;
+				padding-left: 15px;
+				background-image: none;
+				margin-right: 0px;
+				margin-bottom: 0px;
+				margin-top: 0px;				
+				margin-left: 0px;
+				background: #F6F6F6;
+				font-weight: normal;
+				clear: right;
+				text-align: left;
+				font-weight: bold;
+				font-size: 11px;
+				display: block;
+				color: #494b49;
+				border-bottom-width: medium;
+				border-bottom-style: none;
+				border-bottom-color: -moz-use-text-color;
+				border-top-width: medium;
+				border-top-style: none;
+				border-top-color: -moz-use-text-color;
+				background-image: url("/imagens/bkg_bloco.gif");
+				background-repeat: repeat-x;
+				background-position: 0pt -1px;
+			}
+			
+
+			#coluna-um ul {
+				width: 90%;
+				padding-top: 0pt;
+				padding-right: 0pt;
+				padding-bottom: 0pt;
+				padding-left: 0pt;
+				margin-top: 0px;				
+				margin-right: 0px;
+				margin-bottom: 25px;
+				margin-left: 0px;
+				list-style-type: none;
+				list-style-image: none;
+				list-style-position: outside;
+			}
+
+ 			#coluna-um ul li {
+				line-height: 30px;				
+				margin-top: 0px;				
+				margin-right: 0px;
+				margin-bottom: 0px;
+				margin-left: 0px;
+				padding-top: 0px;
+				padding-right: 0px;
+				padding-bottom: 0px;
+				padding-left: 0px;
+				border-bottom-width: 1px;
+				border-bottom-style: dotted;
+				border-bottom-color: #d7d7d7;
+				background-color: transparent;
+				background-image: none;
+				background-repeat: repeat;
+				background: #ffffff;
+				text-align: left;
+				padding-left: 12px;
+				margin-left: 5px;
+				background-color: transparent;
+				background-image: url("/imagens/img_caixa.gif");
+				background-repeat: no-repeat;
+				background-attachment: scroll;
+				background-position: 0pt 13px;
+			}
+ 			
+			#coluna-um ul li a {
+				color: #333333;
+				font-weight: normal;
+			}
+			
+ 			#coluna-um ul li a:hover {
+				color: #3181c3 !important;
+				
+			}
+			
+			.mensagens {
+				height: 100%;
+				overflow: auto;
+				color: #333;
+				margin-left:50px;
+				/*text-align: justify;*/
+			}
+			.texto {
+				height: auto;
+				width: 95%;
+				padding: 3px;
+				background: #EFFAFF;
+				color: #333;
+				text-align: justify;
+			}				
+			.mensagens p {				
+				text-align: left;
+			}	
+			.mais_noticias{
+				text-align: right;
+				margin-top: 10px;
+				}
+	
+		</style> 
+		     
+    <script type='text/javascript'>
+        $(document).ready(function() {	
+        	$("#accordion2016").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion1").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion2").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion3").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion4").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion5").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion6").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion7").accordion({ autoHeight: false, collapsible: true, active: false });
+	        var a = $("a[targt='_blank']").size();
+			var b = $("a").size();
+			$("#info").html( (b-a) + ' de ' + b   + '   |   ' + ((1 - (a/b))*100).toFixed(2) + "% finalizado");				
+        });
+    </script>			
+
+
+</head>
+
+<body class="fundo">
+
+     
+  		<div id="pgn_cabecalho">
+        
+        <div id="img_logotj" title="Logo"><h1>Processo Judicial</h1></div>
+        
+         <div style="float: right;">
+			<div id="cssmenu" >
+				<!--<ul>
+
+					<li class="has-sub">
+                		<a href="#" title="Ajuda"><span><i class="fa fa-question-circle"></i></span></a> 
+                    	<ul>
+                    		<li><a href="./videos.html" title="Vídeos para aprender a trabalhar com o Sistema de Processo Eletrônico 2" target="_blank" id="videos"><i class="fa fa-question-circle"></i>&nbsp; V&iacute;deos</a></li>									
+				  			<li><a href="./Pdfvideos.html" title="PDF dos Vídeos para aprender a trabalhar com o PROJUDI 2" target="_blank" id="Pdfvideos"><i class="fa fa-question-circle"></i>&nbsp; PDF dos V&iacute;deos</a></li>
+				  		</ul>
+				  	</li>
+					
+					<li>
+						<a href="mailto:processodigital@tjgo.jus.br" title="Contatos"><i class="fa fa-envelope"></i> </a>  
+					</li>
+					
+	  				
+					
+				  	<li>  
+				  		<a href="Usuario?PaginaAtual=Logout" title="Sair"><i class="fa fa-sign-out"></i> </a>  
+				  	</li>
+				</ul>-->
+			</div>
+		</div>	
+	</div>
+	<div style="clear:both;width:1300px;height:28px;background-color:#ccc; margin: 0 auto;"></div>
+    <nav id="breadcrumb" class="breadcrumb" >
+		<!--<a href="#" class="breadcrumb--active"><i class="fa fa-key"></i> Login</a>-->
+	</nav> 
+  			      
+  			 
+    
+    <div id="divCorpo" class="divCorpo" >
+	<div class="area"><h2><i class="fa fa-newspaper-o"></i> Notícias </h2></div>
+	
+	<h3>2016</h3>
+    <div id="coluna-um">	
+	    <div id="accordion2016" >
+		   
+<h3><a href="#">SUPORTE AO ADVOGADO</a></h3>
+<div>
+	 <p><strong>27/04/2016 - </strong>Informamos que o suporte ao Sistema de Processo Eletrônico para os advogados é realizado através dos telefones:</p>
+	 <ul class="lista">
+	 <li><span>(62) 3238-2083</span> - Sede Administrativa da OAB</li>
+	 <li><span>(62) 3901-1392</span> - Sala OAB - Fórum no Setor Oeste</li>
+     <li><span>(62) 3901-1394</span> - Sala OAB - Fórum no Jardim Goiás</li>
+	 <li><span>(62) 3235-6529</span> - Centro de apoio ao Advogado (Estacionamento da ESA)</li>
+	 	</ul>	 	 
+</div>
+
+<h3><a href="#">Utilize o 'Assinador Externo'</a></h3>
+<div>
+	<p><strong>05/02/2016 - </strong>Com o uso do <strong>Assinador Externo</strong>, os usuários do sistema terão maior liberdade na confecção de suas peças processuais, podendo elaborá-las em computadores próprios e em editores de texto de suas preferências. Após a produção dos documentos e a geração dos arquivos no formato “.pdf”, os documentos poderão ser assinados pelo <strong>Assinador Externo</strong> e enviados para o sistema de processo digital através da função de “upload”, disponível no sistema.</p>		 
+	<ul class="lista">
+	<li><a style="color:#3181c3" href="https://docs.tjgo.jus.br/projudi/jar/sai.jar" target="_blank" title="Programa para fazer assinatura digital dos arquivos no seu computador"> (NOVO)O Assinador Externo pode ser baixado aqui! <i class="fa fa-download"></i></a> </strong></li>	
+	<li><strong><a style="color:#3181c3" href="http://docs.tjgo.jus.br/projudi/pdf/ajuda-certificado-como-baixar-assinador-externo.pdf" target="_blank" title="Como baixar o assinador externo"> Manual - Como baixar o assinador externo <i class="fa fa-download"></i></a> </strong></li>
+	<li><strong><a style="color:#3181c3" href="http://docs.tjgo.jus.br/projudi/pdf/ajuda-certificado-como-assinar-com-certificado-a1.pdf" target="_blank" title="Como assinar com certificado A1"> Manual - Como assinar com certificado A1 <i class="fa fa-download"></i></a> </strong></li>
+	<li><strong><a style="color:#3181c3" href="http://docs.tjgo.jus.br/projudi/pdf/ajuda-certificado-como-assinar-com-certificado-a3.pdf" target="_blank" title="Como assinar com certificado A3"> Manual - Como assinar com certificado A3 <i class="fa fa-download"></i></a> </strong></li>
+	<li><strong><a style="color:#3181c3" href="http://docs.tjgo.jus.br/projudi/pdf/ajuda-certificado-como-inserir-documentos-assinados.pdf" target="_blank" title="Como inserir documentos assinados"> Manual - Como inserir documentos assinados <i class="fa fa-download"></i></a> </strong></li>
+	</ul>
+</div>
+
+<h3><a href="#">Acesso com Certificado Digital</a></h3>
+
+	<div>
+	<p><strong>05/02/2016 -</strong> O sistema de Processo Digital permite agora o cadastramento on-line de advogados. Essa funcionalidade dispensa a locomoção do profissional até o Tribunal de Justiça para efetuar a sua identificação pessoal. Para obter essa comodidade, o advogado deve possuir certificado digital A3 e confirmar o cadastro através do botão "Acessar com certificado digital" disponível na página inicial do sistema.</p>		 
+<p align="center"><strong><a style="color:#3181c3" href="http://docs.tjgo.jus.br/projudi/pdf/ajuda-certificado.pdf" target="_blank" title="Tutorial para configuração do certificado digital no Mozilla Firefox">Tutorial para configuração do certificado digital no Mozilla Firefox! <i class="fa fa-download"></i></a> </strong></p>
+</div>
+
+
+<h3><a href="#">Digitalização dos Processos Judiciais</a></h3>
+		<div>
+			<p><strong>05/02/2016 - </strong>Está em fase avançada a digitalização dos processos judiciais em tramitação nas varas das Fazendas Públicas Municipais e  Estaduais da capital . Ao término desse projeto, todos os processos físicos em tramitação nessas varas se tornarão arquivos digitais. Esses arquivos serão inseridos no sistema de Processo Digital e tramitarão de forma eletrônica. Para ter acesso à movimentação  processual nesse novo formato, isto é digital, os advogados devem fazer seu cadastro no sistema. Após essa fase o projeto de digitalização será estendida às varas cíveis.</p>		 
+		</div>
+		
+		</div>
+	
+	
+	
+	<h3>2015</h3>
+    <div id="coluna-um">	
+	    <div id="accordion" >
+		   
+		   <h3><a href="#">Manutenção no Sistema de Processo Eletrônico</a></h3>
+<div>
+	<p><strong>24/09/2015 -</strong> A Diretoria de Informática do Tribunal de Justiça do Estado de Goiás (TJGO) informa que o Sistema de Processo Eletrônico estará indisponível a partir das 08 horas do dia 26/09/2015 até às 22 horas do dia 27/09/2015. A paralisação é necessária em função de manutenção na infraestrutura.</p>		 
+</div>
+
+<h3><a href="#">CAPTCHA - Advogados</a></h3>
+<div>
+	<p><strong>05/09/2015 -</strong> Sr. Advogado a partir de hoje não será necessário o uso do CAPTCHA para abrir os processos. Novas medidas de segurança foram tomadas para garantir o acesso a todos.</p>		 
+</div>
+
+<h3><a href="#">Conexão não confiável - Assinador não aparece</a></h3>
+		<div>
+			<p><strong>05/08/2015 - </strong>Importe o certificado para remover a advertência do HTTPS site, veja o pdf: <a href="https://projudi.tjgo.jus.br/ImportarCertificado.pdf"  target="_blank" >Conexão não confiável</a></p>		 
+		</div>
+		
+		</div>
+		
+		
+		<h3>2013</h3>
+		
+		<div id="accordion1" >
+		
+		<h3><a href="#">GVT Problema Servidor de DNS</a></h3>
+		<div>
+			<p>16/09/2013 - Usuários da ADSL da GVT recebemos várias reclamações sobre problema com acesso ao Sistema de Processo Eletrônico, verificamos em alguns dias que o DNS da GVT não resolvia o endereço para o Sistema de Processo Eletrônico. Assim, se der mensagem de servidor não encontrado, configure um outro servidor de DNS na sua rede.</p>		 
+		</div>		
+			
+	<h3><a href="#">Problema Firefox/JAVA</a></h3>
+		<div>
+			<p> 21/01/2013 - Nas últimas atualizações do navegador Firefox (15,16,17 e 18) foi alterado a forma de bloquear o plugin do JAVA. Caso haja problema com o Assinador do Sistema de Processo Eletrônico verifique se existe um ícone vermelho na barra de Endereço do navegador. Se houver, clique e escolha a opção de sempre ativar plugin para esse site. Também mantenha o JAVA do seu  computador atualizado. </p>   		 
+		</div>
+		
+		
+		</div>
+		
+		<h3>2012</h3>
+		<div id="accordion2" >
+		<h3><a href="#">Problema com o botão 'Assinar'</a></h3>
+		<div>
+			<p>10/04/2012 - A atualização do Firefox está desativando o plugin do java. Com o plugin desativado não é possível visualizar o botão assinar, para corrigir o problema acesse o menu Ferramentas>Complementos(Ctrl+Shift+A) e na opção 'Plugins' ative o plugin do Java ™ SE. Após ativá-lo reinicie o Browser(Firefox).</p> 		 
+		</div>
+		
+		</div>
+		
+		
+		<h3>2011</h3>
+		<div id="accordion3" >
+		<h3><a href="#">Nova Carta Precatória no Sistema de Processo Eletrônico</a></h3>
+		<div>
+			<p>09/11/2011 - Informamos que a partir da versão 2.1.26 do Sistema de Processo Eletrônico a precatória terá um novo funcionamento, deixando de ser uma pendência e passando a ser um processo. Um informativo com mais esclarecimentos será disponibilizado pela corregedoria na tela inicial do sistema. Também está disponível um novo vídeo com informações pertinentes a essa nova funcionalidade.</p>		 
+		</div>
+			
+	<h3><a href="#">Disponibilizadas novas Guias</a></h3>
+		<div>
+			<p>28/09/2011 - Está disponível no Sistema de Processo Eletrônico novas guias de custas. As guias podem ser elaboradas somente pelos contadores e são as seguintes:</p>			
+			<dl> 
+			    <dt>Guias do Juizado</dt> 
+			        <dd>Guia de Execução de Sentença</dd> 
+			        <dd>Guia de Execução de Sentença Queixa-Crime</dd> 
+			    <dt>Guias da Justiça Comum</dt> 
+			        <dd>Guia Final Zero</dd> 		        
+			</dl>
+
+		</div>		
+		
+	<h3><a href="#">ERRO MOZILLA FIREFOX</a></h3>
+		<div>
+			<p>04/03/2011 - A Atualização 3.6.14 do Mozilla Firefox está gerando o erro: java.net.MalformedURLException: no protocol: , em algumas máquinas. Para solução, desinstalar esta versão e retornar para a anterior. A equipe do FireFox já está tabalhando para resolver o problema.</p>  		 
+		</div>	
+		
+	<h3><a href="#">Cadastro de Advogado</a></h3>
+		<div>
+			<p>01/01/2011 - Locais de Cadastramento: Goiânia - Protocolo Cível e Protocolo Criminal, Comarcas do Interior - Cadastrador indicado pelo juiz da comarca; Documentos necessários: carteira da OAB, identidade, CPF, Comprovante de endereço.</p>  		 
+		</div>	
+		</div>
+		
+		
+		<h3>2010</h3>
+		<div id="accordion4" >
+
+	 <h3><a href="#">Suporte ao Advogado</a></h3>
+		<div>
+			<p>9/04/2010 - Informamos que atualmente a OAB-GO dispõe de suporte ao Sistema de Processo Eletrônico para os advogados no telefone 3238-2000.</p>		 
+		</div>
+	<h3><a href="#">Acessibilidade no Menu</a></h3>
+		<div>
+			<p>21/09/2010 - Foi incluída a navegação ao menu do Sistema de Processo Eletrônico através das teclas (tab e setas), possibilitando uma maior facilidade de uso para os usuários que têm alguma dificuldade com a utilização do mouse.</p> 		 
+		</div>	
+	
+	<h3><a href="#">Nova Resolução</a></h3>
+		<div>
+			<p>04/05/2010 - Está disponível na página inicial do Sistema de Processo Eletrônico o link para a nova resolução do Tibunal de Justiça do Estado de Goiás, que dispõe sobre a implantação, processualização, funcionamento, cadastramento e normatização do processo eletrônico.</p>		 
+		</div>
+		
+	<h3><a href="#">Novos Vídeos</a></h3>
+		<div>
+			<p>15/04/2010 - Parecer para os Promotores; Cadastro de Advogado, Cadastro de Usuário, Inserir Documentos no Cadastro, Limpeza de Senhas e Liberar Certificado para Cadastrador</p>		 
+		</div>		
+		
+	</div>
+					
+	
+			<h3>2009</h3>
+		<div id="accordion5" >
+			<h3><a href="#">Numeração Única CNJ</a></h3>
+			<div>
+				<p>25/11/2009 - De acordo com a resolução n.º 65 do CNJ que instituiu a numeração única de processo no seguinte formato: NNNNNNN.DD.AAAA.J.TR.OOOO, sendo na ordem , número do processo, digito verificador, ano de autuação, órgão do poder judiciário, número do tribunal, unidade de origem. Assim, todos os processos terão a apresentação da sua numeração alterada. Ficando da seguinte forma: Ex. para o número 039.2009.0000152, o número será a parte final (152), o ano continua sendo 2009 e o digito será calculado (0000152.12.2009.8.09.0005). Somente o numero e o digito serão utilizados para busca.</p>		 
+			</div>
+	
+	 	
+	<h3><a href="#">Acesso Público</a></h3>
+			<div>
+				<p>18/11/2009 - Na consulta pública de processos (Consultar Processos), está disponível a toda população os atos judiciais (Sentença, despacho e decisão).</p>		 
+			</div>
+			  
+  	<h3><a href="#">Mandados de Segurança</a></h3>
+		<div>
+			<p>29/09/2009 - Srs(as) Advogados (as), Gentileza atentar para as disposições do art. 14, I, alínea "b" do Regimento Interno do Tribunal de Justiça do Estado de Goiás, quando do ajuizamento de Mandados de Segurança. "art. 14. Compete às Câmaras Cíveis: I. processar e julgar: a) (...) b) os mandados de segurança contra atos dos Secretários de Estado, Procurador Geral de Justiça, Presidente e membros do Conselho Superior do Ministério Público, Presidente e membros dos Tribunais de Contas, Auditor e Membros da Justiça Militar, e Comandante da Polícia Militar;"</p>		 
+		</div>
+	 
+  	<h3><a href="#">Assinador Externo</a></h3>
+		<div>
+			<p>26/06/2009 - Informamos que já está disponível o Programa para fazer assinatura digital fora do Sistema de Processo Eletrônico. Nos manuais exite um video demosntrativo e o linque para baixar o Programa Assinador.</p>		 
+		</div>
+	
+		</div>
+		
+		
+		
+		
+		<h3>2008</h3>
+		<div id="accordion6" >
+
+	<h3><a href="#">Vídeos Explicativos das Tabelas do CNJ</a></h3>
+		<div>
+			<p>05/11/2008 - Acesse na parte superior da página do Sistema de Processo Eletrônico o Link Manuais e assista aos Vídeos Explicativos das tabelas do CNJ.</p>		 
+		</div>
+	
+	<h3><a href="#">Firefox 3.x</a></h3>
+		<div>
+			<p>15/09/2008 - Foi atualizado o Applet Assinador do Sistema de Processo Eletrônico para suportar alterações do Firefox 3.x. Para melhores informações consulte o manual do advogado.</p>
+		</div>
+	
+	<h3><a href="#">Tipo de Arquivo PDF</a></h3>
+		<div>
+			<p>06/2008 - O formato de arquivo padrão do Sistema de Processo Eletrônico é o PDF, veja no manual do advogado o nome dos programas para converter os arquivos de texto em PDF.</p>
+		</div>
+	
+	<h3><a href="#">Tamanho do Arquivo</a></h3>
+		<div>
+			<p>03/2008 - O Tamanho máximo de arquivo permitido pelo Sistema de Processo Eletrônico é de 1 MB.</p>
+		</div>
+		</div>
+		
+		
+		
+		<h3>2007</h3>
+		<div id="accordion7" >
+	
+	<h3><a href="#">Vírus - Leitores de Teclado</a></h3>
+		<div>
+			<p>2007 - Existem vírus de computador que capturam as informações digitadas no teclado. O Teclado Virtual visa garantir a não leitura das informações digitadas nele, dificultando o roubo da senha. É recomendado o uso desse por medida de segurança. Evite digitar senha, seja no teclado comum ou virtual, quando alguém estiver observando.  <br>  <strong>Lembre-se</strong>: a senha de acesso é de sua total responsabilidade.</p>
+		</div>
+		
+		</div>
+	  
+	   </div>
+   </div>
+</div>
+</body>
+</html>
+

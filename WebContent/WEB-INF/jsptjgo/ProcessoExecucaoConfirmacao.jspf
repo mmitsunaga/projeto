@@ -1,0 +1,162 @@
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoEventoExecucaoDt"%>
+<div id="divVisualizarDados" class="divVisualizarDados" >
+	<div style="width:400px"> Nº do Processo de Execução Penal: 
+	<span><a href="BuscaProcesso?Id_Processo=<%=ProcessoExecucaodt_PE.getId_ProcessoExecucaoPenal()%>"><%=ProcessoExecucaodt_PE.getProcessoDt().getProcessoNumeroCompleto()%></a></span></div>
+	 <br></br>
+	<!-- SENTENCIADO -->
+	<fieldset id="VisualizaDados" class="VisualizaDados">
+   		<legend> Sentenciado </legend>
+   	<%
+   		List listaPromovidos = ProcessoExecucaodt_PE.getProcessoDt().getListaPolosPassivos();
+   		if (listaPromovidos != null){
+   			for (int i=0;i<listaPromovidos.size();i++){
+   			  	ProcessoParteDt parteDt = (ProcessoParteDt)listaPromovidos.get(i);
+   	%>
+		<div> Nome </div> <span class="span1"><%=parteDt.getNome()%></span><br />
+       	<div> Nome da Mãe </div> <span class="span1"><%=parteDt.getNomeMae()%></span><br />
+		<div> Data de Nascimento</div> <span><%=parteDt.getDataNascimento()%></span><br />
+		<div> Alcunha</div> <span><%=parteDt.getDescricaoListaAlcunha()%></span><br />
+		<div> Sinal Particular</div> <span><%=parteDt.getDescricaoListaSinal()%></span><br />
+		
+		<div><a href="javascript: MostrarOcultar('sub<%=parteDt.getNomeMae()%>')" title="Mostrar/Ocultar"> Dados Pessoais</a></div><br />
+ 		<div id="sub<%=parteDt.getNomeMae()%>"  class="DivInvisivel">
+					<fieldset class="fieldsetEndereco">
+	  			<legend> Dados Pessoais </legend>
+				CPF: <%=parteDt.getCpfFormatado()%><br />
+				RG: <%=parteDt.getRg() + "  " + parteDt.getSiglaOrgaoExpedidor() + "   " + parteDt.getRgDataExpedicao()%><br />
+				Sexo: <%=parteDt.getSexo()%> <br />
+				Naturalidade: <%=parteDt.getCidadeNaturalidade()%> <br />
+				Estado civil: <%=parteDt.getEstadoCivil()%> <br />
+				Profissão: <%=parteDt.getProfissao()%> <br />
+			</fieldset>
+		</div>
+
+  	        <div><a href="javascript: MostrarOcultar('sub<%=parteDt.getNome()%>')" title="Mostrar/Ocultar"> Endereço </a></div><br />
+ 		<div id="sub<%=parteDt.getNome()%>"  class="DivInvisivel">
+					<fieldset class="fieldsetEndereco">
+	  			<legend> Endereço </legend>
+				<%=parteDt.getEnderecoParte().getLogradouro() + " " + parteDt.getEnderecoParte().getComplemento()%><br />
+	    		<%=parteDt.getEnderecoParte().getBairro() + " " + parteDt.getEnderecoParte().getCidade() + " " + parteDt.getEnderecoParte().getUf()%><br />
+		   		<%=parteDt.getEnderecoParte().getCep() + " " + parteDt.getEMail() + " " + parteDt.getTelefone() %>
+			</fieldset>
+		</div>
+       <% 	}}   %>
+	</fieldset><br /><br />
+		
+	<fieldset id="VisualizaDados" class="VisualizaDados">
+		<legend> Arquivo(s)</legend>
+		<% 
+			List arquivos = ProcessoExecucaodt_PE.getListaArquivos();
+			if (arquivos != null){
+				for(int i = 0 ; i< arquivos.size();i++) {
+			  		ArquivoDt arquivo = (ArquivoDt)arquivos.get(i); 
+		%>
+		<div> Tipo </div> <span> <%=arquivo.getArquivoTipo()%> </span>
+		<div> Nome </div> <span> <%= arquivo.getNomeArquivoFormatado() %> </span><br />
+	  <%} }%>
+	</fieldset><br /><br />
+  		
+   	<fieldset id="VisualizaDados" class="VisualizaDados">
+   		<legend> Informações da Distribuição do Processo</legend>
+   		<div> Comarca </div> <span><%= ProcessoExecucaodt_PE.getComarca()%></span>
+   		<div> Área Distribuição </div> <span style="width:300px;"><%= ProcessoExecucaodt_PE.getProcessoDt().getAreaDistribuicao()%></span><br />
+   		<div> Tipo de A&ccedil;&atilde;o</div> <span><%=ProcessoExecucaodt_PE.getProcessoDt().getProcessoTipo()%> </span>
+		<div> Prioridade</div> <span><%=ProcessoExecucaodt_PE.getProcessoDt().getProcessoPrioridade()%></span>
+	</fieldset><br /><br />
+	
+   	<fieldset id="VisualizaDados" class="VisualizaDados">
+   		<legend> Informações da Origem do Processo</legend>
+		<div style="width:150px"> Número da Ação Penal</div> <span><%= ProcessoExecucaodt_PE.getNumeroAcaoPenal()%></span><br />
+   		<div style="width:150px"> Comarca</div> <span style="width: 300px;"><%=ProcessoExecucaodt_PE.getCidadeOrigem()+"/"+ProcessoExecucaodt_PE.getEstadoOrigem()%></span><br></br>
+   		<div style="width:150px"> Vara</div> <span style="width: 300px;"><%= ProcessoExecucaodt_PE.getVaraOrigem()%></span><br />
+	</fieldset><br /><br />
+	
+	<fieldset id="VisualizaDados" class="VisualizaDados">
+   		<legend> Informações da Sentença Condenatória</legend>
+		<br />
+		<div style="width:150px"> Pena </div> <span><%=ProcessoExecucaodt_PE.getPenaExecucaoTipo()%> </span><br />
+   		<div style="width:150px"> Regime </div> <span><%=ProcessoExecucaodt_PE.getRegimeExecucao()%> </span><br />
+		<div style="width:150px"> Estabelecimento Penal </div> <span><%=ProcessoExecucaodt_PE.getLocalCumprimentoPena()%></span><br /><br />
+		<div style="width:220px"> Data de Distribui&ccedil;&atilde;o da A&ccedil;&atilde;o Penal</div> 
+			<span style="width:200px"><%=ProcessoExecucaodt_PE.getDataDistribuicao()%> </span>
+		<div style="width:220px"> Data da Pronúncia</div> 
+			<span style="width:200px"><%=ProcessoExecucaodt_PE.getDataPronuncia()%> </span><br />
+		<div style="width:220px"> Data do Recebimento da Denúncia</div>
+			<span style="width:200px"><%=ProcessoExecucaodt_PE.getDataDenuncia()%> </span>
+		<div style="width:220px"> Data do Acórd&atilde;o</div>
+			<span style="width:200px"><%=ProcessoExecucaodt_PE.getDataAcordao()%> </span><br />
+		<div style="width:220px"> Data da Senten&ccedil;a</div>
+			<span style="width:200px"><%=ProcessoExecucaodt_PE.getDataSentenca()%> </span>
+		<div style="width:220px"> Data da Audiência Admonitória</div>
+			<span style="width:200px"><%=ProcessoExecucaodt_PE.getDataAdmonitoria()%> </span> <br />
+		<div style="width:220px"> Data do Trânsito em Julgtado MP</div>
+			<span style="width:200px"><%=ProcessoExecucaodt_PE.getDataTransitoJulgadoMP()%> </span> <br />
+		<div style="width:220px">
+		<%if (ProcessoExecucaodt_PE.getGuiaRecolhimento().equals("P")){ %>
+		Data de Emissão da Guia
+		<%} else { %> 
+		Data do Trânsito em Julgado
+		<%} %>
+		</div><span style="width:220px"><%=ProcessoExecucaodt_PE.getDataTransitoJulgado()%> </span>
+		<%if (ProcessoExecucaodt_PE.getDataInicioCumprimentoPena().length() > 0){ %>
+		<br /><div style="width:220px"> Data do Início de Cumprimento da Condenação (DICC)</div>
+			<span style="width:220px"> <%=ProcessoExecucaodt_PE.getDataInicioCumprimentoPena()%> </span><br />
+			<% }%>
+
+		<% if (!ProcessoExecucaodt_PE.isMedidaSeguranca()){ %>
+		<br /><br />
+		<fieldset id="VisualizaDados" class="VisualizaDados">
+			<legend> Condenações</legend>
+			<% 
+				List condenacoes = ProcessoExecucaodt_PE.getListaCondenacoes();
+				if (condenacoes != null){
+					for(int i = 0 ; i< condenacoes.size();i++) {
+				  		CondenacaoExecucaoDt condenacao = (CondenacaoExecucaoDt)condenacoes.get(i); 
+			%>
+			<div style="width:50px">Crime</div> <span style="width:300px"> <%=condenacao.getCrimeExecucao()%> </span>
+			<div style="width:80px">Pena (a-m-d)</div> <span style="width:80px"> <%= condenacao.getTempoPenaEmAnos() %> </span>
+			<div style="width:80px">Data do Fato</div> <span style="width:85px"> <%= condenacao.getDataFato() %> </span>
+			<div style="width:70px">Reincidente</div> <span style="width:10px">  
+					<% if(condenacao.getReincidente().equalsIgnoreCase("true") || condenacao.getReincidente().equalsIgnoreCase("t")){%>Sim
+					<%}else if(condenacao.getReincidente().equalsIgnoreCase("false") || condenacao.getReincidente().equalsIgnoreCase("f")){%>Não
+					<%}%></span><br />
+		  	<%} }%>
+			<br /><div style="width:180px"> Sursis</div> <span style="width:100px"> <%=ProcessoExecucaodt_PE.getTempoTotalSursisAnos()%> </span>
+			<br /><div style="width:180px"> Data início do Sursis</div> <span style="width:100px"> <%=ProcessoExecucaodt_PE.getDataInicioSursis()%> </span>
+		</fieldset>
+		<br />
+		<fieldset id="VisualizaDados" class="VisualizaDados">
+			<legend> Substituição de pena</legend>
+				<%if (ProcessoExecucaodt_PE.getListaModalidade() != null && ProcessoExecucaodt_PE.getListaModalidade().size() > 0){
+					for (int i=0; i<ProcessoExecucaodt_PE.getListaModalidade().size(); i++){
+						ProcessoEventoExecucaoDt modalidade = ((ProcessoEventoExecucaoDt) ProcessoExecucaodt_PE.getListaModalidade().get(i));%>
+			<div style="width:150px"> Modalidade <%=i+1%></div> <span style="width:300px"> <%=modalidade.getEventoRegimeDt().getRegimeExecucao()%> </span><span style="width:300px"> <%=modalidade.getQuantidade()%> dias/horas/R$</span><br/>
+<%					}
+				%>
+				<%} else { %>
+			<div style="width:100%; text-align: left;"> Não houve substituição de pena</div>
+				<%} %>
+		</fieldset>
+		<br />
+		<fieldset id="VisualizaDados" class="VisualizaDados">
+			<legend> Prisões</legend>
+
+			<%if (ProcessoExecucaodt_PE.getDataPrimeiroRegime().length() > 0){ %>
+			<div style="width:200px"> Data do Primeiro Regime ou Início da Pena Restritiva de Direito</div> <span> <%=ProcessoExecucaodt_PE.getDataPrimeiroRegime()%> </span><br /><br />
+			<% }
+				List prisoes = ProcessoExecucaodt_PE.getListaPrisoesProvisorias();
+				List liberdades = ProcessoExecucaodt_PE.getListaLiberdadesProvisorias();
+				if (prisoes != null){
+					for(int i = 0 ; i< prisoes.size();i++) {
+				  		String prisao = (String)prisoes.get(i);
+				  		String liberdade = (String)liberdades.get(i);
+			%>
+			<div style="width:150px"> Prisão Provisória </div> <span style="width:100px"> <%=prisao%> </span>
+			<div style="width:150px"> Interrupção da Prisão Provisória </div> <span style="width:100px"> <%=liberdade %> </span>
+		  	<%} } else {%>
+			<div style="width:100%; text-align: left;"> Não houve prisão provisória</div>
+			<%} %>
+		</fieldset>
+		<%} %>
+	</fieldset>
+</div>

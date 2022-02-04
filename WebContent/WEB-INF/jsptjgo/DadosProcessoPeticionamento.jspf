@@ -1,0 +1,68 @@
+<%@page import="br.gov.go.tj.utils.Configuracao"%>
+
+	<%
+		List processos = Peticionamentodt.getListaProcessos();
+		if (Peticionamentodt.isMultiplo()){
+	%>
+
+		<table class="Tabela" id="TabelaArquivos">
+			<thead>
+				<tr>
+					<th>Cod</th>
+					<th>N&uacute;mero Processo</th>
+					<th>Classe</th>
+					<th>Data</th>
+					<th></th>
+				</tr>
+			</thead>
+	<%		for (int i=0;i<processos.size();i++){
+				//para manter compatibilidade com PartesProcesso._jsp a variavel processodt virou processoDt
+				ProcessoDt processoDt = (ProcessoDt)processos.get(i);
+	%>
+			<tbody>
+				<tr class="primeiraLinha">
+					<td><%=i+1%></td>
+					<td><%=processoDt.getProcessoNumero()%></td>
+					<td><%=processoDt.getProcessoTipo()%></td>
+					<td><%=processoDt.getDataRecebimento()%></td>
+			      	<td>
+			      		<a href="<%=request.getAttribute("tempRetorno")%>?PaginaAtual=<%=Configuracao.Excluir%>&posicao=<%=i%>">
+			      		<img name="btnRetirar" id="btnRetirar" title="Retirar esse processo" src="./imagens/imgExcluirPequena.png" />
+			      		</a>
+			      	</td>
+				</tr>
+			</tbody>
+		
+	<% 		} 	%>
+		</table>			
+	<% 		
+		} else if (processos != null && processos.size() > 0) {
+			ProcessoDt processoDt = (ProcessoDt) processos.get(0);
+		%>
+		<div class="destaque">
+			<img class="maismenos" id="imagem<%=1%>" src="./imagens/16x16/Mais.png" onclick="MostrarOcultarDiv('corpo<%=1%>','imagem<%=1%>',1)" title="Mostrar/Ocultar Detalhes do Processo"/>
+			<a href="BuscaProcessoUsuarioExterno?Id_Processo=<%=processoDt.getId_Processo()%>&PassoBusca=2"><%=processoDt.getProcessoNumero()%></a>
+		</div>
+	
+		<div id="corpo<%=1%>" class="corpo" style="display: block;">
+			<fieldset id="VisualizaDados" class="VisualizaDados">
+				<legend> Dados Processo</legend>
+				
+				<div> Classe </div>
+				<span style="width: 300px;"> <%=processoDt.getProcessoTipo()%> </span><br />
+				
+				<div> Serventia </div>
+				<span> <%=processoDt.getServentia()%> </span>
+				<br />
+				
+				<div> Data Distribuição</div>
+				<span> <%=processoDt.getDataRecebimento()%> </span>
+				
+				<div> Valor </div>
+				<span> <%=processoDt.getValor()%> </span>
+				<br />
+				
+				<%@ include file="PartesProcesso.jspf"%>
+			</fieldset>
+		</div>
+	<%} %>

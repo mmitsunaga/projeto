@@ -1,0 +1,78 @@
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoDt"%>
+<%@page import="br.gov.go.tj.projudi.ne.UsuarioNe"%>
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoParteDt"%>
+<%@page import="br.gov.go.tj.utils.Funcoes"%>
+<%@page import="br.gov.go.tj.projudi.dt.UsuarioDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.GrupoDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoParteTipoDt"%>
+<%@page import="br.gov.go.tj.utils.Configuracao"%>
+<%@page import="br.gov.go.tj.utils.Funcoes"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+
+<%
+	ProcessoDt processoDtTemp = (ProcessoDt)request.getSession().getAttribute("processoDt");
+	UsuarioNe  UsuarioSessao1 = (UsuarioNe)request.getSession().getAttribute("UsuarioSessao");
+	List listaOutrasPartes = processoDtTemp.getListaOutrasPartes();
+	//o sexto tipo é para os não mostraves nessa tela
+	String[] stTipo = new String[6];	
+	List[] lisOutrasPartes = new ArrayList[6];
+	for (int i=0; listaOutrasPartes!=null && i<listaOutrasPartes.size();i++){
+		ProcessoParteDt parteDt = (ProcessoParteDt)listaOutrasPartes.get(i);
+		if (parteDt.getProcessoParteTipoCodigo() != null) {					
+			if (lisOutrasPartes[parteDt.getIndiceOutrasPartes()]==null){
+				lisOutrasPartes[parteDt.getIndiceOutrasPartes()] = new ArrayList();
+			}
+			stTipo[parteDt.getIndiceOutrasPartes()] = (String) parteDt.getProcessoParteTipo();
+			lisOutrasPartes[parteDt.getIndiceOutrasPartes()].add(parteDt);			
+		}
+	}
+	for (int i=0; i<(lisOutrasPartes.length - 1) ;i++){
+		if(lisOutrasPartes[i]==null){
+			continue;
+		}%>		
+				
+		<fieldset id="VisualizaDados" class="VisualizaDados  <%=(processoDtTemp.isProcessoHibrido()?"field_processo_misto":"field_processo")%>">
+		<legend><%= stTipo[i]%> </legend>
+		   	<%	for (int k=0; k<lisOutrasPartes[i].size();k++){
+					ProcessoParteDt parteDt = (ProcessoParteDt)lisOutrasPartes[i].get(k);
+					// Se existirem apenas 6 partes vinculadas são exibidas todas, caso seja um número superior serão exibidas apenas as 5 primeiras		       			
+					if ((k >= Configuracao.QtdOutrasPartesDadosProcesso) && (lisOutrasPartes[i].size() != (Configuracao.QtdOutrasPartesDadosProcesso + 1))){%>
+						<div> </div>	       									       				       			 
+						<span class="span1">
+							<ul><li>
+									<a href="javascript:mostrarTodasPartes()">
+									e outros
+									</a>
+							</li></ul>	       				
+						</span>	          			
+						<%break;
+					}%>	
+				<fieldset  class="VisualizaDados">  	    				       			
+			    	<div>Nome</div>	<span class="span1 nomes" title="Nome da Parte" alt="Nome da Parte"><%=parteDt.getNome()%>	</span> <div><b><font color="red"><%=parteDt.getAusenciaProcessoParte()%>&#32;<%=parteDt.getReuPreso()%></font></b></div>			       	 
+			       	<% if (!(UsuarioSessao1.isConsultor() || UsuarioSessao1.isPublico())) { %>															
+						<div style="float:right;">
+							<% if (UsuarioSessao1.isPodeGerarCodigoAcesso(processoDtTemp.getId_Serventia())){ %>		   				
+								<a href="DescartarPendenciaProcesso?PaginaAtual=1&amp;id_Parte=<%=parteDt.getId_ProcessoParte()%>">
+								<img src="imagens/16x16/btn_codigo.png" lt="Gerar Código de Acesso para Parte" title="Gerar Código de Acesso para Parte" style="color: white;"/>
+								</a> 						
+							<% } %>	
+							<input name="inputEndereco" type="image" src="./imagens/16x16/btn_endereco.png" onClick="MostrarOcultar('sub<%=parteDt.getId()%>');return false;" title="Mostrar/Ocultar Endereço" />
+						</div>
+						<br />
+						<div> CPF </div>
+						<span class="span2"><%=parteDt.getCpfCnpjFormatado()%></span>
+						<div id="sub<%=parteDt.getId()%>"  class="DivInvisivel">
+							<fieldset class="fieldsetEndereco">
+								<legend> Endereço </legend>
+								<%=parteDt.getEnderecoParte().getLogradouro() + " nº " + parteDt.getEnderecoParte().getNumero() + " " + parteDt.getEnderecoParte().getComplemento()%><br />
+								<%=parteDt.getEnderecoParte().getBairro() + " " + parteDt.getEnderecoParte().getCidade() + " " + parteDt.getEnderecoParte().getUf()%><br />
+								<%=Funcoes.formatarCep( parteDt.getEnderecoParte().getCep() )%><br />
+								<%=parteDt.getEMail() + " " + parteDt.getTelefone()%>  	    	
+							</fieldset>							
+						</div>	       	    
+	       	    <%}%>		
+	       	    </fieldset>	      
+		<% } %>
+	    </fieldset>
+	<%} %>	

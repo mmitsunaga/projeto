@@ -1,0 +1,95 @@
+<fieldset id="VisualizaDados">
+   	<legend>
+   		Rateio
+   	</legend>
+   	
+   	<%
+	List listaPromoventes = processoDt.getListaPolosAtivos();
+	List listaPromovidos = processoDt.getListaPolosPassivos();
+	
+	String stringRateioParteJavascript = "new Array(";
+	String stringEmitirGuiaJavascript = "new Array(";
+	if( listaPromoventes != null && listaPromoventes.size() > 0 ) {
+		for( int i = 0; i < listaPromoventes.size(); i++ ) {
+			ProcessoParteDt parteDt = (ProcessoParteDt)listaPromoventes.get(i);
+			stringRateioParteJavascript += "'"+GuiaEmissaoNe.VARIAVEL_RATEIO_PARTE_VARIAVEL + parteDt.getId() + "',";
+			stringEmitirGuiaJavascript += "'"+GuiaEmissaoNe.VARIAVEL_EMITIR_GUIA_PARTE + parteDt.getId() + "',";
+		}
+	}
+	if( listaPromovidos != null && listaPromovidos.size() > 0 ) {
+		for( int i = 0; i < listaPromovidos.size(); i++ ) {
+			ProcessoParteDt parteDt = (ProcessoParteDt)listaPromovidos.get(i);
+			stringRateioParteJavascript += "'"+GuiaEmissaoNe.VARIAVEL_RATEIO_PARTE_VARIAVEL + parteDt.getId() + "',";
+			stringEmitirGuiaJavascript += "'"+GuiaEmissaoNe.VARIAVEL_EMITIR_GUIA_PARTE + parteDt.getId() + "',";
+		}
+	}
+	stringRateioParteJavascript += ")";
+	stringRateioParteJavascript = stringRateioParteJavascript.replace( ",)" , ")" );
+	
+	stringEmitirGuiaJavascript += ")";
+	stringEmitirGuiaJavascript = stringEmitirGuiaJavascript.replace( ",)" , ")" );
+   	                	%>
+   	
+   	<div class="col30"><label class="formEdicaoLabel"> Tipo de Rateio </label><br>
+		<select id="rateioCodigo" name="rateioCodigo" onChange="mostrarDivRateioPartes('divRateioPartes',rateioCodigo.value,<%=stringRateioParteJavascript%>,<%=stringEmitirGuiaJavascript%>);">
+			<option <%=(GuiaEmissaoDt.getRateioCodigo().equals(String.valueOf(GuiaEmissaoNe.RATEIO_100_REQUERENTE))?"selected":"") %> value="<%=GuiaEmissaoNe.RATEIO_100_REQUERENTE%>" >100% Requerente</option>
+			<option <%=(GuiaEmissaoDt.getRateioCodigo().equals(String.valueOf(GuiaEmissaoNe.RATEIO_100_REQUERIDO))?"selected":"") %> value="<%=GuiaEmissaoNe.RATEIO_100_REQUERIDO%>">100% Requerido</option>
+			<option <%=(GuiaEmissaoDt.getRateioCodigo().equals(String.valueOf(GuiaEmissaoNe.RATEIO_50_50))?"selected":"") %> value="<%=GuiaEmissaoNe.RATEIO_50_50%>">50% Para Cada Parte</option>
+			<option <%=(GuiaEmissaoDt.getRateioCodigo().equals(String.valueOf(GuiaEmissaoNe.RATEIO_VARIAVEL))?"selected":"") %> value="<%=GuiaEmissaoNe.RATEIO_VARIAVEL%>">Rateio Variável</option>
+		</select>
+	</div>
+	
+	<div id="divRateioPartes" class="<%=request.getAttribute("visualizaDivRateioPartesVariavel")%>">
+		Emitir?
+		<%
+		if( listaPromoventes != null && listaPromoventes.size() > 0 ) {
+			for( int i = 0; i < listaPromoventes.size(); i++ ) {
+				ProcessoParteDt parteDt = (ProcessoParteDt)listaPromoventes.get(i);
+				%>
+					<br />
+					<%=parteDt.getNome()%>
+					<%
+					String variavelRateioParteVariavel = "0.00";
+					if( request.getSession().getAttribute(GuiaEmissaoNe.VARIAVEL_RATEIO_PARTE_VARIAVEL + parteDt.getId()) != null ) {
+						variavelRateioParteVariavel = request.getSession().getAttribute(GuiaEmissaoNe.VARIAVEL_RATEIO_PARTE_VARIAVEL + parteDt.getId()).toString();
+					}
+					String variavelEmitirGuiaParte = "";
+					if( request.getSession().getAttribute(GuiaEmissaoNe.VARIAVEL_EMITIR_GUIA_PARTE + parteDt.getId()) != null && request.getSession().getAttribute(GuiaEmissaoNe.VARIAVEL_EMITIR_GUIA_PARTE + parteDt.getId()).equals(parteDt.getId()) ) {
+						variavelEmitirGuiaParte = "checked";
+					}
+					%>
+					<input type="text" id="<%=GuiaEmissaoNe.VARIAVEL_RATEIO_PARTE_VARIAVEL%><%=parteDt.getId()%>" name="<%=GuiaEmissaoNe.VARIAVEL_RATEIO_PARTE_VARIAVEL%><%=parteDt.getId()%>" value="<%=variavelRateioParteVariavel%>" maxlength="6" onkeyup="MascaraValor(this);autoTab(this,20);somarRateioPartesVariavel(this,<%=stringRateioParteJavascript%>);" onkeypress="return DigitarSoNumero(this, event)" />
+					<input type="checkbox" id="<%=GuiaEmissaoNe.VARIAVEL_EMITIR_GUIA_PARTE%><%=parteDt.getId()%>" name="<%=GuiaEmissaoNe.VARIAVEL_EMITIR_GUIA_PARTE%><%=parteDt.getId()%>" value="<%=parteDt.getId()%>" title="Sim, emitir esta guia." <%=variavelEmitirGuiaParte%> onclick="tratamentoRateio50Porcento(<%=GuiaEmissaoNe.VARIAVEL_RATEIO_PARTE_VARIAVEL%><%=parteDt.getId()%>, this, rateioCodigo, <%=stringRateioParteJavascript%>);" />
+				<%
+			}
+		}
+		if( listaPromovidos != null && listaPromovidos.size() > 0 ) {
+			for( int i = 0; i < listaPromovidos.size(); i++ ) {
+				ProcessoParteDt parteDt = (ProcessoParteDt)listaPromovidos.get(i);
+				%>
+					<br />
+					<%=parteDt.getNome()%>
+					<%
+					String variavelRateioParteVariavel = "0.00";
+					if( request.getSession().getAttribute(GuiaEmissaoNe.VARIAVEL_RATEIO_PARTE_VARIAVEL + parteDt.getId()) != null ) {
+						variavelRateioParteVariavel = request.getSession().getAttribute(GuiaEmissaoNe.VARIAVEL_RATEIO_PARTE_VARIAVEL + parteDt.getId()).toString();
+					}
+					String variavelEmitirGuiaParte = "";
+					if( request.getSession().getAttribute(GuiaEmissaoNe.VARIAVEL_EMITIR_GUIA_PARTE + parteDt.getId()) != null && request.getSession().getAttribute(GuiaEmissaoNe.VARIAVEL_EMITIR_GUIA_PARTE + parteDt.getId()).equals(parteDt.getId()) ) {
+						variavelEmitirGuiaParte = "checked";
+					}
+					%>
+					<input type="text" id="<%=GuiaEmissaoNe.VARIAVEL_RATEIO_PARTE_VARIAVEL%><%=parteDt.getId()%>" name="<%=GuiaEmissaoNe.VARIAVEL_RATEIO_PARTE_VARIAVEL%><%=parteDt.getId()%>" value="<%=variavelRateioParteVariavel%>" maxlength="6" onkeyup="MascaraValor(this);autoTab(this,20);somarRateioPartesVariavel(this,<%=stringRateioParteJavascript%>);" onkeypress="return DigitarSoNumero(this, event)" />
+					<input type="checkbox" id="<%=GuiaEmissaoNe.VARIAVEL_EMITIR_GUIA_PARTE%><%=parteDt.getId()%>" name="<%=GuiaEmissaoNe.VARIAVEL_EMITIR_GUIA_PARTE%><%=parteDt.getId()%>" value="<%=parteDt.getId()%>" title="Sim, emitir esta guia." <%=variavelEmitirGuiaParte%> onclick="tratamentoRateio50Porcento(<%=GuiaEmissaoNe.VARIAVEL_RATEIO_PARTE_VARIAVEL%><%=parteDt.getId()%>, this, rateioCodigo, <%=stringRateioParteJavascript%>);" />
+				<%
+			}
+		}
+		%>
+		
+		<hr />
+		<b>Total</b>
+		<input type="text" class="<%=request.getAttribute("formEdicaoInputSomenteLeituraRateio").toString()%>" id="rateioParteVariavelTotal" readonly value="<%=GuiaEmissaoDt.getTotalRateio()%>" onkeyup="MascaraValor(this);autoTab(this,20)" />
+		<b>%</b>
+	</div>
+
+</fieldset>

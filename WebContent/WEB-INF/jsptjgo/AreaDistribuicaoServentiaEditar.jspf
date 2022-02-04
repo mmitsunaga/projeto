@@ -1,0 +1,40 @@
+<%@page import="br.gov.go.tj.projudi.dt.ServentiaAreaDistribuicaoDt"%>
+<%@page import="java.util.*"%>
+<div>
+   <input type="hidden" id="Id_ServAreaDist" name="Id_ServAreaDist">
+   <input id="ListaServentiasRelacionadas" name="ListaServentiasRelacionadas" type="hidden" value="<%=request.getAttribute("ListaServentiasRelacionadas")%>">
+   <div id="divTabela" class="divTabela" > 
+       <table id="Tabela" class="Tabela">
+           <thead>
+               <tr class="TituloColuna">
+                  <th></th>
+                  <th width="10%">Codigo</th>
+                  <th>Área Distribuição Serventia - Subtipo Serventia</th>
+                  <th width="5%">Quantidade Distribuição</th>  
+                  <th width="5%">Excluir</th>                
+               </tr>
+           </thead>
+           <tbody id="tabListaUsuario">
+<%
+  List liTemp = (List)Serventiadt.getListaAreasDistribuicoes();
+  ServentiaAreaDistribuicaoDt objTemp;
+  String stTempNome="";
+  for(int i = 0 ; i< liTemp.size();i++) {
+      objTemp = (ServentiaAreaDistribuicaoDt)liTemp.get(i); %>
+<%if (stTempNome.equalsIgnoreCase("")) { stTempNome="a";%> 
+                   <tr class="TabelaLinha1"> 
+<%}else{ stTempNome=""; %>    
+                   <tr class="TabelaLinha2">
+<%}%>
+                   <td > <%=i+1%></td>
+                   <td><%= objTemp.getCodigoTemp()%></td>
+                   <td><%= objTemp.getServAreaDist()%></td>
+                   <td  class="Centralizado"><%= objTemp.getQuantidadeDistribuicaoDescricao()%></td>   
+                   <td class="Centralizado" ><input name="formLocalizarimgEditar" type="image"  title="Exclui Serventia Relacionada" src="./imagens/imgExcluirPequena.png" onclick="AlterarValue('PaginaAtual','<%=Configuracao.Excluir%>'); AlterarValue('Id_ServAreaDist','<%=objTemp.getId()%>'); AlterarValue('tempFluxo1','<%=ServentiaDt.FLUXO_AREA_DISTRIBUICAO%>')"> </td>             
+               </tr>
+<%}%>
+           </tbody>
+       </table>
+   </div> 
+</div>
+

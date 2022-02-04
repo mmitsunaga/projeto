@@ -1,0 +1,81 @@
+
+ /* Dropdown Button */
+.dropbtn {    
+    color: white;        
+    border: none;
+    cursor: pointer;
+    background-color: #0000;
+   /* background-image: url(../imagens/22x22/ico_fechar.png);*/
+    margin: 0px;
+    height: 22px;
+    width: 22px;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+    /*background-image: url(../imagens/22x22/ico_fechar.png);*/
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;   	
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+/*    color: black;*/
+    padding: 12px 16px 2px 27px;
+    text-decoration: none;
+    display: block;        
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.ImagemGlobal, .ImagemAdv, .ImagemDelegacia, .ImagemMP, .ImagemCartorio, .ImagemJuiz, .ImagemPublico,.imgValidar, .dropbtn{
+	background-repeat: no-repeat;
+	background-position: 2% 50%;	
+	text-align: center;
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;} 
+
+.ImagemGlobal{
+	background-image: url(../imagens/22x22/ico_bloqueio.png);	
+}
+
+.ImagemAdv{
+	background-image: url(../imagens/22x22/ico_adv.png);	
+}
+
+.ImagemDelegacia{
+	background-image: url(../imagens/22x22/ico_delegacia.png);	
+}
+.ImagemMP{
+	background-image: url(../imagens/22x22/ico_mp.png);	
+}
+.ImagemCartorio{
+	background-image: url(../imagens/22x22/ico_cartorio.png);	
+}
+.ImagemJuiz{
+	background-image: url(../imagens/22x22/ico_juiz.png);	
+}
+.ImagemPublico{
+	background-image: url(../imagens/22x22/ico_publico.png);	
+}
+.imgValidar{
+	background-image: url(../imagens/22x22/ico_basico.png);	
+}
+

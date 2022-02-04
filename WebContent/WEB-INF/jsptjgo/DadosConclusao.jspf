@@ -1,0 +1,159 @@
+<%@page import="br.gov.go.tj.projudi.dt.PendenciaDt"%>
+<%@page import="br.gov.go.tj.utils.Configuracao"%>
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoDt"%>	
+<%@ include file="js/buscarArquivos.js"%>
+
+	<%
+		List pendenciasFechar = AnalisePendenciadt.getListaPendenciasFechar();
+		if (AnalisePendenciadt.isMultipla()){
+	%>
+
+		<table class="Tabela" id="TabelaArquivos">
+			<thead>
+				<tr>
+					<th class="colunaMinima">Cod</th>
+					<th>N&uacute;mero Processo</th>
+					<th>Tipo Conclusão</th>
+					<th>Movimentação</th>
+					<th class="colunaMinima">Anexo(s)</th>
+					<% if (AnalisePendenciadt.getFluxo() == Configuracao.Curinga7){ %>
+					<th class="colunaMinima">Descartar</th>
+					<%} %>
+				</tr>
+			</thead>
+	<%	if(pendenciasFechar != null)		
+		for (int i=0; i<pendenciasFechar.size();i++){
+				PendenciaDt objPendencia = (PendenciaDt)pendenciasFechar.get(i);
+				//para manter compatibilidade a variavel ficou com o nome processoDt
+				ProcessoDt processoDt = objPendencia.getProcessoDt();
+	%>
+	
+			<tbody>
+			
+				<tr class="primeiraLinha">
+					<td align="center"><%=i+1%></td>
+					<td width="15%" align="center">
+						<a href="BuscaProcesso?Id_Processo=<%=objPendencia.getId_Processo()%>"><%=objPendencia.getProcessoNumero()%>
+							<%if ((processoDt != null) && (processoDt.getExistePeticaoPendente())){%>		 
+			           			<span>
+			           				<img src='imagens/16x16/imgPrioridade4.png' alt="<%=processoDt.getMensagemPeticaoPendente()%>" title="<%=processoDt.getMensagemPeticaoPendente()%>"/>		                  			 
+			                  	</span>
+			        		<% } %>	
+			        		<%if ((processoDt != null) && (processoDt.getExisteGuiasPendentes())){%>		 
+			           			<span style="float:right;"> 
+			           				<img src='imagens/16x16/imgPrioridade4.png' alt="<%=processoDt.getMensagemGuiasPendentes()%>" title="<%=processoDt.getMensagemGuiasPendentes()%>"/>		                  			 
+			                  	</span>
+			        		<% } %>	 
+		        		</a>
+					</td>
+					<td width="15%" align="center"><%=objPendencia.getPendenciaTipo()%></td>
+					<td><%=objPendencia.getMovimentacao()%></td>
+					<td class="colunaMinina" align="center">
+						<a href="javascript:buscarArquivosAssinadosPendencia('<%=objPendencia.getId()%>', 'PendenciaArquivo', 'Id_PendenciaArquivo', <%=Configuracao.Curinga6 %>)">
+							<img src="imagens/22x22/ico_arquivos.png" alt="Mostrar ou ocultar arquivos" title="Mostrar ou ocultar arquivos" />
+						</a>
+					</td>					
+					<% if (AnalisePendenciadt.getFluxo() == Configuracao.Curinga7){ %>
+			      	<td align="center">
+			      		<a href="PreAnalisarConclusao?PaginaAtual=<%=Configuracao.Excluir%>&Id_Pendencia=<%=objPendencia.getId()%>&multiplo=true">
+			      		<img name="btnRetirar" id="btnRetirar" title="Retirar esse processo" src="./imagens/imgExcluirPequena.png" />
+			      		</a>
+			      	</td>
+			      	<%} %>
+				</tr>
+				<tr id="linha_<%=objPendencia.getId()%>" style="display: none;">
+					<td colspan="5" id="pai_<%=objPendencia.getId()%>" class="Linha"></td>
+				</tr>
+			</tbody>
+		
+	<% 		} 	%>
+		</table>			
+	<% 		
+		} else {
+			PendenciaDt pendencia = null;
+			ProcessoDt processoDt = null;
+			if( pendenciasFechar != null && pendenciasFechar.size()>0) {
+				pendencia = (PendenciaDt) pendenciasFechar.get(0);
+				processoDt = pendencia.getProcessoDt();
+			}
+			if (processoDt != null){
+		%>
+		
+				<input id="IdProcessoValidacaoAba" name="IdProcessoValidacaoAba" type="hidden" value="<%=processoDt.getId_Processo()%>">
+				<fieldset>
+		  			<legend> Dados Conclusão </legend>
+		  			
+		  			<!-- Para o caso de ser somente uma pendência, a tela será diferenciada -->
+					<blockquote class="destaque">
+						<img class="maismenos" id="imagem" src="./imagens/16x16/Mais.png" onclick="MostrarOcultarDiv('corpo','imagem',1)" title="Mostrar/Ocultar Detalhes do Processo"/>
+						<a href="BuscaProcesso?Id_Processo=<%=processoDt.getId_Processo()%>"><%=processoDt.getProcessoNumero()%></a>
+						<%if (processoDt.getExistePeticaoPendente()){%>		 
+				           <span style="float:right;color:red;"> 
+				           		<img src='imagens/16x16/imgPrioridade4.png' alt="<%=processoDt.getMensagemPeticaoPendente()%>" title="<%=processoDt.getMensagemPeticaoPendente()%>"/> 
+				                <%= processoDt.getMensagemPeticaoPendente() %> 
+				            </span>
+				        <% } %>
+				        <%if (processoDt.getExisteGuiasPendentes()){%>		 
+			           		<span style="float:right;color:red;"> 
+			           			<img src='imagens/16x16/imgPrioridade4.png' alt="<%=processoDt.getMensagemGuiasPendentes()%>" title="<%=processoDt.getMensagemGuiasPendentes()%>"/>
+			           				<%= processoDt.getMensagemGuiasPendentes() %> 	                  			 
+			               </span>
+			        	<% } %>	       
+					</blockquote>
+		
+					<div id="corpo" class="corpo">
+						<fieldset id="VisualizaDados" class="VisualizaDados">
+							<legend> Dados Processo</legend>
+							
+							<div> Classe </div>
+							<span> <%=processoDt.getProcessoTipo()%> </span>
+							
+							<div> Data Distribuição</div>
+							<span> <%=processoDt.getDataRecebimento()%> </span>
+							<br />
+							
+							<div> Serventia </div>
+							<span> <%=processoDt.getServentia()%> </span>
+							
+							<div> Valor </div>
+							<span> <%=processoDt.getValor()%> </span>
+							<br />
+							<%@ include file="PartesProcesso.jspf"%>
+						</fieldset>
+					</div>
+					
+					<table class="Tabela" id="TabelaArquivos">
+						<thead>
+							<tr>
+								<th>Tipo Conclusão</th>
+								<th>Movimentação</th>
+								<th>Pré-Análise</th>
+								<th>Anexo(s)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="primeiraLinha">
+								<td width="15%"><%=pendencia.getPendenciaTipo()%></td>					
+								<td width="35%"><%=pendencia.getMovimentacao()%></td>
+								<td>
+									<% if (AnalisePendenciadt.getUsuarioPreAnalise() != null && AnalisePendenciadt.getUsuarioPreAnalise().length() > 0){ %>
+									<span style="width: 400px;">Realizada por <%=AnalisePendenciadt.getUsuarioPreAnalise()%> em <%=AnalisePendenciadt.getDataPreAnalise() %> </span>
+									<%} else { %>
+									<em>Nenhuma Pré-Análise registrada</em>
+									<%} %>
+								</td>
+								<td class="colunaMinima">
+									<a href="javascript:buscarArquivosAssinadosPendenciaJSON('<%=pendencia.getId()%>')">
+										<img src="imagens/22x22/ico_arquivos.png" alt="Mostrar ou ocultar arquivos" title="Mostrar ou ocultar arquivos" />
+									</a>
+								</td>						
+							</tr>
+							<tr id="linha_<%=pendencia.getId()%>" style="display: none;">
+								<td colspan="5" id="pai_<%=pendencia.getId()%>" class="Linha"></td>
+							</tr>
+						</tbody>
+					</table>				
+				</fieldset>
+	<%	}	
+	
+	} %>

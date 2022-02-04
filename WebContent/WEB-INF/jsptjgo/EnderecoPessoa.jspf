@@ -1,0 +1,26 @@
+
+<input id='Id_Endereco' name='Id_Endereco' type='hidden' value='' />
+ 
+<label class="formEdicaoLabel" for="Logradouro">*Logradouro</label>
+<input class="formEdicaoInput" name="Logradouro" id="Logradouro"  type="text" size="106" maxlength="100" value="" onKeyUp=" autoTab(this,60)">  <br>
+
+<label class="formEdicaoLabel" for="Numero">Número</label> 
+<input class="formEdicaoInput" name="Numero" id="Numero"  type="text" size="11" maxlength="10" value="" onKeyPress="return DigitarSoNumero(this, event)" onKeyUp=" autoTab(this,11)"> <br>
+ 	
+<label class="formEdicaoLabel" for="Complemento">Complemento</label>  
+<input class="formEdicaoInput" name="Complemento" id="Complemento"  type="text" size="59" maxlength="100" value="" onKeyUp=" autoTab(this,255)"> <br>
+
+<label class="formEdicaoLabel" for="Bairro">*Bairro </label>
+<input class="FormEdicaoimgLocalizar" id="imaLocalizarFaccao" name="imaLocalizarFaccao" type="image"  src="./imagens/imgLocalizarPequena.png" onclick="MostrarBuscaPadrao('Campos_Endereco','Pessoa','Consulta de Bairro', 'Digite o Bairro e a Cidade clique em consultar.', 'Id_Bairro', 'Bairro', ['Bairro','Cidade','UF'], ['Cidade', 'Uf'], '<%=(Configuracao.Localizar)%>', '<%=Configuracao.TamanhoRetornoConsulta%>'); return false;" >
+<input id='Id_Bairro' name='Id_Bairro' type='hidden' value='' />
+<input class="formEdicaoInputSomenteLeitura"  readonly name="Bairro" id="Bairro" type="text" size="80" maxlength="100" value=""> <br> 
+
+<label class="formEdicaoLabel" for="Cidade">Cidade</label>
+<input class="formEdicaoInputSomenteLeitura" readonly name="Cidade" id="Cidade" type="text" size="40" maxlength="60" value=""> <br>
+
+<label class="formEdicaoLabel" for="Uf">UF</label> 
+<input class="formEdicaoInputSomenteLeitura" readonly name="Uf" id="Uf"  type="text" size="10" maxlength="10" value=""> <br>
+
+<label class="formEdicaoLabel" for="Cep">*CEP</label> 
+<input class="formEdicaoInput" name="Cep" id="Cep"  type="text" size="11" maxlength="8" value="" onKeyPress="return DigitarSoNumero(this, event)" onKeyUp=" autoTab(this,11)"> <br>
+

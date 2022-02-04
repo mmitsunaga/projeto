@@ -1,0 +1,382 @@
+/**
+ * Tela inicial projudi
+ * @author Ronneesley Moura Teles
+ * @author Ademar Filho
+ * @since 20/05/2008
+ */
+/*
+
+*/
+/* Tamanhos */
+
+/* Cabecalho */
+#pgn_cabecalho{
+/*	float: left;
+	display: inline;*/
+	height: 36px;
+	color: #ffffff;
+	background-color:#183e65;
+	padding-bottom: 1px;
+	margin: 0 auto;
+}
+.pgn_cabecalho_execpen{
+	background-color:#000 !important;
+}
+
+
+#pgn_cabecalho #lnk_acesso a {
+	text-decoration: none;
+	font-size:14px;
+	color: #ffffff;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
+#pgn_cabecalho #lnk_acesso a:hover {
+	color:#ddd !important;
+}
+
+#pgn_cabecalho #img_logotj {
+	float: left;
+	margin-top: 6px;
+	margin-left: 20px;
+	height: 30px;
+	background-image:url(../imagens/img_logotj.png);
+	background-repeat:no-repeat;
+}
+#pgn_cabecalho #img_logotj_execpen {
+	float: left;
+	margin-top: 6px;
+	margin-left: 20px;
+	height: 30px;
+	background-image:url(../imagens/img_logotj.png);
+	background-repeat:no-repeat;
+}
+#pgn_cabecalho #img_logotj h1 {
+	margin: 2px 0 0 30px;
+	border:0;
+}
+
+#pgn_cabecalho #img_logotj_execpen h1 {
+	margin: 2px 0 0 35px;
+	border:0;
+}
+
+#pgn_cabecalho #img_titulo {
+	float: left;
+	margin-left: 10px;
+	margin-top: 5px;
+	width: 215px;
+	height: 22px;
+	background-image: url("../imagens/img_titulo.png");
+	background-repeat: no-repeat;
+}
+
+#pgn_cabecalho #lnk_acesso {
+	float: left;
+	height: 20px;
+	padding-top: 8px;
+	padding-right: 20px; 
+	padding-bottom: 5px;
+	
+}
+
+
+#pgn_cabecalho #img_logo {
+	float: left;
+	width: 66px;	
+	height: 29px;
+	margin-top: 2px;
+	padding-right: 10px; 
+	background: url("../imagens/img_logo.jpg"); 
+	background-repeat: no-repeat;
+}
+
+/*BOXES*/
+#bkg_acesso, #bkg_outros, #bkg_projudi {
+	width: 998px;
+	margin: 0px;
+	padding: 0px;
+	background-repeat: no-repeat;	
+}
+ 
+/*BOX PROJUDI*/
+#bkg_projudi {
+	height: 162px;
+	margin: 0px;
+	padding: 0px;
+	background-image: url("../imagens/bkg_01.jpg");
+}
+
+/*BOX ACESSO*/
+#bkg_acesso {
+	height: 212px;
+	background-image: url("../imagens/bkg_02.jpg");
+}
+
+#bkg_acesso div.divisao_esquerda {
+	width: 48%;
+	float: left;
+}
+
+#bkg_acesso div.divisao_direita {
+	float: left;
+}
+
+#bkg_acesso #box_texto {
+	width: 200px;
+	text-align: justify;
+	font-size: 9px;
+	float: right;
+	color: #ffffff;
+}
+
+#bkg_acesso #box_texto h2 {
+	font-size: 12px;
+	font-weight: bold;
+	padding: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-left: 0px;
+	margin-bottom: 0px;
+	padding-top: 4px;
+	padding-bottom: 2px;
+}
+
+#bkg_acesso #box_texto p {
+	padding: 0px;
+	margin: 0px;
+}
+
+#bkg_acesso #box_texto p b {
+	color: #B8681B;
+}
+
+#bkg_acesso fieldset {
+	margin-left: 20px;
+}
+
+#bkg_acesso fieldset, #bkg_acesso fieldset legend {
+	border: 0px;
+	color: #ffffff;
+}
+
+#bkg_acesso fieldset legend {
+	font-weight: bold;
+	padding-top: 2px;
+}
+
+/*Configuracoes do formulario de login*/
+#bkg_acesso fieldset label {
+	cursor: pointer;
+	width: 55px;
+	height: 18px;
+	padding-left: 7px;
+	padding-top: 4px;
+	float: left;
+	color: #ffffff;
+}
+
+/*Campos de texto*/
+#bkg_acesso fieldset input[type=text],
+#bkg_acesso fieldset input[type=password],
+#bkg_acesso fieldset input.text {
+	width: 120px;
+	height: 17px;
+	padding-left: 1px;
+	padding-top: 3px;
+	padding-right: 1px;
+	padding-bottom: 0px;
+	margin-bottom: 2px;
+	font-size: 13px;
+	border: 1px solid #cccccc;	
+	color: #333333;
+}
+
+/*Botoes*/
+#bkg_acesso fieldset input[type=submit],
+#bkg_acesso fieldset input[type=reset],
+#bkg_acesso fieldset input.botao {
+	font-size: 10px;	
+	width: 50px;
+	padding-bottom: 1px;
+	cursor: pointer;
+}
+
+/*Botoes e links*/
+#bkg_acesso fieldset input[type=submit],
+#bkg_acesso fieldset input[type=reset],
+#bkg_acesso fieldset input.botao,
+#bkg_acesso a.transparencia {
+	border: 1px solid #ffffff;
+	background-color: #1e628f;
+	color: #ffffff;
+}
+
+/*Links*/
+#bkg_acesso a.transparencia {
+	cursor: pointer;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	text-decoration: none;
+}
+
+/*BOXES OUTROS*/
+#bkg_outros {
+	height: 162px;
+	background-image: url("../imagens/bkg_03.jpg");
+}
+
+#boxes {
+	float: right;
+	/*width: 60%;*/
+	width: 67%;
+}
+
+#boxes div {
+	/*width: 280px;*/
+	width: 220px;
+	float: left;
+	margin-top: 25px;	
+}
+
+#boxes div img {
+	width: 205px;
+	height: 80px;
+	border: 0px;
+	clear: right;
+}
+
+#boxes div a {
+	text-decoration: none;
+	color: #ffffff;
+	font-weight: bold;
+}
+
+#boxes div a span {
+	display: block;
+	padding-left: 25px;
+	padding-top: 0px;
+	margin-top: 0px;
+}
+
+
+/**
+ * Diversos
+ * @author Ronneesley Moura Teles
+ * @since 17/09/2008 15:05
+ */ 
+#box_texto p.diversos {
+	text-indent: 10px;
+}
+
+#box_texto p.diversos a {
+	color: #ffffff;
+	text-decoration: none;
+	border: 0px;
+	border-bottom: 1px;
+	border-style: dashed;
+}
+
+#box_texto p.diversos a:hover {
+	
+}
+
+
+.breadcrumb {
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  text-align:right;
+  font-size:9px;
+  padding:3px 20px;
+  width:1300px;
+  border-left:1px solid #ddd;
+  border-right:1px solid #ddd;
+  margin: 0 auto;  
+}
+.breadcrumb a {
+  display: block;
+  padding: 0.7em 1.4em;
+  text-decoration:none;
+}
+.breadcrumb:target {
+  max-height: 20em;
+}
+.breadcrumb:target .breadcrumb-link {
+  opacity: 1;
+  position: static;
+  visibility: visible;
+}
+.breadcrumb:target .breadcrumb--active:after {
+  content: none;
+}
+.breadcrumb:target .breadcrumb-close:after {
+  visibility: visible;
+}
+
+.breadcrumb-link {
+  color: #666;
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  z-index: 0;
+  font-weight:normal;
+}
+
+.breadcrumb--active {
+  color: #666;
+  font-weight: 700;
+  position: relative;
+}
+.breadcrumb--active:after {
+  content: '\bb';
+  position: absolute;
+  right: 22px;
+  z-index: 1;
+}
+
+.breadcrumb-close {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  visibility: hidden;
+  z-index: 10;
+}
+.breadcrumb-close:after {
+  content: '\bb';
+  color: #1EC692;
+}
+
+@media (min-width: 700px) {
+  .breadcrumb {
+    border: none;
+  }
+  .breadcrumb a {
+    display: inline;
+    padding: 0.5em;
+  }
+
+  .breadcrumb-link {
+    display: inline;
+    opacity: 1;
+    visibility: visible;
+    position: static;
+  }
+  .breadcrumb-link:after {
+    content: '\bb';
+    margin-left: 0.5em;
+    margin-right: -0.75em;
+  }
+
+  .breadcrumb--active {
+    pointer-events: none;
+  }
+  .breadcrumb--active:after {
+    content: none;
+  }
+
+  .breadcrumb-close {
+    display: none !important;
+  }
+}

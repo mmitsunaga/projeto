@@ -1,0 +1,196 @@
+package br.gov.go.tj.projudi.ps;
+
+import br.gov.go.tj.utils.PreparedStatementTJGO;
+import br.gov.go.tj.utils.ResultSetTJGO;
+import java.util.List;
+import java.util.ArrayList;
+import br.gov.go.tj.projudi.dt.TemaOrigemDt;
+
+
+public class TemaOrigemPsGen extends Persistencia {
+
+
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3453708241311195804L;
+
+	//---------------------------------------------------------
+	public TemaOrigemPsGen() {
+
+
+	}
+
+
+
+//---------------------------------------------------------
+	public void inserir(TemaOrigemDt dados ) throws Exception {
+
+		String stSqlCampos="";
+		String stSqlValores="";
+		String stSql="";
+		String stVirgula="";
+		PreparedStatementTJGO ps = new PreparedStatementTJGO();
+
+		stSqlCampos= "INSERT INTO PROJUDI.TEMA_ORIGEM ("; 
+
+		stSqlValores +=  " Values (";
+ 
+		if ((dados.getTemaOrigemCodigo().length()>0)) {
+			 stSqlCampos+=   stVirgula + "TEMA_ORIGEM_CODIGO " ;
+			 stSqlValores+=   stVirgula + "? " ;
+			 ps.adicionarLong(dados.getTemaOrigemCodigo());  
+
+			stVirgula=",";
+		}
+		if ((dados.getTemaOrigem().length()>0)) {
+			 stSqlCampos+=   stVirgula + "TEMA_ORIGEM " ;
+			 stSqlValores+=   stVirgula + "? " ;
+			 ps.adicionarString(dados.getTemaOrigem());  
+
+			stVirgula=",";
+		}
+		stSqlCampos+= ")";
+		stSqlValores+= ")";
+		stSql+= stSqlCampos + stSqlValores; 
+
+		dados.setId(executarInsert(stSql,"ID_TEMA_ORIGEM",ps)); 
+	} 
+
+//---------------------------------------------------------
+	public void alterar(TemaOrigemDt dados) throws Exception{
+
+		PreparedStatementTJGO ps = new PreparedStatementTJGO();
+		String stSql="";
+
+
+
+		stSql= "UPDATE PROJUDI.TEMA_ORIGEM SET  ";
+		stSql+= "TEMA_ORIGEM_CODIGO = ?";		 ps.adicionarLong(dados.getTemaOrigemCodigo());  
+
+		stSql+= ",TEMA_ORIGEM = ?";		 ps.adicionarString(dados.getTemaOrigem());  
+
+		stSql += " WHERE ID_TEMA_ORIGEM  = ? "; 		ps.adicionarLong(dados.getId()); 
+
+		executarUpdateDelete(stSql,ps); 
+	
+	} 
+
+//---------------------------------------------------------
+	public void excluir( String chave) throws Exception {
+
+		String stSql="";
+
+		PreparedStatementTJGO ps = new PreparedStatementTJGO();
+
+
+		stSql= "DELETE FROM PROJUDI.TEMA_ORIGEM";
+		stSql += " WHERE ID_TEMA_ORIGEM = ?";		ps.adicionarLong(chave); 
+
+		executarUpdateDelete(stSql,ps);
+	} 
+
+//---------------------------------------------------------
+	public TemaOrigemDt consultarId(String id_temaorigem )  throws Exception {
+
+		String stSql="";
+		ResultSetTJGO rs1 = null;
+		PreparedStatementTJGO ps = new PreparedStatementTJGO();
+		TemaOrigemDt Dados=null;
+
+
+		stSql= "SELECT * FROM PROJUDI.VIEW_TEMA_ORIGEM WHERE ID_TEMA_ORIGEM = ?";		ps.adicionarLong(id_temaorigem); 
+
+		try{
+
+			rs1 = consultar(stSql,ps);
+			if (rs1.next()) {
+				Dados= new TemaOrigemDt();
+				associarDt(Dados, rs1);
+			}
+
+		} finally {
+			try{if (rs1 != null) rs1.close();} catch(Exception e) {}
+		}
+		return Dados; 
+	}
+
+	protected void associarDt( TemaOrigemDt Dados, ResultSetTJGO rs )  throws Exception {
+		Dados.setId(rs.getString("ID_TEMA_ORIGEM"));
+		Dados.setTemaOrigem(rs.getString("TEMA_ORIGEM"));
+		Dados.setTemaOrigemCodigo( rs.getString("TEMA_ORIGEM_CODIGO"));
+		Dados.setCodigoTemp( rs.getString("CODIGO_TEMP"));
+	}
+
+//---------------------------------------------------------
+	public List consultarDescricao(String descricao, String posicao ) throws Exception {
+
+		String stSql="";
+		List liTemp = new ArrayList();
+		ResultSetTJGO rs1=null;
+		ResultSetTJGO rs2=null;
+		PreparedStatementTJGO ps = new PreparedStatementTJGO();
+
+
+		stSql= "SELECT ID_TEMA_ORIGEM, TEMA_ORIGEM FROM PROJUDI.VIEW_TEMA_ORIGEM WHERE TEMA_ORIGEM LIKE ?";
+		stSql+= " ORDER BY TEMA_ORIGEM ";
+		ps.adicionarString("%"+descricao+"%"); 
+
+		try{
+
+
+			rs1 = consultarPaginacao(stSql, ps, posicao);
+
+
+			while (rs1.next()) {
+				TemaOrigemDt obTemp = new TemaOrigemDt();
+				obTemp.setId(rs1.getString("ID_TEMA_ORIGEM"));
+				obTemp.setTemaOrigem(rs1.getString("TEMA_ORIGEM"));
+				liTemp.add(obTemp);
+			}
+			stSql= "SELECT Count(*) as Quantidade  FROM PROJUDI.VIEW_TEMA_ORIGEM WHERE TEMA_ORIGEM LIKE ?";
+			rs2 = consultar(stSql,ps);
+
+			while (rs2.next()) {
+				liTemp.add(rs2.getLong("Quantidade"));
+			}
+
+		} finally {
+			try{if (rs1 != null) rs1.close();} catch(Exception e) {}
+			try{if (rs2 != null) rs2.close();} catch(Exception e) {}
+		}
+		return liTemp; 
+	}
+
+//---------------------------------------------------------
+	public String consultarDescricaoJSON(String descricao, String posicao ) throws Exception {
+
+		String stSql="";
+		String stTemp="";
+		int qtdeColunas = 1;
+		ResultSetTJGO rs1=null;
+		ResultSetTJGO rs2=null;
+		PreparedStatementTJGO ps = new PreparedStatementTJGO();
+
+
+		stSql= "SELECT ID_TEMA_ORIGEM as id, TEMA_ORIGEM as descricao1 FROM PROJUDI.VIEW_TEMA_ORIGEM WHERE TEMA_ORIGEM LIKE ?";
+		stSql+= " ORDER BY TEMA_ORIGEM ";
+		ps.adicionarString("%"+descricao+"%"); 
+
+		try{
+
+
+			rs1 = consultarPaginacao(stSql, ps, posicao);
+			stSql= "SELECT Count(*) as Quantidade  FROM PROJUDI.VIEW_TEMA_ORIGEM WHERE TEMA_ORIGEM LIKE ?";
+			rs2 = consultar(stSql,ps);
+			rs2.next();
+			stTemp = gerarJSON(rs2.getLong("QUANTIDADE"), posicao, rs1, qtdeColunas);
+
+		} finally {
+			try{if (rs1 != null) rs1.close();} catch(Exception e) {}
+			try{if (rs2 != null) rs2.close();} catch(Exception e) {}
+		}
+		return stTemp; 
+	}
+
+} 

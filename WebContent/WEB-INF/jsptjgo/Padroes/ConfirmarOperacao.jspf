@@ -1,0 +1,39 @@
+	<%@page import="br.gov.go.tj.utils.Configuracao"%>
+	
+	<div class="clear"></div>	
+	
+	<%if (request.getAttribute("PaginaAnterior").toString().equalsIgnoreCase(String.valueOf(Configuracao.Salvar))) {%>
+	 	
+    	<div id="divConfirmarSalvar" class="ConfirmarSalvar">
+			<% if (request.getAttribute("Mensagem") != null && !request.getAttribute("Mensagem").equals("")) { %>
+        		<div class="divMensagemsalvar"><%=request.getAttribute("Mensagem")%></div>
+           	<% } else { %>
+           		<div class="divMensagemsalvar">Clique para confirmar os dados </div>
+           	<% }%>
+           	<br /> 
+			<button name="imgConfirmarSalvar" value="Confirmar Salvar" onclick="Ocultar('divConfirmarSalvar');AlterarValue('PaginaAtual','<%=String.valueOf(Configuracao.SalvarResultado)%>')">
+               	<img src="./imagens/imgSalvar.png" alt="Confirmar Salvar">
+               	<% if (request.getAttribute("MensagemConfirmacao") != null && !request.getAttribute("MensagemConfirmacao").equals("")) { %>
+               		<%=request.getAttribute("MensagemConfirmacao")%>
+               	<% } else { %>
+               		Confirmar Salvar
+               	<% }%> 
+            </button> 
+      	</div>
+ 	<%}%>
+ 	<%if (request.getAttribute("PaginaAnterior").toString().equalsIgnoreCase(String.valueOf(Configuracao.Excluir))) {%> 	  
+    	<div id="divConfirmarExcluir" class="ConfirmarExcluir">
+    	    <% if (request.getAttribute("Mensagem") != null && !request.getAttribute("Mensagem").equals("")) { %>
+				<div class="divMensagemexcluir"><%=request.getAttribute("Mensagem")%></div>
+			<% } else { %>        	        	 
+           	<div class="divMensagemexcluir">Clique para confirmar a exclusão dos dados </div>
+           	<% }%> 
+           	<br />
+			<button name="imgConfirmarExcluir" value="Confirmar Excluir" onclick="Ocultar('divConfirmarExcluir');AlterarValue('PaginaAtual','<%=String.valueOf(Configuracao.ExcluirResultado)%>')">
+               	<img src="./imagens/imgExcluir.png" alt="Confirmar Excluir">
+               	Confirmar Excluir
+            </button> 
+           	
+      	</div>
+ 	<%}%>
+ 	

@@ -1,0 +1,48 @@
+<div>
+   <input type="hidden" id="<%=request.getAttribute("tempBuscaId_UsuarioServentia").toString()%>" name="<%=request.getAttribute("tempBuscaId_UsuarioServentia").toString()%>">
+   <input type="hidden" id="<%=request.getAttribute("tempBuscaUsuario").toString()%>" name="<%=request.getAttribute("tempBuscaUsuario").toString()%>">
+   <div id="divTabela" class="divTabela" > 
+       <table id="Tabela" class="Tabela">
+           <thead>
+               <tr class="TituloColuna">
+                  <th></th>
+                  <th class="colunaMinima">Relatório</th>
+                  <th>Nome</th>                
+                  <th>Grupo</th>
+                  <th>Usuário</th>
+                  <th>Usuário Serventia</th>
+               </tr>
+           </thead>
+           <tbody id="tabListaUsuario">
+<%
+  List liTemp = RelatorioEstatisticadt.getUsuario().getListaUsuarioServentias();
+  UsuarioDt objTemp;
+  String stTempNome="";
+  for(int i = 0 ; i< liTemp.size();i++) {
+      objTemp = (UsuarioDt)liTemp.get(i); %>
+<%if (stTempNome.equalsIgnoreCase("")) { stTempNome="a";%> 
+                   <tr class="TabelaLinha1"> 
+<%}else{ stTempNome=""; %>    
+                   <tr class="TabelaLinha2">
+<%}%>
+                   <td > <%=i+1%></td>
+                   <td ><input id="imgImprimir"  class="imgImprimir" title="Gerar Relatório" name="imgImprimir" type="image" src="./imagens/imgImprimir.png" onclick="AlterarValue('PaginaAtual','<%=Configuracao.Imprimir%>'); AlterarValue('<%=request.getAttribute("tempBuscaId_UsuarioServentia")%>','<%=objTemp.getId_UsuarioServentia()%>'); AlterarValue('<%=request.getAttribute("tempBuscaUsuario")%>','<%=objTemp.getUsuario()%>')">     </td>
+                   <td><%= objTemp.getNome()%></td>               
+                   <td><%= objTemp.getGrupo()%></td>
+                   <%if (objTemp.getAtivo().equalsIgnoreCase("true")){ %>
+                   	<td>ATIVO</td>
+                   <%} else {%>
+                   	<td> <font color="red" size="-1"><strong>INATIVO</strong></font></td>
+                   <%}%>
+                   <%if (objTemp.getUsuarioServentiaAtivo().equalsIgnoreCase("true")){ %>
+                   	<td>ATIVO</td>
+                   <%} else {%>
+                   	<td> <font color="red" size="-1"><strong>INATIVO</strong></font></td>
+                   <%}%>                    
+               </tr>
+<%}%>
+           </tbody>
+       </table>
+   </div> 
+</div>
+

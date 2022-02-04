@@ -1,0 +1,73 @@
+<p style="text-align:center"><span style="font-size:14px">${brasao}<br />
+<span style="font-size:16px">PODER JUDICI&Aacute;RIO</span><br />
+<span style="font-size:16px">TRIBUNAL DE JUSTI&Ccedil;A DO ESTADO DE GOI&Aacute;S</span><br />
+<span style="font-size:16px">CERTID&Atilde;O NEGATIVA DE A&Ccedil;&Otilde;ES CIVEIS</span><br />
+<strong><span style="font-size:16px">${NomeComarca}</span></strong><br />
+<strong><span style="font-size:16px">${Finalidade}</span></strong><br />
+<strong><span style="font-size:16px">(SEM VALIDADE - EM TESTES)</span></strong> </span></p>
+
+<table border="0" cellpadding="1" cellspacing="1" style="height:40px; width:282px">
+	<tbody>
+		<tr>
+			<td style="width:5%"><span style="font-size:14px">N&ordm; </span></td>
+			<td style="width:2%"><span style="font-size:14px">:</span></td>
+			<td style="width:93%"><span style="font-size:18px"><strong>${CodigoVerificacao}</strong></span></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>&nbsp;</p>
+
+<p style="text-align:justify"><span style="font-size:10px"><span style="font-size:16px">CERTIFICA&nbsp;</span></span><span style="font-size:16px">que revendo os registros dos bancos de dados informatizados dos Sistemas de Primeiro Grau, do Poder Judici&aacute;rio do Estado de Goi&aacute;s, consultando a&ccedil;&otilde;es c&iacute;veis em geral, ou seja, execu&ccedil;&otilde;es, execu&ccedil;&otilde;es patrimoniais, execu&ccedil;&otilde;es fiscais, fal&ecirc;ncias, concordatas, recupera&ccedil;&atilde;o judicial e insolv&ecirc;ncia, em andamento, verifica-se que</span><span style="font-size:10px"><span style="font-size:16px">${NomeComarcaTexto} NADA CONSTA&nbsp;<strong>contra</strong></span></span>:</p>
+
+<table border="0" cellpadding="1" cellspacing="1" style="height:110px; width:729px">
+	<tbody>
+		<tr>
+			<td style="width:25%"><span style="font-size:16px">Requerente</span></td>
+			<td><span style="font-size:16px">:</span></td>
+			<td><span style="font-size:16px">${certidao.identificacao.requerente}</span></td>
+		</tr>
+		<tr>
+			<td style="width:25%"><span style="font-size:16px">Nome da M&atilde;e</span></td>
+			<td><span style="font-size:16px">:</span></td>
+			<td><span style="font-size:16px">${certidao.identificacao.nome.mae}</span></td>
+		</tr>
+		<tr>
+			<td style="white-space:nowrap; width:25%"><span style="font-size:16px">Data de Nascimento&nbsp;</span></td>
+			<td><span style="font-size:16px">:</span></td>
+			<td><span style="font-size:16px">${certidao.identificacao.data.nascimento}</span></td>
+		</tr>
+		<tr>
+			<td style="width:25%"><span style="font-size:16px">CPF</span></td>
+			<td><span style="font-size:16px">:</span></td>
+			<td><span style="font-size:16px">${certidao.identificacao.cpfCnpj}</span></td>
+		</tr>
+	</tbody>
+</table>
+
+<p style="margin-left:10px; text-align:justify"><span style="font-size:14px">a) a presente certid&atilde;o foi expedida gratuitamente atrav&eacute;s da internet pelo usu&aacute;rio do sistema e s&oacute; &eacute; v&aacute;lida para defesa de direitos e esclarecimento de situa&ccedil;&otilde;es de interesse pessoal, de acordo com o Art. 5&ordm; XXXIV, b;</span><br />
+<span style="font-size:14px">b) a informa&ccedil;&atilde;o do n&uacute;mero do CPF &eacute; de responsabilidade do solicitante da certid&atilde;o, pesquisados o nome e o CPF como digitados, sendo que o destinat&aacute;rio deve conferir o nome e a titularidade do n&uacute;mero do CPF informado; </span><br />
+<span style="font-size:14px">c) a autenticidade desta certid&atilde;o deve ser confirmada no site do Tribunal de Justi&ccedil;a do Estado de Goi&aacute;s no endere&ccedil;o <u>https://projudi.tjgo.jus.br/CertidaoPublica</u>;</span><br />
+<span style="font-size:14px">d) n&atilde;o positivam a certid&atilde;o as a&ccedil;&otilde;es que correm&nbsp;em segredo de justi&ccedil;a e as a&ccedil;&otilde;es que versam sobre processos de jurisdi&ccedil;&atilde;o volunt&aacute;ria;</span><br />
+<span style="font-size:14px">e) </span><span style="font-size:14px">esta certid&atilde;o refere-se ao per&iacute;odo de 05/1996 at&eacute; a presente data.</span><br />
+<span style="font-size:14px">f) qualquer rasura ou emenda invalidar&aacute; a presente certid&atilde;o.</span></p>
+
+<p style="margin-left:10px; text-align:justify">&nbsp;</p>
+
+<table border="0" cellpadding="1" cellspacing="1">
+	<tbody>
+		<tr>
+			<td style="width:33%"><span style="font-size:14px">C&Oacute;DIGO DE AUTENTICA&Ccedil;&Atilde;O </span></td>
+			<td style="width:2%"><span style="font-size:14px">:</span></td>
+			<td style="width:45%"><span style="font-size:18px"><strong>${CodigoVerificacao}</strong></span></td>
+		</tr>
+	</tbody>
+</table>
+
+<p style="margin-left:10px; text-align:justify">&nbsp;</p>
+
+<p style="margin-left:10px; text-align:justify">&nbsp;</p>
+
+<p style="margin-left:10px; text-align:justify"><span style="font-size:14px">Certid&atilde;o expedida em ${data}, &agrave;s ${hora}</span><br />
+<span style="font-size:12px">Tribunal de Justi&ccedil;a do Estado de Goi&aacute;s - Corregedoria Geral da Justi&ccedil;a</span><br />
+<span style="font-size:12px">Avenida Assis Chateaubriand n. 195 Setor Oeste CEP 74130-012 </span><br />

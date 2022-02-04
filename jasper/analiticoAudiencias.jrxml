@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="analiticoAudiencias" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="52b1c7e3-3874-48b2-bc2c-6385aa29e6e0">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<subDataset name="dataset1" uuid="82984d78-5f89-4f6d-a03a-3025a1e702ec"/>
+	<parameter name="dataAtual" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="caminhoLogo" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="titulo" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="dataInicial" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="dataFinal" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="usuarioResponsavelRelatorio" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="COMARCA" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[(
+			select com.comarca, upper(SERV) as SERV,
+			CASE WHEN pt.PROC_TIPO = 'Reclama��o Pr�-processual' THEN 'Pr�-processual' ELSE 'Processual' END AS procTipo, P.PROC_NUMERO || '.' || P.DIGITO_VERIFICADOR AS numeroProcesso, to_char(A.DATA_AGENDADA, 'dd/mm/yyyy') AS dataAudiencia,
+		 'DESIGNADA' as STATUS, aps.AUDI_PROC_STATUS as statusDetalhado, AP.VALOR_ACORDO as valorAcordo
+			FROM AUDI a
+		 	join audi_proc ap on a.ID_AUDI = ap.ID_AUDI
+		 	join AUDI_PROC_STATUS aps on ap.ID_AUDI_PROC_STATUS = aps.ID_AUDI_PROC_STATUS
+		 	join serv s on a.id_serv = s.id_serv
+		 	join proc p on ap.id_proc = p.id_proc
+		 	join proc_tipo pt on p.ID_PROC_TIPO = pt.ID_PROC_TIPO
+		 	join comarca com on com.ID_COMARCA = s.ID_COMARCA
+		 	and data_agendada >= to_date('01/01/2018 00:00:00','dd/mm/yyyy hh24:mi:ss')
+		--ps.adicionarDateTimePrimeiraHoraDia(dataInicial);
+		 	and data_agendada <= to_date('20/09/2019 00:00:00','dd/mm/yyyy hh24:mi:ss')
+		--ps.adicionarDateTimeUltimaHoraDia(dataFinal);
+		 	and aps.AUDI_PROC_STATUS_CODIGO in( 10,11,14,15,16,17,18,19,44,45,46)
+		--ps.adicionarLong(AudienciaProcessoStatusDt.NAO_REALIZADA);
+		--ps.adicionarLong(AudienciaProcessoStatusDt.NEGATIVADA);
+		--ps.adicionarLong(AudienciaProcessoStatusDt.REMARCADA);
+		--ps.adicionarLong(AudienciaProcessoStatusDt.REALIZADA_SEM_SENTENCA);
+		--ps.adicionarLong(AudienciaProcessoStatusDt.REALIZADA_SENTENCA_COM_MERITO);
+		--ps.adicionarLong(AudienciaProcessoStatusDt.REALIZADA_SENTENCA_HOMOLOGACAO);
+		--ps.adicionarLong(AudienciaProcessoStatusDt.REALIZADA_SENTENCA_SEM_MERITO);
+		--ps.adicionarLong(AudienciaProcessoStatusDt.REALIZADA);
+		--ps.adicionarLong(AudienciaProcessoStatusDt.REALIZADA_SEM_ACORDO);
+		--ps.adicionarLong(AudienciaProcessoStatusDt.REALIZADA_COM_ACORDO);
+		 ) UNION ALL
+
+		-- REALIZADAS
+		 (
+			select com.comarca, upper(SERV) as SERV,
+			CASE WHEN pt.PROC_TIPO = 'Reclama��o Pr�-processual' THEN 'Pr�-processual' ELSE 'Processual' END AS procTipo, P.PROC_NUMERO || '.' || P.DIGITO_VERIFICADOR AS numeroProcesso, to_char(A.DATA_AGENDADA, 'dd/mm/yyyy') AS dataAudiencia,
+		 'REALIZADA' as STATUS, aps.AUDI_PROC_STATUS as statusDetalhado, AP.VALOR_ACORDO as valorAcordo
+			FROM AUDI a
+		 	join audi_proc ap on a.ID_AUDI = ap.ID_AUDI
+		 	join AUDI_PROC_STATUS aps on ap.ID_AUDI_PROC_STATUS = aps.ID_AUDI_PROC_STATUS
+			join serv s on a.id_serv = s.id_serv
+		 	join proc p on ap.id_proc = p.id_proc
+		 	join proc_tipo pt on p.ID_PROC_TIPO = pt.ID_PROC_TIPO
+			join comarca com on com.ID_COMARCA = s.ID_COMARCA
+		 	and data_agendada >= to_date('01/01/2018 00:00:00','dd/mm/yyyy hh24:mi:ss')
+		--ps.adicionarDateTimePrimeiraHoraDia(dataInicial);
+		 	and data_agendada <= to_date('20/09/2019 00:00:00','dd/mm/yyyy hh24:mi:ss')
+		--ps.adicionarDateTimeUltimaHoraDia(dataFinal);
+		 	and aps.AUDI_PROC_STATUS_CODIGO in( 15,16,17,18,19,44,45,46)
+		--ps.adicionarLong(AudienciaProcessoStatusDt.REALIZADA_SEM_SENTENCA);
+		--ps.adicionarLong(AudienciaProcessoStatusDt.REALIZADA_SENTENCA_COM_MERITO);
+		--ps.adicionarLong(AudienciaProcessoStatusDt.REALIZADA_SENTENCA_HOMOLOGACAO);
+		--ps.adicionarLong(AudienciaProcessoStatusDt.REALIZADA_SENTENCA_SEM_MERITO);
+		--ps.adicionarLong(AudienciaProcessoStatusDt.REALIZADA);
+		--ps.adicionarLong(AudienciaProcessoStatusDt.REALIZADA_SEM_ACORDO);
+		--ps.adicionarLong(AudienciaProcessoStatusDt.REALIZADA_COM_ACORDO);
+		 ) UNION ALL
+
+		-- ACORDOS
+		 (
+			select com.comarca, upper(SERV) as SERV,
+			CASE WHEN pt.PROC_TIPO = 'Reclama��o Pr�-processual' THEN 'Pr�-processual' ELSE 'Processual' END AS procTipo, P.PROC_NUMERO || '.' || P.DIGITO_VERIFICADOR AS numeroProcesso, to_char(A.DATA_AGENDADA, 'dd/mm/yyyy') AS dataAudiencia,
+		 	'ACORDO' as STATUS, aps.AUDI_PROC_STATUS as statusDetalhado, AP.VALOR_ACORDO as valorAcordo
+			FROM AUDI a
+		 	join audi_proc ap on a.ID_AUDI = ap.ID_AUDI
+			join AUDI_PROC_STATUS aps on ap.ID_AUDI_PROC_STATUS = aps.ID_AUDI_PROC_STATUS
+			join serv s on a.id_serv = s.id_serv
+		 	join proc p on ap.id_proc = p.id_proc
+		 	join proc_tipo pt on p.ID_PROC_TIPO = pt.ID_PROC_TIPO
+			join comarca com on com.ID_COMARCA = s.ID_COMARCA
+		 	and data_agendada >= to_date('01/01/2018 00:00:00','dd/mm/yyyy hh24:mi:ss')
+		--ps.adicionarDateTimePrimeiraHoraDia(dataInicial);
+		 	and data_agendada <= to_date('20/09/2019 00:00:00','dd/mm/yyyy hh24:mi:ss')
+		--ps.adicionarDateTimeUltimaHoraDia(dataFinal);
+			and aps.AUDI_PROC_STATUS_CODIGO in( 45)
+		--ps.adicionarLong(AudienciaProcessoStatusDt.REALIZADA_COM_ACORDO);
+			--group by com.comarca, PROC_TIPO, serv
+		 )
+
+   order by comarca, serv, procTipo, status, dataAudiencia]]>
+	</queryString>
+	<field name="Comarca" class="java.lang.String"/>
+	<field name="Serv" class="java.lang.String"/>
+	<field name="ProcTipo" class="java.lang.String"/>
+	<field name="NumeroProcesso" class="java.lang.String"/>
+	<field name="DataAudiencia" class="java.lang.String"/>
+	<field name="Status" class="java.lang.String"/>
+	<field name="ValorAcordo" class="java.math.BigDecimal"/>
+	<field name="StatusDetalhado" class="java.lang.String"/>
+	<variable name="COMARCA" class="java.lang.String">
+		<variableExpression><![CDATA[$F{Comarca}]]></variableExpression>
+	</variable>
+	<variable name="SERV" class="java.lang.String"/>
+	<variable name="PROC_TIPO" class="java.lang.String"/>
+	<variable name="NUMERO_PROCESSO" class="java.lang.String"/>
+	<variable name="TOTAL_VALOR_ACORDOS" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ValorAcordo}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="proc_count" class="java.lang.Number" incrementType="Group" incrementGroup="Serventia" calculation="Count">
+		<variableExpression><![CDATA[new java.lang.Integer(1)]]></variableExpression>
+	</variable>
+	<group name="Comarca">
+		<groupExpression><![CDATA[$F{Comarca}]]></groupExpression>
+		<groupHeader>
+			<band height="29">
+				<textField>
+					<reportElement x="72" y="9" width="294" height="20" uuid="6c64751d-f44d-4bda-8c16-e9778eb29d0e"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Comarca}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="6" y="9" width="66" height="20" uuid="deed07c6-d2ca-4225-aa52-ae06fe9634d4"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[COMARCA:]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="55"/>
+		</groupFooter>
+	</group>
+	<group name="Serventia">
+		<groupExpression><![CDATA[$F{Serv}]]></groupExpression>
+		<groupHeader>
+			<band height="70">
+				<textField>
+					<reportElement x="6" y="12" width="406" height="22" uuid="17a3fcaf-4a51-4251-b80e-27023f819bd7"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Serv}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="6" y="45" width="77" height="20" uuid="6908f18c-928b-4b58-8295-ac3b1b9eb4dc"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Processo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="175" y="45" width="67" height="20" uuid="6b629182-7c18-452e-9db7-cbb4543330eb"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Data]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="242" y="45" width="77" height="20" uuid="1f071fcc-50af-4886-937e-b6ec8f4786a9"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Situação]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="474" y="45" width="78" height="20" uuid="4c57ea3c-4508-4c65-8efc-24d3d090225b"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Valor Acordo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="83" y="45" width="92" height="20" uuid="7f6e4274-94e6-498d-b2d6-4c781bcfd7da"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tipo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="319" y="45" width="155" height="20" uuid="64a9e2fe-fa6d-4a9f-984c-5dc690e141a1"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Situação Detalhada]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="43">
+				<textField evaluationTime="Group" evaluationGroup="Serventia" pattern="###0" isBlankWhenNull="true">
+					<reportElement x="139" y="19" width="59" height="20" uuid="e0e1c82f-9985-4b20-828c-324e5415e8cd"/>
+					<textFieldExpression><![CDATA[$V{Serventia_COUNT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="17" y="19" width="122" height="20" uuid="5fe7e5d3-8555-4a7b-8cad-783827954b4a"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total de processos:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="295" y="19" width="100" height="20" uuid="c10d53b4-6b63-4620-8680-a6d13104dd50"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField pattern="� #,##0.00" isBlankWhenNull="true">
+					<reportElement x="395" y="19" width="74" height="20" uuid="9c298431-4bf0-40e4-ba68-bc54498303f9"/>
+				</textField>
+				<break>
+					<reportElement x="0" y="40" width="552" height="1" uuid="dfb962b5-4a62-42f3-9340-55496946dfc8"/>
+				</break>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="73" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-8" x="1" y="0" width="554" height="19" uuid="d795316a-847b-436d-8429-68f9162e07f1"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Tribunal de Justiça do Estado de Goiás]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-9" x="1" y="19" width="554" height="19" uuid="c0dc7135-1a93-4e46-987d-5661b9ec18da"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Processo Judicial Digital - PROJUDI - TJGO]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement key="textField-7" x="283" y="57" width="272" height="16" uuid="5e057890-1390-45f8-89ff-6c667bfcc44c"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Data de emissão: " + $P{dataAtual}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement key="image-1" x="0" y="0" width="38" height="38" uuid="dc2f9bb6-2740-400b-9ce8-1cadb549bc16"/>
+				<imageExpression><![CDATA[$P{caminhoLogo}]]></imageExpression>
+			</image>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-8" x="0" y="38" width="555" height="19" uuid="2cf14e3e-6570-4ae3-be67-0c94272987fa"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-9" x="0" y="57" width="283" height="16" uuid="6f251948-1888-41f0-82bf-9ee920514f68"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Período: "+$P{dataInicial} + " a " + $P{dataFinal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="4" splitType="Stretch">
+			<line>
+				<reportElement key="line" x="1" y="3" width="554" height="1" uuid="97b4ae8a-32c5-497e-9dff-de1df5a15814"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<line>
+				<reportElement key="line" x="17" y="0" width="531" height="1" uuid="ca84d42c-35b0-4805-8e1b-375f766c90f2"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dashed" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="6" y="0" width="77" height="20" uuid="84a82f2c-921c-4adc-8982-f722384e8c4e"/>
+				<textFieldExpression><![CDATA[$F{NumeroProcesso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="242" y="1" width="77" height="19" uuid="acfc5cdc-9087-4781-aa0d-d9899ad97d78"/>
+				<textFieldExpression><![CDATA[$F{Status}]]></textFieldExpression>
+			</textField>
+			<textField pattern="� #,##0.00" isBlankWhenNull="true">
+				<reportElement x="474" y="1" width="79" height="19" uuid="f7abbbd3-9afc-474c-a868-9b655a4a0702"/>
+				<textFieldExpression><![CDATA[$F{ValorAcordo} != null ? $F{ValorAcordo} : "-"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="83" y="0" width="92" height="20" uuid="bff29022-ba1e-42f8-8db5-3f0f6c2aa046"/>
+				<textFieldExpression><![CDATA[$F{ProcTipo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="175" y="0" width="67" height="20" uuid="90606fae-d25f-4869-9929-8efa727079cf"/>
+				<textFieldExpression><![CDATA[$F{DataAudiencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="319" y="1" width="155" height="19" uuid="7d964959-26f7-41ba-a3a7-1e07d78a8985"/>
+				<textFieldExpression><![CDATA[$F{StatusDetalhado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="428" y="3" width="80" height="15" uuid="b08e1a67-ed68-47fa-a1e0-92ed5035bbe6"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement key="textField" x="508" y="3" width="40" height="15" uuid="f59289ae-e341-4101-84c9-59c387dd8ec0"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-2" x="1" y="2" width="554" height="1" uuid="3f91cdcd-50ed-45e0-9ccf-58d88301d218"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-10" x="0" y="3" width="175" height="15" forecolor="#666666" uuid="24923c38-d85c-4678-a4a5-425c91908c58"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[https://projudi.tjgo.jus.br/]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-10" x="175" y="3" width="252" height="15" uuid="51d023b5-57f4-4d67-bfb5-f157c8935acb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{usuarioResponsavelRelatorio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="61" splitType="Stretch">
+			<line>
+				<reportElement key="line" x="231" y="2" width="321" height="1" uuid="e606900b-7365-460e-a865-34cb817d02ae"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

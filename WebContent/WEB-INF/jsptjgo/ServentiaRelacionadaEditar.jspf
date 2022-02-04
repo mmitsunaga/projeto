@@ -1,0 +1,58 @@
+<%@page import="br.gov.go.tj.projudi.dt.ServentiaDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.ServentiaRelacionadaDt"%>
+<%@page import="java.util.*"%>
+<div>
+   <input type="hidden" id="Id_ServentiaRelacionada" name="Id_ServentiaRelacionada" value="<%=request.getAttribute("Id_ServentiaRelacionada")%>">
+   <input id="ListaServentiasRelacionadas" name="ListaServentiasRelacionadas" type="hidden" value="<%=request.getAttribute("ListaServentiasRelacionadas")%>">
+   <div id="divTabela" class="divTabela" > 
+       <table id="Tabela" class="Tabela">
+           <thead>
+               <tr class="TituloColuna">
+                  <th width="3%" ></th>
+                  <th width="7%">Codigo</th>
+                  <th>Serventia Relacionada</th>
+                  <th width="3%"> UF</th>
+                  <%if (Serventiadt.isSegundoGrau() || Serventiadt.isUPJs()){%>
+                  <th class="Centralizado" width="10%"> Recebe Processo</th>                  
+				  <th class="Centralizado" width="10%"> %</th>  
+                  <th class="Centralizado" width="30%"> Serventia Substituída</th>
+                  <th width="7%"> Presidência</th>
+                  <%}%>
+                  <th width="5%">Excluir</th>
+                  <th width="5%">Editar</th>                
+               </tr>
+           </thead>
+           <tbody id="tabListaUsuario">
+<%
+  List<ServentiaRelacionadaDt> liTemp = Serventiadt.getListaServentiasRelacoes();
+  ServentiaRelacionadaDt objTemp;
+  String stTempNome="";
+  for(int i = 0 ; i< liTemp.size();i++) {
+      objTemp = (ServentiaRelacionadaDt)liTemp.get(i); %>
+<%if (stTempNome.equalsIgnoreCase("")) { stTempNome="a";%> 
+                   <tr class="TabelaLinha1"> 
+<%}else{ stTempNome=""; %>    
+                   <tr class="TabelaLinha2">
+<%}%>
+                   <td > <%=i+1%></td>
+                   <td><%= objTemp.getServentiaRelacaoCodigo()%></td>
+                   <td><%= objTemp.getServentiaRelacao()%></td>     
+                   <td><%= objTemp.getEstadoRepresentacao()%></td>
+                   <%if (Serventiadt.isSegundoGrau() || Serventiadt.isUPJs()){%>                           
+                   <td class="Centralizado"><%=(objTemp.isRecebeProcesso()?"Sim":"Não")%></td>             
+				   <td class="Centralizado"><%=objTemp.getProbabilidadeFormatada()%></td>             
+                   <td class="Centralizado"><%=((objTemp.getServentiaSubstituicao() != null && objTemp.getServentiaSubstituicao().trim().length() > 0) ? objTemp.getServentiaSubstituicao() + " (" + objTemp.getDataInicialSubstituicao() + " a " + objTemp.getDataFinalSubstituicao() + ")" : "")%></td>
+                   <%if (objTemp.isGabineteDesembargadorServentiaRelacionada() && !objTemp.isSubstitutoSegundoGrau()){%>
+                   <td align="center"><input type="radio" value='1' <%=(objTemp.isPresidencia() ? "checked=\"checked\"" : "")%> onclick="AlterarValue('rdPresidente','<%=objTemp.getId()%>');AlterarValue('PaginaAtual','<%=Configuracao.Salvar%>'); AlterarValue('Id_ServentiaRelacionada','<%=objTemp.getId()%>'); AlterarValue('tempFluxo1','<%=ServentiaDt.FLUXO_SERVENTIA_RELACIONADA%>'); submit();"></td>
+                   <%} else { %>
+                   <td ></td>
+                   <%}%>
+                   <%}%>
+                   <td class="Centralizado" ><input name="formLocalizarimgEditar" type="image"  title="Exclui Serventia Relacionada" src="./imagens/imgExcluirPequena.png" onclick="AlterarValue('PaginaAtual','<%=Configuracao.Excluir%>'); AlterarValue('Id_ServentiaRelacionada','<%=objTemp.getId()%>'); AlterarValue('tempFluxo1','<%=ServentiaDt.FLUXO_SERVENTIA_RELACIONADA%>')"> </td>
+                   <td class="Centralizado"><input name="formLocalizarimgEditar" type="image"  title="Editar Serventia Relacionada" src="./imagens/imgEditarPequena.png" onclick="AlterarValue('PaginaAtual','<%=Configuracao.Editar%>');AlterarValue('Id_ServentiaRelacionada','<%=objTemp.getId()%>'); AlterarValue('tempFluxo1','<%=ServentiaDt.FLUXO_SERVENTIA_RELACIONADA%>')"></td>             
+               </tr>
+<%}%>
+           </tbody>
+       </table>
+   </div> 
+</div>

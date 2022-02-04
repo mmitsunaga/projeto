@@ -1,0 +1,48 @@
+<div id="divLocalizar" class="divLocalizar"> 
+	<fieldset id="formLocalizar" class="formLocalizar"> 
+    	<legend id="formLocalizarLegenda" class="formLocalizarLegenda">Consulta Tipos de Processo </legend>
+       	<label id="formLocalizarLabel" class="formLocalizarLabel">Digite a descrição</label> <br>
+       	<input id="Id_ServentiaSubtipo" class="formLocalizarInput" name="Id_ServentiaSubtipo" type="hidden" value="<%= request.getAttribute("Id_ServentiaSubtipo")%>">
+       	<input id="nomeBusca" class="formLocalizarInput" name="nomeBusca" type="text" value="" maxlength="60"><br>
+       	<p>
+       	<input id="formLocalizarBotao" class="formLocalizarBotao" type="submit" name="Localizar" value="Consultar" onclick="buscaDados(0,<%=Configuracao.TamanhoRetornoConsulta %>); return false;" >
+  		</p>
+  	</fieldset/><br />
+   	<input type="hidden" id="<%=request.getAttribute("tempBuscaId_ProcessoTipo").toString()%>" name="<%=request.getAttribute("tempBuscaId_ProcessoTipo").toString()%>">
+   	<input type="hidden" id="<%=request.getAttribute("tempBuscaProcessoTipo").toString()%>" name="<%=request.getAttribute("tempBuscaProcessoTipo").toString()%>">
+
+   	<div id="divTabela" class="divTabela" > 
+    	<table id="Tabela" class="Tabela">
+        	<thead>
+            	<tr>
+                	<th class="colunaMinima"></th>
+                   	<th class="colunaMinima">Selecionar</th>
+                  	<th>ProcessoTipo</th>
+               	</tr>
+           	</thead>
+           	<tbody id="tabListaProcessoTipo">
+			<%
+  				List liTemp = (List)request.getAttribute("ListaProcessoTipo");
+				ProcessoTipoDt objTemp;
+				String stTempNome="";
+				for(int i = 0 ; i< liTemp.size();i++) {
+					objTemp = (ProcessoTipoDt)liTemp.get(i); %>
+					<%if (stTempNome.equalsIgnoreCase("")) { stTempNome="a";%> 
+					<tr class="TabelaLinha1"> 
+					<%}else{ stTempNome=""; %>    
+                   	<tr class="TabelaLinha2">
+					<%}%>
+                   		<td> <%=i+1%></td>
+                   		<td>
+                   			<input name="formLocalizarimgEditar" type="image"  src="./imagens/imgEditar.png" onclick="AlterarValue('PaginaAtual','<%=Configuracao.Editar%>'); AlterarValue('<%=request.getAttribute("tempBuscaId_ProcessoTipo")%>','<%=objTemp.getId()%>'); AlterarValue('<%=request.getAttribute("tempBuscaProcessoTipo")%>','<%=objTemp.getProcessoTipo()%>')" >     
+                   		</td>
+                    	<td><%= objTemp.getProcessoTipo()%></td>
+               		</tr>
+			<%}%>
+           	</tbody>
+       	</table>
+   	</div> 
+</div> 
+<%@ include file="./Padroes/Paginacao.jspf"%> 
+<%@ include file="./js/Paginacao.js"%> 
+

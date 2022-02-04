@@ -1,0 +1,59 @@
+<table border="1" cellpadding="1" cellspacing="1" style="width:500px">
+	<tbody>
+		<tr>
+			<td colspan="3">${audienciaSessao.classe.cnj}</td>
+		</tr>
+		<tr>
+			<td style="width:150px">
+			<p style="line-height:100%">N&uacute;mero Processo</p>
+			</td>
+			<td style="text-align:center">:</td>
+			<td>${audienciaSessao.processo.numero}</td>
+		</tr>
+		<tr>
+			<td style="width:150px">Comarca</td>
+			<td style="text-align:center">:</td>
+			<td>${audienciaSessao.processo.comarca}</td>
+		</tr>
+		<tr>
+			<td style="width:150px">
+			<p style="line-height:100%">Relator</p>
+			</td>
+			<td style="text-align:center">:</td>
+			<td>${audienciaSessao.processo.relator}</td>
+		</tr>
+		<tr>
+			<td style="width:150px">
+			<p style="line-height:100%">Proc. de Justi&ccedil;a</p>
+			</td>
+			<td style="text-align:center">:</td>
+			<td>${audienciaSessao.processo.representanteMP}</td>
+		</tr>
+		<tr>
+			<td style="width:150px">${audienciaSessao.processo.poloativo.formaDeTratamento}</td>
+			<td style="text-align:center">:</td>
+			<td>${audienciaSessao.processo.poloativo.nome}</td>
+		</tr>
+		<tr>
+			<td style="width:150px">
+			<p style="line-height:100%; text-align:right">Adv(s)</p>
+			</td>
+			<td style="text-align:center">:</td>
+			<td>${audienciaSessao.processo.poloativo.advogado}</td>
+		</tr>
+		<tr>
+			<td style="width:150px">${audienciaSessao.processo.polopassivo.formaDeTratamento}</td>
+			<td style="text-align:center">:</td>
+			<td>${audienciaSessao.processo.polopassivo.nome}</td>
+		</tr>
+		<tr>
+			<td style="width:150px">
+			<p style="line-height:100%; text-align:right">Adv(s)</p>
+			</td>
+			<td style="text-align:center">:</td>
+			<td>${audienciaSessao.processo.polopassivo.advogado}</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>&nbsp;</p>

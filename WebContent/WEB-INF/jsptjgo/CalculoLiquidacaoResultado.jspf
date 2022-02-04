@@ -1,0 +1,390 @@
+<%@page import="br.gov.go.tj.projudi.ne.CalculadoraTemposDatasNe"%>
+<%@page import="java.util.*"%>
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoEventoExecucaoDt"%>
+<%@page import="br.gov.go.tj.utils.Configuracao"%>
+<%@page import="br.gov.go.tj.utils.Funcoes"%>
+<%@page import="br.gov.go.tj.projudi.dt.CalculoLiquidacaoDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.CalculoLiquidacaoComutacaoDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.CalculoLiquidacaoPrescricaoDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.CalculoLiquidacaoSursisDt"%>
+
+<%	HashMap map = (HashMap)request.getAttribute("mapMensagem");
+	if (request.getAttribute("PROGRESSAO") != null){
+%>
+
+	<table style="width:100%">
+		<tbody>
+			<tr><td>
+			<%if (map.get("msgProgressao") != null){%>
+			<div id="divProgressao" class="divEditar" >
+				<fieldset class="formEdicao" style="width: 95%; "><legend class="formEdicaoLegenda">Progressão de Regime</legend>
+
+				<%if (map.get("msgProgressao").toString().length() == 0){%>
+					<table id="TabelaProgressao" >
+						<tbody id="tabProgressao">
+							<tr><td align="right"><b>Projeção para o regime:</b></td>
+								<td><%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getNovoRegimeProgressao()%></td></tr>
+							<tr><td align="right"><b>Tempo cumprido até data base:</b></td>
+								<td><%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoCumpridoDataBaseAnos()%> (a-m-d)</td></tr>
+							<tr><td align="right"><b>Restante da pena até data base:</b></td>
+								<td><%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoRestanteDataBaseAnos()%> (a-m-d)</td></tr>
+							<tr><td align="right"><b>Tempo de interrupção após data base:</b></td>
+								<td><%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoInterrupcaoAposDataBaseAnos()%> (a-m-d)</td></tr>
+							<tr><td align="right"><b>Cálculo:</b></td>
+								<td><table><tbody>
+									<%if (CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoCondenacaoComumProgressaoAnos().length() > 0) {%>
+									<tr><td>1/6&nbsp;&nbsp;de&nbsp;&nbsp;<%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoCondenacaoComumProgressaoAnos()%>&nbsp;(a-m-d)</td></tr>
+									<%} if (CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoCondenacaoHediondoProgressaoAnos().length() > 0) {%>
+									<tr><td>2/5&nbsp;&nbsp;de&nbsp;&nbsp;<%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoCondenacaoHediondoProgressaoAnos()%>&nbsp;(a-m-d)</td></tr>
+									<%} if (CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoCondenacaoHediondoReincidenteProgressaoAnos().length() > 0) {%>
+									<tr><td>3/5&nbsp;&nbsp;de&nbsp;&nbsp;<%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoCondenacaoHediondoReincidenteProgressaoAnos()%>&nbsp;(a-m-d)</td></tr>
+									<%}%>
+								</tbody></table></td></tr>
+							<tr><td align="right" style="width: 60%;"><b>Saldo devedor**:</b></td>
+								<td><%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoACumprirProgressaoAnos()%>&nbsp;(a-m-d)</td></tr>				
+							<tr><td align="right"><b>Data base:</b></td>
+								<td><%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getDataBaseProgressao()%></td></tr>
+							<tr><td align="right"><b>Requisito temporal:</b></td>
+								<td><%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getDataRequisitoTemporalProgressao()%></td></tr>
+						</tbody>
+					</table>
+				<%} else {%>
+					<table><tr><td>
+						<%=map.get("msgProgressao").toString()%>
+					</td></tr></table> 
+				<%}%>
+				</fieldset>
+			</div>
+			<%}%> 
+			</td><td>
+			<%if (map.get("msgLivramento") != null){%>
+			<div id="divLivramento" class="divEditar" >
+			<fieldset class="formEdicao" style="width: 95%; "><legend class="formEdicaoLegenda">Livramento Condicional</legend>
+			<%if (map.get("msgLivramento").toString().length() == 0){%>
+					<table id="TabelaProgressao">
+						<tbody id="tabProgressao">
+						
+						<% if (CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoCumpridoDataBaseLivramentoDias().length() > 0){ %>
+							<tr><td align="right"><b>Tempo cumprido até data base:</b></td>
+								<td><%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoCumpridoDataBaseLivramentoAnos()%> (a-m-d)</td></tr>
+							<tr><td align="right"><b>Restante da pena até data base:</b></td>
+								<td><%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoRestanteDataBaseLivramentoAnos()%> (a-m-d)</td></tr>
+							<tr><td align="right"><b>Tempo de interrupção após data base:</b></td>
+								<td><%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoInterrupcaoAposDataBaseLivramentoAnos()%> (a-m-d)</td></tr>
+						<% } else { %>
+							<tr><td align="right"><b>Tempo total da condenação unificada:</b></td>
+								<td><%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoTotalCondenacaoAnos()%> (a-m-d)</td></tr>
+							<tr><td align="right"><b>Tempo de interrupção total:</b></td>
+								<td><%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoInterrupcaoTotalAnos()%> (a-m-d)</td></tr>
+							<tr><td align="right"><b>Tempo de remição total:</b></td>
+								<td><%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoTotalRemicaoAnos()%> (a-m-d)</td></tr>
+						<% } %>
+							<tr><td align="right"><b>Cálculo:</b></td>
+								<td><table><tbody>
+									<%if (CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoComumLivramentoAnos().length() > 0) {%>
+									<tr><td>1/3&nbsp;&nbsp;de&nbsp;&nbsp;<%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoComumLivramentoAnos()%>&nbsp;(a-m-d)</td></tr>
+									<%} if (CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoComumReincidenteLivramentoAnos().length() > 0) {%>
+									<tr><td>1/2&nbsp;&nbsp;de&nbsp;&nbsp;<%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoComumReincidenteLivramentoAnos()%>&nbsp;(a-m-d)</td></tr>
+									<%} if (CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoHediondoLivramentoAnos().length() > 0) {%>
+									<tr><td>2/3&nbsp;&nbsp;de&nbsp;&nbsp;<%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoHediondoLivramentoAnos()%>&nbsp;(a-m-d)</td></tr>
+									<%} if (CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoHediondoReincidenteLivramentoAnos().length() > 0) {%>
+									<tr><td>1/1&nbsp;&nbsp;de&nbsp;&nbsp;<%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoHediondoReincidenteLivramentoAnos()%>&nbsp;(a-m-d)</td></tr>
+									<%}%>
+								</tbody></table></td></tr>
+							<tr><td align="right" style="width: 60%;"><b>Saldo devedor**:</b></td>
+								<td><%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getTempoACumprirLivramentoAnos()%>&nbsp;(a-m-d)</td></tr>				
+							<tr><td align="right"><b>Data base:</b></td>
+								<td><%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getDataBaseLivramento()%></td></tr>
+							<tr><td align="right"><b>Requisito temporal:</b></td>
+								<td><%=CalculoLiquidacaodt.getCalculoProgressaoLivramentoDt().getDataRequisitoTemporalLivramento()%></td></tr>
+						</tbody>
+					</table>
+			<%} else {%>
+			<table><tr><td>
+				<%=map.get("msgLivramento").toString()%>
+			</td></tr></table> 
+			<%}%>
+				</fieldset>
+			</div>
+			<%}%>
+		</td></tr>
+		<tr><td colspan="2">
+			**Saldo devedor é o tempo que o sentenciado tem que cumprir, após a Data Base, para alcançar o Requisito Temporal.	
+		</td></tr>
+		</tbody></table>
+					
+
+<%	} if (request.getAttribute("COMUTACAO") != null){%>
+
+	<div id="divComutacao" class="divEditar" >
+		<fieldset class="formEdicao"><legend class="formEdicaoLegenda">Comutação Prévia - Pena Individual</legend>
+
+		<%	if (map.get("msgComutacao").toString().length() == 0 && CalculoLiquidacaodt.getListaComutacao() != null && CalculoLiquidacaodt.getListaComutacao().size() > 0){%>		
+			<table id="TabelaComutacao" class="Tabela"> 
+				<thead>
+					<tr><th>Data do Decreto</th>
+						<th>Reprimenda Total (a-m-d)</th>
+						<th>Fração Exigida</th>
+						<th>Saldo Devedor (a-m-d)</th>
+						<th>DICC</th>
+						<th>Data Base</th>
+						<th>Requisito Temporal</th>
+						<th>Comutação</th>
+					</tr>
+				<thead>
+				<tbody>
+<%			
+			for (int w=0; w<CalculoLiquidacaodt.getListaComutacao().size(); w++){ 
+				CalculoLiquidacaoComutacaoDt comutacao = (CalculoLiquidacaoComutacaoDt)CalculoLiquidacaodt.getListaComutacao().get(w);%>
+				<tr>	
+					<td align="center"> <%=comutacao.getDataDecreto()%></td>
+				<%if (comutacao.getDescricao().length() > 0) {%>
+					<td colspan="5"> <%=comutacao.getDescricao() %></td>
+				<%} else { %>
+					<td align="center"> <%=comutacao.getTempoTotalCondenacaoAnos() %></td>
+					<td align="center"> <%=comutacao.getFracaoTempoCumprido() %></td>
+					<td align="center"> <%=comutacao.getTempoACumprirAnos() %></td>
+					<td align="center"> <%=comutacao.getDataInicioCumprimentoCondenacao() %></td>
+					<td align="center"> <%=comutacao.getDataBaseComutacao() %></td>
+					<td align="center"> <%=comutacao.getDataRequisitoTemporalComutacao() %></td>
+					<td align="center"> <%=comutacao.getHouveComutacao() %></td>
+				<% } %>			
+				</tr>
+			<%}%>
+				</tbody>
+			</table>
+
+		<%} else {%>
+			<table><tr><td>
+				<%=map.get("msgComutacao").toString()%> 
+			</td></tr></table> 
+		<%}%>
+		<% 
+			CalculoLiquidacaoComutacaoDt comutacao = (CalculoLiquidacaoComutacaoDt)CalculoLiquidacaodt.getListaComutacaoUnificada().get(0);
+			if (comutacao.getDescricaoFracaoHediondo().length() > 0){
+		%>
+			<tr><td colspan="3" align="right">Requisito Temporal do Hediondo (<%=comutacao.getDuracaoRequisitoTemporalDoHediondo() %> (a-m-d)):</td><td colspan="4"><%= comutacao.getRequisitoTemporalDoHediondo()%> </td></tr> 
+		<%	
+			}
+		%>
+		</fieldset>
+	</div>
+
+
+<%	} if (request.getAttribute("COMUTACAO_UNIFICADA") != null){%>
+
+	<div id="divComutacao" class="divEditar" >
+		<fieldset class="formEdicao"><legend class="formEdicaoLegenda">Comutação Prévia - Pena Unificada</legend>
+
+		<%	if (map.get("msgComutacaoUnificada").toString().length() == 0 && CalculoLiquidacaodt.getListaComutacaoUnificada() != null && CalculoLiquidacaodt.getListaComutacaoUnificada().size() > 0){%>
+			<table id="TabelaComutacao" > 
+				<tbody>
+<%			
+			for (int w=0; w<CalculoLiquidacaodt.getListaComutacaoUnificada().size(); w++){ 
+				CalculoLiquidacaoComutacaoDt comutacao = (CalculoLiquidacaoComutacaoDt)CalculoLiquidacaodt.getListaComutacaoUnificada().get(w);%>
+				<tr><td align="right"><b>Data do decreto:</b></td><td><%=comutacao.getDataDecreto()%></td></tr>
+				<%if (comutacao.getDescricao().length() > 0) {%>
+				<tr><td colspan="2"> <%=comutacao.getDescricao() %></td></tr>
+				<%} else { %>
+				<tr><td align="right"><b>Tempo de interrupção total até data do decreto:</b></td><td><%=comutacao.getTempoInterrupcaoAteDecretoAnos()%> (a-m-d)</td></tr>
+				<tr><td align="right"><b>Reprimenda total até data do decreto:</b> </td><td><%=comutacao.getTempoTotalCondenacaoAnos()%> (a-m-d)</td></tr>
+				<tr><td align="right"><b>Fração exigida: </b></td><td><%=comutacao.getFracaoTempoCumprido()%></td></tr>
+				<tr><td align="right"><b>Saldo devedor total até data do decreto: </b></td><td><%=comutacao.getTempoACumprirAnos()%> (a-m-d)</td></tr>
+				<tr><td align="right"><b>Data base:</b></td><td><%=comutacao.getDataBaseComutacao()%></td></tr>
+				<tr><td align="right"><b>Requisito temporal:</b></td><td><%=comutacao.getDataRequisitoTemporalComutacao()%></td></tr>
+				<tr><td align="right"><b>Comutação:</b></td><td><b><%=comutacao.getHouveComutacao()%></b></td></tr>
+				<tr><td></td><td>&nbsp;</td></tr>
+				<tr><td align="right"><b>Detalhamento do cálculo</b></td><td></td></tr>
+				<tr><td align="right">Fração exigida do crime comum:</td><td><%=comutacao.getDescricaoFracaoComum()%> (a-m-d)</td></tr>
+				<% if (comutacao.getDescricaoFracaoHediondo().length() > 0){%>
+				<tr><td align="right">Fração exigida do crime hediondo:</td><td><%=comutacao.getDescricaoFracaoHediondo()%> (a-m-d)</td></tr>
+				<% } %>
+				<tr><td></td><td></td></tr>
+				<tr><td align="right">Tempo cumprido total até data do decreto:</td><td><%=comutacao.getTempoCumpridoTotalAteDecretoAnos()%> (a-m-d)</td></tr>
+				<tr><td align="right">Restante da pena total até data do decreto:</td><td><%=comutacao.getRestantePenaTotalAteDecretoAnos()%> (a-m-d)</td></tr>
+				<% if (comutacao.getDescricaoFracaoHediondo().length() > 0){%>
+				 <tr><td align="right">Requisito Temporal do Hediondo (<%=comutacao.getDuracaoRequisitoTemporalDoHediondo() %> (a-m-d)):</td><td><%= comutacao.getRequisitoTemporalDoHediondo()%> </td></tr> 
+				<% } %>
+				<% } %>			
+				</tr>
+			<%}%>
+				</tbody>
+			</table>
+
+		<%} else {%>
+			<table><tr><td>
+				<%=map.get("msgComutacaoUnificada").toString()%> 
+			</td></tr></table> 
+		<%}%>
+		</fieldset>
+	</div>
+
+
+<%} if (request.getAttribute("INDULTO") != null){%>
+
+	<div id="divIndulto" class="divEditar" >
+		<fieldset class="formEdicao"><legend class="formEdicaoLegenda">Indulto</legend>
+			<table>
+			<%if (map.get("msgIndulto").toString().length() == 0){%>
+				<tr><td><%=CalculoLiquidacaodt.getCalculoIndultoDt().getDescRelIndulto()%></td>
+				</tr>
+				<%} else {%>
+				<tr><td><%=map.get("msgIndulto").toString()%></td></tr>
+				<%}%>	
+			</table>
+		</fieldset>
+	</div>
+
+
+<%} if (request.getAttribute("PRESCRICAO_PUNITIVA") != null){%>
+	<div id="divPrescricao" class="divEditar" >
+		<fieldset class="formEdicao"><legend class="formEdicaoLegenda">Prescrição Retroativa/Intercorrente da Pena Individual</legend>
+		<% if (map.get("msgPrescricaoPunitiva") != null && map.get("msgPrescricaoPunitiva").toString().length() > 0){ %>
+			<table>
+				<tr><td><%=map.get("msgPrescricao").toString()%></td></tr>
+			</table>
+		<% } else{
+			if (CalculoLiquidacaodt.getListaPrescricaoPunitiva().size() == 0){%>
+			<table>
+				<tr><td>Não há prescrição de pena punitiva.</td></tr>
+			</table>
+			<%} else {%>
+			<table id="TabelaPrescricaoPunitiva" class="Tabela"> 
+				<thead>
+					<tr><th colspan="5">Prescrição Punitiva (Retroativa e/ou Intercorrente)</th>
+					<tr><th width="20%">Condenação (a-m-d)</th>
+						<th width="45%">Lapso Temporal</th>
+						<th width="15%">Tempo para Prescrição (a-m-d)</th>
+						<th width="15%">Data da Prescrição</th>
+						<th width="5%">Pena Prescrita</th>
+					</tr>
+				<thead>
+				<tbody>
+				<%
+				for (int j=0; j<CalculoLiquidacaodt.getListaPrescricaoPunitiva().size(); j++){ 
+							CalculoLiquidacaoPrescricaoDt prescricao = (CalculoLiquidacaoPrescricaoDt) CalculoLiquidacaodt.getListaPrescricaoPunitiva().get(j);
+				%>
+					<tr><td align="center"><%=prescricao.getTempoCondenacaoAnos()%></td>
+						<td align="right" style="margin-right: 5%"><%=prescricao.getDescricaoLapso()%></td>
+						<td align="center"><%=prescricao.getTempoPrescricaoAnos()%></td>
+						<td align="center"><%=prescricao.getDataPrescricao()%></td>
+						<td align="center"><%=prescricao.getPenaPrescrita()%></td>
+					</tr>
+				<%}%>
+				</tbody>
+			<%}%>
+			
+			<table><tr><td>
+				<%=CalculoLiquidacaodt.getArtigoPrescricaoPunitiva()%> 
+			</td></tr></table> 
+		<% }%>
+			</table>
+		</fieldset>
+	</div>
+
+<%} if (request.getAttribute("PRESCRICAO_EXECUTORIA_IND") != null){%>
+	<div id="divPrescricao" class="divEditar" >
+		<fieldset class="formEdicao"><legend class="formEdicaoLegenda">Prescrição Executória da Pena Individual</legend>
+		<% if (map.get("msgPrescricaoExecutoriaInd") != null && map.get("msgPrescricaoExecutoriaInd").toString().length() > 0){ %>
+			<table>
+				<tr><td><%=map.get("msgPrescricaoExecutoriaInd").toString()%></td></tr>
+			</table>
+		<% } else{%>
+			<table id="TabelaPrescricaoExecutoria" class="Tabela"> 
+				<thead>
+					<tr><th colspan="7">Prescrição Executória</th>
+					<tr><th width="10%">Condenação (a-m-d)</th>
+						<th width="10%">Condenação Atual (a-m-d)</th>
+						<th width="40%">Lapso Temporal</th>
+						<th width="20%">Restante da Pena a Cumprir (a-m-d)</th>
+						<th width="10%">Tempo para Prescrição (a-m-d)</th>
+						<th width="10%">Data da Prescrição</th>
+						<th width="10%">Pena Prescrita</th>
+					</tr>
+				<thead>
+				<tbody>
+				<%
+				for (int j=0; j<CalculoLiquidacaodt.getListaPrescricaoExecutoria().size(); j++){ 
+							CalculoLiquidacaoPrescricaoDt prescricao = (CalculoLiquidacaoPrescricaoDt) CalculoLiquidacaodt.getListaPrescricaoExecutoria().get(j);
+				%>
+					<tr><td align="center"><%=prescricao.getTempoCondenacaoAnos()%></td>
+						<td align="center"><%=prescricao.getTempoCondenacaoRemanescenteAnos()%></td>	
+						<td align="center"><%=prescricao.getDataInicioLapso()%> à <%=prescricao.getDataFimLapso()%> = <%=prescricao.getTempoLapsoAnos()%> (a-m-d)</td>
+						<td align="center"><%=prescricao.getRestantePenaAnos()%></td>
+						<td align="center"><%=prescricao.getTempoPrescricaoAnos()%></td>
+						<td align="center"><%=prescricao.getDataPrescricao()%></td>
+						<td align="center"><%=prescricao.getPenaPrescrita()%></td>
+					</tr>
+				<%} %>
+				</tbody>
+				<table><tr><td>
+				<%=CalculoLiquidacaodt.getArtigoPrescricaoExecutoria()%> 
+				</td></tr></table> 
+			
+			<% if (CalculoLiquidacaodt.getDataValidadeMandadoPrisaoIndividual().length() > 0){%>
+			<table>
+				<tr><td>Validade do Mandado de Prisão: <%=CalculoLiquidacaodt.getDataValidadeMandadoPrisaoIndividual()%></td></tr>
+			</table>
+			<% }%>
+		<% }%>
+			</table>
+		</fieldset>
+	</div>
+
+<%} if (request.getAttribute("PRESCRICAO_EXECUTORIA_UNI") != null){%>
+	<div id="divIndulto" class="divEditar" >
+		<fieldset class="formEdicao"><legend class="formEdicaoLegenda">Prescrição Executória da Pena Unificada</legend>
+			<% if (map.get("msgPrescricaoExecutoriaUnificada") != null && map.get("msgPrescricaoExecutoriaUnificada").toString().length() > 0){ %>
+			<table>
+				<tr><td><%=map.get("msgPrescricaoExecutoriaUnificada").toString()%></td></tr>
+			</table>
+			<% } else{
+				if (CalculoLiquidacaodt.getDataValidadeMandadoPrisaoUnificada().length() > 0){%>
+			<table>
+				<tr><td>Data da última fuga: <%=CalculoLiquidacaodt.getDataUltimaFuga()%></td></tr>
+				<tr><td>Restante da pena a cumprir: <%=CalculoLiquidacaodt.getTempoRestanteDataAtualAnos()%> (a-m-d)</td></tr>
+				<tr><td>Tempo para prescrição: <%=CalculoLiquidacaodt.getTempoPrescricaoUnificadaAnos()%> (a-m-d)</td></tr>
+				<tr><td><b>Data da prescrição: <%=CalculoLiquidacaodt.getDataValidadeMandadoPrisaoUnificada()%> (Validade do Mandado de Prisão)</b></td></tr>
+				<tr><td></tr></td>
+				<tr><td><%=CalculoLiquidacaodt.getArtigoPrescricaoExecutoriaUnificada()%></td></tr>
+			</table>
+				<%}
+				}%>	
+		</fieldset>
+	</div>
+
+<%} if (request.getAttribute("SURSIS") != null){%>
+	<div id="divSursis" class="divEditar" >
+		<fieldset class="formEdicao"><legend class="formEdicaoLegenda">Sursis</legend>
+		<% if (map.get("msgSursis") != null && map.get("msgSursis").toString().length() > 0){ %>
+			<table>
+				<tr><td><%=map.get("msgSursis").toString()%></td></tr>
+			</table>
+		<% } else{ %>
+			<table id="TabelaSursis" class="Tabela"> 
+				<thead>
+					<tr><th colspan="3">SURSIS</th>
+					<tr><th>Tempo Sursis (a-m-d)</th>
+						<th>Data Início</th>
+						<th>Provável Término</th>
+					</tr>
+				<thead>
+				<tbody>
+				<%
+				for (int j=0; j<CalculoLiquidacaodt.getListaSursis().size(); j++){ 
+							CalculoLiquidacaoSursisDt sursis = (CalculoLiquidacaoSursisDt) CalculoLiquidacaodt.getListaSursis().get(j);
+				%>
+					<tr><td align="center"><%=sursis.getTempoSursisAnos()%></td>
+						<td align="center"><%=sursis.getDataInicio()%></td>
+						<td align="center"><%=sursis.getDataProvavelTermino()%></td>
+					</tr>
+				<%}%>
+				</tbody>
+		<% }%>
+			</table>
+		</fieldset>
+	</div>
+<%}%>
+<br />
+
+   			

@@ -1,0 +1,45 @@
+
+   <input type="hidden" id="tempBuscaId_Usuario" name="tempBuscaId_Usuario">
+   <input type="hidden" id="tempBuscaUsuario" name="tempBuscaUsuario">
+   <%
+    String cE = (String) request.getAttribute("cE");
+   	String oE = (String) request.getAttribute("oE");
+   	String cnE = (String) request.getAttribute("cnE");
+	String validadeE = (String) request.getAttribute("validadeE");
+   %>
+   
+  <div id="divEditar" class="divEditar">
+<fieldset class="formEdicao"  > 
+    <legend class="formEdicaoLegenda">Criar certificado Emissor </legend>
+    <fieldset> 
+    	<legend class="formDNLegenda">*DN</legend>
+    	<label class="formEdicaoLabel" for="c">*C</label> <input title="País" class="formEdicaoInput" name="cE" id="cE"  type="text" value="<%=cE%>"  size="50" maxlength="50" onKeyUp=" autoTab(this,60)"/><br />
+		<label class="formEdicaoLabel" for="o">*O</label> <input title="Organização" class="formEdicaoInput " name="oE" type="text"  id="oE" value="<%=oE%>" size="50" maxlength="50" onKeyUp=" autoTab(this,60)"/><br />
+		<label class="formEdicaoLabel" for="cn">*CN</label> <input title="Nome comum" class="formEdicaoInput " name="cnE" type="text" id="cnE" value="<%=cnE%>" size="50" maxlength="50" onKeyUp=" autoTab(this,60)"/><br />
+		<label class="formEdicaoLabel" for="validade">*Validade:</label> <input title="Validade" class="formEdicaoInput "  name="validadeE" type="text" id="vE" value="<%=validadeE%>" size="15" maxlength="2" onKeyUp=" autoTab(this,60)">  anos.<br />
+	</fieldset>
+	<%if (!request.getAttribute("PaginaAnterior").toString().equalsIgnoreCase(String.valueOf(Configuracao.Salvar))) {%>
+		<div id="divConfirmarSalvar" class="ConfirmarSalvar">
+				<button type="submit"  title="Criar Certificado Emissor"  name="operacao" onclick="AlterarValue('PaginaAtual','<%=String.valueOf(Configuracao.Salvar)%>'); AlterarValue('Curinga','<%="E"%>')" >
+					<!-- <img src="imagens/22x22/ico_sucesso.png" alt="Criar Certificado Emissor" /> -->
+						Criar Certificado Emissor
+				</button>
+				<br />
+		</div>
+	<%}%>
+</fieldset/><br />
+
+ <%if (request.getAttribute("PaginaAnterior").toString().equalsIgnoreCase(String.valueOf(Configuracao.Salvar))) {%>
+      <div id="divConfirmarSalvar" class="ConfirmarSalvar">
+				<button type="submit"  title="Criar Certificado Emissor"  name="operacao" onclick="AlterarValue('PaginaAtual','<%=String.valueOf(Configuracao.SalvarResultado)%>'); AlterarValue('Curinga','<%="E"%>')" >
+					!!-- <img src="imagens/22x22/ico_sucesso.png" alt="Criar" /> -->
+						Confirmar
+				</button>
+				<br />
+		</div>
+ <%}%>
+
+</div>
+
+<script type="text/javascript" src="./js/Digitacao/DigitarSoNumero.js" ></script>
+<script type="text/javascript" src="./js/Digitacao/AutoTab.js" ></script>

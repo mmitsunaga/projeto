@@ -1,0 +1,128 @@
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoParteDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.RecursoParteDt"%>
+<%@page import="br.gov.go.tj.utils.Funcoes"%>
+
+    
+	<script type="text/javascript">
+			function carregarApletImprimirEtiquetaRecurso(){
+				$( ".divApletImprimrEtiquetaRecurso" ).html("<object name='ImprimirEtiquetaRecurso'  id='ImprimirEtiquetaRecurso' type='application/x-java-applet' width='0' height='0' align='top'  style='z-index:-100'> <param name='code' value='ImprimirEtiqueta'> <param name='archive' value='./applet/ImprimirEtiqueta.jar'> <param name='mayscript' value='yes'> <param name='scriptable' value='true'> <param name='name' value='ImprimirEtiqueta'> <param name='java_arguments' value='-Djnlp.packEnabled=true'/> </object>"); 	
+			}
+	</script>
+		
+	<div id="divApletImprimrEtiquetaRecurso" class="divApletImprimrEtiquetaRecurso" ></div>
+	
+	<input type="hidden" name="Id_ProcessoTipo" id="Id_ProcessoTipo" value="">
+	<input type="hidden" name="ProcessoTipo" id="ProcessoTipo" value="">
+	
+	<%if( Recursodt != null ) {		
+		List<ProcessoTipoDt> listaDeClasses = Recursodt.getListaDeProcessosTipoClasse();
+		for (ProcessoTipoDt processoTipo : listaDeClasses)
+		{ %>
+			<fieldset id="VisualizaDados" class="VisualizaDados field_recurso">
+				<legend>RECURSO <%=(Funcoes.StringToInt(processoTipo.getId()) == Funcoes.StringToInt(Recursodt.getId_ProcessoTipo()) ? "PRINCIPAL" : "")%> | <%=processoTipo.getProcessoTipo()%> </legend>
+				<%				
+				List listaRecorrentes = null;
+				if( Recursodt.getListaRecorrentes() != null ) {
+					listaRecorrentes = Recursodt.getListaRecorrentesAtivos(processoTipo);
+				}
+			   	if (listaRecorrentes != null && listaRecorrentes.size()>0) { %>
+					<!-- RECORRENTES -->
+					
+					<fieldset id="VisualizaDados" class="VisualizaDados field_recurso" >
+					<%
+					RecursoParteDt recursoParteAux = (RecursoParteDt)listaRecorrentes.get(0);
+					if (recursoParteAux.getProcessoParteDt().getProcessoParteTipoCodigo() != null && 
+						!recursoParteAux.getProcessoParteDt().getProcessoParteTipoCodigo().equals("")) { %>
+						<legend>Polo Ativo | <%= recursoParteAux.getDescricaoPoloAtivo() %> </legend>						
+					<%
+					}
+					else {
+					%>
+						<legend>Polo Ativo | <%=(processoDt != null ? processoDt.getDescricaoPoloAtivo() : "Recorrente")%> </legend>						
+					<%
+					}
+					%>
+					<%   		
+					for (int i=0; i<listaRecorrentes.size();i++) {
+						RecursoParteDt recursoParteDt = (RecursoParteDt)listaRecorrentes.get(i);
+					   	ProcessoParteDt parteDt = recursoParteDt.getProcessoParteDt();
+					%>
+						
+					<fieldset  class="VisualizaDados">  	    				
+	    				<div>Nome</div>		<span class="span1 nomes" title="Nome da Parte" alt="Nome da Parte"> 	<%=parteDt.getNome()%> 	</span> <div> <b><font color="red"><%=parteDt.getAusenciaProcessoParte()%>&#32;<%=parteDt.getReuPreso()%></font></b></div>
+						<%if(!(UsuarioSessao.isConsultor() || UsuarioSessao.isPublico())) { %>
+						    <div style="width:50px">
+								<input name="inputEndereco" type="image" src="./imagens/16x16/btn_endereco.png" onClick="MostrarOcultar('subRecurso<%=parteDt.getNome()%>');return false;" title="Mostrar/Ocultar Endereço" />
+					       	</div>
+					       	<br />
+						    <div>CPF </div>	    <span class="span2"><%=parteDt.getCpfCnpjFormatado()%>   </span>		
+					 		<div id="subRecurso<%=parteDt.getNome()%>"  class="DivInvisivel">
+								<fieldset class="fieldsetEndereco" style="background-color:#f5f5f5">
+							  		<legend> Endereço </legend>
+									<%=parteDt.getEnderecoParte().getLogradouro() + " nº " + parteDt.getEnderecoParte().getNumero() + " " + parteDt.getEnderecoParte().getComplemento()%><br />
+						    		<%=parteDt.getEnderecoParte().getBairro() + " " + parteDt.getEnderecoParte().getCidade() + " " + parteDt.getEnderecoParte().getUf()%><br />
+						    		<%=parteDt.getEnderecoParte().getCep() + " " + parteDt.getEMail() + " " + parteDt.getTelefone() %>
+						    	</fieldset>
+							</div>						
+						<% } %>
+					</fieldset>	
+					<%}%>   		   	
+					</fieldset>
+				<%}%>
+				<%
+				List listaRecorridos = null;
+				if( Recursodt.getListaRecorridos() != null ) {
+					listaRecorridos = Recursodt.getListaRecorridosAtivos(processoTipo);
+				}
+				%>
+				<!-- RECORRIDOS -->
+				<fieldset id="VisualizaDados" class="VisualizaDados field_recurso" >
+		<%if (listaRecorridos != null && listaRecorridos.size()>0){ %>					
+					<%
+					RecursoParteDt recursoParteAux = (RecursoParteDt)listaRecorridos.get(0);
+				  	if (recursoParteAux.getProcessoParteDt().getProcessoParteTipoCodigo() != null &&
+						!recursoParteAux.getProcessoParteDt().getProcessoParteTipoCodigo().equals("")) { %>								
+						<legend>Polo Passivo | <%= recursoParteAux.getDescricaoPoloPassivo() %> </legend>								
+				<% 	}else { %>
+						<legend>Polo Passivo | <%=(processoDt != null ? processoDt.getDescricaoPoloPassivo() : "Recorrido")%> </legend>
+						
+				<%	} %>
+				<%
+					for (int i=0; i<listaRecorridos.size();i++) {
+						RecursoParteDt recursoParteDt = (RecursoParteDt)listaRecorridos.get(i);
+						ProcessoParteDt parteDt = recursoParteDt.getProcessoParteDt();
+				%>				  		
+					<fieldset  class="VisualizaDados">  	    				
+		    				<div>Nome</div>		<span class="span1 nomes" title="Nome da Parte" alt="Nome da Parte"> 	<%=parteDt.getNome()%>  			</span> <div><b><font color="red"><%=parteDt.getAusenciaProcessoParte()%>&#32;<%=parteDt.getReuPreso()%></font></b></div>
+							<% if (!(UsuarioSessao.isConsultor() || UsuarioSessao.isPublico())) { %>
+							    <div style="width:50px">
+							    	<input name="inputEndereco" type="image" src="./imagens/16x16/btn_endereco.png" onClick="MostrarOcultar('subRecurso<%=parteDt.getNome()%>');return false;" title="Mostrar/Ocultar Endereço" />
+							    </div>
+							    <br />
+						   		<div>CPF</div>	<span class="span2"> <%=parteDt.getCpfCnpjFormatado()%>   </span>					 		
+							  	<div id="subRecurso<%=parteDt.getNome()%>"  class="DivInvisivel">
+									<fieldset class="fieldsetEndereco" style="background-color:#f5f5f5">
+								  		<legend> Endereço </legend>
+										<%=parteDt.getEnderecoParte().getLogradouro() + " nº " + parteDt.getEnderecoParte().getNumero() + " " + parteDt.getEnderecoParte().getComplemento()%><br />
+								    	<%=parteDt.getEnderecoParte().getBairro() + " " + parteDt.getEnderecoParte().getCidade() + " " + parteDt.getEnderecoParte().getUf()%><br />
+								    	<%=parteDt.getEnderecoParte().getCep() + " " + parteDt.getEMail() + " " + parteDt.getTelefone() %>
+							    	</fieldset>
+								</div>						
+							<% } %>
+					</fieldset>				
+				<%}%>					
+		<% } else {	%>
+			<legend>Polo Passivo | Recorrido </legend>
+		<% } %>		
+			</fieldset>
+		  </fieldset>
+		<% }
+	}%>
+	<script language="JavaScript1.2">
+		function DoPrintingAppletRecurso(numProcesso,nome,bairro,cidade,estado,logradouro,numero,cep,complemento){
+			bairroCidadeUF = bairro+'  ,'+cidade+'-'+estado;
+			ruaNumero = logradouro+'  N:'+numero;		
+			alert("Imprimindo Etiqueta!");
+			document.ImprimirEtiquetaRecurso.imprimirEtiqueta(numProcesso,nome,bairroCidadeUF,cep,ruaNumero,complemento);
+		}
+	</script>

@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@page import="java.util.*"%>
+<%@page import="br.gov.go.tj.projudi.dt.ParametroComutacaoExecucaoDt"%>
+<jsp:useBean id="CalculoLiquidacaodt" scope="session" class= "br.gov.go.tj.projudi.dt.CalculoLiquidacaoDt"/>
+
+<script type='text/javascript' src='js/tabelas.js'></script>
+<script type='text/javascript' src='js/CalculadoraTemposDatas.js'></script>
+<script type='text/javascript'>
+	function calcular(idProcesso, data, idInputPenaRemanescenteDias, idInputPenaRemanescenteAnos, idInputRestantePenaDias, idInputRestantePenaAnos, idInputTempoCumpridoDias, idInputTempoCumpridoAnos, idInputPenaRemanescenteDiasNaoHediondo, idInputPenaRemanescenteAnosNaoHediondo){
+		var TJSelecionado = "";
+		
+		//verifica quais TJ estão selecionados
+	    var listaChk = document.getElementsByName("chkTJ[]");  //elemento existente em ProcessoEventoExecucaoEditar.jsp
+	    for (var i=0;i<listaChk.length;i++){  
+	    	 var dummyRead = listaChk[i].checked;
+	         if (listaChk[i].checked){
+	        	 TJSelecionado += listaChk[i].value+'-';
+	         }
+	    }
+	
+		if (TJSelecionado == ""){
+			//document.getElementById('DataDecretoSelecionado')[0].selected = true;
+			alert("Selecione um TJ!");
+			document.getElementById('DataDecretoSelecionado').value = "";
+		} else {
+			calcularTempoAteData(idProcesso,data, idInputPenaRemanescenteDias, idInputPenaRemanescenteAnos, idInputRestantePenaDias, idInputRestantePenaAnos, idInputTempoCumpridoDias, idInputTempoCumpridoAnos, idInputPenaRemanescenteDiasNaoHediondo, idInputPenaRemanescenteAnosNaoHediondo, TJSelecionado);
+			document.getElementById('DataDecretoSelecionado').value = data;
+		}
+		document.getElementById('radioTR').checked = false;
+		document.getElementById('comutacaoTR').value = "";
+		document.getElementById('comutacaoTRAnos').value = "";
+		document.getElementById('radioRP').checked = false;
+		document.getElementById('comutacaoRP').value = "";
+		document.getElementById('comutacaoRPAnos').value = "";
+		document.getElementById('radioTC').checked = false;
+		document.getElementById('comutacaoTC').value = "";
+		document.getElementById('comutacaoTCAnos').value = "";
+	}
+	
+	function moverValor(idInputfracao, textoTempo, idInputTempo, idDataDecreto, idInputTempoDias){
+		document.getElementById('ObservacaoAux').value = " (" + getRadioValor(idInputfracao) + " de " + document.getElementById(idInputTempo).value + ": " + textoTempo + " em " + document.getElementById(idDataDecreto).value + ")";
+		document.getElementById('Quantidade').value = document.getElementById(idInputTempoDias).value;
+	}
+	
+	function getRadioValor(name){
+ 		var rads = document.getElementsByName(name);
+  		for(var i = 0; i < rads.length; i++){
+   			if(rads[i].checked){
+    			return rads[i].value;
+   			}
+  		}
+  		return null;
+	}
+ 
+</script>
+
+<%if (request.getAttribute("listaParametroComutacao") != null){ %>
+
+		<fieldset id="VisualizaDados" class="VisualizaDados" style="width: 540px;margin-left: 60px;">
+			<legend> Sobre o Restante da Pena até a data do decreto selecionado (PRIMEIRA COMUTAÇÃO)</legend>
+			<table id="TabelaPenaRemanescente">
+				<tbody id="tabPenaRemanescente">
+					<tr><td align="right">Restante da Pena:</td>
+						<td><b><input id="RestantePenaAnos" name="RestantePenaAnos" value="" class="formEdicaoInputSomenteLeitura" readonly="readonly" size="11"> (a-m-d)</input></b>
+							<input id="RestantePenaDias" name="RestantePenaDias" type="hidden" value=""/>
+						</td>
+						</tr>
+					<tr><td align="right">Fração da Comutação:</td>
+						<td><input id="radioRP" name="radioRP" type="radio" value="1/5"
+							onClick="javascript: calcularTempoComutacao('RestantePenaDias','1/5', 'comutacaoRP', 'comutacaoRPAnos');">1/5</input> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input id="radioRP" name="radioRP" type="radio" value="1/4"
+							onClick="javascript: calcularTempoComutacao('RestantePenaDias','1/4', 'comutacaoRP', 'comutacaoRPAnos');">1/4</input> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input id="radioRP" name="radioRP" type="radio" value="1/3"
+							onClick="javascript: calcularTempoComutacao('RestantePenaDias','1/3', 'comutacaoRP', 'comutacaoRPAnos');">1/3</input> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input id="radioRP" name="radioRP" type="radio" value="1/2"
+							onClick="javascript: calcularTempoComutacao('RestantePenaDias','1/2', 'comutacaoRP', 'comutacaoRPAnos');">1/2</input> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input id="radioRP" name="radioRP" type="radio" value="2/3"
+							onClick="javascript: calcularTempoComutacao('RestantePenaDias','2/3', 'comutacaoRP', 'comutacaoRPAnos');">2/3</input>
+						</td></tr>
+					<tr><td align="right">Tempo a ser Comutado:</td>
+						<td><input class="formEdicaoInputSomenteLeitura" id="comutacaoRP" name="comutacaoRP" type="text" value="" readonly="readonly"></input>
+							<label class="formEdicaoLabel" style="min-width: 10px"> dias = </label>
+							<input class="formEdicaoInputSomenteLeitura" id="comutacaoRPAnos" name="comutacaoRPAnos" type="text" value="" readonly="readonly"> (a-m-d)</input>
+						</td></tr>
+					<tr>
+						<td align="center" colspan="3"> Confirmar
+							<image src="./imagens/16x16/accept.png" onClick="javascript: moverValor('radioRP', 'restante da pena', 'RestantePenaAnos', 'DataDecretoSelecionado', 'comutacaoRP');"/>
+						</td></tr>
+				</tbody>
+			</table>
+		</fieldset>
+		<br></br>
+		<div style="width:600px; margin-left:60px;">
+			<a href="javascript: MostrarOcultar('divTempoCumprido')" title="Mostrar/Ocultar Cálculo sobre o tempo cumprido"> Sobre o Tempo Cumprido até a data do decreto selecionado</a>
+			<br/>
+			(2ª E DEMAIS COMUTAÇÕES. Observar o parágrafo 1º do artigo 2º do decreto.)
+		</div>
+		<div id="divTempoCumprido" style="display: none">
+		<fieldset id="VisualizaDados" class="VisualizaDados" style="width: 540px;margin-left: 60px;">
+			<table id="TabelaPenaRemanescente">
+				<tbody id="tabPenaRemanescente">
+					<tr><td align="right">Tempo Cumprido:</td>
+						<td><b><input id="TempoCumpridoAnos" name="TempoCumpridoAnos" value="" class="formEdicaoInputSomenteLeitura" readonly="readonly" size="11"> (a-m-d)</input></b>
+							<input id="TempoCumpridoDias" name="TempoCumpridoDias" type="hidden" value=""/>
+						</td></tr>
+					<tr><td align="right">Fração da Comutação:</td>
+						<td>
+							<input id="radioTC" name="radioTC" type="radio" value="1/5"
+							onClick="javascript: calcularTempoComutacao('TempoCumpridoDias','1/5', 'comutacaoTC', 'comutacaoTCAnos');">1/5</input> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input id="radioTC" name="radioTC" type="radio" value="1/4"
+							onClick="javascript: calcularTempoComutacao('TempoCumpridoDias','1/4', 'comutacaoTC', 'comutacaoTCAnos');">1/4</input> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input id="radioTC" name="radioTC" type="radio" value="1/3"
+							onClick="javascript: calcularTempoComutacao('TempoCumpridoDias','1/3', 'comutacaoTC', 'comutacaoTCAnos');">1/3</input> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input id="radioTC" name="radioTC" type="radio" value="1/2"
+							onClick="javascript: calcularTempoComutacao('TempoCumpridoDias','1/2', 'comutacaoTC', 'comutacaoTCAnos');">1/2</input> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input id="radioTC" name="radioTC" type="radio" value="2/3"
+							onClick="javascript: calcularTempoComutacao('TempoCumpridoDias','2/3', 'comutacaoTC', 'comutacaoTCAnos');">2/3</input>
+						</td></tr>
+					<tr><td align="right">Tempo a ser Comutado:</td>
+						<td><input class="formEdicaoInputSomenteLeitura" id="comutacaoTC" name="comutacaoTC" type="text" value="" readonly="readonly"></input>
+							<label class="formEdicaoLabel" style="min-width: 10px"> dias = </label>
+							<input class="formEdicaoInputSomenteLeitura" id="comutacaoTCAnos" name="comutacaoTCAnos" type="text" value="" readonly="readonly"> (a-m-d)</input></td>
+					</tr>
+					<tr>
+						<td align="center" colspan="3"> Confirmar
+							<image src="./imagens/16x16/accept.png" onClick="javascript: moverValor('radioTC', 'tempo cumprido', 'TempoCumpridoAnos', 'DataDecretoSelecionado', 'comutacaoTC');"/>
+						</td></tr>
+				</tbody>
+			</table>
+		</fieldset>
+		</div>
+		<br></br>
+		<div style="width:600px; margin-left:60px;">
+			<a href="javascript: MostrarOcultar('divTempoTotalNaoHediondo')" title="Mostrar/Ocultar Cálculo sobre o tempo total da pena para crimes não hediondos"> Sobre o restante da Pena de crimes comuns até a data do decreto selecionado</a>
+			<br/>
+			(CRIMES COMUNS E HEDIONDOS)
+		</div>
+		<div id="divTempoTotalNaoHediondo" style="display: none">
+		<fieldset id="VisualizaDados" class="VisualizaDados" style="width: 540px;margin-left: 60px;">
+			<table id="TabelaPenaRemanescente">
+				<tbody id="tabPenaRemanescente">
+					<tr><td align="right">Tempo da Pena:</td>
+						<td><b><input id="PenaRemanescenteAnosNaoHediondo" name="PenaRemanescenteAnosNaoHediondo" value="" class="formEdicaoInputSomenteLeitura" readonly="readonly" size="11"> (a-m-d)</input></b>
+							<input id="PenaRemanescenteDiasNaoHediondo" name="PenaRemanescenteDiasNaoHediondo" type="hidden" value="" />
+						</td></tr>
+					<tr><td align="right">Fração da Comutação:</td>
+						<td>
+							<input id="radioTRNaoHediondo" name="radioTRNaoHediondo" type="radio" value="1/5"
+							onClick="javascript: calcularTempoComutacao('PenaRemanescenteDiasNaoHediondo','1/5', 'comutacaoTRNaoHediondo', 'comutacaoTRAnosNaoHediondo');">1/5</input> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input id="radioTRNaoHediondo" name="radioTRNaoHediondo" type="radio" value="1/4"
+							onClick="javascript: calcularTempoComutacao('PenaRemanescenteDiasNaoHediondo','1/4', 'comutacaoTRNaoHediondo', 'comutacaoTRAnosNaoHediondo');">1/4</input> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input id="radioTRNaoHediondo" name="radioTRNaoHediondo" type="radio" value="1/3"
+							onClick="javascript: calcularTempoComutacao('PenaRemanescenteDiasNaoHediondo','1/3', 'comutacaoTRNaoHediondo', 'comutacaoTRAnosNaoHediondo');">1/3</input> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input id="radioTRNaoHediondo" name="radioTRNaoHediondo" type="radio" value="1/2"
+							onClick="javascript: calcularTempoComutacao('PenaRemanescenteDiasNaoHediondo','1/2', 'comutacaoTRNaoHediondo', 'comutacaoTRAnosNaoHediondo');">1/2</input> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input id="radioTRNaoHediondo" name="radioTRNaoHediondo" type="radio" value="2/3"
+							onClick="javascript: calcularTempoComutacao('PenaRemanescenteDiasNaoHediondo','2/3', 'comutacaoTRNaoHediondo', 'comutacaoTRAnosNaoHediondo');">2/3</input>
+						</td></tr>
+					<tr><td align="right">Tempo a ser Comutado:</td>
+						<td><input class="formEdicaoInputSomenteLeitura" id="comutacaoTRNaoHediondo" name="comutacaoTRNaoHediondo" type="text" value="" readonly="readonly"></input>
+							<label class="formEdicaoLabel" style="min-width: 10px"> dias = </label>
+							<input class="formEdicaoInputSomenteLeitura" id="comutacaoTRAnosNaoHediondo" name="comutacaoTRAnosNaoHediondo" type="text" value="" readonly="readonly"> (a-m-d)</input></td>
+					</tr>
+					<tr>
+						<td align="center" colspan="3"> Confirmar
+							<image src="./imagens/16x16/accept.png" onClick="javascript: moverValor('radioTRNaoHediondo', 'restante crimes comuns', 'PenaRemanescenteAnosNaoHediondo', 'DataDecretoSelecionado', 'comutacaoTRNaoHediondo');"/>
+						</td></tr>
+				</tbody>
+			</table>
+		</fieldset>
+		</div>
+		<br></br>
+		<div style="width:600px; margin-left:60px;">
+			<a href="javascript: MostrarOcultar('divTempoTotal')" title="Mostrar/Ocultar Cálculo sobre o tempo total da pena"> Sobre o Total da Pena até a data do decreto selecionado</a>
+			<br/>
+			(SOMENTE DECRETOS ATÉ 2002)
+		</div>
+		<div id="divTempoTotal" style="display: none">
+		<fieldset id="VisualizaDados" class="VisualizaDados" style="width: 540px;margin-left: 60px;">
+			<table id="TabelaPenaRemanescente">
+				<tbody id="tabPenaRemanescente">
+					<tr><td align="right">Tempo da Pena:</td>
+						<td><b><input id="PenaRemanescenteAnos" name="PenaRemanescenteAnos" value="" class="formEdicaoInputSomenteLeitura" readonly="readonly" size="11"> (a-m-d)</input></b>
+							<input id="PenaRemanescenteDias" name="PenaRemanescenteDias" type="hidden" value="" />
+						</td></tr>
+					<tr><td align="right">Fração da Comutação:</td>
+						<td>
+							<input id="radioTR" name="radioTR" type="radio" value="1/5"
+							onClick="javascript: calcularTempoComutacao('PenaRemanescenteDias','1/5', 'comutacaoTR', 'comutacaoTRAnos');">1/5</input> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input id="radioTR" name="radioTR" type="radio" value="1/4"
+							onClick="javascript: calcularTempoComutacao('PenaRemanescenteDias','1/4', 'comutacaoTR', 'comutacaoTRAnos');">1/4</input> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input id="radioTR" name="radioTR" type="radio" value="1/3"
+							onClick="javascript: calcularTempoComutacao('PenaRemanescenteDias','1/3', 'comutacaoTR', 'comutacaoTRAnos');">1/3</input> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input id="radioTR" name="radioTR" type="radio" value="1/2"
+							onClick="javascript: calcularTempoComutacao('PenaRemanescenteDias','1/2', 'comutacaoTR', 'comutacaoTRAnos');">1/2</input> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input id="radioTR" name="radioTR" type="radio" value="2/3"
+							onClick="javascript: calcularTempoComutacao('PenaRemanescenteDias','2/3', 'comutacaoTR', 'comutacaoTRAnos');">2/3</input>
+						</td></tr>
+					<tr><td align="right">Tempo a ser Comutado:</td>
+						<td><input class="formEdicaoInputSomenteLeitura" id="comutacaoTR" name="comutacaoTR" type="text" value="" readonly="readonly"></input>
+							<label class="formEdicaoLabel" style="min-width: 10px"> dias = </label>
+							<input class="formEdicaoInputSomenteLeitura" id="comutacaoTRAnos" name="comutacaoTRAnos" type="text" value="" readonly="readonly"> (a-m-d)</input></td>
+					</tr>
+					<tr>
+						<td align="center" colspan="3"> Confirmar
+							<image src="./imagens/16x16/accept.png" onClick="javascript: moverValor('radioTR', 'total da pena', 'PenaRemanescenteAnos', 'DataDecretoSelecionado', 'comutacaoTR');"/>
+						</td></tr>
+				</tbody>
+			</table>
+		</fieldset>
+		</div>
+<%} else {%>
+<fieldset>
+<label class="formEdicaoLabel"> Não existe parâmetro de comutação cadastrado</label>
+</fieldset>
+<%}%>

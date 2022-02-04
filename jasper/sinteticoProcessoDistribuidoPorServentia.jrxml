@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sinteticoProcessoDistribuidoPorServentia" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e2390f62-0c93-47f0-89a0-63b8373256a3">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<subDataset name="dataset1" uuid="85ef0c18-9558-4363-867a-e4442b23caab"/>
+	<parameter name="dataAtual" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="caminhoLogo" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="titulo" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="dataInicial" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="dataFinal" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="usuarioResponsavelRelatorio" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="AreaDistribuicao" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="NomeServentia" class="java.lang.String"/>
+	<field name="NomeUsuario" class="java.lang.String"/>
+	<field name="Distribuicao" class="java.lang.Integer"/>
+	<field name="GanhoResponsabilidade" class="java.lang.Integer"/>
+	<field name="PerdaResponsabilidade" class="java.lang.Integer"/>
+	<field name="Compensacao" class="java.lang.Integer"/>
+	<field name="Correcao" class="java.lang.Integer"/>
+	<field name="Redistribuicao" class="java.lang.Integer"/>
+	<variable name="ContaDistrib" class="java.math.BigDecimal" resetType="Group" resetGroup="RecursoRelatorio">
+		<variableExpression><![CDATA[$V{ContaDistrib}.add(new BigDecimal($F{Distribuicao}))]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="ContaGanhoResp" class="java.math.BigDecimal" resetType="Group" resetGroup="RecursoRelatorio">
+		<variableExpression><![CDATA[$V{ContaGanhoResp}.add(new BigDecimal($F{GanhoResponsabilidade}))]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="ContaRedist" class="java.math.BigDecimal" resetType="Group" resetGroup="RecursoRelatorio">
+		<variableExpression><![CDATA[$V{ContaRedist}.add(new BigDecimal($F{Redistribuicao}))]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="ContaCompensacao" class="java.math.BigDecimal" resetType="Group" resetGroup="RecursoRelatorio">
+		<variableExpression><![CDATA[$V{ContaCompensacao}.add(new BigDecimal($F{Compensacao}))]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="ContaPerdaResp" class="java.math.BigDecimal" resetType="Group" resetGroup="RecursoRelatorio">
+		<variableExpression><![CDATA[$V{ContaPerdaResp}.add(new BigDecimal($F{PerdaResponsabilidade}))]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="ContaCorrecao" class="java.math.BigDecimal" resetType="Group" resetGroup="RecursoRelatorio">
+		<variableExpression><![CDATA[$V{ContaCorrecao}.add(new BigDecimal($F{Correcao}))]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<group name="RecursoRelatorio">
+		<groupExpression><![CDATA[$F{NomeServentia}]]></groupExpression>
+		<groupHeader>
+			<band height="17" splitType="Stretch">
+				<textField>
+					<reportElement x="50" y="-1" width="506" height="17" uuid="0c2fed5e-5272-429f-9669-88691e596757"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NomeServentia}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="-1" width="51" height="18" uuid="0e78ba2f-645d-4823-ad9e-23113efd2445"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Serventia:]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="29">
+				<textField isBlankWhenNull="true">
+					<reportElement x="177" y="7" width="36" height="13" uuid="ff774264-11a5-4990-a289-40dfa2f1c5f2"/>
+					<textElement>
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[(new DecimalFormat("###,##0")).format($V{ContaDistrib})]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="7" width="119" height="13" uuid="79f22d35-3aee-4fe8-be1e-7512b1f287df"/>
+					<textElement>
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total Serventia:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="221" y="7" width="34" height="13" uuid="10718309-0188-4139-8e36-3c5a0459dbfd"/>
+					<textElement>
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[(new DecimalFormat("###,##0")).format($V{ContaRedist})]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="263" y="7" width="46" height="13" uuid="df772628-8c69-4c79-98e2-bbe9c906d683"/>
+					<textElement>
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[(new DecimalFormat("###,##0")).format($V{ContaGanhoResp})]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="326" y="7" width="45" height="13" uuid="aa3b1ec6-39f4-4e11-af23-69d84b4f4894"/>
+					<textElement>
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[(new DecimalFormat("###,##0")).format($V{ContaPerdaResp})]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="384" y="7" width="55" height="13" uuid="579b1201-57e1-4c99-aa1c-3edc1bc07f59"/>
+					<textElement>
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[(new DecimalFormat("###,##0")).format($V{ContaCompensacao})]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="451" y="7" width="42" height="13" uuid="9c4f7429-6d79-47e8-9b8d-70a7fcd21553"/>
+					<textElement>
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[(new DecimalFormat("###,##0")).format($V{ContaCorrecao})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="508" y="7" width="37" height="13" uuid="ca4f5d02-d95a-437e-a927-c85c37ad2e30"/>
+					<textElement>
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[(new DecimalFormat("###,##0")).format($V{ContaDistrib}.add($V{ContaRedist}).add($V{ContaGanhoResp}).add($V{ContaPerdaResp}).add($V{ContaCompensacao}).add($V{ContaCorrecao}))]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="NomeMagistrado">
+		<groupExpression><![CDATA[$F{NomeUsuario}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="113" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-9" x="36" y="0" width="514" height="19" uuid="7cb94fa8-f24a-446e-bf28-74e1f133227f"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Tribunal de Justiça do Estado de Goiás]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-10" x="36" y="18" width="517" height="19" uuid="72bdd468-2551-4e02-8772-f2f77d8816f4"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Processo Judicial Digital - PROJUDI - TJGO]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement key="image-1" x="0" y="0" width="38" height="38" uuid="b6a57543-7377-4c51-bec9-b1c99213e293"/>
+				<imageExpression><![CDATA[$P{caminhoLogo}]]></imageExpression>
+			</image>
+			<textField pattern="EEEEE, dd MMMMM &apos;de&apos; yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-21" x="365" y="56" width="188" height="16" uuid="0e6a877d-2184-47e6-94f3-3c0f1bc32363"/>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dataAtual}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line" x="0" y="89" width="554" height="1" uuid="a9354ffe-4753-40b1-8d79-ae2350159301"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement key="line" x="1" y="110" width="555" height="1" uuid="a84b79f2-1f8a-4127-9f48-5a74c1e0abec"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="262" y="90" width="59" height="19" uuid="fddd4655-1d2f-42f1-97af-93bf9407f598"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ganho Resp.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="221" y="90" width="34" height="19" uuid="22b15479-fa51-4661-9477-3492148d2f9d"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Redist.]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-22" x="1" y="55" width="346" height="16" uuid="2743bb5b-e2b7-41be-8ac4-844fd5e2bf8b"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Período de Distribuição: " + $P{dataInicial} +  " a "  + $P{dataFinal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement key="textField-12" x="2" y="37" width="551" height="18" uuid="450240f8-5861-4d45-891b-a3e721e11843"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="71" width="96" height="18" uuid="2526e8f9-8153-49b7-b5ea-3998527731d2"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Area Distribuição:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="92" y="71" width="446" height="18" uuid="35b2429b-a6b5-4f62-ba48-ed50ed477404"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{AreaDistribuicao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="177" y="90" width="34" height="19" uuid="ba3afba1-2a8e-4784-b023-2b2080738be6"/>
+				<textElement>
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Distrib.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="326" y="90" width="55" height="19" uuid="846a2f20-b822-4d4f-88fc-8d330ee12b4c"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Perda Resp.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="90" width="64" height="19" uuid="650af0bd-46ab-4574-95c7-ec37dd475e3b"/>
+				<textElement>
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Compensação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="451" y="90" width="52" height="19" uuid="3ef85da5-ece3-4ecb-bf06-3db338d7b630"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Correção]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="506" y="90" width="47" height="19" uuid="2a66a491-8517-416a-a316-5b3e0624660b"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="1" width="164" height="16" uuid="717a0067-0540-4a40-a629-71cb21e32843"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NomeUsuario}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement x="177" y="2" width="34" height="16" uuid="72229234-30ab-4a8c-b1c7-72f548335be1"/>
+				<textElement verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new DecimalFormat("###,##0")).format($F{Distribuicao})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="262" y="2" width="47" height="16" uuid="ad3a54cc-ea35-4d47-a6dd-f6c2b891529d"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new DecimalFormat("###,##0")).format($F{GanhoResponsabilidade})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="326" y="2" width="45" height="16" uuid="5a6227f3-219c-438b-a4b4-6ae6eb42f226"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new DecimalFormat("###,##0")).format($F{PerdaResponsabilidade})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="384" y="2" width="55" height="16" uuid="9c2f8e3b-cd6d-49ce-87c7-241b41ec0d2b"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new DecimalFormat("###,##0")).format($F{Compensacao})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="2" width="42" height="16" uuid="b92724ca-502f-49f0-8170-252dee097c53"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new DecimalFormat("###,##0")).format($F{Correcao})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="506" y="1" width="37" height="16" uuid="71d60c44-de00-4d52-b4a8-6ad9c492a59e"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new DecimalFormat("###,##0")).format($F{Distribuicao} +  $F{Redistribuicao} + $F{GanhoResponsabilidade} + $F{PerdaResponsabilidade} + $F{Compensacao} + $F{Correcao})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="221" y="2" width="34" height="16" uuid="1c9a2b97-7209-48f1-b722-7352fac8f7bd"/>
+				<textElement verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new DecimalFormat("###,##0")).format($F{Redistribuicao})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="428" y="3" width="80" height="13" uuid="d8d87c20-19b1-4ad3-a689-6d3d93681de9"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement key="textField" x="508" y="3" width="47" height="13" uuid="abdc3bac-909e-4e0c-800f-ea2a191e1127"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-7" x="0" y="1" width="175" height="13" forecolor="#000000" uuid="6b3ad009-8405-4661-adb8-f00c6b23b480"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[https://projudi.tjgo.jus.br/]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-2" x="1" y="2" width="554" height="1" uuid="08325285-0ebc-4093-a489-bd59dc1ae721"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-10" x="176" y="0" width="252" height="13" uuid="95d232aa-84cd-4cfd-80aa-f950a40f5b37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{usuarioResponsavelRelatorio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="24" splitType="Stretch">
+			<line>
+				<reportElement key="line" x="0" y="0" width="554" height="1" uuid="4850eb47-ceeb-4f3d-94ad-2092198eab60"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

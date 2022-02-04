@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+		<title>Processo Judicial</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        
+<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+
+
+	<style type="text/css">
+		body {
+			margin: 0 auto;
+			padding: 0;
+			font-family: Verdana, Arial, Helvetica, sans-serif;
+			color: #222222;
+			font-size: 14px;
+			background-color: #eee;
+			}
+		#pgn_cabecalho {
+			width: 1140px;
+			height: 36px;
+			color: #ffffff;
+			background-color:#183e65;
+			padding-bottom: 1px;
+			margin: 0 auto;
+		}
+		#pgn_cabecalho #img_logotj {
+			float: left;
+			margin-top: 6px;
+			margin-left: 20px;
+			height: 30px;
+			background-image:url(imagens/img_logotj.png);
+			background-repeat:no-repeat;
+		}
+		#pgn_cabecalho #img_logotj h1 {
+			margin: 2px 0 0 30px;
+			border:0;
+		}
+		
+		.fundo {
+			background: #eee url(imagens/fundo.jpg) repeat-x;
+		}
+		h1 {
+			font-size: 16px;
+		}
+		.divCorpo {
+			width: 1100px;
+			display: block;
+			clear: both;
+			text-align: left;
+			margin: 0 auto;
+			background-color: #fff;
+			border-left: 1px solid #ddd;
+			border-right: 1px solid #ddd;
+			border-bottom: 1px solid #ddd;
+			padding: 20px;
+		}
+		.aviso {
+			clear: both;
+			width: 95%;
+			margin: 30px auto 0 auto;
+			line-height:1.5;
+		}
+		.aviso h1{
+			font-size:28px;
+			color:#183e65;
+		}
+		.sucesso{
+			color:#090;
+			font-weight: 500;
+		}
+		.botao{
+			border:none;
+			border-radius: 5px;
+			color: #fff;
+			background-color: #183E65;
+			padding: 10px 5px;
+			cursor:pointer;
+			width: 200px;
+			margin-top: 50px;
+		}
+	</style>
+		</head>
+<body class="fundo">
+       <div id="Cabecalho" class="Cabecalho">
+         <div id="pgn_cabecalho" class="pgn_cabecalho">
+           <div class="logoTJ" id="img_logotj" >
+             <h1>Processo Judicial</h1>
+             <div id="servidor"></div>
+           </div>
+         </div>
+        </div> 
+        <div style="clear:both;width:1140px;height:28px;background-color:#ccc; margin: 0 auto;"></div>
+        	
+         <div class="divCorpo">
+           <h2>Configurando a Abertura do Assinador</h2>
+           	<p>Serão necessário 3 passos para habilitar o assinador externo no seu computador/navegador. Veja a seguir: </p>
+           
+             <h1>1 - Deixando o Navegador baixar automaticamente o Assinador </h1>
+             <p>Temos que colocar que os arquivos JNLP devem ser abertos diretamente pelo JAVA no navegador firefox (ou outro)
+             <br /> No seu navegador encontre onde é definido a abertura do dos documentos do JNPL, veja a imagem abaixo.   
+       		<center><img src="./imagens/firefoox_jnlp_java.PNG" /></center>              
+             <p/>
+                       
+             <h1>2 - Baixe o S.A.I. </h1>
+              <p> <a href="https://docs.tjgo.jus.br/projudi/jar/sai.jnlp" parent='blank'>Clique aqui</a> para baixar o Assinador, isso so será necessário nesse primeiro momento.                                  
+	              <br />O navegador vai avisar que ele é um executável, mas não se procupe pois ele vai fazer somente as assinaturas. Assim clique em Ok.  
+	              <br /><center><img src="./imagens/abrir_sai_java.png" /></center> <br />
+	              <br />Depois o Java vai perguntar: Deseja Executar este Aplicativo? Serviço de Assintura e Impressão(tjgo). 
+	              <br />Verifique se o Editor: Tribunal de Justiça do Estado de Goias e Local: https://docs.tjgo.jus.br
+	              <br />Marque a opção: Não mostrar novamente para aplicativos do editor e local acima. Que essa mensagem não aparecerá novamente.
+	              <br /><center><img src="./imagens/executar_sai_java.png" /></center> <br />  	              
+	              <br />Depois de executar, o icone do S.A.I. vai aparecer perto do relógio do seu computador.
+	              <center><img src="./imagens/icone_sai_java.png" /></center> <br />               		 	             
+              <p/>                                     
+                       
+             <h1>3 - Instalando o Certificado </h1>
+	             <h1><i class="fas fa-shield-alt"></i> Certificado </h1>
+	              <p>O Serviço de Assinatura e Impressão (S.A.I.) utiliza um certificado auto-assinado para fazer a comunicação entre o serviço local e o seu navegador.
+	              	<br />Esse certificado garante a integridade e segurança dos dados enviados pelo seu navegador para o S.A.I.. Entretanto, o certificado auto-assinado não é reconhecido pelos navegadores, assim é necessária a instalação do mesmo.
+	              <p/>              
+            	<p> <a href="https://127.0.0.1:8443/certificado.html" parent='blank'>Clique aqui para começar a instalar o certificado </a>
+            	<br />O Navegador agora vai avisar que existe um potencial risco nesse certiticado, mas verifique que ele é para o endereço 127.0.0.1, ou seja, para uma comunicação interna, somente no seu computador, ele so garante que nenhum virus/intruso consiguirar ler o conteudo que sai do Assinador e chegar no Navegador. 
+				 Clique em <b>Avançado...</b> e depois em <b>Aceitar o risco e continuar</b>
+				 <center><img src="./imagens/sai_certificado1.png" /></center>  
+            	<br /> a mensagem abaixo aparecerá quando o procedimento estiver finalizado, agora o assinador já está habilitado para o seu navegador/computador.
+            	<center><img src="./imagens/sai_certificado_instalado.png" /></center> 
+            	<br /> Agora pode fechar essa aba e voltar para a tela de peticionamento.
+              	<p/>                                       
+                                                                               		         
+         </div>                 
+</body>
+</html>

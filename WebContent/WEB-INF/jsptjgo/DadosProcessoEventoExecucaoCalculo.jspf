@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<%@page import="java.util.*"%>
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoEventoExecucaoDt"%>
+<%@page import="br.gov.go.tj.utils.Configuracao"%>
+<%@page import="br.gov.go.tj.utils.Funcoes"%>
+<%@page import="br.gov.go.tj.projudi.dt.CalculoLiquidacaoDt"%>
+<%@page import="java.text.SimpleDateFormat"%>
+	
+<div id="divDadosGerais" class="divEditar" >
+<% if (Boolean.parseBoolean(request.getAttribute("isPenaRestritivaDireito").toString())) { %>
+	<table id="TabelaDadosGerais" border="0">
+		<tbody>
+			<tr><td align="right"><b>Tempo total da condenação unificada:</b> <%=CalculoLiquidacaodt.getTempoTotalCondenacaoAnos()%> (a-m-d)</td></tr>
+<%if (CalculoLiquidacaodt.getTempoTotalComutacaoDias().length() > 0 && Integer.parseInt(CalculoLiquidacaodt.getTempoTotalComutacaoDias()) > 0){ %>
+			<tr><td align="right"><b>Tempo total da comutação deferida:</b> <%=CalculoLiquidacaodt.getTempoTotalComutacaoAnos()%> (a-m-d)</td>
+			<tr><td align="right"><b>Tempo total da condenação remanescente:</b> <%=CalculoLiquidacaodt.getTempoTotalCondenacaoRemanescenteAnos()%> (a-m-d)</td>
+<%} %>
+			<tr><td align="right"><b>Tempo cumprido privado de liberdade:</b> <%=CalculoLiquidacaodt.getTempoCumpridoUltimoEventoAnos()%> (a-m-d)</td></tr>
+<%if (CalculoLiquidacaodt.getVisualizaRestantePenaUltimoEvento().length() > 0 && CalculoLiquidacaodt.getVisualizaRestantePenaUltimoEvento().equals("S")){ %>
+			<tr><td align="right"><b>Restante da pena até último evento:</b> <%=CalculoLiquidacaodt.getTempoRestanteUltimoEventoAnos()%> (a-m-d)</td></tr>
+<%} %>
+		</tbody>
+	</table>
+<% } else { %>
+
+	<table id="TabelaDadosGerais" border="0" width="90%">
+		<tbody>
+			<tr>
+				<td><table>
+					<tr><td align="right"><b>Tempo total da condenação unificada:</b> <%=CalculoLiquidacaodt.getTempoTotalCondenacaoAnos()%> (a-m-d)</td></tr>
+<%if (CalculoLiquidacaodt.getTempoTotalComutacaoDias().length() > 0 && Integer.parseInt(CalculoLiquidacaodt.getTempoTotalComutacaoDias()) > 0){ %>
+					<tr><td align="right"><b>Tempo total da comutação deferida:</b> <%=CalculoLiquidacaodt.getTempoTotalComutacaoAnos()%> (a-m-d)</td></tr>
+					<tr><td align="right"><b>Tempo total da condenação remanescente:</b> <%=CalculoLiquidacaodt.getTempoTotalCondenacaoRemanescenteAnos()%> (a-m-d)</td></tr>
+<%} %>
+					<tr><td align="right"><b>Tempo cumprido
+					<% if (CalculoLiquidacaodt.getDataTerminoPena().length() > 0) {%>
+					 até data atual (<%=new SimpleDateFormat("dd/MM/yyyy").format(new Date()) %>)
+					<%}%>
+					 :</b> <%=CalculoLiquidacaodt.getTempoCumpridoDataAtualAnos()%> (a-m-d)</td></tr>
+					<tr><td align="right"><b>Restante da pena
+					<% if (CalculoLiquidacaodt.getDataTerminoPena().length() > 0) {%>
+					 até data atual (<%=new SimpleDateFormat("dd/MM/yyyy").format(new Date()) %>)
+					 <%}%>
+					 :</b> <%=CalculoLiquidacaodt.getTempoRestanteDataAtualAnos()%> (a-m-d)</td></tr>
+					</table>
+				</td>
+				<td valign="top"><table>
+					<tr><td align="right" width="60%"><b>Provável término da pena: 
+							<% if (CalculoLiquidacaodt.getDataTerminoPena().length() == 0) {%> -- 
+							<% } else {%> <%=CalculoLiquidacaodt.getDataTerminoPena()%>
+							<% }%></b></td></tr>
+		
+					<% if (CalculoLiquidacaodt.getDataTerminoPenaUnificada().length() > 0) {%>
+					<tr><td align="right" width="60%"><b>Provável término da pena unificada:</b> <%=CalculoLiquidacaodt.getDataTerminoPenaUnificada()%></td></tr>
+					<% }%>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<br />
+   	<fieldset class="formEdicao"><legend class="formEdicaoLegenda">Remição total</legend>
+		<label> 1/3 de "<%=CalculoLiquidacaodt.getTotalDiasTrabalhados() %>" dias trabalhados: "<%=CalculoLiquidacaodt.getTempoTotalRemicaoTrabalhoAnos() %>" (a-m-d)</label><br />
+		<label> 1/<%=CalculoLiquidacaodt.getQtdeTempoHorasEstudo() %> de "<%=CalculoLiquidacaodt.getTotalHorasEstudo() %>" horas de estudo: "<%=CalculoLiquidacaodt.getTempoTotalRemicaoEstudoAnos() %>" (a-m-d)</label><br />
+		<label> Tempo de leitura: "<%=CalculoLiquidacaodt.getTempoTotalRemicaoLeituraAnos() %>" (a-m-d)</label><br />
+	</fieldset>
+<% } %>
+</div>

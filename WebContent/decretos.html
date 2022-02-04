@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>Processo Judicial Digital - Decretos</title>
+	<link href="imagens/favicon.png" TYPE="image/gif" REL="icon"/>
+	<script type='text/javascript' src='js/Funcoes.js'></script>
+	<script type="text/javascript" src="js/jquery.js"> </script>
+	<script type="text/javascript" src="js/ui/jquery-ui.min.js"> </script>
+	
+	<link rel="stylesheet" href="css/Principal.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="css/LogonTJGO.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="css/cupertino/jquery-ui-1.8.1.custom.min.css" type="text/css" media="all" />
+    
+    <style type="text/css">
+
+			#coluna-um{				
+				vertical-align: top;
+				width: 100%;
+				
+			}
+	
+			#coluna-um h2 {
+				width: 100%;
+				height: 20px;
+				padding-top: 9px;
+				padding-right: 0px;
+				padding-bottom: 0px;
+				padding-left: 15px;
+				background-image: none;
+				margin-right: 0px;
+				margin-bottom: 0px;
+				margin-top: 0px;				
+				margin-left: 0px;
+				background: #F6F6F6;
+				font-weight: normal;
+				clear: right;
+				text-align: left;
+				font-weight: bold;
+				font-size: 11px;
+				display: block;
+				color: #494b49;
+				border-bottom-width: medium;
+				border-bottom-style: none;
+				border-bottom-color: -moz-use-text-color;
+				border-top-width: medium;
+				border-top-style: none;
+				border-top-color: -moz-use-text-color;
+				background-image: url("/imagens/bkg_bloco.gif");
+				background-repeat: repeat-x;
+				background-position: 0pt -1px;
+			}
+			
+
+			#coluna-um ul {
+				width: 90%;
+				padding-top: 0pt;
+				padding-right: 0pt;
+				padding-bottom: 0pt;
+				padding-left: 0pt;
+				margin-top: 0px;				
+				margin-right: 0px;
+				margin-bottom: 25px;
+				margin-left: 0px;
+				list-style-type: none;
+				list-style-image: none;
+				list-style-position: outside;
+			}
+
+ 			#coluna-um ul li {
+				line-height: 30px;				
+				margin-top: 0px;				
+				margin-right: 0px;
+				margin-bottom: 0px;
+				margin-left: 0px;
+				padding-top: 0px;
+				padding-right: 0px;
+				padding-bottom: 0px;
+				padding-left: 0px;
+				border-bottom-width: 1px;
+				border-bottom-style: dotted;
+				border-bottom-color: #d7d7d7;
+				background-color: transparent;
+				background-image: none;
+				background-repeat: repeat;
+				background: #ffffff;
+				text-align: left;
+				padding-left: 12px;
+				margin-left: 5px;
+				background-color: transparent;
+				background-image: url("/imagens/img_caixa.gif");
+				background-repeat: no-repeat;
+				background-attachment: scroll;
+				background-position: 0pt 13px;
+			}
+ 			
+			#coluna-um ul li a {
+				color: #333333;
+				font-weight: normal;
+			}
+			
+ 			#coluna-um ul li a:hover {
+				color: #3181c3 !important;
+				
+			}
+			
+			.mensagens {
+				height: 100%;
+				overflow: auto;
+				color: #333;
+				margin-left:50px;
+				/*text-align: justify;*/
+			}
+			.texto {
+				height: auto;
+				width: 95%;
+				padding: 3px;
+				background: #EFFAFF;
+				color: #333;
+				text-align: justify;
+			}				
+			.mensagens p {				
+				text-align: left;
+			}	
+			.mais_noticias{
+				text-align: right;
+				margin-top: 10px;
+				}
+	
+		</style> 
+		     
+    <script type='text/javascript'>
+        $(document).ready(function() {			
+	        $("#accordion").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion1").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion2").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion3").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion4").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion5").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion6").accordion({ autoHeight: false, collapsible: true, active: false });
+	        $("#accordion7").accordion({ autoHeight: false, collapsible: true, active: false });
+	        var a = $("a[targt='_blank']").size();
+			var b = $("a").size();
+			$("#info").html( (b-a) + ' de ' + b   + '   |   ' + ((1 - (a/b))*100).toFixed(2) + "% finalizado");				
+        });
+    </script>			
+
+
+</head>
+
+<body class="fundo">
+
+     
+  		<div id="pgn_cabecalho">
+        
+        <div id="img_logotj" title="Logo"><h1>Processo Judicial</h1></div>
+        
+         <div style="float: right;">
+			<div id="cssmenu" >
+				<!--<ul>
+
+					<li class="has-sub">
+                		<a href="#" title="Ajuda"><span><i class="fa fa-question-circle"></i></span></a> 
+                    	<ul>
+                    		<li><a href="./videos.html" title="Vídeos para aprender a trabalhar com o Sistema de Processo Eletrônico 2" target="_blank" id="videos"><i class="fa fa-question-circle"></i>&nbsp; V&iacute;deos</a></li>									
+				  			<li><a href="./Pdfvideos.html" title="PDF dos Vídeos para aprender a trabalhar com o PROJUDI 2" target="_blank" id="Pdfvideos"><i class="fa fa-question-circle"></i>&nbsp; PDF dos V&iacute;deos</a></li>
+				  		</ul>
+				  	</li>
+					
+					<li>
+						<a href="mailto:processodigital@tjgo.jus.br" title="Contatos"><i class="fa fa-envelope"></i> </a>  
+					</li>
+					
+	  				
+					
+				  	<li>  
+				  		<a href="Usuario?PaginaAtual=Logout" title="Sair"><i class="fa fa-sign-out"></i> </a>  
+				  	</li>
+				</ul>-->
+			</div>
+		</div>	
+	</div>
+	<div style="clear:both;width:1300px;height:28px;background-color:#ccc; margin: 0 auto;"></div>
+    <nav id="breadcrumb" class="breadcrumb" >
+		<!--<a href="#" class="breadcrumb--active"><i class="fa fa-key"></i> Login</a>-->
+	</nav> 
+  			      
+  			 
+    
+    <div id="divCorpo" class="divCorpo" >
+	<div class="area"><h2><i class="fa fa-legal"></i> Legislação </h2></div>
+	<h3>Decretos</h3>
+    <div id="coluna-um">	
+	    <div id="accordion" >
+		   	
+		   	<h3><a href="#">2010</a></h3>
+			<div>
+				<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ 23202010projudRioVerde.pdf" target="_blank" >DJ 2320 2010 - Rio Verde</a> </li>
+                <li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ 23212010projudCatalao.pdf" target="_blank" > DJ 2321 2010 - Catal&atilde;o</a> </li>
+                <li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ 23222010projudFormosa.pdf" target="_blank" > DJ 2322 2010 - Formosa</a> </li>
+     			<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ23912010.pdf" target="_blank" > DJ 2391 2010</a> </li>		                
+     			<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ24302010.pdf" target="_blank" > DJ 2430 2010</a> </li>		                
+     			<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ24312010.pdf" target="_blank" > DJ 2431 2010</a> </li>		                
+     			<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ24322010.pdf" target="_blank" > DJ 2432 2010</a> </li>		                
+     			<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ24332010.pdf" target="_blank" > DJ 2433 2010</a> </li>		                
+     			<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ24342010.pdf" target="_blank" > DJ 2434 2010</a> </li>		                
+     			<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ24352010.pdf" target="_blank" > DJ 2435 2010</a> </li>		
+     			<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ24362010.pdf" target="_blank" > DJ 2436 2010</a> </li>		                	
+     			<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ24372010.pdf" target="_blank" > DJ 2437 2010</a> </li>		
+                <li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ24382010.pdf" target="_blank" > DJ 2438 2010</a> </li>		
+                <li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ24392010.pdf" target="_blank" > DJ 2439 2010</a> </li>		
+   				<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ24452010.pdf" target="_blank" > DJ 2445 2010</a> </li>	
+   				<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ25132010.pdf" target="_blank" > DJ 2513 2010</a> </li>	
+   				<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ25162010.pdf" target="_blank" > DJ 2516 2010</a> </li>	
+                <li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ25172010.pdf" target="_blank" > DJ 2517 2010</a> </li>			                
+                <li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ25182010.pdf" target="_blank" > DJ 2518 2010</a> </li>	
+				<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ25542010.pdf" target="_blank" > DJ 2554 2010</a> </li>	
+				<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ25652010.pdf" target="_blank" > DJ 2565 2010</a> </li>	                
+				<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ25662010.pdf" target="_blank" > DJ 2566 2010</a> </li>	                
+   				<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ25672010.pdf" target="_blank" > DJ 2567 2010</a> </li>	
+        		<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ25682010.pdf" target="_blank" > DJ 2568 2010</a> </li>
+        		<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ25692010.pdf" target="_blank" > DJ 2569 2010</a> </li>                				                
+                <li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ25702010.pdf" target="_blank" > DJ 2570 2010</a> </li>
+   				<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ25712010.pdf" target="_blank" > DJ 2571 2010</a> </li>	                
+                <li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ26722010.pdf" target="_blank" > DJ 2672 2010</a> </li>
+                <li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ27922010.pdf" target="_blank" > DJ 2792 2010</a> </li>
+			</div>
+		   	
+		   	<h3><a href="#">2011</a></h3>
+			<div>
+				<ul>
+					<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJE_769_I_25022011_Decreto1119_2011.pdf" target="_blank" > Decreto 1119/2011 - Suspender os prazos processuais no Processo Judicial Digital</a> </li>
+				    <li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJE_769_I_25022011_Decreto1120_2011.pdf" target="_blank" > Decreto 1120/2011 - Suspender parcialmente o Processo Judicial Digital no 1&deg; e 2&deg; - I</a> </li>
+				    <li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ12102011.pdf" target="_blank" > DJ 1210 2011</a> </li>		                
+				    <li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DecretoProjudiPara2grauII.pdf" target="_blank" > Decreto 1211/2011 - Suspender parcialmente o Processo Judicial Digital no 1&deg; e 2&deg; - II</a> </li>
+				    <li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/DJ14812011.pdf" target="_blank" > DJ 1481 2011</a> </li>
+				    <li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/Projudi-Decreto-RetornoExecucaoFiscal-3199-2011.pdf" target="_blank" >Decreto 3199/2011 - Retorno da Execu&ccedil;&otilde;es Fiscais</a> </li> 
+				</ul>
+			</div>
+
+			<h3><a href="#">2016</a></h3>
+			<div>
+				<ul>
+					<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/dec_563_2016_fp_gyn.pdf" target="_blank" > Decreto 563/2016 - Regulamenta o ajuizamento e peticionamento eletrônico nas Varas de Fazendas Públicas da comarca de Goiânia</a> </li>
+				    <li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/dec_1775_2016_fp_comarcas.pdf" target="_blank" > Decreto 1775/2016 - Regulamenta a protocolização e peticionamento eletrônico no Tribunal de Justiça</a> </li>
+				</ul>
+			</div>
+			
+			<h3><a href="#">2017</a></h3>
+			<div>
+				<ul>
+					<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/dec_1180_2017.pdf" target="_blank" > Decreto 1180/2017 - Autoriza e regulamenta o ajuizamento e peticionamento eletrônico nas Comarcas do Interior do Estado</a> </li>
+				</ul>
+			</div>
+			<h3><a href="#">2019</a></h3>
+			<div>
+				<ul>
+					<li> <a href="http://docs.tjgo.jus.br/projudi/legislacao/resolucao_100_2019.pdf" target="_blank" > Resolução 100/2019 Órgão Especial</a> </li>
+				</ul>
+			</div>
+
+	   </div>
+   </div>
+</div>
+</body>
+</html>
+

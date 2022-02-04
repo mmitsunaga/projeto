@@ -1,0 +1,20 @@
+function baixarRelatorio(){
+	<%if(request.getAttribute("tempAguardandoProcessamento")!=null){
+		String extensao = ".pdf";
+		if (request.getSession().getAttribute("TipoArquivo") != null && request.getSession().getAttribute("TipoArquivo").equals("2")){
+			extensao = ".txt";
+		}%>
+		mostrarMensagemConsultando('Relatório','Aguarde o processamento do relatório.');
+		$.ajax({
+		    url: '/RelatorioPonteiroDistribuicao?PaginaAtual=9&AJAX=ajax&EstaPronto=1&date=' + new Date().getTime(),
+		    type: 'POST',
+		    success: function() {
+		        window.open('/RelatorioPonteiroDistribuicao?PaginaAtual=9&date=' + new Date() ,'_blank');
+		        $("#dialog").dialog('close');
+		    },
+		    error: function(request, status, error){
+		    	setTimeout(baixarRelatorio, 10000);
+			}
+		});
+	<%}%>
+}		

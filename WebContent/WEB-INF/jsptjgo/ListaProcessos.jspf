@@ -1,0 +1,100 @@
+<%@page import="br.gov.go.tj.utils.Funcoes"%>
+<%@page import="br.gov.go.tj.projudi.dt.UsuarioDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoDt"%>
+<%@page import="br.gov.go.tj.projudi.dt.ProcessoParteDt"%>
+<%@page import="java.util.*"%>
+	
+	<div id="divTabela" class="divTabela"> 
+    	<table id="Tabela" class="Tabela">
+        	<thead>
+            	<tr class="TituloColuna">
+            		<td class="colunaMinina">            			
+            		</td>
+            		<td class="colunaMinina">
+            			<input type="checkbox" id="chkSelTodos" value="" onclick="atualizarChecks(this, 'divTabela')"
+			    				title="Alterar os estados de todos os itens da lista" />
+			    	</td>
+                  	<td width="16%">N&uacute;mero</td>
+                  	<td width="64%">Partes</td>                  	
+                  	<td width="10%">Distribuição</td>
+                  	<td class="colunaMinima">Selecionar</td>
+               	</tr>
+           	</thead>
+           	<tbody id="tabListaProcesso">
+			<%
+				List liTemp = (List)request.getAttribute("ListaProcesso");
+				ProcessoDt processoBuscaDt;
+				ProcessoParteDt processoParteDt;			
+				String processoNumero="";
+				boolean boLinha=false; 
+				if(liTemp!=null)
+				//Percorre Lista Geral de Processos
+				for(int i = 0 ; i< liTemp.size();i++) {
+					boLinha=!boLinha;
+					processoBuscaDt = (ProcessoDt)liTemp.get(i);
+					
+					UsuarioDt usuarioServentia = (UsuarioDt)request.getSession().getAttribute("UsuarioSessaoDt");
+					boolean mostraProcesso = processoBuscaDt.isPodeMostrarSegredoJustica(usuarioServentia.getId_Serventia(),usuarioServentia.isDesembargador());
+			%> 
+					<% 
+						String stUrgente = processoBuscaDt.getNumeroImagemPrioridade();
+						String mensagemUrgente = processoBuscaDt.getProcessoPrioridadeCodigoTexto();
+						%>
+					<tr class="TabelaLinha<%=(boLinha?1:2)%>" onclick="submete('<%=processoBuscaDt.getId()%>')" > 
+						<td align="center">
+							<%=(i+1)%>
+						</td>  	  
+						<%if (mostraProcesso) { %>  	  
+						<td align="center">
+							<input class="formEdicaoCheckBox" name="processos" type="checkbox" value="<%=processoBuscaDt.getId()%>">
+						</td>
+						<%} else{ %>
+						<td align="center">
+							<input class="formEdicaoCheckBox" name="processos" type="checkbox" disabled readonly value="<%=processoBuscaDt.getId()%>">
+						</td>  
+						<%} %>	
+					  
+	                   	<td>
+	                   		<%	if (stUrgente.length()==1){ %>		 
+	                   				<img src='./imagens/16x16/imgPrioridade<%=stUrgente%>.png' alt="<%=mensagemUrgente%>" title="<%=mensagemUrgente%>"/>
+	                   		<% } %>
+	                   		<%=processoBuscaDt.getProcessoNumero()%>
+					  	</td>
+	                   	
+	                   	<td>
+	                   		<%if(processoBuscaDt.isBuscaParte()){ %>
+		                   		 <div class='coluna100'>					  								  	    
+						  	     	<div class='coluna15'><b><%=processoBuscaDt.getParteTipoBusca()%> </b></div><div class='coluna80'><%=processoBuscaDt.getNomeParteBuscaAbreviado()%></div>						  	
+						  		</div>
+					  		<%} %>
+					  		<%ProcessoParteDt promovente = processoBuscaDt.getPrimeiroPoloAtivo();
+					  		if(promovente!=null && !processoBuscaDt.isMesmaParteBusca(promovente.getId())){%>					 	  	
+		  	            		<div class='coluna100'>  	                		
+	  	                			<div class='coluna15'><b><%=promovente.getProcessoParteTipo()%> </b></div><div class='coluna80'><%=promovente.getNome()%></div>  	                					  	                			
+	  	                		</div>
+  	                		<%} %>
+					 	  	<%ProcessoParteDt promovido = processoBuscaDt.getPrimeiroPoloPassivo();
+					 	  	if(promovido!=null && !processoBuscaDt.isMesmaParteBusca(promovido.getId())){%>					 	  	
+		  	            		<div class='coluna100'>  	                		
+	  	                			<div class='coluna15'><b><%=promovido.getProcessoParteTipo()%> </b></div><div class='coluna80'><%=promovido.getNome()%> </div>  	                					  	                			
+	  	                		</div>
+  	                		<%} %>
+  	                	</td>
+					  	<td ><%= processoBuscaDt.getDataRecebimento()%></td>
+					       	
+	                   	<td align="center">
+	                   		<input name="formLocalizarimgEditar" type="image"  src="./imagens/imgEditar.png" onclick="AlterarValue('PaginaAtual','<%=Configuracao.Editar%>'); AlterarValue('Id_Processo','<%=processoBuscaDt.getId_Processo()%>');" >     
+	                   	</td>
+	                   	
+               		</tr>
+               		<%if (!mostraProcesso) { %>  	
+               		<tr id="segredojus<%=processoBuscaDt.getId()%>"> 
+               			<td colspan="6" style="color:#1d4875;text-align: justify;"><div>Processo em segredo de justiça. Para maiores informações, comparecer à Serventia <b> "<%=processoBuscaDt.getServentia()%>" </b> com o(s) documento(s) que comprove(m) parte no processo.</div></td> 
+               		</tr>
+					<%
+       				}
+				}
+			%>
+           	</tbody>
+       	</table>
+   	</div> 

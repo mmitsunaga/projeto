@@ -1,0 +1,26 @@
+	<script type="text/javascript">
+	$(document).ready(function() {
+			
+		var msn_servidor;
+		msn_servidor = window.location.origin;
+		if(msn_servidor != 'https://projudi.tjgo.jus.br'){
+			$('#servidor').html("&nbsp;<i class='fa fa-quote-left'></i> Servidor de Homologação <i class='fa fa-quote-right'></i> ");
+		}
+	});
+	</script>
+	
+	<div id="Cabecalho" class="Cabecalho">
+	
+	<div id="pgn_cabecalho" class="pgn_cabecalho"> 
+        <%@ include file="/Versao.html" %>
+        <div style="float: right;">
+
+           <div id="cssmenu" >
+				<ul>
+				<%@ include file="/MenuPublico.jsp" %>		
+				</ul>
+			</div>
+        </div>    
+    </div>
+    
+	<div style="clear:both;width:1300px;height:28px;background-color:#ccc; margin: 0 auto;"></div>

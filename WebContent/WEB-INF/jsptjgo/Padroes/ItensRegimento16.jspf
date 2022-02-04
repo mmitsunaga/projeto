@@ -1,0 +1,118 @@
+<fieldset id="VisualizaDados" class="VisualizaDados">
+	<legend style="background-color: #CCCCCC;">
+            		Tabela IX - Atos dos Porteiros dos Auditórios - Regimento 16 - Taxas de serviço
+            	</legend>
+            	
+       	<fieldset id="VisualizaDados" class="VisualizaDados">
+         	<legend>
+         		16.I - Certidões das decisões
+         	</legend>
+         	
+         	<div> Quantidade </div>
+			<span>
+				<input type="text" name="certidaoDecisao" id="certidaoDecisao" value="<%=GuiaEmissaoDt.getCertidaoDecisao()%>" maxlength="3" size="80" onkeypress="return DigitarSoNumero(this, event)" onblur="zerarCampoLimpo(this, '0')" />
+			</span>
+         </fieldset>
+             
+         <fieldset id="VisualizaDados" class="VisualizaDados">
+         	<legend>
+         		16.II - Traslados, desarquivamento dos autos e outras certidões
+         	</legend>
+         	
+         	<div> Quantidade </div>
+			<span>
+				<input type="text" name="desarquivamento16II" id="desarquivamento16II" value="<%=GuiaEmissaoDt.getDesarquivamento16II()%>" maxlength="3" size="80" onkeypress="return DigitarSoNumero(this, event)" onblur="zerarCampoLimpo(this, '0')" />
+			</span>
+         </fieldset>
+             
+         <fieldset id="VisualizaDados" class="VisualizaDados">
+         	<legend>
+         		16.III - Restauração de autos
+         	</legend>
+         	
+         	<div> Quantidade </div>
+			<span>
+				<input type="text" name="restauracaoAtos" id="restauracaoAtos" value="<%=GuiaEmissaoDt.getRestauracaoAtos()%>" maxlength="3" size="80" onkeypress="return DigitarSoNumero(this, event)" onblur="zerarCampoLimpo(this, '0')" />
+			</span>
+         </fieldset>
+             
+         <fieldset id="VisualizaDados" class="VisualizaDados">
+         	<legend>
+         		16.IV - Por documento publicado no Diário de Justiça
+         	</legend>
+         	
+         	<div> Quantidade </div>
+			<span>
+				<input type="text" name="documentoDiarioJustica" id="documentoDiarioJustica" value="<%=GuiaEmissaoDt.getDocumentoDiarioJustica()%>" maxlength="3" size="80" onkeypress="return DigitarSoNumero(this, event)" onblur="zerarCampoLimpo(this, '0')" />
+			</span>
+         </fieldset>
+             
+         <fieldset id="VisualizaDados" class="VisualizaDados">
+         	<legend>
+         		16.V - Porte e remessa de processos físicos
+         	</legend>
+         	
+         	<div> Quantidade </div>
+			<span>
+				<input type="text" name="PorteRemessaQuantidade16V" id="PorteRemessaQuantidade16V" value="<%=GuiaEmissaoDt.getPorteRemessaQuantidade16V()%>" maxlength="3" size="80" onkeypress="return DigitarSoNumero(this, event)" onblur="zerarCampoLimpo(this, '0')" />
+			</span>
+         </fieldset>
+             
+         <fieldset id="VisualizaDados" class="VisualizaDados">
+         	<legend>
+         		16.VI - Despesas Postais, por postagem
+         	</legend>
+         	
+         	<div> Quantidade </div>
+			<span>
+				<input type="text" name="correioQuantidade" id="correioQuantidade" value="<%=GuiaEmissaoDt.getCorreioQuantidade()%>" maxlength="3" size="80" onkeypress="return DigitarSoNumero(this, event)" onblur="zerarCampoLimpo(this, '0')" />
+			</span>
+         </fieldset>
+             
+         <fieldset id="VisualizaDados" class="VisualizaDados">
+         	<legend>
+         		16.VII - Pela emissão dos documentos de comunicação, notificação, intimação ou citação, por ato expedido
+         	</legend>
+         	
+         	<div> Quantidade </div>
+			<span>
+				<input type="text" name="emissaoDocumentoQuantidade16VII" id="emissaoDocumentoQuantidade16VII" value="<%=GuiaEmissaoDt.getEmissaoDocumentoQuantidade16VII()%>" maxlength="3" size="80" onkeypress="return DigitarSoNumero(this, event)" onblur="zerarCampoLimpo(this, '0')" />
+			</span>
+         </fieldset>
+             
+         <fieldset id="VisualizaDados" class="VisualizaDados">
+         	<legend>
+         		16.VIII - Pela emissão dos atos de constrição, por ato expedido
+         	</legend>
+         	
+         	<div> Quantidade </div>
+			<span>
+				<input type="text" name="atosConstricao16VIII" id="atosConstricao16VIII" value="<%=GuiaEmissaoDt.getAtosConstricao16VIII()%>" maxlength="3" size="80" onkeypress="return DigitarSoNumero(this, event)" onblur="zerarCampoLimpo(this, '0')" />
+			</span>
+         </fieldset>
+             
+         <fieldset id="VisualizaDados" class="VisualizaDados">
+         	<legend>
+         		16.IX - Formal de partilha, carta de sentença, de adjudicação, de arrematação e remição, por ato
+         	</legend>
+         	
+         	<div> Quantidade </div>
+			<span>
+				<input type="text" name="FormalPartilhaCartaQuantidade16IX" id="FormalPartilhaCartaQuantidade16IX" value="<%=GuiaEmissaoDt.getFormalPartilhaCartaQuantidade16IX()%>" maxlength="3" size="80" onkeypress="return DigitarSoNumero(this, event)" onblur="zerarCampoLimpo(this, '0')" />
+			</span>
+         </fieldset>
+         
+         <%if( request.getAttribute("MostrarCampoItem16X") != null && (Boolean)request.getAttribute("MostrarCampoItem16X") ) {%>
+	         <fieldset id="VisualizaDados" class="VisualizaDados">
+	         	<legend>
+	         		16.X - Cumprimento de cartas precatórias, rogatórias ou cartas de ordem
+	         	</legend>
+	         	
+	         	<div> Quantidade </div>
+				<span>
+					<input type="text" name="cumprimentoPrecatoria" id="cumprimentoPrecatoria" value="<%=GuiaEmissaoDt.getCumprimentoPrecatoria()%>" maxlength="3" size="80" onkeypress="return DigitarSoNumero(this, event)" onblur="zerarCampoLimpo(this, '0')" />
+				</span>
+	         </fieldset>
+         <%} %>
+            	
+</fieldset>
